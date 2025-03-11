@@ -1,0 +1,70 @@
+ .summary-btn{
+	background-color: #f7941d;
+    border: 1px solid #f8a543;
+    color: #fff ;
+    padding: 4px 10px;
+    border-radius: 4px;
+	font-weight: 700;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.summary-content{
+    padding: 40px 0;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+}
+
+.summary-title{
+    font-size: 40px;
+    font-weight: 500;
+    color: #232332;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    line-height: 1.1;
+}
+
+.popup-logo {
+    height: 30px;
+    width: auto;
+    margin-bottom: 40px;
+}
+
+.summary-icon{
+    height: 80px;
+    width: auto;
+    margin-bottom: 10px;
+}
+
+.summary-close{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
+}
+
+.summary-close:hover{
+    opacity: .5;
+    color: #00000c;
+}
+
+ .card-modal-btn{
+ 	background-color: #f7941d;
+     border: 1px solid #f8a543;
+     color: #fff;
+     font-weight: 700;
+     padding: 7px 15px;
+     font-size: 16px;
+     border-radius: 4px;
+     margin-top: 20px;
+     margin-bottom: 20px;
+ }
+
+

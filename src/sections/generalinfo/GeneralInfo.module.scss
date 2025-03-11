@@ -1,0 +1,406 @@
+// // .container {
+// //     max-width: 800px;
+// //     margin: auto;
+// //     padding: 20px;
+// //     background: #fff;
+// //     border-radius: 10px;
+// //     box-shadow: 0 4px 10px rgba(255, 165, 0, 0.5); // Orange shadow
+// //   }
+  
+// //   /* Card Styling */
+// //   .card {
+// //     background: #fff;
+// //     padding: 20px;
+// //     border-radius: 10px;
+// //     box-shadow: 0px 4px 10px rgba(255, 165, 0, 0.5);
+// //     margin-bottom: 20px;
+// //   }
+  
+// //   /* Flexbox Layout */
+// //   .form-group {
+// //     display: flex;
+// //     justify-content: space-between;
+// //     align-items: center;
+// //     flex-wrap: wrap;
+// //     gap: 20px;
+// //   }
+  
+// //   /* Left & Right Sections */
+// //   .left-section {
+// //     flex: 1;
+// //   }
+  
+// //   .right-section {
+// //     flex: 1;
+// //     text-align: right;
+// //   }
+  
+// //   /* Label Styling */
+// //   .formLabel {
+// //     font-weight: bold;
+// //     color: #ff8c00; // Orange label color
+// //     display: block;
+// //     margin-bottom: 5px;
+// //   }
+  
+// //   /* Input & Select Fields */
+// // //   input,
+// // //   select {
+// // //     width: 100%;
+// // //     padding: 10px;
+// // //     border: 2px solid #ccc;
+// // //     border-radius: 5px;
+// // //     font-size: 14px;
+// // //     transition: all 0.3s ease-in-out;
+  
+// // //     &:hover,
+// // //     &:focus {
+// // //       border-color: #ff8c00;
+// // //       box-shadow: 0px 4px 10px rgba(255, 165, 0, 0.5);
+// // //       outline: none;
+// // //     }
+// // //   }
+  
+// //   /* Verify Text */
+// //   .verify {
+// //     color: #ff8c00;
+// //     font-weight: bold;
+// //     cursor: pointer;
+// //     display: block;
+// //     margin-top: 5px;
+// //     text-align: right;
+  
+// //     &:hover {
+// //       text-decoration: underline;
+// //     }
+// //   }
+  
+// //   /* Button Styling */
+// //   .reg-btn {
+// //     background: #ff8c00;
+// //     color: #fff;
+// //     padding: 12px;
+// //     border: none;
+// //     border-radius: 5px;
+// //     font-size: 16px;
+// //     cursor: pointer;
+// //     width: 100%;
+// //     margin-top: 20px;
+// //     transition: 0.3s ease-in-out;
+  
+// //     &:hover {
+// //       background: #e07b00;
+// //     }
+// //   }
+  
+// //   /* Disabled Button */
+// //   .reg-btn-disable {
+// //     background: #ccc;
+// //     color: #666;
+// //     cursor: not-allowed;
+// //   }
+  
+// //   /* OTP Verification Text */
+// //   .otp-verify-clr {
+// //     color: #ff8c00;
+// //     font-weight: bold;
+// //   }
+  
+// //   /* Modal Styling */
+// //   .modal-content {
+// //     border-radius: 10px;
+// //     box-shadow: 0px 4px 10px rgba(255, 165, 0, 0.5);
+// //   }
+// .container {
+//     max-width: 800px;
+//     margin: auto;
+//     padding: 20px;
+//     background: #fff;
+//     border-radius: 10px;
+//     box-shadow: 0 4px 10px rgba(255, 165, 0, 0.5); // Orange shadow
+//   }
+  
+//   /* Card Styling */
+//   .card {
+//     background: #fff;
+//     padding: 20px;
+//     border-radius: 10px;
+//     box-shadow: 0px 4px 10px rgba(255, 165, 0, 0.5);
+//     margin-bottom: 20px;
+//   }
+  
+//   /* Flexbox Layout */
+//   .form-group {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     flex-wrap: wrap;
+//     gap: 20px;
+//   }
+  
+//   /* Left & Right Sections */
+//   .left-section {
+//     flex: 1;
+//   }
+  
+//   .right-section {
+//     flex: 1;
+//     text-align: right;
+//   }
+  
+// //   /* Label and Asterisk Styling */
+//   .label-container {
+//     display: flex;
+//     align-items: center;
+   
+//   }
+  
+//   .formLabel {
+//     font-weight: bold;
+//     color: #ff8c00; // Orange label color
+//     display: block;
+//   }
+  
+//   .star {
+//     color: red;
+//     font-size: 16px;
+//   }
+  
+//   /* Input & Select Fields */
+// //   input,
+// //   select {
+// //     width: 100%;
+// //     padding: 10px;
+// //     border: 2px solid #ccc;
+// //     border-radius: 5px;
+// //     font-size: 14px;
+// //     transition: all 0.3s ease-in-out;
+  
+// //     &:hover,
+// //     &:focus {
+// //       border-color: #ff8c00;
+// //       box-shadow: 0px 4px 10px rgba(255, 165, 0, 0.5);
+// //       outline: none;
+// //     }
+// //   }
+  
+//   /* Verify Text */
+//   .verify {
+//     color: #ff8c00;
+//     font-weight: bold;
+//     cursor: pointer;
+//     display: block;
+//     margin-top: 5px;
+//     text-align: right;
+  
+//     &:hover {
+//       text-decoration: underline;
+//     }
+//   }
+  
+//   /* Button Styling */
+//   .reg-btn {
+//     background: #ff8c00;
+//     color: #fff;
+//     padding: 12px;
+//     border: none;
+//     border-radius: 5px;
+//     font-size: 16px;
+//     cursor: pointer;
+//     width: 100%;
+//     margin-top: 20px;
+//     transition: 0.3s ease-in-out;
+  
+//     &:hover {
+//       background: #e07b00;
+//     }
+//   }
+  
+//   /* Disabled Button */
+//   .reg-btn-disable {
+//     background: #ccc;
+//     color: #666;
+//     cursor: not-allowed;
+//   }
+  
+//   /* OTP Verification Text */
+//   .otp-verify-clr {
+//     color: #ff8c00;
+//     font-weight: bold;
+//   }
+  
+//   /* Modal Styling */
+//   .modal-content {
+//     border-radius: 10px;
+//     box-shadow: 0px 4px 10px rgba(255, 165, 0, 0.5);
+//   }
+  /* General Styles */
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(255, 165, 0, 0.5);
+    background-image: url(../../images/contact_bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Heading Style */
+h4.name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff8c00;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+/* Card Styling */
+.card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(255, 165, 0, 0.5);
+    margin-left: 180px;
+}
+
+/* Form Labels */
+.formLabel {
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+}
+
+/* Input Fields */
+.form-control, .form-select {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #ff8c00;
+    box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
+}
+
+/* Buttons */
+.reg-btn {
+    background-color: #ff8c00;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-top: 5px;
+   
+}
+
+.reg-btn:hover {
+    background-color: #e07b00;
+    box-shadow: 0 4px 8px rgba(255, 140, 0, 0.6);
+}
+
+.reg-btn-disable {
+    background-color:#e07b00 ;
+    color: white;
+    margin-top: 20px;
+    border-radius: 20px;
+    width:150px;
+    border:#e07b00 ;
+    //cursor: not-allowed;
+    cursor:pointer;
+}
+
+/* OTP Verification */
+.otp-verify-clr {
+    color: #ff8c00;
+    font-weight: bold;
+}
+
+/* Star for Required Fields */
+.star {
+    color: red;
+    margin-left: 3px;
+}
+
+/* Error Messages */
+.invalid-feedback {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+@media (max-width: 1200px) {
+    .container {
+      max-width: 85%;
+      margin: 0 auto;
+    }
+  
+    .card {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+  }
+  
+  @media (max-width: 1055px) {
+    .container {
+      max-width: 90%;
+    }
+  
+    .card {
+      max-width: 600px; /* Ensures it doesn't overflow */
+      margin: 0 auto;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .container {
+      max-width: 90%;
+    }
+  
+    .card {
+      max-width: 100%;
+      padding: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      max-width: 95%;
+    }
+  
+    .card {
+      padding: 1rem;
+    }
+  
+    // input, select {
+    //   font-size: 14px;
+    //   padding: 8px;
+    // }
+  
+    .btn-primary {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .card {
+      padding: 0.75rem;
+    }
+  
+    // input, select {
+    //   font-size: 14px;
+    //   padding: 8px;
+    // }
+  
+    .btn-primary {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+  

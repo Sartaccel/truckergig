@@ -1,0 +1,102 @@
+import React from "react";
+import { Formik, Form, Field } from "formik";
+import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import { setInfo } from "../../redux/action/main";
+import ReCAPTCHA from "react-google-recaptcha";
+import styles from "./Contactus.module.scss";
+
+const contactusSchema = yup.object().shape({
+  name: yup.string().required("This is a required field").min(2).max(24),
+  emailAddress: yup.string().required("This is a required field").email(),
+  phone: yup.string().required("This is a required field"),
+  message: yup.string().required("This is a required field"),
+});
+
+const Contactus: React.FC = () => {
+  const dispatch = useDispatch();
+  const recaptchaRef = React.useRef<ReCAPTCHA>(null);
+
+  interface MyFormValues {
+    name: string;
+    phone: string;
+    emailAddress: string;
+    message: string;
+  }
+  
+ 
+
+  return (
+    <div className={styles.contactContainer}>
+      {/* Left Side - Contact Details */}
+      <div className={styles.contactLeft}>
+        <h2>Contact Information</h2>
+        <p><i className="bx bx-map"></i> 11555 Medlock Bridge Road, Suite 100, <br /> Johns Creek, GA-30097</p>
+        <p><i className="bx bx-phone"></i> (833) 353-7773</p>
+        <p><i className="bx bx-envelope"></i> contactus@truckergig.com</p>
+        <iframe
+          className={styles.mapFrame}
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.2902989781996!2d-84.1728210853004!3d34.062071824660514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5992725955555%3A0x35ee53621f787334!2s11555%20Medlock%20Bridge%20Rd%20Suite%20100%2C%20Johns%20Creek%2C%20GA%2030097%2C%20USA!5e0!3m2!1sen!2sin!4v1658471178075!5m2!1sen!2sin"
+          width="100%"
+          height="200"
+          loading="lazy"
+        />
+      </div>
+
+      {/* Right Side - Contact Form */}
+      <div className={styles.contactRight}>
+        <h2>Send Us a Message</h2>
+        <Formik
+          initialValues={{
+            name: "",
+            phone: "",
+            emailAddress: "",
+            message: "",
+          }}
+          validationSchema={contactusSchema}
+          onSubmit={(values, { resetForm, setSubmitting }) => {
+            const recaptchaValue = recaptchaRef.current?.getValue();
+            if (!recaptchaValue) {
+              alert("Please complete the CAPTCHA.");
+              setSubmitting(false);
+              return;
+            }
+
+            dispatch(setInfo(values));
+            recaptchaRef.current?.reset();
+            resetForm();
+            setSubmitting(false);
+            alert("Message sent successfully!");
+          }}
+        >
+          {({ errors, touched, handleSubmit }) => (
+            <Form onSubmit={handleSubmit}>
+              <Field name="name" placeholder="Your Name*" className={styles.inputField} />
+              {errors.name && touched.name && <div className={styles.error}>{errors.name}</div>}
+
+              <Field name="emailAddress" placeholder="Your Email*" className={styles.inputField} />
+              {errors.emailAddress && touched.emailAddress && <div className={styles.error}>{errors.emailAddress}</div>}
+
+              <Field name="phone" placeholder="Your Phone*" className={styles.inputField} />
+              {errors.phone && touched.phone && <div className={styles.error}>{errors.phone}</div>}
+
+              <Field as="textarea" name="message" placeholder="Your Message*" className={styles.textareaField} />
+              {errors.message && touched.message && <div className={styles.error}>{errors.message}</div>}
+
+              <div className={styles.recaptchaContainer}>
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
+                />
+              </div>
+
+              <button type="submit" className={styles.submitBtn}>SEND</button>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </div>
+  );
+};
+
+export default Contactus;

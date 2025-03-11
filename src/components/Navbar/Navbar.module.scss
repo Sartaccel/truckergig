@@ -1,0 +1,155 @@
+@use "sass:map";
+//@use '/src/styles/abstracts' as *;
+.body {
+  font-family: helvetica;
+}
+$bg_color_light: #EAEAEA;
+$bg_color_Regular: #D1D1D1;
+$bg_color_Dark: #4A4A4A;
+$bg_color: #555555;
+$bg_megamenu_sub: #565656;
+$txt_color_white: #FFFFFF;
+$h-60:60px;
+.navBarTop{
+  	background: $bg_color_light;
+  	height: $h-60;
+}
+.navBar-Menu{
+	background: $bg_color_Regular;
+	height: $h-60;
+}
+
+.navBar-Balloon{
+	background: $bg_color_Dark;
+}
+.navBar-Balloon p{
+	margin-bottom: 0px;
+		color: $txt_color_white;
+		text-align: center;
+		padding: 15px;
+}
+
+
+
+.navBar-Balloon{
+	background: $bg_color_Dark;
+	p{
+		margin-bottom: 0px;
+		color: $txt_color_white;
+		text-align: center;
+		padding: 15px;
+	}
+}
+.navbar-brand.logo {
+	img {
+		height: 33px;
+	}
+}
+.navbar-expand-lg {
+	.navbar-nav {
+		.dropdown-menu {
+			right: 0px;
+		}
+	}
+}
+.react-select {
+	.react-select-dropdown {
+		display: inline-block;
+		
+	}
+	.menu-icon {
+		display: inline-block;
+		color: $txt_color_white;
+	}
+	background: $bg_color_Dark;
+	padding-left: 15px;
+	border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.list-unstyled{
+	list-style: none;
+	padding: 10px ;
+
+	li{
+		padding: 5px ;
+		a{
+			color: $txt_color_white;
+			text-decoration: none;
+		}
+	}
+}
+.col-megamenu{
+	h6{
+		padding: 10px;
+		margin-bottom: 0px;
+		background-color:$bg_color;
+	}
+}
+.col-megamenu-sub{
+	background-color: $bg_megamenu_sub;
+	margin: 10px 0px 0 10px;
+}
+
+.login-name{
+	height: 40px;
+	padding-top: 4px;
+}
+
+.react-select-dropdown select::placeholder{
+	color: white !important;
+}
+
+.navbar-fixed{
+	// overflow: hidden;
+		position: sticky !important;
+		top: 0;
+		width: 100%;
+		z-index: 99
+}
+
+// .option-group{
+// 	width:380px;
+// }
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+	.option-group{
+		width:300px;
+	}
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+	.option-group{
+		width:380px;
+	}
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+	.option-group{
+		width:380px;
+	}
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+	.option-group{
+		width:380px;
+	}
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+	.option-group{
+		width:380px;
+	}
+}
+
+.jmr4pl{
+	font-weight: bold !important;
+    color: orange !important;;
+    text-decoration: none !important;;
+    background-color: white !important;;
+}

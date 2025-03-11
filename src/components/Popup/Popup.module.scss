@@ -1,0 +1,118 @@
+ 
+.card-slider-btn{
+    background-color: #f7941d;
+    border: 1px solid #f8a543;
+    color: #fff ;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.modal-content{
+    padding: 40px 0;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+}
+
+.modal-title{
+    font-size: 20px;
+    font-weight: 400;
+    color: #232332;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    line-height: 1.1;
+}
+
+.modal-lead{
+    margin-bottom: 15px; 
+    line-height: 1.8;
+    color: #656565;
+    font-weight: 400;
+    font-size: 17px;
+}
+
+.modal-list{
+    list-style: none;
+    background-color: #fff;
+    border-width: 1px;
+    border-style: solid;
+    padding: .75rem;
+    line-height: 1.25;
+    font-weight: bold;
+    border: 1px solid #e2e2e2;
+    box-shadow: 0 1px 0 #e2e2e2;
+    margin-right: .5rem;
+    margin-bottom: .25rem;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.popup-logo {
+    height: 40px;
+    width: auto;
+    margin-bottom: 40px;
+}
+
+.modal-close{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
+}
+
+.modal-close:hover{
+    opacity: .5;
+    color: #00000c;
+}
+
+ .card-modal-btn{
+    
+    background-color: #f7941d;
+     border: 1px solid #f8a543;
+     color: #fff;
+     font-weight: 700;
+     padding: 7px 15px;
+     font-size: 16px;
+     border-radius: 4px;
+     margin-top: 20px;
+     margin-bottom: 20px;
+ }
+
+ .form-btn{
+    background-color: #f7941d;
+    border: 1px solid #f8a543;
+    color: #fff;
+    font-weight: 700;
+    padding: 4px 15px;
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+.form-icon{
+    margin-left: 115px;
+}
+
+.modal-list button {
+ width: 20px;
+ height: 20px;
+border-radius: 50% !important;
+}
+
+.modal-list button div {
+ margin:0px !important;
+ padding: 0px !important;
+ background: none !important;
+ }
+
+.modal-list span button{
+    padding: 0px;
+}

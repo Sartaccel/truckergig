@@ -1,0 +1,199 @@
+.body {
+  font-family: helvetica;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(200, 200, 200, 1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-box-shadow: inset 0 0 6px rgba(90, 90, 90, 0.7);
+}
+
+div {
+  display: block;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5% !important;
+}
+
+/* Candidate Register */
+
+.register {
+  font-family: helvetica !important;
+  margin-top: 40px !important;
+  width: 306px !important;
+  font-size: 28px !important;
+  color: #000000;
+  font-weight: 700 !important;
+}
+
+.register-hr {
+  width: 40px;
+  border-radius: 7px;
+  height: 8px !important;
+  color: #005ce5 !important;
+  opacity: 1 !important;
+}
+
+.arrow {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  text-align: center;
+  padding: 3px;
+}
+
+.reg-btn {
+  width: 200px;
+  height: 34px;
+  border-radius: 23.5px;
+  background-color: #004ec3 !important;
+  color: white;
+  margin-top: 45px;
+  font-family: helvetica !important;
+  border: none;
+  opacity: 1 !important;
+  margin-bottom: 5px;
+}
+
+.reg-btn-disable {
+  width: 200px;
+  height: 34px;
+  border-radius: 23.5px;
+  background-color: #939394 !important;
+  color: white;
+  margin-top: 45px;
+  font-family: helvetica !important;
+  border: none;
+  opacity: 1 !important;
+  margin-bottom: 5px;
+}
+
+.verify {
+  color: #004ec3 !important;
+  font-size: 14px;
+  font-family: helvetica;
+  text-decoration: none !important;
+}
+
+a:hover {
+  color: #e77f00 !important;
+}
+
+.otp-verify-clr {
+  color: rgb(247, 14, 14);
+}
+
+
+#dropdown-split-basic::after {
+  margin-left: 5px !important;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  content: var(--bs-breadcrumb-divider, ">") !important;
+}
+
+
+.file-type {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.jKLQUD {
+  display: block !important;
+}
+
+.iAZHAU {
+  font-size: 13px !important;
+}
+
+ .iAZHAU {
+  font-size: 13px  !important ;
+ }
+
+
+
+.file-type {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.jKLQUD {
+  display: block !important;
+}
+
+.iAZHAU {
+  font-size: 13px !important;
+}
+
+
+
+ 
+/*********   Board of Directors   **********/
+
+.dir-image {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  box-shadow: 1px 1px 6px rgba(250, 248, 248, 0.7);
+}
+
+.dir-images {
+  width: 100%;
+  height: 285px;
+  display: inline-block;
+  box-shadow: 1px 1px 6px rgba(250, 248, 248, 0.7);
+}
+
+.dir-img {
+  width: 100%;
+  height: 60%;
+  display: inline-block;
+  box-shadow: 1px 1px 6px rgba(250, 248, 248, 0.7);
+}
+
+
+ .df-messenger {
+  --df-messenger-bot-message: #f7941d;
+  --df-messenger-button-titlebar-color: #f7941d;
+  --df-messenger-chat-background-color: #fcf7f7;
+  --df-messenger-font-color: white;
+  --df-messenger-send-icon: #f7941d;
+  --df-messenger-user-message: #f7941d;
+ }
+
+
+
+ .iAZHAU {
+  font-size: 13px  !important ;
+ }
+
+ .df-messenger {
+  --df-messenger-bot-message: #f7941d;
+  --df-messenger-button-titlebar-color: #f7941d;
+  --df-messenger-chat-background-color: #fcf7f7;
+  --df-messenger-font-color: white;
+  --df-messenger-send-icon: #f7941d;
+  --df-messenger-user-message: #f7941d;
+ }
+
+.eyeicon {
+  float: right;
+  margin-top: -32px;
+  padding-right: 15px;
+} 
+

@@ -1,0 +1,492 @@
+.about-page {
+  font-family: Helvetica;
+  padding: 50px 10px 0px;
+}
+
+.section-subtitle {
+  margin-bottom: 10px;
+  padding-left: 7px;
+  font-size: 20px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  border-left: 3px solid #f7941d;
+  font-weight: 700;
+}
+
+.section-subtitle-contact {
+  margin-top: 25px;
+  margin-bottom: 7px;
+  padding-left: 7px;
+  font-size:22px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  border-left: 3px solid #fb9d2a;
+  font-weight: 700;
+}
+
+.service-subtitle {
+  margin-bottom: 7px;
+  padding-left: 7px;
+  font-size:  22px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  border-left: 3px solid #f7941d;
+  font-weight: 700;
+  margin-top: 50px;
+}
+
+.main-title {
+  font-size: 28px;
+  font-weight: 700;
+  color:#ea8c19;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+
+
+
+.service-heading {
+  // margin-bottom: 5px;
+  // padding-bottom: 10px;
+  position: relative;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600 !important;
+  margin-top: 0px;
+  cursor: pointer;
+  color: #232332;
+}
+
+.service-icon {
+  max-width: 100px;
+  height: auto;
+  display: inline-block;
+}
+
+.service-menu {
+  height: 160px;
+  padding: 20px;
+  box-shadow: 0 0px 3px 0 rgba(255, 219, 193, 0.42),
+              0px 2px 1px 1px rgba(254, 194, 152, 0.43);
+  margin-bottom: 30px;
+  border-radius: 10px;
+  background: #fff;
+  transition: all 0.4s ease-in-out;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Hover effect - Smooth scale & glow */
+.service-menu:hover {
+  background-color: rgba(255, 219, 193, 0.42);
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0px 4px 10px rgba(254, 194, 152, 0.6);
+}
+
+/* Ensuring links are styled properly */
+.service-menu a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Responsive behavior */
+@media only screen and (max-width: 768px) {
+  .service-menu {
+    height: auto;
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+// .content-para {
+//   font-size: 18px;
+//   font-weight: 400;
+//   color: #444;
+//   line-height: 1.75;
+//   letter-spacing: 0.4px;
+//   text-align: justify;
+// }
+
+.service-menu span {
+  float: left;
+  font-size: 45px;
+  color: #f7941d;
+  line-height: 35px;
+}
+
+.service-item {
+  margin-left: 65px;
+}
+
+
+
+.click-btn {
+  background-color: #f7941d;
+  border: 1px solid #f7941d;
+  border-radius: 2px;
+  color: #292929 !important;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 1.42857;
+  margin-top: 20px;
+  margin-bottom: 0;
+  padding: 7px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.click-btn:hover {
+  background: transparent;
+  border-color: #f7941d;
+  color: #292929 !important;
+}
+
+.about-section {
+  padding: 0px 0px;
+}
+
+.address-content {
+  padding-bottom: 20px;
+  border-bottom: 1px dotted #bfbfbf;
+  margin-bottom: 20px;
+}
+
+.service-heading {
+  position: relative;
+}
+
+.service-heading::before {
+  position: absolute;
+  width: 30px;
+  height: 3px;
+  border-radius: 20px;
+  background-color: #f7941d;
+  bottom: -8px;
+  content: "";
+}
+
+.service-menu:hover {
+  background-color: rgba(255, 219, 193, 0.4196078431372549);
+}
+
+.video-img {
+  // margin: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.sonar-wave {
+  animation: sonarWave 2s linear infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background-color: #f7941d;
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.sonar-emitter {
+  // position: relative;
+  margin: 0px auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #f7941d;
+  text-align: center;
+}
+
+.sonar-wrapper {
+  position: absolute;
+  z-index: 9;
+   top: 50%;
+   left: 50%;
+  display: block;
+}
+
+.about-box .videopop img {
+  transform: translateY(30px) translateX(-30px);
+  width: 100%;
+   z-index: 1;
+   display: inline-block;
+  vertical-align: middle;
+  border: 0;
+}
+
+.about-box .videopop {
+  position: relative;
+}
+.ion-arrow-right-b:before {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid #ffffff;
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.section-subtitle-add {
+  margin-top: 25px;
+  margin-bottom: 7px;
+  padding-left: 7px;
+  font-size: 16px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  border-left: 3px solid #f7941d;
+  font-weight: 700;
+}
+
+.about-box {
+  -webkit-box-shadow: 0 0 0 10px #000000 inset;
+  box-shadow: 0 0 0 10px #e19435;
+  margin-right: 0;
+  margin-top: 15px;
+  position: relative;
+  display: block;
+  opacity: 0;
+  transform: scale(0.8);
+  animation: popupFadeIn 0.5s ease-out forwards;
+}
+
+.about-box {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+.about-box.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Popup animation */
+@keyframes popupFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+@media only screen and (max-width: 576px) {
+  .video-section {
+    padding: 0 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+
+.box-overlay {
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #f7941d;
+  opacity: 0.5;
+  // z-index: 3;
+  // -webkit-transform: translateY(30px) translateX(-30px);
+  // transform: translateY(30px) translateX(-30px);
+}
+
+.about-box .videopopup img {
+  // -webkit-transform: translateY(30px) translateX(-30px);
+  // transform: translateY(30px) translateX(-30px);
+  width: 100%;
+  z-index: 1;
+}
+
+.about-box .videopopup {
+  position: relative;
+}
+
+.left-column{
+  display: inline-block;
+  width:30%;
+}
+
+.right-column{
+  display: inline-block;
+  width:70%;
+}
+
+
+@media only screen and (max-width: 991px) { 
+  .video-section {
+    padding: 0 20px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .video-section {
+    padding: 0 15px;
+    margin-left: 0;
+  }
+}
+
+  @media only screen and (max-width: 768px) {
+  .service-menu {
+    height: auto;
+  }}
+
+.popup-body{
+  height: 350px;
+  padding: 5px!important;
+}
+
+/*********   Board of Directors   **********/
+
+.board-subtitle {
+  padding-left: 7px;
+  font-size: 22px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #a0a0a0;
+  border-left: 3px solid #f7941d;
+  font-weight: 700;
+  margin-top: 30px;
+}
+
+.board-image {
+  width: 90px;
+  height: 90px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  border-radius: 50%;
+}
+
+// .thumb-image{
+//   text-decoration: none;
+// }
+
+// .thumb-image div { 
+// 	position:absolute;
+// 	visibility:hidden;
+// }
+// .thumb-image:hover, .thumb-image:hover div { 
+// 	visibility:visible;
+// 	top:0;
+// 	left:100px; 
+// 	z-index:1;
+//   text-decoration: none;
+//   cursor: pointer;
+// }
+/* Board Card Container */
+.card {
+  border: none; /* Removes default card border */
+  border-radius: 10px; /* Rounded corners for the card */
+  overflow: hidden; /* Ensures image fits inside the card */
+  background-color: #fff; /* Sets background color to white */
+  box-shadow: 0 4px 10px #e3a355; /* Adds a clean shadow around the card */
+  transition: transform 0.3s ease-in-out; /* Smooth transition for hover effect */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Ensures all cards have the same height */
+  margin-bottom: 10px;
+}
+
+/* Card Hover Effect */
+.card:hover {
+  transform: translateY(-5px);
+  background-color:  #e48f2646; /* Slight elevation effect on hover */
+}
+
+/* Image Styling */
+.card-img-top {
+  width: 100%; /* Makes sure the image takes the full width */
+  height: 00px; /* Fixed height for the image */
+  // object-fit: cover; 
+  align-items: center;/* Ensures the image fills the space without distortion */
+}
+
+/* Card Body */
+.card-body {
+  padding: 20px; /* Adds padding inside the card */
+  text-align: center; /* Centers the content */
+  flex-grow: 1; /* Makes sure text fills space properly */
+}
+
+/* Board Member Name */
+.board-name {
+  font-size: 1.25rem; /* Larger font for name */
+  font-weight: bold; /* Bold font for name */
+  color: #212121; /* Dark color for the name */
+  margin-bottom: 10px; /* Adds space below the name */
+}
+
+/* Board Member Description */
+.board-text {
+  font-size: 1rem; /* Standard font size for the description */
+  color: #555; /* Slightly lighter color for description text */
+  line-height: 1.6; /* Increases line height for better readability */
+  margin-bottom: 5px; /* Adds space between multiple paragraphs */
+}
+
+/* Responsive Layout - Three Cards in a Row */
+.board-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Ensures 3 cards per row */
+  gap: 20px; /* Adds spacing between cards */
+  padding: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .board-container {
+    grid-template-columns: repeat(2, 1fr); /* Two cards per row for tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .board-container {
+    grid-template-columns: repeat(1, 1fr); /* Single card per row for mobile */
+  }
+}
+
+.board-text{
+  color: #656565 !important;
+  font-size: 14px;
+}
+
+.board-name{
+  color: #656565 !important;
+  font-weight: 500;
+  font-size: 16px;
+}

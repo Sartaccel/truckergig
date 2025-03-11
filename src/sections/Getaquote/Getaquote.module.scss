@@ -1,0 +1,45 @@
+.equipment-header-title{
+    font-size: 25px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.equipment-form-text{
+font-weight: 700;
+font-size: 13px;
+color: #000;
+}
+
+.signin-btn{
+background-color: #f7941d;
+border: 1px solid #f8a543;
+color: #fff;
+font-weight: 700;
+padding: 4px 15px;
+font-size: 15px;
+border-radius: 4px;
+float: right;
+}
+
+.star{
+color: #e02b27;
+padding: 2px;
+}
+
+.getaquote-image {
+    height: auto;
+    max-height: 87px;
+    max-width: 100%;
+    width: auto;
+    margin: 0 auto 5px auto;
+    transition: .5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0 10px 0;
+}
+
+
+.getaquote-text{
+    text-align: center;
+}

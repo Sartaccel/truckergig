@@ -1,0 +1,42 @@
+@use "sass:map";
+// @use '/src/styles/abstracts' as *;
+.body {
+  font-family: helvetica;
+}
+.bg_color_light{
+  background: #EAEAEA;
+}
+.navbar-brand.logo {
+	img {
+		width: 150px;
+	}
+}
+@media all and (min-width: 992px) {
+	.navbar {
+		.has-megamenu {
+			position: static !important;
+		}
+		.megamenu {
+			left: 0;
+			right: 0;
+			width: 100%;
+			margin-top: 0;
+		}
+	}
+}
+@media (max-width: 991px) {
+	.navbar.fixed-top {
+		.navbar-collapse {
+			overflow-y: auto;
+			max-height: 90vh;
+			margin-top: 10px;
+		}
+	}
+	.navbar.sticky-top {
+		.navbar-collapse {
+			overflow-y: auto;
+			max-height: 90vh;
+			margin-top: 10px;
+		}
+	}
+}

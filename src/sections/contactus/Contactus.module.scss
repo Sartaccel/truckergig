@@ -1,0 +1,97 @@
+.contactContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    // background: #f8f9fa; /* Sets a consistent background color */
+    border-radius: 8px;
+    background-image: url(../../images/contact_bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .contactLeft,
+  .contactRight {
+    width: 48%; /* Sets both columns to 48% width for equal sizing */
+    padding: 20px;
+    background: inherit; /* Inherits the background color from the parent */
+    border-radius: 8px;
+  }
+  
+  .contactLeft h2,
+  .contactRight h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .contactLeft p,
+  .contactRight p {
+    margin: 10px 0;
+    font-size: 16px;
+  }
+  
+  .contactLeft i,
+  .contactRight i {
+    margin-right: 10px;
+    color: #ff650f;
+  }
+  
+  .mapFrame {
+    margin-top: 20px;
+    border-radius: 8px;
+    border: none;
+  }
+  
+  .inputField,
+  .textareaField {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .textareaField {
+    height: 120px;
+    resize: none;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .submitBtn {
+    background: #ff650f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .submitBtn:hover {
+    background: #e55c0d;
+  }
+  
+  .recaptchaContainer {
+    margin: 20px 0;
+  }
+  
+  @media (max-width: 768px) {
+    .contactContainer {
+      flex-direction: column;
+    }
+    .contactLeft,
+    .contactRight {
+      width: 100%;
+    }
+    .submitBtn {
+      width: 100%;
+    }
+  }
+  
