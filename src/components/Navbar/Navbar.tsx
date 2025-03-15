@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./Navbar.module.scss";
 import Select from "react-select";
 import axios from "axios";
-import Router from "next/router";
+import Router, {useRouter} from "next/router";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Button } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
@@ -23,6 +23,8 @@ const Topbar: React.FC = () => {
       borderStyle: "unset",
     }),
   };
+
+  const router = useRouter();
 
   const [dropdown, setdropdown] = useState([]);
   const [candidates, setCandidates] = useState("");
@@ -114,7 +116,7 @@ const Topbar: React.FC = () => {
       expand="lg"
       className={`${styles["navbar-fixed"]} navbarcolor `}
     >
-      <Container fluid>
+      <Container fluid className={`${styles["navbar-content"]}`}>
         <Navbar.Brand>
           <Link href="/">
             <a className={`${styles["navbar-brand"]} ${styles.logo}`}>
@@ -183,27 +185,27 @@ const Topbar: React.FC = () => {
           <Nav>
             <div className="navbar-nav">
               <Link href="/about">
-                <a href="#" className="nav-link">
+                <a href="#" className={`nav-link ${router.pathname==="/about" ? "active" : ""}`}>
                   About Us
                 </a>
               </Link>
      
               <Link href="/marketplace">
-                <a href="#" className="nav-link">
+                <a href="#" className={`nav-link ${router.pathname==="/marketplace" ? "active" : ""}`}>
                   Marketplace
                 </a>
               </Link>
               <Link href="/events">
-                <a href="#" className="nav-link">
+                <a href="#" className={`nav-link ${router.pathname==="/events" ? "active" : ""}`}>
                   Events
                 </a>
               </Link>
               <Link href="/blognews">
-                <a href="#" className="nav-link">
-                  blognews
+                <a href="#" className={`nav-link ${router.pathname==="/blognews" || router.pathname === "/blognewsdetail" ? "active" : ""}`}>
+                  Blog/News
                 </a>
               </Link>
-              <Dropdown className="margin-fixs">
+              {/* <Dropdown className="margin-fixs">
                   <Dropdown.Toggle
                     split
                     variant="Secondary"
@@ -218,7 +220,7 @@ const Topbar: React.FC = () => {
                     </Dropdown.Item>
                     
                   </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown> */}
               {/* <Link href="/jobs">
                 <a href="#" className="nav-link">
                   Jobs
@@ -230,8 +232,7 @@ const Topbar: React.FC = () => {
                     split
                     variant="Secondary"
                     id="dropdown-split-basic"
-                    className="nav-link"
-                  >
+                    className={`nav-link ${router.pathname==="/generalinfo"  || router.pathname==="/vendor"  ? "active" : ""}`}>
                     Register
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
@@ -250,7 +251,7 @@ const Topbar: React.FC = () => {
 
               {!Ath ? (
                 <Link href="/customerlogin">
-                  <a href="#" className="nav-link">
+                  <a href="#" className={`nav-link ${router.pathname==="/customerlogin" ? "active" : ""}`}>
                     Login<i className="bi bi-person-fill pl-1"></i>
                   </a>
                 </Link>

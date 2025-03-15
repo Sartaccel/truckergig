@@ -6,6 +6,7 @@ import { Pagination } from "antd";
 import "antd/dist/antd.css";
 import styles from './events.module.scss';
 import urls from "../../utilities/AppSettings";
+import Image from "next/image";
 
 const Events: React.FC = () => {
   const router = useRouter();
@@ -41,6 +42,28 @@ const Events: React.FC = () => {
   };
 
   return (
+
+    <>
+    <div className={styles.eventHead}>
+        {/* Big Card Section */}
+        {/* <div className={styles.bigCard}> */}
+          {/* <div className={styles.imageContainer}> */}
+            <Image
+              src="/images/slider-01.png"
+              alt="Truck in Logistics"
+              layout="fill"
+              priority
+              className={styles.eventImage}
+            />
+            <div className={styles.overlay}>
+              <h2 className={styles.title}>EVENTS</h2>
+              <p className={styles.description}>
+              Stay updated with the latest logistics and transportation events. <br /> Connect, learn and grow with industry leaders!
+              </p>
+            </div>
+            </div>
+
+
     <div className="p-3">
       <div className="row">
         {events.length > 0 ? (
@@ -75,9 +98,9 @@ const Events: React.FC = () => {
               src="/images/no enents.jpg" 
               className={styles["img-fluid"]} 
             />
-            <a href="https://www.truckergig.com/">
+            {/* <a href="https://www.truckergig.com/">
            <button  className={styles["button"]}>Go to Homepage</button>
-       </a>
+       </a> */}
           </div>
            
         )}
@@ -87,6 +110,7 @@ const Events: React.FC = () => {
             
        
     </div>
+    </>
   );
 };
 

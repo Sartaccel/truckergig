@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
                     <a>
                       <img
                         className="logo_image"
-                        src="/images/logo_black.png"
+                        src="/images/TruckerGIG_white.png"
                         alt="logo"
                       />
                     </a>

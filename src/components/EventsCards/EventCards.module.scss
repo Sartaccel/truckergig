@@ -98,6 +98,13 @@
   // margin-bottom: 15px;
 }
 
+.card-event-desc-text {
+  max-height: 100px;  /* Limit the height to 50px */
+  overflow: hidden;  /* Hide any content that exceeds the max height */
+  text-overflow: ellipsis;  /* Add ellipsis ("...") to indicate more content */
+  white-space: nowrap;  /* Prevent wrapping of text */
+}
+
 .card-clock-event {
   font-size: 14px;
   font-weight: bold;

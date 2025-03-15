@@ -29,7 +29,9 @@ $h-60:60px;
 		padding: 15px;
 }
 
-
+.active {
+	border-bottom : 3px solid orange;
+}
 
 .navBar-Balloon{
 	background: $bg_color_Dark;
@@ -42,13 +44,14 @@ $h-60:60px;
 }
 .navbar-brand.logo {
 	img {
-		height: 33px;
+		height: 42px;
 	}
 }
 .navbar-expand-lg {
 	.navbar-nav {
 		.dropdown-menu {
 			right: 0px;
+			height: 70px;
 		}
 	}
 }

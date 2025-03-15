@@ -12,27 +12,34 @@
     color: #f7941d;
 }
 
-.get-button{
-    border: 3px solid #f7941d;
-    width: 120px;
-    background-color: #f7941d;
-    height:40px;
-    
-    }
+.get-button {
+  width: 140px;
+  height: 45px;
+  background: #f7941d;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
-.get-button:hover{
-    background-color:white;
-   
-    a{
- color: #f7941d !important;
+  &:hover {
+    background: white;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+
+    a {
+      color: #f7941d !important;
     }
-}
-.start-text{
+  }
+
+  a {
     text-decoration: none;
-    padding: 5px;
-    font-size: 20px;
-    text-align: center;
+    font-size: 18px;
     color: white;
+    transition: color 0.3s ease-in-out;
+  }
 }
 
 .truck-img{

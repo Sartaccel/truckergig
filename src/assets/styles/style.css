@@ -103,6 +103,11 @@ a:hover {
   content: var(--bs-breadcrumb-divider, ">") !important;
 }
 
+.breadcrumb-item {
+  color: #e77f00 !important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+}
 
 .file-type {
   font-size: 12px;

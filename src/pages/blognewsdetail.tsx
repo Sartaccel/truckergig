@@ -1,8 +1,7 @@
 import Head from "next/head";
 import React from "react";
-import Blognews from "../sections/BlogNews/blognews"
-
-const Blog: React.FC = () => {
+import BlognewsDetail from "../sections/BlogNews/blognewsDetails"
+const EventDetail: React.FC = () => {
   return (
     <>
       <Head>
@@ -13,10 +12,10 @@ const Blog: React.FC = () => {
         />
       </Head>
       <div className="main" style={{ overflow: "hidden", margin: 0, padding: 0 }}>
-        <Blognews />
+        < BlognewsDetail />
       </div>
     </>
   );
 };
 
-export default Blog;
+export default EventDetail;

@@ -1,6 +1,7 @@
 const securityHeaders = [{
     key: 'X-Frame-Options',
-    value: 'SAMEORIGIN'
+    value: 'SAMEORIGIN',
+    webpack5: false,
   }];
 
 module.exports = {

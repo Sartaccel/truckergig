@@ -20,22 +20,32 @@ interface HomeCardProps {
 }
 
 const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
+  
   const [show, setShow] = useState(false);
+  const [active, setActive] = useState(false);
+  const [auth, setAuth] = useState<string | null>(null);
+  const [list, setlist] = useState([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setAuth(localStorage.getItem("Authorization"));
+    }
+  }, []);
 
   const handleClose = () => setShow(false);
-  const [active, setActive] = useState(false);
-  const handleClick = (e) => {
+
+  const handleClick = () => {
     setActive(!active);
   };
 
-  const postData = (e) => {
-    alert("email not empty");
+  const postData = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    alert("Email cannot be empty");
   };
 
-  var Address6 = require("ip-address").Address6;
-  var address = new Address6("2001:0:ce49:7601:e866:efff:62c3:fffe");
-  var teredo = address.inspectTeredo();
-  teredo.client4;
+  const Address6 = require("ip-address").Address6;
+  const address = new Address6("2001:0:ce49:7601:e866:efff:62c3:fffe");
+  const teredo = address.inspectTeredo();
 
   const handleClickContinueasGuest = () => {
     const params = {
@@ -45,57 +55,58 @@ const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
       browserType: browserName,
     };
     axios
-
       .post(`${urls.baseUrl}clickouts/add`, params)
-
-      .then(function (response) {
+      .then((response) => {
         const data = response.data.headers;
-        if (data.statusCode == 200) {
+        if (data.statusCode === 200) {
           setlist(data);
         } else {
-          alert("error");
+          alert("Error occurred");
         }
       });
+
     window.open(carddata.externalUrl, "_blank");
   };
 
-  const [list, setlist] = useState([]);
-
-  const Auth = localStorage.getItem("Authorization");
-
-  const setshowpopup = (popupdata) => {
-    console.log(popupdata)
-    if (popupdata.isExternal == 0  || popupdata.externalUrl === null || popupdata.externalUrl === undefined) {
+  const setshowpopup = (popupdata: any) => {
+    if (popupdata.isExternal === 0 || !popupdata.externalUrl) {
       router.push({
         pathname: "/getaquote",
         query: { serviceid: popupdata.id, id: popupdata.serviceCategoryId },
       });
-    } else if (popupdata.isExternal == 1) {
-      if (Auth) {
+    } else if (popupdata.isExternal === 1) {
+      const auth = localStorage.getItem("Authorization"); // Ensure auth is properly retrieved
+  
+      if (auth) {
         const params = {
-          serviceId: carddata.id,
+          serviceId: popupdata.id,
           isGuest: "1",
           ipAddress: teredo.client4,
           browserType: browserName,
         };
-        axios
-
-          .post(`${urls.baseUrl}clickouts/add`, params)
-
-          .then(function (response) {
+  
+        axios.post(`${urls.baseUrl}clickouts/add`, params)
+          .then((response) => {
             const data = response.data.headers;
-            if (data.statusCode == 200) {
+            if (data.statusCode === 200) {
               setlist(data);
+              window.open(popupdata.externalUrl, "_blank"); // Open only after API success
             } else {
-              alert("error");
+              alert("Error occurred while processing request.");
             }
+          })
+          .catch((error) => {
+            console.error("API error:", error);
+            alert("Failed to connect. Please try again.");
           });
-        window.open(carddata.externalUrl, "_blank");
+  
       } else {
         setShow(true);
       }
     }
   };
+  
+
   return (
     <>
       <button

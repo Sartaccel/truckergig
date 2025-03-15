@@ -133,7 +133,7 @@ const Landing: React.FC = () => {
               <Carousel.Item interval={6000}>
                 <img
                   className={`${styles["img-width"]} d-block w-100`}
-                  src="../../images/slider-01.jpg"
+                  src="../../images/slider-01.png"
                   alt="first-slide"
                 />
                 {/* <Carousel.Caption> */}
@@ -188,7 +188,7 @@ const Landing: React.FC = () => {
               <Carousel.Item interval={6000}>
                 <img
                   className={`${styles["img-width"]} d-block w-100`}
-                  src="../../images/slider-03.png"
+                  src="../../images/slider-03.jpg"
                   alt="third-slide"
                 />
                 {/* <Carousel.Caption> */}

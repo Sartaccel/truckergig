@@ -12,7 +12,7 @@ export const EventsCards = (props: any) => {
   }
 
   return (
-    <div className="col-lg-3 col-sm-6 col-12 mb-3">
+    <div className="col-lg-4 col-sm-6 col-12 mb-3 d-flex justify-content-center">
     <div
       className="card"
       style={{
@@ -21,7 +21,7 @@ export const EventsCards = (props: any) => {
           props.items.date
             ? " "
             : "",
-        cursor: "pointer",
+        cursor: "pointer", width: "90%"
       }}
       onClick={(e) => {
         showEventDetail(e);
@@ -31,8 +31,7 @@ export const EventsCards = (props: any) => {
         <div className={`${styles["card-event-img"]}`}>
           <img
             className={`${styles["card-event-image"]}`}
-            // src={props.items.imagePath}
-             src="/images/logistics.jpg"
+            src={props.items.imagePath}
             alt={props.items.title}
           />
         </div>

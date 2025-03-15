@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactGoogleLogin from "react-google-login";
+// import ReactGoogleLogin from "react-google-login";
 import router from "next/router";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
@@ -51,12 +51,12 @@ export default function GoogleLogin(props) {
   // props.isformlogin
   return (
     <>
-      <ReactGoogleLogin
+      {/* <ReactGoogleLogin
         clientId="758755086277-r7tlrojvoi55u9ojc9c3jiaj59fov8a2.apps.googleusercontent.com" // We created this earlier, remember?
         buttonText={props.isformlogin ? "LOGIN WITH GOOGLE" : ""}
         onSuccess={onResponse}
         onFailure={onGooglefailure}
-      />
+      /> */}
     </>
   );
 }

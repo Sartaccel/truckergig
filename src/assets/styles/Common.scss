@@ -2,6 +2,8 @@ $bg_color_light: #EAEAEA;
 $bg_color_Regular: #D1D1D1;
 $bg_color_Dark: #4A4A4A;
 $txt_color_white: #FFFFFF;
+$txt_color_orange: #ff9239;
+
 .main{
     min-height: 300px;
     margin-top: 5px;
@@ -38,15 +40,38 @@ $txt_color_white: #FFFFFF;
 			margin-top: 10px;
 		}
 	}
+    .navbar-nav {
+        background: $bg_color_light;
+    }
 }
 
-.navbar-light .navbar-nav .nav-link.active,
-.navbar-light .navbar-nav .nav-link:hover{
-	background: $bg_color_Dark;
-    color: $txt_color_white !important;
-    border-radius: 5px;
-}
-
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; // Adds spacing between links
+  
+    .nav-link {
+      position: relative;
+      padding: 4px 7px;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: $bg_color_Dark;
+      text-decoration: none;
+      transition: all 0.3s ease-in-out;
+      border-radius: 5px;
+      
+      &:hover {
+        background: $txt_color_orange;
+        color: $txt_color_white !important;
+        border-radius: 7px;
+      }
+      &.active {
+        border-bottom: 3px solid $txt_color_orange !important;
+      }
+    }
+  }
+  
 .ptb-100 {
     padding-top: 100px;
     padding-bottom: 100px;
@@ -187,6 +212,7 @@ $txt_color_white: #FFFFFF;
     margin: 0;
     padding: 0;
 }
+
 .slick-list:focus
 {
     outline: none;
@@ -289,6 +315,8 @@ $txt_color_white: #FFFFFF;
 
 
 // Tabs scss starts
+
+
 .srcgap{
     margin-bottom: 10px;
 }
