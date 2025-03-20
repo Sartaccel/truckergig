@@ -24,19 +24,17 @@ export const BlognewsCard = (props: any) => {
     >
         <div className={`${styles["card-event"]}`}>
           <div className={`${styles["card-event-img"]}`}>
-            <img className={`${styles["card-event-image"]}`} src="/images/blogStatic.jpg" alt={props.items.title} />
+            <img className={`${styles["card-event-image"]}`} src={props.items.imageUrl} alt={props.items.title} />
           </div>
           <div className={`${styles["card-body"]}`}>
             <div className={`${styles["card-event-text"]}`}>
               <h4 className={`${styles["card-event-text"]} pt-2`}>{props.items.title}</h4>
               <div className={`${styles["card-event-desc-text"]}`} dangerouslySetInnerHTML={{ __html: props.items.description }}></div>
-              {props.items.description.length > 180 && (
-  <a className={styles.readMoreBtn} onClick={showBlognewsDetail}>
+              <a className={styles.readMoreBtn} onClick={showBlognewsDetail}>
     Read More
   </a>
-)}
             </div>
-            <div className="row">
+            {/* <div className="row">
               <div className="col-12"><i className="bi bi-geo-alt-fill" style={{ color: "#f7941d" }}></i> {props.items.location}</div>
             </div>
             <div className="row">
@@ -45,7 +43,7 @@ export const BlognewsCard = (props: any) => {
                 <i className="bi bi-clock" style={{ color: "#f7941d" }}></i> 
                 {props.items.toTime ? `${props.items.fromTime} - ${props.items.toTime}` : props.items.fromTime}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
