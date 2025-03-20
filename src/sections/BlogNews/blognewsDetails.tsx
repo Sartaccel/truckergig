@@ -37,7 +37,7 @@ const Events: React.FC = () => {
         const eventData = response.data.data;
         seteventDetail(eventData);
         seteventid(eventData.id);
-        seteventimg(eventData.imageUrl);
+        seteventimg(eventData.imagePath);
         seteventtitle(eventData.title);
         seteventdescription(eventData.description);
         seteventdate(eventData.date);
@@ -110,7 +110,7 @@ const Events: React.FC = () => {
                   <li key={post.id} className={styles.recentPostItem} style={{ cursor: "pointer" }}
                   onClick={() => handleRecentPostClick(post)}
                   >
-                    <img src={post.imageUrl} alt="Recent Post" width={100} height={100} />
+                    <img src={post.imagePath} alt="Recent Post" width={100} height={100} />
                     {/* <img src="/images/blogStatic.jpg" alt="Recent Post" width={100} height={100} /> */}
                     <div className={styles.postContent}>
                       <h4>{post.title}</h4>
