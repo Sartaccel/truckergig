@@ -5,7 +5,7 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import urls from "../../utilities/AppSettings";
 import "antd/dist/antd.css";
 import styles from './blognewsDetail.module.scss';
-// import BlognewsShare from "../../components/ShareBlognews/BlognewsShare";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -28,6 +28,7 @@ const Events: React.FC = () => {
   const [eventtitle, seteventtitle] = useState('');
   const [eventdescription, seteventdescription] = useState("");
   const [eventdate, seteventdate] = useState("");
+  const [eventlink,seteventlink] = useState("");
 
   useEffect(() => {
     const params = router.query.eventid;
@@ -36,10 +37,11 @@ const Events: React.FC = () => {
         const eventData = response.data.data;
         seteventDetail(eventData);
         seteventid(eventData.id);
-        seteventimg(eventData.imageUrl);
+        seteventimg(eventData.imagePath);
         seteventtitle(eventData.title);
         seteventdescription(eventData.description);
         seteventdate(eventData.date);
+        seteventlink(eventData.link);
 
         setRecentPosts((prevPosts) => {
           const updatedPosts = [eventData, ...prevPosts.filter(post => post.id !== eventData.id)];
@@ -55,7 +57,6 @@ const Events: React.FC = () => {
     router.push(`/blognewsdetail?eventid=${post.id}&title=${encodeURIComponent(post.title)}`);
   };
   
-  console.log(recentPosts,"recentPosts")
 
   return (
     <>
@@ -86,9 +87,17 @@ const Events: React.FC = () => {
                   />
                 </div>
                 <div className={styles.blogdetails}>
-                  <h2>{eventtitle}</h2>
-                  <p dangerouslySetInnerHTML={{ __html: eventdescription }}></p>
-                </div>
+  <div className="d-flex justify-content-between align-items-center">
+    <h2 className="m-0">{eventtitle}</h2>
+    <div title="Click to Open Link">
+      <a href={eventlink} target="_blank" rel="noopener noreferrer" style={{ color: "#ff8c00" }}>
+        <FaExternalLinkAlt size={20} />
+      </a>
+    </div>
+  </div>
+  <p dangerouslySetInnerHTML={{ __html: eventdescription }}></p>
+</div>
+
               </article>
             </div>
           </div>
@@ -101,7 +110,8 @@ const Events: React.FC = () => {
                   <li key={post.id} className={styles.recentPostItem} style={{ cursor: "pointer" }}
                   onClick={() => handleRecentPostClick(post)}
                   >
-                    <img src={post.imageUrl} alt="Recent Post" width={100} height={100} />
+                    <img src={post.imagePath} alt="Recent Post" width={100} height={100} />
+                    {/* <img src="/images/blogStatic.jpg" alt="Recent Post" width={100} height={100} /> */}
                     <div className={styles.postContent}>
                       <h4>{post.title}</h4>
                       <p>{formatDate(post.createdOn)}</p>
