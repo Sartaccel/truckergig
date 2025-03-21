@@ -47,7 +47,7 @@
   transform: scale(1.05); 
   box-shadow: 0 6px 12px rgb(206, 142, 38);
   background-color: #dba56470; 
-  color: rgb(255, 255, 255); 
+  color: black; 
   margin-bottom: 20px;
 }
 
@@ -69,6 +69,7 @@
 
 .card:hover {
   transform: scale(1.05);
+ 
   // box-shadow: 0 6px 12px rgba(226, 165, 80, 0.4);
 }
 
@@ -98,18 +99,25 @@
 
 /* ✅ Text styling */
 .card-event-text {
-  text-align: center;
+  // text-align: center;
   font-size: 18px;
-  font-weight: bold;
+  // font-weight: bold;
   color: #333;
   // margin-bottom: 15px;
 }
 
 .card-event-desc-text {
-  max-height: 100px;  /* Limit the height to 50px */
-  overflow: hidden;  /* Hide any content that exceeds the max height */
-  text-overflow: ellipsis;  /* Add ellipsis ("...") to indicate more content */
-  white-space: nowrap;  /* Prevent wrapping of text */
+  font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    max-width: 100%;
+    height: 60px; // Fixed height for uniformity
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 15px;
 }
 
 .card-clock-event {
