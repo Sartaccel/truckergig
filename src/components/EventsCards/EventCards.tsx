@@ -21,7 +21,7 @@ export const EventsCards = (props: any) => {
           props.items.date
             ? " "
             : "",
-        cursor: "pointer", width: "90%"
+        cursor: "pointer", width: "100%"
       }}
       onClick={(e) => {
         showEventDetail(e);

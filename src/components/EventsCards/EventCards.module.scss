@@ -7,10 +7,12 @@
   gap: 20px; 
   max-width: 1200px;
   width: 100%;
+
 }
 .card-container {
   position: relative;
   overflow: hidden;
+  
 }
 
 // .card-bg-image {
@@ -28,21 +30,25 @@
 
 
 .card-event {
-  background: rgba(255, 255, 255, 0.95); 
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(228, 152, 29, 0.918);
-  transition: transform 0.3s ease-in-out;
-  // cursor: pointer;
-  width: 100%;
-  max-width: 700px;
-  max-height: 1000px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease-in-out;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  height: 420px; // Increased fixed height for a balanced layout
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  
 }
 .card-event:hover {
   transform: scale(1.05); 
   box-shadow: 0 6px 12px rgb(206, 142, 38);
   background-color: #dba56470; 
   color: rgb(255, 255, 255); 
+  margin-bottom: 20px;
 }
 
 .event-highlight {
@@ -58,6 +64,7 @@
   box-shadow: 0 4px 8px rgba(248, 133, 38, 0.5);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   overflow: hidden;
+ 
 }
 
 .card:hover {

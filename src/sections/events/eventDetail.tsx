@@ -65,8 +65,8 @@ const Events: React.FC = (props) => {
           <div className="col-12 text-center">
             <img
               className={`${styles["event-detail-img"]}`}
-              // src={eventimg}
-              src="/images/slider-01.png"
+              src={eventimg}
+              // src="/images/slider-01.png"
               alt={eventtitle}
             />
           </div>

@@ -49,7 +49,7 @@ const Events: React.FC = () => {
         {/* <div className={styles.bigCard}> */}
           {/* <div className={styles.imageContainer}> */}
             <Image
-              src="/images/slider-01.png"
+              src="/images/13.jpg"
               alt="Truck in Logistics"
               layout="fill"
               priority
