@@ -53,8 +53,8 @@ const Blognews: React.FC = () => {
     <>
       <div className={styles.container}>
         {/* Big Card Section */}
-        {/* <div className={styles.bigCard}> */}
-          {/* <div className={styles.imageContainer}> */}
+        <div className={styles.bigCard}>
+          <div className={styles.imageContainer}>
             <Image
               src="/images/12.jpg"
               alt="Truck in Logistics"
@@ -63,26 +63,36 @@ const Blognews: React.FC = () => {
               className={styles.truckImage}
             />
             <div className={styles.overlay}>
-              <h2 className={styles.title}>BLOG / NEWS</h2>
+              <h2 className={styles.title}>BLOGS / NEWS</h2>
               <p className={styles.description}>
-              Get the latest insights, trends, and updates in logistics <br /> and technology. Stay informed with expert articles and news!
+                Get the latest insights, trends, and updates in logistics <br /> 
+                and technology. Stay informed with expert articles and news!
               </p>
             </div>
-          {/* </div> */}
-        {/* </div> */}
-
-        {blognews.length === 0 && <h3 className={styles.noBlogs}>Oops! There is No Blog / News at the Moment</h3>}
+          </div>
+        </div>
       </div>
-
+  
       {/* Blog Cards Section */}
       <div id="card-section" className="row pt-4 pb-4">
-        {paginatedblognews.map((event, index) => (
-          <BlognewsCard key={index} items={event} setblognewsData={setblognewsData} />
-        ))}
+        {paginatedblognews.length > 0 ? (
+          paginatedblognews.map((event: any, index: number) => (
+            <BlognewsCard key={index} items={event} setblognewsData={setblognewsData} />
+          ))
+        ) : (
+          <div className="text-center">
+            <h2>Oops! There are No Blogs/News at the Moment</h2>
+            <img 
+              src="/images/no enents.jpg" 
+              className={styles.imgFluid} 
+              alt="No Events Available"
+            />
+          </div>
+        )}
       </div>
-
+  
       {/* Pagination Section */}
-      {blognews.length > pageSize && (
+      {blognews.length > pageSize && paginatedblognews.length > 0 && (
         <div className="row">
           <div className="col-5">
             <p className={styles.pagItems}>
@@ -101,6 +111,7 @@ const Blognews: React.FC = () => {
       )}
     </>
   );
+  
 };
 
 export default Blognews;
