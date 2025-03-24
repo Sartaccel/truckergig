@@ -7,6 +7,7 @@ import "antd/dist/antd.css";
 import styles from './events.module.scss';
 import Popup from "reactjs-popup";
 import EventShare from "../../components/ShareEvent/EventShare";
+import { Spin } from "antd";  
 
 const Events: React.FC = (props) => {
   const router = useRouter()
@@ -19,7 +20,8 @@ const Events: React.FC = (props) => {
   const [eventfromtime, seteventfromtime] = useState("")
   const [eventtotime, seteventtotime] = useState("")
   const [eventdate, seteventdate] = useState("")
-
+  const [imageLoaded, setImageLoaded] = useState(false);
+  
   const shareUrl = linkText;
   var linkText, eventId, titleText;
   // linkText= `http://localhost:5000/eventdetail?eventid=${eventid}&title=${eventtitle}`
@@ -52,24 +54,31 @@ const Events: React.FC = (props) => {
       <div className="p-3">
         <div className="row">
           <div className="col">
-            {/* <Breadcrumb>
+            <Breadcrumb>
               <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
               <Breadcrumb.Item href="/events">Event</Breadcrumb.Item>
               <Breadcrumb.Item active>{eventtitle}</Breadcrumb.Item>
-            </Breadcrumb> */}
+            </Breadcrumb>
           </div>
         </div>
       </div>
       <div className="container">
         <div className="row">
-          <div className="col-12 text-center">
-            <img
-              className={`${styles["event-detail-img"]}`}
-              src={eventimg}
-              // src="/images/slider-01.png"
-              alt={eventtitle}
-            />
-          </div>
+        <div className={`${styles["image-container"]}`}>
+  {!imageLoaded && (
+    <div className={`${styles["loader"]}`}>
+      <Spin size="large" />
+    </div>
+  )}
+  <img
+    className={`${styles["event-detail-img"]}`}
+    src={eventimg}
+    alt={eventtitle}
+    onLoad={() => setImageLoaded(true)}
+    onError={() => setImageLoaded(true)}
+    style={{ display: imageLoaded ? "block" : "none" }}
+  />
+</div>
         </div>
         <div className={`${styles["event-detail-text"]} row pt-3`}>
           <div className="col-6"><i className="bi bi-geo-alt-fill" style={{ color: "#f7941d" }} ></i> {eventlocation}</div>
@@ -77,7 +86,10 @@ const Events: React.FC = (props) => {
           <div className="col-6">
             <Popup
               trigger={
-                <i className="bi bi-share" style={{ color: "#f7941d" }}></i>
+                <i className="bi bi-share" style={{ color: "#f7941d", fontStyle: "normal", marginLeft :"-10px" }}>
+  <span style={{ color: "#000", marginLeft:"8px" }}> Share </span>
+</i>
+
               }
               contentStyle={{
                 padding: "20px 0",
