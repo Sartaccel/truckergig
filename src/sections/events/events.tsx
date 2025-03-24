@@ -14,8 +14,11 @@ const Events: React.FC = () => {
   const [eventData, setEventData] = useState(null);
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(12);
+  const [loading, setLoading] = useState(true);  // Add this state
+
 
   useEffect(() => {
+    setLoading(true); 
     const params = { "pageNo": 0, "searchBy": "", "pageSize": 20, "sortBy": "", "sortOrder": "" };
     axios.post(`${urls.baseUrl}event/list`, params).then((response) => {
       const data = response.data.data.content;
@@ -28,6 +31,9 @@ const Events: React.FC = () => {
       }
     }).catch(error => {
       console.error("Error fetching events:", error);
+    })
+    .finally(() => {
+      setLoading(false); // Stop loading after fetching data
     });
   }, []);
 
@@ -52,7 +58,7 @@ const Events: React.FC = () => {
               src="/images/13.jpg"
               alt="Truck in Logistics"
               layout="fill"
-              priority
+              priority={false} 
               className={styles.eventImage}
             />
             <div className={styles.overlay}>
@@ -66,7 +72,15 @@ const Events: React.FC = () => {
 
     <div className="p-3">
       <div className="row">
-        {events.length > 0 ? (
+      {loading ? (
+        // **Show Loader when data is fetching**
+        <div className="text-center">
+        <div className="spinner-border text-warning" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        {/* <p>Loading events, please wait...</p> */}
+      </div>
+        ) :events.length > 0 ? (
           <>
             <div className="col-lg-12">
               <div className="row pt-4 pb-4">
