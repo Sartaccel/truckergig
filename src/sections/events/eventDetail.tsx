@@ -25,7 +25,7 @@ const Events: React.FC = (props) => {
   const shareUrl = linkText;
   var linkText, eventId, titleText;
   // linkText= `http://localhost:5000/eventdetail?eventid=${eventid}&title=${eventtitle}`
-  linkText = `https://staging.truckergig.com/eventdetail?eventid=${eventid}&title=${eventtitle}`
+  linkText = `https://dev.truckergig.com/eventdetail?eventid=${eventid}&title=${eventtitle}`
 
   useEffect(() => {
     const search = window.location.search;
@@ -86,7 +86,7 @@ const Events: React.FC = (props) => {
           <div className="col-6">
             <Popup
               trigger={
-                <i className="bi bi-share" style={{ color: "#f7941d", fontStyle: "normal", marginLeft :"-10px" }}>
+                <i className="bi bi-share" style={{ color: "#f7941d", fontStyle: "normal", marginLeft :"-10px", cursor:"pointer" }}>
   <span style={{ color: "#000", marginLeft:"8px" }}> Share </span>
 </i>
 

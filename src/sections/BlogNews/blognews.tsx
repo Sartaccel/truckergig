@@ -67,7 +67,7 @@ const Blognews: React.FC = () => {
               className={styles.truckImage}
             />
             <div className={styles.overlay}>
-              <h2 className={styles.title}>BLOG / NEWS</h2>
+              <h2 className={styles.title}>BLOGS / NEWS</h2>
               <p className={styles.description}>
               Get the latest insights, trends, and updates in logistics <br /> and technology. Stay informed with expert articles and news!
               </p>
