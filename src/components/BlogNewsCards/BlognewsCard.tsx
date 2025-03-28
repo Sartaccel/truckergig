@@ -27,13 +27,28 @@ export const BlognewsCard = (props: any) => {
             <img className={`${styles["card-event-image"]}`} src={props.items.imageUrl} alt={props.items.title} />
           </div>
           <div className={`${styles["card-body"]}`}>
-            <div className={`${styles["card-event-text"]}`}>
+            {/* <div className={`${styles["card-event-text"]}`}>
               <h4 className={`${styles["card-event-text"]} pt-2`}>{props.items.title}</h4>
               <div className={`${styles["card-event-desc-text"]}`} dangerouslySetInnerHTML={{ __html: props.items.description }}></div>
               <a className={styles.readMoreBtn} onClick={showBlognewsDetail}>
     Read More
   </a>
-            </div>
+            </div> */}
+            <div className={`${styles["card-event-text"]}`}>
+  <h4 className={`${styles["card-event-text"]} pt-2`}>{props.items.title}</h4>
+  {props.items.description && (
+    <>
+      <div
+        className={`${styles["card-event-desc-text"]}`}
+        dangerouslySetInnerHTML={{ __html: props.items.description }}
+      ></div>
+      <a className={styles.readMoreBtn} onClick={showBlognewsDetail}>
+        Read More
+      </a>
+    </>
+  )}
+</div>
+
             {/* <div className="row">
               <div className="col-12"><i className="bi bi-geo-alt-fill" style={{ color: "#f7941d" }}></i> {props.items.location}</div>
             </div>

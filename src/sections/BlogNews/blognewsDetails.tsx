@@ -65,7 +65,7 @@ const Events: React.FC = () => {
           <div className="col">
             <Breadcrumb>
               <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-              <Breadcrumb.Item href="/blognews">BlogNews</Breadcrumb.Item>
+              <Breadcrumb.Item href="/blognews">Blogs/News</Breadcrumb.Item>
               <Breadcrumb.Item active>{eventtitle}</Breadcrumb.Item>
             </Breadcrumb>
           </div>

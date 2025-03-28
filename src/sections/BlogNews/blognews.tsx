@@ -63,7 +63,7 @@ const Blognews: React.FC = () => {
               className={styles.truckImage}
             />
             <div className={styles.overlay}>
-              <h2 className={styles.title}>BLOG / NEWS</h2>
+              <h2 className={styles.title}>BLOGS / NEWS</h2>
               <p className={styles.description}>
               Get the latest insights, trends, and updates in logistics <br /> and technology. Stay informed with expert articles and news!
               </p>
@@ -85,9 +85,9 @@ const Blognews: React.FC = () => {
       {blognews.length > pageSize && (
         <div className="row">
           <div className="col-5">
-            <p className={styles.pagItems}>
+            {/* <p className={styles.pagItems}>
               Items {Math.min((currentPage - 1) * pageSize + 1, blognews.length)} to {Math.min(currentPage * pageSize, blognews.length)} of {blognews.length} total
-            </p>
+            </p> */}
           </div>
           <div className="col-7 pt-4 pb-4">
             <Pagination

@@ -55,7 +55,7 @@ export default function Socials(props) {
                             size={30}
                             round={true}
                         />
-                        <p className="socials-p">Linkedin</p>
+                        <p className="socials-p">LinkedIn</p>
                     </LinkedinShareButton>
                 </div>
                 <div className="col-4">
