@@ -600,7 +600,7 @@ const Landing: React.FC = () => {
           <div className={`${styles["partner-tab"]}`}>
             <img
               className={`${styles["service-icon"]}`}
-              src="/images/Talent turbo TP.png"
+              src="/images/Talent Turbo TP.png"
               alt="Talent Turbo-logo"
             />
           </div>

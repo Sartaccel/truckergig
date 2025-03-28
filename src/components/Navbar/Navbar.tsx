@@ -202,7 +202,7 @@ const Topbar: React.FC = () => {
               </Link>
               <Link href="/blognews">
                 <a href="#" className={`nav-link ${router.pathname==="/blognews" || router.pathname === "/blognewsdetail" ? "active" : ""}`}>
-                  Blog/News
+                  Blogs/News
                 </a>
               </Link>
               {/* <Dropdown className="margin-fixs">
