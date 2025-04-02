@@ -20,38 +20,113 @@ import Chatbot from "../../components/Chatbot/Chatbot";
 
 
 const Landing: React.FC = () => {
-  const [candidates, setCandidates] = useState("");
+  const [candidates, setCandidates] = useState(0);
   const [jobs, setJobs] = useState("");
-  const [carriers, setCarriers] = useState("");
-  const [vendors, setVendors] = useState("");
-  const [greet, setGreet] = useState();
+  const [carriers, setCarriers] = useState(0);
+  const [vendors, setVendors] = useState(0);
+  const [greet, setGreet] = useState("");
   const [act, setAct] = useState("");
 
   const [show, setShow] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
+  const summaryRef = useRef<HTMLDivElement | null>(null);
+  
   useEffect(() => {
     axios
       .get(`${urls.baseUrl}summary`)
-
-      .then(function (response) {
+      .then((response) => {
         console.log(response.data.data);
-        setCandidates(response.data.data.candidates.in_progress);
+
+        const actualCandidates = parseNumber(response.data.data.candidates?.in_progress);
+        const actualJobs = parseNumber(response.data.data.jobs?.open);
+        const actualCarriers = parseNumber(response.data.data.carriers?.active);
+        const actualVendors = parseNumber(response.data.data.vendors?.active);
+
         setJobs(response.data.data.jobs.open);
-        setCarriers(response.data.data.carriers.active);
-        setVendors(response.data.data.vendors.active);
-        var Ve = (response.data.data.greetings)
-        if (Ve != null) {
-          setGreet(response.data.data.greetings.imagePath);
+
+        setCandidates(actualCandidates);
+        setCarriers(actualCarriers);
+        setVendors(actualVendors);
+
+        animateNumber(setCandidates, actualCandidates);
+        animateNumber(setCarriers, actualCarriers);
+        animateNumber(setVendors, actualVendors);
+
+        const Ve = response.data.data.greetings;
+        if (Ve?.imagePath) {
+          setGreet(Ve.imagePath);
           handleShow();
-        }
-        else if (Ve == null) {
+        } else {
           handleClose();
         }
+      })
+      .catch((error) => {
+        console.error("API Error:", error);
       });
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.8 } // Trigger when 50% of the section is visible
+    );
+
+    if (summaryRef.current) {
+      observer.observe(summaryRef.current);
+    }
+
+    return () => {
+      if (summaryRef.current) {
+        observer.unobserve(summaryRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      animateNumber(setCandidates, candidates);
+      animateNumber(setCarriers, carriers);
+      animateNumber(setVendors, vendors);
+    }
+  }, [isVisible]);
+
+  const parseNumber = (value: any): number => {
+    if (typeof value === "string") {
+      return Number(value.replace(/,/g, "")) || 0; // Remove commas and convert to number
+    }
+    return typeof value === "number" ? value : 0; // Default to 0 if undefined or invalid
+  };
+
+  const animateNumber = (setState: React.Dispatch<React.SetStateAction<number>>, actualValue: number) => {
+    if (isNaN(actualValue) || actualValue < 0) {
+      console.warn("Invalid number received for animation:", actualValue);
+      return;
+    }
+
+    let start = 0;
+    const duration = 2000; // 2 seconds animation
+    const increment = Math.ceil(actualValue / (duration / 50));
+
+    const interval = setInterval(() => {
+      start += increment;
+      setState((prev) => Math.min(start, actualValue));
+
+      if (start >= actualValue) {
+        setState(actualValue);
+        clearInterval(interval);
+      }
+    }, 50);
+  };
+
+  
 
   const settings = {
     dots: false,
@@ -101,6 +176,11 @@ const Landing: React.FC = () => {
     ],
   };
 
+  const bottomSettings = {
+    ...settings,
+    rtl: true,
+  };
+
   return (
     <>
       <Modal
@@ -126,6 +206,7 @@ const Landing: React.FC = () => {
 
         </Modal.Body>
       </Modal>
+
       <div className="container-fluid home-slider">
         <div className="row">
           <div className={`${styles["slider"]} col-12`}>
@@ -133,7 +214,7 @@ const Landing: React.FC = () => {
               <Carousel.Item interval={6000}>
                 <img
                   className={`${styles["img-width"]} d-block w-100`}
-                  src="../../images/slider-01.png"
+                  src="../../images/New_Home.jpg"
                   alt="first-slide"
                 />
                 {/* <Carousel.Caption> */}
@@ -160,7 +241,7 @@ const Landing: React.FC = () => {
               <Carousel.Item interval={6000}>
                 <img
                   className={`${styles["img-width"]} d-block w-100`}
-                  src="../../images/slider-02.jpg"
+                  src="../../images/Newslider-03.jpg"
                   alt="second-slide"
                 />
                 {/* <Carousel.Caption> */}
@@ -188,7 +269,7 @@ const Landing: React.FC = () => {
               <Carousel.Item interval={6000}>
                 <img
                   className={`${styles["img-width"]} d-block w-100`}
-                  src="../../images/slider-03.jpg"
+                  src="../../images/home22.jpg"
                   alt="third-slide"
                 />
                 {/* <Carousel.Caption> */}
@@ -257,10 +338,10 @@ const Landing: React.FC = () => {
       </div> */}
       <div className="container">
         <h5 className={`${styles["section-title"]}`}>Summary</h5>
-        <div className="row">
+        <div className="row" ref={summaryRef}>
           <div className="col-12 col-lg-4">
             <div
-              className={`${styles["summary-tab"]} ${styles["leftanime-tab"]}`}
+              className={`${styles["summary-tab"]}`}
             >
               <h3>{vendors}+</h3>
               <h5>Vendors Onboarded</h5>
@@ -268,7 +349,7 @@ const Landing: React.FC = () => {
           </div>
           <div className="col-12 col-lg-4">
             <div
-              className={`${styles["summary-tab"]} ${styles["rightanime-tab"]}`}
+              className={`${styles["summary-tab"]}`}
             >
               <h3>{carriers}+</h3>
               <h5>Carriers Connected</h5>
@@ -276,7 +357,7 @@ const Landing: React.FC = () => {
           </div>
           <div className="col-12 col-lg-4">
             <div
-              className={`${styles["summary-tab"]} ${styles["rightanime-tab"]}`}
+              className={`${styles["summary-tab"]}`}
             >
               <h3>{candidates}+</h3>
               <h5>Drivers Onboarded</h5>
@@ -284,7 +365,89 @@ const Landing: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="container-fluid service-tab">
+ 
+    <div className="container-fluid service-tab landing-service">
+      <h5 className={styles["section-title"]}>Marketplace</h5>
+      <div className="row">
+        {/* Dispatch Services Card */}
+        <div className="col-md-6 col-lg-4 p-0 m-0  d-flex justify-content-center">
+          <div className={styles.card}>
+            <img className={styles["card-img"]} src="/images/marketplace_1.jpg" alt="dispatch-logo"/>
+            <div className={styles.overlay}>
+              <h3 className={styles.cardheading}>Dispatch Services</h3>
+           </div>
+            {/* Hidden Inner Card */}
+            <div className={styles["inner-card"]}>
+
+            <div className={styles["card-inside"]} style={{ maxWidth: "280px" }}>
+            <img
+              className={styles["card-Innerimg"]}
+              src="/images/dispatch-logo.png"
+              alt="dispatch-logo"
+              style={{ width: "80px" }}
+            />
+            <div className={styles["card-body"]}>
+              <h4 className={`${styles["service-heading"]}`}>Dispatch Services</h4>
+              <p>Get your dispatch done with real-time scenarios of trucks and trailers, after-hours support, and a lot more.</p>
+            </div>
+          </div>
+
+            </div>
+          </div>
+        </div>
+
+        {/* Carrier and Driver Onboarding Card */}
+        <div className="col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
+          <div className={styles.card}>
+            <img className={styles["card-img"]} src="/images/marketplace_2.jpg" alt="driver-logo" />
+            <div className={styles.overlay}>
+              <h3 className={styles.cardheading}>Carrier & Driver Onboarding</h3>
+           </div>
+            <div className={styles["inner-card"]}>
+            <div className={styles["card-inside"]} style={{ maxWidth: "280px" }}>
+            <img
+              className={styles["card-Innerimg"]}
+              src="/images/driver-logo.png"
+              alt="driver-logo"
+              style={{ width: "80px" }}
+            />
+            <div className={styles["card-body"]}>
+              <h4 className={`${styles["service-heading"]}`}>Carrier & Driver Onboarding</h4>
+              <p>Customers can get access to our database on a subscription basis.</p>
+            </div>
+          </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Marketplace Card */}
+        <div className="col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
+          <div className={styles.card}>
+            <img className={styles["card-img"]} src="/images/marketplace_3.jpg" alt="service-logo" />
+            <div className={styles.overlay}>
+              <h3 className={styles.cardheading}>Marketplace</h3>
+           </div>
+            <div className={styles["inner-card"]}>
+            <div className={styles["card-inside"]} style={{ maxWidth: "280px" }}>
+            <img
+              className={styles["card-Innerimg"]}
+              src="/images/service-logo.png"
+              alt="service-logo"
+              style={{ width: "80px" }}
+            />
+            <div className={styles["card-body"]}>
+              <h4 className={`${styles["service-heading"]}`}>Marketplace</h4>
+              <p>Trucks/Trailers Leasing, Fleet management, API & Integrations, and more.</p>
+            </div>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      {/* <div className="container-fluid service-tab">
         <h5 className={`${styles["section-title"]}`}>Marketplace</h5>
         <div className="row landing-service">
           <div className="col-md-12 col-lg-4 d-flex justify-content-center">
@@ -300,49 +463,15 @@ const Landing: React.FC = () => {
           <div className="col-md-12 col-lg-8">
             <h4 className={`${styles["service-heading"]}`}>Dispatch Services</h4>
             <ul className={`${styles["service-listing"]}`}>
-              {/* <li>
-                <span>
-                  Are you a owner operator or carrier looking for Truck
-                  Dispatch.
-                </span>
-              </li> */}
+             
               <li>
                 <span>Get your dispatch done with real-time scenarios of trucks and trailers, after-hours support, and a lot more.
                 </span>
               </li>
-              {/* <li>
-                <span>
-                  {" "}
-                  We discover the most active loads required for your freight
-                  and acquire the best rate available according to the market
-                  condition.
-                </span>
-              </li> */}
+             
             </ul>
           </div>
         </div>
-        {/* <div className="row landing-service">
-          <div className="col-md-12 col-lg-4 d-flex justify-content-center">
-            <div className={`${styles["service-container"]}`}>
-              <img
-                className={`${styles["service-logo"]}`}
-                src="/images/invoice-logo.png"
-                alt="factoring-logo"
-              />
-            </div>
-          </div>
-
-          <div className="col-md-12 col-lg-8">
-            <h4 className={`${styles["service-heading"]}`}>FACTORING</h4>
-            <ul className={`${styles["service-listing"]}`}>
-              <li>
-                <span>
-                  Turn your raised invoices to immediate cash with our factoring partners.
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div> */}
         <div className="row landing-service">
           <div className="col-md-12 col-lg-4 d-flex justify-content-center">
             <div className={`${styles["service-container"]}`}>
@@ -387,10 +516,33 @@ const Landing: React.FC = () => {
               </li>
             </ul>
           </div>
-        </div>
-        <div className="row landing-service">
+        </div> */}
+        {/* <div className="row landing-service">
+          <div className="col-md-12 col-lg-4 d-flex justify-content-center">
+            <div className={`${styles["service-container"]}`}>
+              <img
+                className={`${styles["service-logo"]}`}
+                src="/images/invoice-logo.png"
+                alt="factoring-logo"
+              />
+            </div>
+          </div>
+
+          <div className="col-md-12 col-lg-8">
+            <h4 className={`${styles["service-heading"]}`}>FACTORING</h4>
+            <ul className={`${styles["service-listing"]}`}>
+              <li>
+                <span>
+                  Turn your raised invoices to immediate cash with our factoring partners.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div> */}
+       
+       {/* <div className="row landing-service">
           <div className="col-xxl-12 d-flex justify-content-center">
-            {/* <Button
+             <Button
               className={`${styles["explore-button"]}`}
               // variant="primary"
               onClick={handleShow}
@@ -411,10 +563,10 @@ const Landing: React.FC = () => {
                   Save Changes
                 </Button>
               </Modal.Footer>
-            </Modal> */}
+            </Modal>
           </div>
-        </div>
-      </div>
+        </div>  */}
+      {/* </div> */}
       {/* <div className="col- col-sm- col-md-6 col-lg-4">
             <div className={`${styles["service-menu"]}`}>
               <span>
@@ -619,76 +771,106 @@ const Landing: React.FC = () => {
               alt="trucker-cloud-logo"
             />
           </div>
-          {/* <div className={`${styles["partner-tab"]}`}>
-            <img
-              className={`${styles["service-icon"]}`}
-              src="/images/turbo_sales.jpg"
-              alt="turbosales-logo"
-            />
-          </div> */}
         </Slider>
         </div>
       </div>
 
       <div className="container-fluid">
+        <div className="row partners">
+
+          <Slider {...bottomSettings}>
+          <div className={`${styles["partner-tab"]}`}>
+              <img
+                className={`${styles["service-icon"]}`}
+                src="/images/DexFreight TP.png"
+                alt="dexfreight-logo"
+              />
+            </div>
+            <div className={`${styles["partner-tab"]}`}>
+              <img
+                className={`${styles["service-icon"]}`}
+              src="/images/Kale Logistics TP.png"
+              alt="kale-logo"
+            />
+          </div>
+          <div className={`${styles["partner-tab"]}`}>
+            <img
+              className={`${styles["service-icon"]}`}
+              src="/images/ORT TP.png"
+              alt="OTR Solutions-logo"
+            />
+          </div>
+          <div className={`${styles["partner-tab"]}`}>
+            <img
+              className={`${styles["service-icon"]}`}
+              src="/images/qBotica TP.png"
+              alt="qbotica-logo"
+            />
+          </div>
+
+          <div className={`${styles["partner-tab"]}`}>
+            <img
+              className={`${styles["service-icon"]}`}
+              src="/images/Talent Turbo TP.png"
+              alt="Talent Turbo-logo"
+            />
+          </div>
+          <div className={`${styles["partner-tab"]}`}>
+            <img
+              className={`${styles["service-icon"]}`}
+              src="/images/teamone TP.png"
+              alt="Teamone Logistics-logo"
+            />
+          </div>
+
+          <div className={`${styles["partner-tab"]}`}>
+            <img
+              className={`${styles["service-icon"]}`}
+              src="/images/Trucker cloud TP.png"
+              alt="trucker-cloud-logo"
+            />
+          </div>
+        </Slider>
+        </div>
+      </div>
+
+      {/* <div className="container-fluid">
         <div className="row">
           <h5 className={`${styles["section-title"]}`}>Located at</h5>
           <iframe width="100%" height="500"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.2902989781996!2d-84.1728210853004!3d34.062071824660514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5992725955555%3A0x35ee53621f787334!2s11555%20Medlock%20Bridge%20Rd%20Suite%20100%2C%20Johns%20Creek%2C%20GA%2030097%2C%20USA!5e0!3m2!1sen!2sin!4v1658471178075!5m2!1sen!2sin"></iframe>
         </div>
-      </div>
-      <div className="container">
-        <div className="row">
-          <h5 className={`${styles["section-title"]}`}>Testimonials</h5>
-          <div className={`${styles["review-section"]} col-xxl-12`}>
-            <Carousel fade>
-              <Carousel.Item className={`${styles["review"]}`}>
-                <div className={`${styles["review-sec"]}`}>
-                  <h3 className={`${styles["review-title"]}`}>Noah Oliver</h3>
-                  <p className={`${styles["review-para"]}`}>
-                    Just started using it, it gives you a good idea of the truck
-                    route but trust your experience more but overall great site.
-                  </p>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item className={`${styles["review"]}`}>
-                <div className={`${styles["review-sec"]}`}>
-                  <h3 className={`${styles["review-title"]}`}>
-                    Daniel Alexander
-                  </h3>
-                  <p className={`${styles["review-para"]}`}>
-                    TruckerGIG has made it so easy to find a job. I’m an owner
-                    operator and It helped me finding my favorite lane. I was
-                    able to find the address easily.
-                  </p>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item className={`${styles["review"]}`}>
-                <div className={`${styles["review-sec"]}`}>
-                  <h3 className={`${styles["review-title"]}`}>John David</h3>
-                  <p className={`${styles["review-para"]}`}>
-                    Praesent commodo cursus magna, vel scelerisque nisl
-                    consectetur.
-                  </p>
-                </div>
-              </Carousel.Item>
-            </Carousel>
-            {/* <div className={`${styles["section-subtitle-contact"]}`}>
-              CONTACT
-            </div>
-            <div className={`${styles["main-title"]}`}>
-              Send Us An <strong>Email</strong>
-            </div>
-            <div className="form-group">
-              <Link href="/contactus">
-                <button className={`${styles["click-btn"]}`} type="submit">
-                  CLICK HERE
-                </button>
-              </Link>
-            </div> */}
+      </div> */}
+
+
+<div className={styles["testimonials-container"]}>
+      <h5 className={styles["section-title"]}>Testimonials</h5>
+      <div className={styles["review-section"]}>
+        <div className={styles.reviewBox}>
+          <div className={`${styles.review} ${styles.left}`}>
+            <h3 className={styles["review-title"]}>Noah Oliver</h3>
+            <p className={styles["review-para"]}>
+              Just started using it, it gives you a good idea of the truck route
+              but trust your experience more but overall great site.
+            </p>
+          </div>
+          <div className={`${styles.review} ${styles.center}`}>
+            <h3 className={styles["review-title"]}>Daniel Alexander</h3>
+            <p className={styles["review-para"]}>
+              TruckerGIG has made it so easy to find a job. I’m an owner operator
+              and It helped me finding my favorite lane. I was able to find the
+              address easily.
+            </p>
+          </div>
+          <div className={`${styles.review} ${styles.right}`}>
+            <h3 className={styles["review-title"]}>John David</h3>
+            <p className={styles["review-para"]}>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+            </p>
           </div>
         </div>
       </div>
+    </div> 
       <Chatbot></Chatbot>
     </>
   );

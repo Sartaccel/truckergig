@@ -32,25 +32,44 @@ const Topbar: React.FC = () => {
   const [carriers, setCarriers] = useState("");
   const [vendors, setVendors] = useState("");
 
-  useEffect(() => {
-    // axios
-    //   .get(`${urls.baseUrl}services/categories/list`)
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  let lastScrollY = 0;
 
-    //   .then(function (response) {
-    //     const data = response.data.data.map((x: any) => {
-    //       return {
-    //         label: x.name,
-    //         value: x.id,
-    //       };
-    //     });
-    //     setdropdown(data);
-    //   });
-    axios.get(`${urls.baseUrl}summary`).then(function (response) {
-      setCandidates(response.data.data.candidates.in_progress);
-      setJobs(response.data.data.jobs.open);
-      setCarriers(response.data.data.carriers.active);
-      setVendors(response.data.data.vendors.active);
-    });
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > 5 && currentScrollY < 150) {
+        setHidden(true);
+      } else if (currentScrollY >= 150) {
+        setHidden(false);
+        setScrolled(true);
+      } else {
+        setScrolled(false); 
+        setHidden(false);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    axios
+      .get(`${urls.baseUrl}summary`)
+      .then((response) => {
+        setCandidates(response.data.data.candidates.in_progress);
+        setJobs(response.data.data.jobs.open);
+        setCarriers(response.data.data.carriers.active);
+        setVendors(response.data.data.vendors.active);
+      })
+      .catch((error) => {
+        console.error("Error fetching summary data:", error);
+      });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const [categories, setcategories] = useState([]);
@@ -114,7 +133,8 @@ const Topbar: React.FC = () => {
     <Navbar
       collapseOnSelect
       expand="lg"
-      className={`${styles["navbar-fixed"]} navbarcolor `}
+      className={`${router.pathname === "/" ? styles["navbar-fixed"] : styles["navbar-other"]}
+      ${scrolled ? styles["scrolled"] : ""} ${hidden ? styles["hidden"] : ""}`}
     >
       <Container fluid className={`${styles["navbar-content"]}`}>
         <Navbar.Brand>
@@ -133,53 +153,7 @@ const Topbar: React.FC = () => {
           <Nav className="me-auto"></Nav>
           <Nav className="mr-auto">
             <Nav>
-              {/* <form className={`${styles["option-group"]} `}>
-                <div className="input-group"> */}
-              {/* <div className={`${styles["react-select"]} `}>
-                    <span className={`${styles["menu-icon"]} `}>
-                      <i className="bi-list-ul"></i>
-                    </span>&nbsp; */}
-              {/* <div
-                      className={`${styles["react-select-dropdown"]} test-class react_select_dropdown`}
-                    >
-                      <Select
-                        className={`${styles["dropdown-select"]} `}
-                        styles={customStyles}
-                        placeholder="Categories"
-                        value={selectedOption}
-                        onChange={(value, { action }) =>
-                          handleChange(
-                            value,
-                            action,
-                            setSelectedOption,
-                            "Categories"
-                          )
-                        }
-                        options={dropdown}
-                        components={{
-                          IndicatorSeparator: () => null,
-                        }}
-                        isClearable={true}
-                      />
-                    </div> */}
-              {/* </div> */}
-
-              {/* <input
-                    type="text"
-                    className="form-control col-xs-5"
-                    placeholder="Search your need here"
-                    value={SearchList}
-                    onChange={(event) => setSearchList(event.target.value)}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleSearch}
-                    className="btn btn-secondary"
-                  >
-                    <i className="bi-search"></i>
-                  </button>
-                </div>
-              </form> */}
+             
             </Nav>
           </Nav>
           <Nav>
@@ -205,27 +179,6 @@ const Topbar: React.FC = () => {
                   Blogs/News
                 </a>
               </Link>
-              {/* <Dropdown className="margin-fixs">
-                  <Dropdown.Toggle
-                    split
-                    variant="Secondary"
-                    id="dropdown-split-basic"
-                    className="nav-link"
-                  >
-                    4PL
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item className="jmr4pl" href="https://www.jmr4pl.com/" target='_blank'>
-                      JMRPL
-                    </Dropdown.Item>
-                    
-                  </Dropdown.Menu>
-                </Dropdown> */}
-              {/* <Link href="/jobs">
-                <a href="#" className="nav-link">
-                  Jobs
-                </a>
-              </Link> */}
               {!Ath ? (
                 <Dropdown className="margin-fixs">
                   <Dropdown.Toggle
@@ -251,7 +204,7 @@ const Topbar: React.FC = () => {
 
               {!Ath ? (
                 <Link href="/customerlogin">
-                  <a href="#" className={`nav-link ${router.pathname==="/customerlogin" ? "active" : ""}`}>
+                  <a href="#" className={`nav-link ${scrolled ? styles["scroll-login"] : ""}  login-link ${router.pathname==="/customerlogin" ? "active" : ""}`}>
                     Login<i className="bi bi-person-fill pl-1"></i>
                   </a>
                 </Link>
@@ -278,30 +231,6 @@ const Topbar: React.FC = () => {
                 </div>
               )}
 
-              {/* {!Ath ? (
-                <Link href="/customerlogin">
-                  <a href="#" className="nav-link">
-                    <i className="bi bi-person-fill"></i>Login
-                  </a>
-                </Link>
-              ) : (
-                <div>
-                  <Dropdown className={`${styles["login-name"]} `}>
-                    Hi,{Name}
-                    <Dropdown.Toggle
-                      split
-                      variant="Secondary"
-                      id="dropdown-split-basic"
-                      // className="nav-link"
-                    />
-                    <Dropdown.Menu>
-                      <Dropdown.Item href="" onClick={logout}>
-                        Logout
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
-              )} */}
             </div>
           </Nav>
         </Navbar.Collapse>
