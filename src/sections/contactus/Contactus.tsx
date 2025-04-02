@@ -29,25 +29,10 @@ const Contactus: React.FC = () => {
   return (
     <div className={styles.contactContainer}>
       {/* Left Side - Contact Details */}
-      <div className={styles.contactLeft}>
-        <h2>Contact Information</h2>
-        <p><i className="bx bx-map"></i> 11555 Medlock Bridge Road, Suite 100, <br /> Johns Creek, GA-30097</p>
-        <p><i className="bx bx-phone"></i> (833) 353-7773</p>
-        <p><i className="bx bx-envelope"></i> contactus@truckergig.com</p>
-        <iframe
-          className={styles.mapFrame}
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.2902989781996!2d-84.1728210853004!3d34.062071824660514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5992725955555%3A0x35ee53621f787334!2s11555%20Medlock%20Bridge%20Rd%20Suite%20100%2C%20Johns%20Creek%2C%20GA%2030097%2C%20USA!5e0!3m2!1sen!2sin!4v1658471178075!5m2!1sen!2sin"
-          width="100%"
-          height="200"
-          loading="lazy"
-        />
-      </div>
-
-      {/* Right Side - Contact Form */}
       <div className={styles.contactRight}>
         <h2>Send Us a Message</h2>
         <Formik
-          initialValues={{
+       j   initialValues={{
             name: "",
             phone: "",
             emailAddress: "",
@@ -95,6 +80,22 @@ const Contactus: React.FC = () => {
           )}
         </Formik>
       </div>
+
+      {/* Right Side - Contact Form */}
+      <div className={styles.contactLeft}>
+        <h2>Contact Information</h2>
+        <p><i className="bx bx-map"></i> 11555 Medlock Bridge Road, Suite 100, <br /> Johns Creek, GA-30097</p>
+        <p><i className="bx bx-phone"></i> (833) 353-7773</p>
+        <p><i className="bx bx-envelope"></i> contactus@truckergig.com</p>
+        <iframe
+          className={styles.mapFrame}
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.2902989781996!2d-84.1728210853004!3d34.062071824660514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5992725955555%3A0x35ee53621f787334!2s11555%20Medlock%20Bridge%20Rd%20Suite%20100%2C%20Johns%20Creek%2C%20GA%2030097%2C%20USA!5e0!3m2!1sen!2sin!4v1658471178075!5m2!1sen!2sin"
+          width="100%"
+          height="200"
+          loading="lazy"
+        />
+      </div>
+    
     </div>
   );
 };

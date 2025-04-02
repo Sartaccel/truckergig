@@ -21,7 +21,7 @@ const Login: React.FC = () => {
           <Tabs
             defaultActiveKey="vendor"
             id="uncontrolled-tab-example"
-            className="mb-3"
+            className="custom-tab mb-3"
           >
             <Tab eventKey="vendor" title="Vendor Login">
               <Vendor />

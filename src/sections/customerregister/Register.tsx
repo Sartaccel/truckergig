@@ -68,177 +68,119 @@ const Register = () => {
 					</Breadcrumb>
 				</div>
 			</div>
-      <div className="container">
-        <div>
-          <h1 className={`${styles["register-header-title"]} `}>
-            Register New Customer Account
-          </h1>
-          <div className={`${styles["register-page-title"]} `}>
-            <h4>
-              Registration -<span>IT'S FREE</span>
-            </h4>
-            <p>Register to Shop on TruckerGIG.com</p>
-          </div>
+      <div className={styles.container}>
+      <div className={styles.card}>
+        <h1 className={styles.title}>Register New Customer Account</h1>
+        <div className={styles.subtitle}>
+          <h4>
+            Registration - <span>IT'S FREE</span>
+          </h4>
+          <p>Register to Shop on TruckerGIG.com</p>
         </div>
-        <form onSubmit={handleSubmit(onSubmitHandler)}>
-          <div>
-            <p className={`${styles["form-personal-info"]} `}>
-              Personal Information
-            </p>
-            <div className={`${styles["register-form-row"]} `}>
-              <div className="row">
-                <div className={`${styles["form-text"]} col-4`}>
-                  <label>First Name</label>
-                  <sup className="star">*</sup>
-                </div>
-                <div className="col-8">
-                  <input
-                    {...register("firstName")}
-                    type="text"
-                    className={`form-control ${errors.firstName ? "is-invalid" : ""
-                      }`}
-                  />
-                  <div className="invalid-feedback">
-                    {errors.firstName?.message}
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div className={`${styles["register-form-row"]} `}>
-              <div className="row">
-                <div className={`${styles["form-text"]} col-4`}>
-                  <label>Last Name</label>
-                  <sup className="star">*</sup>
-                </div>
-                <div className="col-8">
-                  <input
-                    {...register("lastName")}
-                    type="text"
-                    className={`form-control ${errors.lastName ? "is-invalid" : ""
-                      }`}
-                  />
-                  <div className="invalid-feedback">
-                    {errors.lastName?.message}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className={`${styles["register-form-row"]} `}>
-              <div className="row">
-                <div className={`${styles["form-text"]} col-4`}>
-                  <label>Phone Number</label>
-                  <sup className="star">*</sup>
-                </div>
-                <div className="col-8">
-                  <input
-                    type="text"
-                    name="phonenumber"
-                    placeholder="(xxx) xxx-xxxx"
-                    {...register("phone")}
-                    className={`form-control 
-                                    ${errors.phone ? "is-invalid" : ""}`}
-                  />
-                  <div className="invalid-feedback">
-                    {errors.phone?.message}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <p className={`${styles["form-personal-info"]} `}>
-              Sign-in Information
-            </p>
-
-            <div className={`${styles["register-form-row"]} `}>
-              <div className="row">
-                <div className={`${styles["form-text"]} col-4`}>
-                  <label>Email</label>
-                  <sup className="star">*</sup>
-                </div>
-                <div className="col-8">
-                  <input
-                    {...register("emailId")}
-                    type="email"
-                    className={`form-control ${errors.emailId ? "is-invalid" : ""
-                      }`}
-                  />
-                  <div className={`${styles["invalid-feedback"]}`}>
-                    {errors.emailId?.message}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className={`${styles["register-form-row"]} `}>
-              <div className="row">
-                <div className={`${styles["form-text"]} col-4`}>
-                  <label>Password</label>
-                  <sup className="star">*</sup>
-                </div>
-                <div className="col-8">
-                  <input
-                    {...register("password")}
-                    type="password"
-                    className={`form-control ${errors.password ? "is-invalid" : ""
-                      }`}
-                  />
-                  <div className="invalid-feedback">
-                    {" "}
-                    {errors.password?.message}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className={`${styles["register-form-row"]} `}>
-              <div className="row">
-                <div className={`${styles["form-text"]} col-4`}>
-                  <label>Confirm Password</label>
-                  <sup className="star">*</sup>
-                </div>
-                <div className="col-8">
-                  <input
-                    {...register("confirmPassword")}
-                    type="password"
-                    className={`form-control ${errors.confirmPassword ? "is-invalid" : ""
-                      }`}
-                  />
-                  <div className={`${styles["invalid-feedback"]}`}>
-                    {errors.confirmPassword?.message}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={`${styles["register-form-row"]} `}>
-              <div className="row">
-                <div className={`${styles["form-text"]} col-4`}>
-                  <label>Please Verify Captcha</label>
-                  <sup className="star">*</sup>
-                </div>
-                <div className="col-8">
-                  <ReCAPTCHA
-                    sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
-                    onChange={onChange}
-                  />
-                </div>
-              </div>
-            </div>
-            <br />
-            <div className="row pb-3">
-              <div className="col-6">
-                <button type="submit" className={`${styles["submit-btn"]} `}>
-                  Submit
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
+        <div className={styles.container}>
+  <form onSubmit={handleSubmit(onSubmitHandler)}>
+    <div className={styles.formWrapper}>
+      {/* Left Column - Personal Information */}
+      <div className={styles.column}>
+        <p className={styles.sectionTitle}>Personal Information</p>
+        <div className={styles.formGroup}>
+          <label>First Name<span className={styles.star}>*</span></label>
+          <input {...register("firstName")} type="text" onBlur={(e) => {
+							e.target.style.borderColor = ""; // Reset border color on blur
+							e.target.style.boxShadow = ""; // Reset box shadow on blur
+						  }}
+						  onFocus={(e) => {
+							e.target.style.borderColor = "#ff8c00"; // Orange border on focus
+							e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
+						  }} className={errors.firstName ? styles.invalid : ""} />
+          {errors.firstName && <span className={styles.error}>{errors.firstName.message}</span>}
+        </div>
+        <div className={styles.formGroup}>
+          <label>Last Name<span className={styles.star}>*</span></label>
+          <input {...register("lastName")} type="text"onBlur={(e) => {
+							e.target.style.borderColor = ""; // Reset border color on blur
+							e.target.style.boxShadow = ""; // Reset box shadow on blur
+						  }}
+						  onFocus={(e) => {
+							e.target.style.borderColor = "#ff8c00"; // Orange border on focus
+							e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
+						  }} className={errors.lastName ? styles.invalid : ""} />
+          {errors.lastName && <span className={styles.error}>{errors.lastName.message}</span>}
+        </div>
+        <div className={styles.formGroup}>
+          <label>Phone Number<span className={styles.star}>*</span></label>
+          <input {...register("phone")} type="text"onBlur={(e) => {
+							e.target.style.borderColor = ""; // Reset border color on blur
+							e.target.style.boxShadow = ""; // Reset box shadow on blur
+						  }}
+						  onFocus={(e) => {
+							e.target.style.borderColor = "#ff8c00"; // Orange border on focus
+							e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
+						  }} placeholder="(xxx) xxx-xxxx" className={errors.phone ? styles.invalid : ""} />
+          {errors.phone && <span className={styles.error}>{errors.phone.message}</span>}
+        </div>
+        <div className={styles.formGroup}>
+          <label>Please Verify Captcha<span className={styles.star}>*</span></label>
+          <ReCAPTCHA sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV" onChange={() => {}} />
+        </div>
+        
       </div>
+
+      {/* Right Column - Sign-in Information */}
+      <div className={styles.column}>
+        <p className={styles.sectionTitle}>Sign-in Information</p>
+        <div className={styles.formGroup}>
+          <label>Email<span className={styles.star}>*</span></label>
+          <input {...register("emailId")} type="email"onBlur={(e) => {
+							e.target.style.borderColor = ""; // Reset border color on blur
+							e.target.style.boxShadow = ""; // Reset box shadow on blur
+						  }}
+						  onFocus={(e) => {
+							e.target.style.borderColor = "#ff8c00"; // Orange border on focus
+							e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
+						  }} className={errors.emailId ? styles.invalid : ""} />
+          {errors.emailId && <span className={styles.error}>{errors.emailId.message}</span>}
+        </div>
+        <div className={styles.formGroup}>
+          <label>Password<span className={styles.star}>*</span></label>
+          <input {...register("password")} type="password" onBlur={(e) => {
+							e.target.style.borderColor = ""; // Reset border color on blur
+							e.target.style.boxShadow = ""; // Reset box shadow on blur
+						  }}
+						  onFocus={(e) => {
+							e.target.style.borderColor = "#ff8c00"; // Orange border on focus
+							e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
+						  }} className={errors.password ? styles.invalid : ""} />
+          {errors.password && <span className={styles.error}>{errors.password.message}</span>}
+        </div>
+        <div className={styles.formGroup}>
+          <label>Confirm Password<span className={styles.star}>*</span></label>
+          <input {...register("confirmPassword")} type="password" onBlur={(e) => {
+							e.target.style.borderColor = ""; // Reset border color on blur
+							e.target.style.boxShadow = ""; // Reset box shadow on blur
+						  }}
+						  onFocus={(e) => {
+							e.target.style.borderColor = "#ff8c00"; // Orange border on focus
+							e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
+						  }} className={errors.confirmPassword ? styles.invalid : ""} />
+          {errors.confirmPassword && <span className={styles.error}>{errors.confirmPassword.message}</span>}
+        </div>
+        <div className={styles.buttonContainer}>
+  <button type="submit" className={styles.submitBtn}>Register</button>
+</div>
+        
+      </div>
+    </div>
+
+    {/* Submit Button */}
+   
+
+  </form>
+</div></div></div>
+
     </>
-  );
+  )
 };
+  
 export default Register;

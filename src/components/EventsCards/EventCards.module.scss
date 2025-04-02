@@ -129,14 +129,16 @@
 
 .card-location-event{
   margin-bottom: 10px;
+  font-weight: bold;
 }
 .card-calender-event{
   margin-bottom: 10px;
+  font-weight: bold;
 }
 
 /* Red background for today's events */
 .card{
-  animation: pulse 1.5s infinite alternate;
+  // animation: pulse 1.5s infinite alternate;
 }
 .btn {
   background-color: #e09437;
