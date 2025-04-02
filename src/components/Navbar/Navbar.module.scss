@@ -103,17 +103,72 @@ $h-60:60px;
 	color: white !important;
 }
 
-.navbar-fixed{
-	// overflow: hidden;
+// .navbar-fixed{
+// 	// overflow: hidden;
+// 		position: sticky !important;
+// 		top: 0;
+// 		width: 100%;
+// 		z-index: 99
+// }
+
+.navbar-fixed {
+	position: fixed !important;
+	top: 0;
+	left: 50%;
+	margin-top: 40px;
+	transform: translateX(-50%);
+	width: 90%;
+	height: 80px;
+	z-index: 99;
+	border-radius: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 30px;
+	background: rgba(255, 255, 255, 0.664);
+	transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out;
+  }
+  
+  /* Hidden state (scroll past 5px but below 20px) */
+  .hidden {
+	opacity: 0;
+	visibility: hidden;
+  }
+  
+  /* Visible state (scroll past 20px) */
+  .scrolled {
+	width: 100% !important;
+	border-radius: 0 !important;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+	background: rgb(240, 240, 240);
+	margin-top: 0 !important;
+	opacity: 1;
+	visibility: visible;
+  }
+  
+
+  .scroll-login {
+	margin-left: 285px !important;
+
+  }
+
+  .navbar-other{
 		position: sticky !important;
 		top: 0;
-		width: 100%;
-		z-index: 99
+		z-index: 9;
+		background: rgb(240, 240, 240);
+		width: 100% !important;
+		border-radius: 0 !important;
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+		margin-top: 0 ;
+
 }
 
-// .option-group{
-// 	width:380px;
-// }
+.navbar-content {
+	padding-left: 60px !important;
+	padding-right: 60px !important;
+}
+  
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
