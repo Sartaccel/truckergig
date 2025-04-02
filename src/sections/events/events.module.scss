@@ -99,6 +99,11 @@
     // margin-left: 50px;
     background: #f5f5f5; // Light background to avoid flickering effect
   }
+  .eventhead {
+    border-radius: 12px;  // Adjust for a slight curve
+    object-fit: cover;
+  }
+  
 
   .loader {
     position: absolute;
@@ -668,7 +673,7 @@
     font-size: 18px;
     color: white !important;
     font-weight: bold;
-    margin-right: 220px;
+    margin-right: 140px;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
     white-space: nowrap;
   }
@@ -1376,5 +1381,9 @@
 //     margin-top: 15px;
 //   }
 // }
-
+.container {
+  max-width: 1250px;  // Increase max width slightly for less left/right space
+  margin: auto;  // Centers the container
+  padding: 5px 15px;  // Less space on left/right, keeps top/bottom spacing minimal
+}
 

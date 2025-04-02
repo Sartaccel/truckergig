@@ -50,79 +50,50 @@ const Events: React.FC = () => {
   return (
 
     <>
-    <div className={styles.eventHead}>
-        {/* Big Card Section */}
-        {/* <div className={styles.bigCard}> */}
-          {/* <div className={styles.imageContainer}> */}
-            <Image
-              src="/images/13.jpg"
-              alt="Truck in Logistics"
-              layout="fill"
-              priority={false} 
-              className={styles.eventImage}
-            />
-            <div className={styles.overlay}>
-              <h2 className={styles.title}>EVENTS</h2>
-              <p className={styles.description}>
-              Stay updated with the latest logistics and transportation events. <br /> Connect, learn and grow with industry leaders!
-              </p>
-            </div>
-            </div>
-
-
-    <div className="p-3">
-      <div className="row">
-      {loading ? (
-        // **Show Loader when data is fetching**
-        <div className="text-center">
-        <div className="spinner-border text-warning" role="status">
-          <span className="visually-hidden">Loading...</span>
+   <div className={styles.container}>  {/* Added a container for spacing */}
+      <div className={styles.eventHead}>
+        <Image
+          src="/images/13.jpg"
+          alt="Truck in Logistics"
+          layout="fill"
+          priority={false} 
+          className={styles.eventImage}
+        />
+        <div className={styles.overlay}>
+          <h2 className={styles.title}>EVENTS</h2>
+          <p className={styles.description}>
+            Stay updated with the latest logistics and transportation events. <br />
+            Connect, learn and grow with industry leaders!
+          </p>
         </div>
-        {/* <p>Loading events, please wait...</p> */}
       </div>
-        ) :events.length > 0 ? (
-          <>
-            <div className="col-lg-12">
-              <div className="row pt-4 pb-4">
-                {events.slice(minValue, maxValue).map((event, index) => (
-                  <EventsCards key={index} items={event} seteventData={setEventData} />
-                ))}
-              </div>
-              <div className="row">
-                <div className="col-5">
-                  <p className={styles["pag-items"]}>
-                    {/* Items {minValue + 1} to {Math.min(maxValue, events.length)} of {events.length} total */}
-                  </p>
-                </div>
-                {/* <div className="col-7 pt-4 pb-4">
-                  <Pagination
-                    defaultCurrent={1}
-                    defaultPageSize={12}
-                    onChange={handleChange}
-                    total={events.length}
-                  />
-                </div> */}
+
+      <div className="p-3">
+        <div className="row">
+          {loading ? (
+            <div className="text-center">
+              <div className="spinner-border text-warning" role="status">
+                <span className="visually-hidden">Loading...</span>
               </div>
             </div>
-          </>
-        ) : (
-          <div className="text-center ">
-            <h2>Oops! There is No Events at the Moment</h2>
-            <img 
-              src="/images/no enents.jpg" 
-              className={styles["img-fluid"]} 
-            />
-            {/* <a href="https://www.truckergig.com/">
-           <button  className={styles["button"]}>Go to Homepage</button>
-       </a> */}
-          </div>
-           
-        )}
-        
+          ) : events.length > 0 ? (
+            <>
+              <div className="col-lg-12">
+                <div className="row pt-4 pb-4">
+                  {events.slice(minValue, maxValue).map((event, index) => (
+                    <EventsCards key={index} items={event} seteventData={setEventData} />
+                  ))}
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="text-center">
+              <h2>Oops! There are No Events at the Moment</h2>
+              <img src="/images/no enents.jpg" className={styles["img-fluid"]} />
+            </div>
+          )}
+        </div>
       </div>
-      
-            
-       
     </div>
     </>
   );

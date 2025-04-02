@@ -1,6 +1,6 @@
-.form-label{
-    padding-bottom: 5px;
-}
+// .form-label{
+//     padding-bottom: 5px;
+// }
 
 .errorMsgColour{
     color: red;
@@ -8,43 +8,176 @@
 .required-color{
     color: red;
 }
-.drop-down-style{
-    width: 100%;
-    height: 40px;
-}
-
-.product-dropdown{
-    padding-left: 0px;
-}
-
-.drop-down-style .css-14el2xx-placeholder{
-    color: #808080 !important;
-
-}
-
-.drop-down-style .css-tj5bde-Svg{
-    color: #808080 !important;
-}
-
-.phone-drop-down-style{
-    margin-right: 10px;
-}
-// .phone-drop-down-style{
-//     width: 30%;
+// .drop-down-style{
+//     width: 100%;
 //     height: 40px;
-//     // display: inline-block;
 // }
 
-// .phone-drop-down-style .css-14el2xx-placeholder{
+// .product-dropdown{
+//     padding-left: 0px;
+// }
+
+// .drop-down-style .css-14el2xx-placeholder{
 //     color: #808080 !important;
 
 // }
 
-// .phone-drop-down-style .css-tj5bde-Svg{
+// .drop-down-style .css-tj5bde-Svg{
 //     color: #808080 !important;
 // }
 
-// .phone-style{
-//     width: 60%;
-//     display: inline-block;
+// .phone-drop-down-style{
+//     margin-right: 10px;
 // }
+// // .phone-drop-down-style{
+// //     width: 30%;
+// //     height: 40px;
+// //     // display: inline-block;
+// // }
+
+// // .phone-drop-down-style .css-14el2xx-placeholder{
+// //     color: #808080 !important;
+
+// // }
+
+// // .phone-drop-down-style .css-tj5bde-Svg{
+// //     color: #808080 !important;
+// // }
+
+// // .phone-style{
+// //     width: 60%;
+// //     display: inline-block;
+// // }
+// .form-label{
+//     padding-bottom: 5px;
+// }
+
+// .errorMsgColour{
+//     color: red;
+// }
+// .required-color{
+//     color: red;
+// }
+// .drop-down-style{
+//     width: 100%;
+//     height: 40px;
+// }
+
+// .product-dropdown{
+//     padding-left: 0px;
+// }
+
+// .drop-down-style .css-14el2xx-placeholder{
+//     color: #808080 !important;
+
+// }
+
+// .drop-down-style .css-tj5bde-Svg{
+//     color: #808080 !important;
+// }
+
+// .phone-drop-down-style{
+//     margin-right: 10px;
+// }
+// // .phone-drop-down-style{
+// //     width: 30%;
+// //     height: 40px;
+// //     // display: inline-block;
+// // }
+
+// // .phone-drop-down-style .css-14el2xx-placeholder{
+// //     color: #808080 !important;
+
+// // }
+
+// // .phone-drop-down-style .css-tj5bde-Svg{
+// //     color: #808080 !important;
+// // }
+
+// // .phone-style{
+// //     width: 60%;
+// //     display: inline-block;
+// // }
+.card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(255, 165, 0, 0.5);
+    margin: 0 auto; /* Centers card */
+    max-width: 800px; /* Prevents it from stretching too much */
+    width: 100%;
+    height: auto;
+  }
+  .star {
+    color: red;
+    margin-left: 3px;
+}
+.formLabel {
+    font-weight: bold;
+    color: #ff8c00;
+    margin-top: 10px;
+  }
+  h4.name {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-left: 30px; 
+}
+h6.here{
+    text-align: center;
+}
+.form-control:focus {
+    border-color: #ff8c00 !important;
+    box-shadow: 0 0 5px rgba(255, 140, 0, 0.5) !important;
+    outline: none !important;
+}
+
+.regBtn {
+    background-color: #e07b00;
+    color: white;
+    border-radius: 20px;
+    padding: 8px;
+    width:150px;
+    border: none;
+    cursor: pointer;
+    margin-top: 3px;
+    transition: 0.3s ease-in-out;
+}
+
+.regBtn:hover {
+    background: #e07b00;
+    transform: scale(1.05);
+}
+
+.regBtnDisable {
+    background-color: #e07b00;
+    color: white;
+    border-radius: 20px;
+    padding: 8px;
+    width: 150px;
+    border: none;
+    cursor: not-allowed;
+    margin-top: 3px;
+    transition: 0.3s ease-in-out;
+}
+
+.regBtnDisable:hover {
+    background: #e07b00;
+    transform: scale(1.05);
+}
+.orange-link {
+    color: #ff8c00;
+    text-decoration: none; /* Optional: Removes underline */
+  }
+  .verify {
+    color: #ff8c00 !important; /* Always orange */
+    text-decoration: none; /* Optional: Removes underline */
+  }
+  
+  .verify:hover {
+    color: #ff8c00 !important;
+    text-decoration: none; /* Prevents color change on hover */
+  }
+  
