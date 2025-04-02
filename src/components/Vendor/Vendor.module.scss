@@ -1,181 +1,116 @@
-.login-header-title{
-    font-size: 30px;
-    font-weight: 400;
-    font-style: normal;
-}
-.signin-info{
-display: block;
-padding: 0;
-margin-bottom: 20px;
-font-size: 16px;
-line-height: inherit;
-border: 0;
-border-top: 1px solid #e5e5e5;
-}
-
-.login-form-text{
-font-weight: 700;
-font-size: 13px;
-color: #000;
-}
-
-.signin-btn{
-background-color: #f7941d;
-border: 1px solid #f8a543;
-color: #fff;
-font-weight: 700;
-padding: 4px 15px;
-font-size: 15px;
-border-radius: 4px;
-}
-
-.forgot-pw{
-  text-decoration: none;
-  font-size: 15px;
-  color: #000;
-}
-
-.forgot-pw:hover{
-  color:#656565;
-}
-
-.star{
-color: #e02b27;
-padding: 2px;
-}
-
-.rows{
+.container {
   display: flex;
-  flex-direction: row;
-  background-color: #dd4b39;
-  width: 190px;
-  height: 40px;
-  padding: 3px;
-  border-radius: 5px;
-  box-shadow: 1px 1px 1px gray;
-  .gicondiv{
-    background-color: white;
-    width: 34px;
-    height: 34px;
-    margin-right: 4px;
-    padding: 2px;
-    .gicon{
-      width: 30px;
-      height: 30px;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.card {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(255, 165, 0, 0.5);
+  top: 30%;
+  margin-top: 50px;
+}
+.header{
+  color: #000000;
+  font-size: 30px;
+}
+.login-header {
+  text-align: center;
+  margin-bottom: 20px;
+  
+
+  &-title {
+    font-size: 24px;
+    font-weight: bold;
+    color:  #ff8800;
+  }
+}
+
+
+
+.input-wrapper {
+  width: 100%;
+  margin-bottom: 15px;
+
+  .input-label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #ff8800  ;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+
+    &.is-invalid {
+      border-color: red;
     }
   }
-  .gtext{
-    color: white;
-    font-size: medium;
-    font-weight:600;
-    margin-top: 3px;
-  }
 
+  .invalid-feedback {
+    color: red;
+    font-size: 14px;
+  }
 }
-.rows:hover{
-  cursor: pointer;
+
+.password-container {
   display: flex;
-  flex-direction: row;
-  background-color: #e02b27;
-  width: 190px;
-  height: 40px;
-  padding: 3px;
-  border-radius: 5px;
-  box-shadow: 1px 1px 1px rgb(65, 65, 65);
-  .gicondiv{
-    background-color: white;
-    width: 34px;
-    height: 34px;
-    margin-right: 4px;
-    padding: 2px;
-    .gicon{
-      width: 30px;
-      height: 30px;
-    }
-  }
-  .gtext{
-    color: white;
-    font-size: medium;
-    font-weight:600;
-    margin-top: 3px;
-  }
+  align-items: center;
+  position: relative;
 
-}
-
-
-
-.fbrows{
-  display: flex;
-  flex-direction: row;
-  background-color: #3b5998;
-  width: 190px;
-  height: 40px;
-  padding: 3px;
-  border-radius: 5px;
-  box-shadow: 1px 1px 1px gray;
-  .fbicondiv{
-    background-color: white;
-    width: 30px;
-    height: 30px;
-    border: 2px solid #3b5998;
-    margin-right: 5px;
-    .fbicon{
-      width: 29px;
-      height: 29px;
-      color: #3b5998;
-    }
-  }
-  .fbtext{
-    color: white;
-    font-size: 14px ;
-    font-weight:700;
-    margin-top: 5px;
-  }
-
-}
-.fbrows:hover{
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  background-color: #2f4574;
-  width: 190px;
-  height: 40px;
-  padding: 3px;
-  border-radius: 5px;
-  box-shadow: 1px 1px 1px rgb(49, 49, 49);
-  .fbicondiv{
-    background-color: white;
-    width: 30px;
-    height: 30px;
-    border: 2px solid #2f4574;
-    margin-right: 5px;
-    .fbicon{
-      width: 29px;
-      height: 29px;
-      color: #2f4574;
-    }
-  }
-  .fbtext{
-    color: white;
-    font-size: 14px ;
-    font-weight:700;
-    margin-top: 5px;
+  .eyeicon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
   }
 }
 
-.loginexistingdiv{
-  box-shadow: 0 2px 8px 4px rgba(0,0,0,0.2);
+.signin-btn {
+  background-color: #e07b00;
+  color: white;
+  border-radius: 20px;
+  padding: 8px;
+  width:150px;
+  border: none;
+  margin-top: 3px;
+  margin-left: 30px;
+  transition: 0.3s ease-in-out;
 }
-.cn{
-  margin-top: 20px;
-}
-.slsec{
-  margin-top: 20px;
-}
-.exsec{
-  margin-top: 20px;
-  width: 50%;
-}
-.cpt{
-  width: 100px;
+  .signin-btn:hover {
+    background: #e07b00;
+    transform: scale(1.05);
+  }
+
+
+@media (max-width: 480px) {
+  .card {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .login-header-title {
+    font-size: 20px;
+  }
+
+  .input-label {
+    font-size: 14px;
+  }
+
+  .form-control {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .signin-btn {
+    font-size: 16px;
+    padding: 8px;
+  }
 }

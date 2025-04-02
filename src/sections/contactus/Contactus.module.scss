@@ -2,13 +2,15 @@
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
-    // background: #f8f9fa; /* Sets a consistent background color */
+    background :white; /* Sets a consistent background color */
     border-radius: 8px;
-    background-image: url(../../images/contact_bg.jpg);
+    // background-image: url(../../images/contact_bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    margin-top: 40px;
+    box-shadow: 0 4px 20px rgba(255, 165, 0, 0.5);
   }
   
   .contactLeft,
@@ -65,17 +67,20 @@
   }
   
   .submitBtn {
-    background: #ff650f;
+    background-color: #e07b00;
     color: white;
-    padding: 10px 20px;
-    border: none;
     border-radius: 20px;
-    cursor: pointer;
-    width: 100%;
+    padding: 8px;
+    width:150px;
+    border: none;
+    margin-top: 3px;
+    margin-left: 100px;
+    transition: 0.3s ease-in-out;
   }
   
   .submitBtn:hover {
-    background: #e55c0d;
+    background: #e07b00;
+    transform: scale(1.05);
   }
   
   .recaptchaContainer {
@@ -91,7 +96,7 @@
       width: 100%;
     }
     .submitBtn {
-      width: 100%;
+      width: 50%;
     }
   }
   

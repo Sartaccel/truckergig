@@ -89,6 +89,7 @@ const Vendor: React.FC = (props) => {
         <>
             <ToastContainer
                 position="top-right"
+                
                 autoClose={1500}
                 hideProgressBar={false}
                 newestOnTop={false}
@@ -98,75 +99,64 @@ const Vendor: React.FC = (props) => {
                 draggable
                 pauseOnHover
             />
-            <div className="container">
-                <div>
-                    <h1 className={`${styles["login-header-title"]} `}>Vendor Login</h1>
-                </div>
-                <div className="container">
-                    <div className="col-xl-12 col-12 ">
-                        <div className="row">
-                            <div className="col-xl-6 col-12">
-                                <div className={`${styles[""]}`}>
-                                    <form onSubmit={handleSubmit(onSubmitHandler)} id="formNewService">
-                                        <div>
-                                            <div>
-                                                <div className="row p-1">
-                                                    <div className={`${styles["login-form-text"]}`}>
-                                                        <label>Username</label>
-                                                        <sup className={`${styles["star"]} `}>*</sup>
-                                                    </div>
-                                                    <div className="">
-                                                        <input
-                                                            {...register("userName")}
-                                                            type="email"
-                                                            className={`form-control ${errors.userName ? "is-invalid" : ""
-                                                                }`}
-                                                        />
-                                                        <div className="invalid-feedback">
-                                                            {errors.userName?.message}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="row p-1">
-                                                    <div className={`${styles["login-form-text"]}`}>
-                                                        <label>Password</label>
-                                                        <sup className={`${styles["star"]} `}>*</sup>
-                                                    </div>
-                                                    <div className="">
-                                                        <input
-                                                            {...register("password")}
-                                                            type={password}
-                                                            className={`form-control ${errors.password ? "is-invalid" : ""
-                                                                }`}
-                                                        />
-                                                        <span className='eyeicon'><i onClick={show} className={icon}></i></span>
-                                                        <div className="invalid-feedback">
-                                                            {" "}
-                                                            {errors.password?.message}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col p-3">
-                                                <button
-                                                    type="submit"
-                                                    className={`${styles["signin-btn"]} `}
-                                                >
-                                                    Sign In
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          
+          <div className={styles.card} style={{ overflow: "hidden" }}>
+      <div className={styles["login-header"]}>
+        <h1 className={styles.header} >Vendor Login</h1>
+      </div>
+
+      <div className={styles.container}>
+        <form onSubmit={handleSubmit(onSubmitHandler)} id="formNewService">
+          <div className={styles["input-wrapper"]}>
+            <label className={styles["input-label"]}>Username</label>
+            <input 
+              {...register("userName")}
+              type="email"
+              onBlur={(e) => {
+                e.target.style.borderColor = ""; // Reset border color on blur
+                e.target.style.boxShadow = ""; // Reset box shadow on blur
+                }}
+                onFocus={(e) => {
+                e.target.style.borderColor = "#ff8c00"; // Orange border on focus
+                e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
+                }}
+              className={`form-control ${errors.userName ? "is-invalid" : ""}`}
+            />
+            <div className={styles["invalid-feedback"]}>{errors.userName?.message}</div>
+          </div>
+
+          <div className={styles["input-wrapper"]}>
+            <label className={styles["input-label"]}>Password</label>
+            <div className={styles["password-container"]}>
+              <input 
+                {...register("password")}
+                type={password} 
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; // Reset border color on blur
+                  e.target.style.boxShadow = ""; // Reset box shadow on blur
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; // Orange border on focus
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
+                  }}
+                className={`form-control ${errors.password ? "is-invalid" : ""}`}
+              />
+              <span className={styles.eyeicon} style={{ cursor: "pointer" }} onClick={show}>
+                <i className={icon}></i>
+              </span>
             </div>
+            <div className={styles["invalid-feedback"]}>{errors.password?.message}</div>
+          </div>
+
+          <button type="submit" className={styles["signin-btn"]}>Sign In</button>
+        </form>
+      </div>
+    </div>
+    
+            
+                    
+                
+           
         </>
     );
 };

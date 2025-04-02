@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import router from "next/router"
 import TiSocialFacebookCircular from "react-icons/ti";
 import urls from "../../utilities/AppSettings";
+import styles from "../Customer/Login.module.scss"
 
 export default function FacebookLogin(props) {
 
@@ -58,16 +59,36 @@ export default function FacebookLogin(props) {
 
   return (
     <>
-      <ReactFacebookLogin
-        icon="fa-facebook"
-        textButton={props.isformlogin ? "Login with Facebook" : ""}
-        appId="347743046916982"
-        autoLoad={false}
-        scope="public_profile,email"
-        fields="name,email,picture"
-        callback={onResponse}
-        onFailure={onFailures}
-      />
+    <ReactFacebookLogin
+  icon="fa-facebook"
+  textButton="Sign in with Facebook"
+  size="small"
+  appId="347743046916982"
+  autoLoad={false}
+  scope="public_profile,email"
+  fields="name,email,picture"
+  callback={onResponse}
+  onFailure={onFailures}
+  // cssClass=""
+  // style={{
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   width: "100%",
+  //   maxWidth: "250px",
+  //   padding: "10px",
+  //   fontSize: "14px",
+  //   borderRadius: "4px",
+  //   border: "1px solid #ccc",
+  //   backgroundColor: "white",
+  //   color: "black",
+  //   // boxShadow: "0 1px 3px rgba(0, 0, 0, 0.2)",
+  //   fontWeight: "bold",
+  //   // cursor: "pointer",
+  // }}
+/>
+
+
     </>
   );
 }
