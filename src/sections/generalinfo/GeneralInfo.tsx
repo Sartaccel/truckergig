@@ -319,6 +319,7 @@ import urls from "../../utilities/AppSettings";
 import styles from './GeneralInfo.module.scss';
 
 
+
 const schema = yup.object().shape({
 	lastName: yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid name').min(2).max(24).required(),
 	firstName: yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid name').min(2).max(24).required(),
@@ -524,45 +525,84 @@ const Candidateregister: React.FC = () => {
 		<>
 			<ToastContainer position="top-right" autoClose={1500} hideProgressBar={false} newestOnTop={false}
 				closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-			<div className='row p-2'>
+			<div className='row p-2' >
 				<div className='col'>
-					{/* <Breadcrumb>
+					<Breadcrumb>
 						<Breadcrumb.Item href="/">Home</Breadcrumb.Item>
 						<Breadcrumb.Item active>Driver Registration</Breadcrumb.Item>
-					</Breadcrumb> */}
+					</Breadcrumb>
 				</div>
 			</div>
-			<div className={`${styles["container"]} container`}>
+			<div>
 				<form onSubmit={handleSubmit(onSubmitHandler)}>
-					<div className="row">
-						<div className="col-12">
-							<h4 className={`${styles["name"]}`} >Driver Registration</h4>
-							
-						</div>
-					</div>
-					<div className="row">
-    <div className="col-xl-8">
+				<div className="row">
+    <div className="col-xl-6">
         <div className="row">
             <div className={styles.card}>
+                {/* Moved "Driver Registration" inside the card */}
+                <h4 className={`${styles["name"]}`}>Driver Registration</h4>
+
                 <div className="row">
                     <div className="col-md-6">
-					<label  className={styles.formLabel}>Suffix</label>
-                        <select {...register("suffix")} name="suffix" className="form-select">
+                        <label className={styles.formLabel}>Suffix</label>
+                        <select
+                            {...register("suffix")}
+                            name="suffix"
+                            className="form-select"
+                            onFocus={(e) => {
+                                e.target.style.borderColor = "#ff8c00"; 
+                                e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                            }}
+                            onBlur={(e) => {
+                                e.target.style.borderColor = ""; 
+                                e.target.style.boxShadow = "none"; 
+                            }}
+                        >
                             <option value="selectedsuffix" selected>Select Suffix</option>
                             <option value="mr">Mr.</option>
                             <option value="mrs">Mrs.</option>
                         </select>
+                    
+
+
                         <label className={styles.formLabel}>First Name</label><sup className="star">*</sup>
-                        <input {...register("FirstName")} name="firstName" type="text" placeholder="Enter your first name" className={`form-control ${errors.firstName ? "is-invalid" : ""}`} />
+                        <input {...register("FirstName")} name="firstName" 
+						//  onBlur={(e) => {
+						// 	e.target.style.borderColor = ""; 
+						// 	e.target.style.boxShadow = ""; 
+						//   }}
+						//   onFocus={(e) => {
+						// 	e.target.style.borderColor = "#ff8c00"; 
+						// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+						//   }}
+						  type="text" placeholder="Enter your first name" className={`${styles.inputField} form-control ${errors.firstName ? "is-invalid" : ""}`} />
                         <div className="invalid-feedback">{errors.firstName?.message}</div>
                         
                         
                         
                         <label className={styles.formLabel}>Middle Name</label>
-                        <input {...register("middleName")} name="middleName" type="text" placeholder="Enter your middle name" className="form-control" />
+                        <input {...register("middleName")} name="middleName" type="text"
+						 onBlur={(e) => {
+							e.target.style.borderColor = ""; 
+							e.target.style.boxShadow = ""; 
+						  }}
+						  onFocus={(e) => {
+							e.target.style.borderColor = "#ff8c00"; 
+							e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+						  }} 
+						  placeholder="Enter your middle name" className="form-control" />
 
 						<label className={styles.formLabel}>Last Name</label><sup className="star">*</sup>
-                        <input {...register("lastName")} name="lastName" type="text" placeholder="Enter your last name" className={`form-control ${errors.lastName ? "is-invalid" : ""}`} />
+                        <input {...register("lastName")} name="lastName" type="text"
+						//  onBlur={(e) => {
+						// 	e.target.style.borderColor = "";
+						// 	e.target.style.boxShadow = ""; 
+						//   }}
+						//   onFocus={(e) => {
+						// 	e.target.style.borderColor = "#ff8c00"; 
+						// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+						 // }} 
+						  placeholder="Enter your last name" className={` ${styles.inputField} form-control ${errors.lastName ? "is-invalid" : ""}`} />
                         <div className="invalid-feedback">{errors.lastName?.message}</div>
                         
                         
@@ -570,15 +610,42 @@ const Candidateregister: React.FC = () => {
 
                     <div className="col-md-6">
                         <label className={styles.formLabel}>Email</label><sup className="star">*</sup>
-                        <input {...register("email")} name="email" type="email" placeholder="Enter your email" className={`form-control w-100 ${errors.email ? "is-invalid" : ""}`} />
+                        <input {...register("email")} name="email" type="email" 
+						//  onBlur={(e) => {
+						// 	e.target.style.borderColor = ""; 
+						// 	e.target.style.boxShadow = ""; 
+						//   }}
+						//   onFocus={(e) => {
+						// 	e.target.style.borderColor = "#ff8c00"; 
+						// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+						  //}}
+						  placeholder="Enter your email" className={`${styles.inputField} form-control w-100 ${errors.email ? "is-invalid" : ""}`} />
                         <div className="invalid-feedback">{errors.email?.message}</div>
                         
                         <label className={styles.formLabel}>Phone Number</label><sup className="star">*</sup>
                         <div className="input-group">
-                            <div className="w-50">
-                                <Select options={types} placeholder="Country" onChange={(value, { action }) => handleChange(value, action)} className="srcgap" />
+                            <div className="w-30">
+                                <Select options={types} placeholder="Country"   styles={{
+									control: (base, state) => ({
+									  ...base,
+									  borderColor: state.isFocused ? "#ff8c00" : base.borderColor,
+									  boxShadow: state.isFocused ? "0 0 5px rgba(255, 140, 0, 0.5)" : "none",
+									  "&:hover": {
+										borderColor: "#ff8c00",
+									  },
+									}),
+								  }}onChange={(value, { action }) => handleChange(value, action)} className="srcgap" style={{width:"300px"}} />
                             </div>
-                            <input {...register("phoneNumber")} name="phoneNumber" type="number" placeholder="Enter your phone number" className={`form-control w-50 ${errors.phoneNumber ? "is-invalid" : ""}`} onChange={(e) => setmobile(e.target.value)} />
+                            <input {...register("phoneNumber")} name="phoneNumber" type="number"
+							//  onBlur={(e) => {
+							// 	e.target.style.borderColor = ""; 
+							// 	e.target.style.boxShadow = ""; 
+							//   }}
+							//   onFocus={(e) => {
+							// 	e.target.style.borderColor = "#ff8c00"; 
+							// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+							  //}}
+							   placeholder="Enter your phone number" className={`${styles.inputField} form-control w-50 ${errors.phoneNumber ? "is-invalid" : ""}`} onChange={(e) => setmobile(e.target.value)} />
                         </div>
                         <div className="invalid-feedback">{errors.phoneNumber?.message}</div>
 
@@ -587,16 +654,23 @@ const Candidateregister: React.FC = () => {
                         {licensetypeHidden && (
                             <div className="pt-2">
                                 <label className={styles.formLabel}>License Type</label>
-                                <Select options={license} value={licensetype} placeholder="License Type" className="srcgap" onChange={handleChangeLicense} />
+                                <Select options={license} value={licensetype} placeholder="License Type" className="srcgap" onChange={handleChangeLicense}  styles={{
+									control: (base, state) => ({
+									  ...base,
+									  borderColor: state.isFocused ? "#ff8c00" : base.borderColor,
+									  boxShadow: state.isFocused ? "0 0 5px rgba(255, 140, 0, 0.5)" : "none",
+									  "&:hover": {
+										borderColor: "#ff8c00",
+									  },
+									}),
+								  }} />
                             </div>
                         )}
+
+					
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+				
 <div className="text-center mt-1">
   {(disableRegister == true) ? (
     <button type="submit" disabled={disableRegister}className={`${styles["reg-btn-disable"]}`} >Register</button>
@@ -605,6 +679,19 @@ const Candidateregister: React.FC = () => {
 	>Register</button>
   )}
 </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+{/* <div className="text-center mt-1">
+  {(disableRegister == true) ? (
+    <button type="submit" disabled={disableRegister}className={`${styles["reg-btn-disable"]}`} >Register</button>
+  ) : (
+    <button type="submit" disabled={disableRegister} className={`${styles["reg-btn"]} `}
+	>Register</button>
+  )}
+</div>  */}
 				</form>
 				<Modal show={show} onHide={handleClose}>
 					<Modal.Header closeButton>
@@ -614,6 +701,14 @@ const Candidateregister: React.FC = () => {
 						<form onSubmit={(e) => handleOtpSubmit(e)}>
 							<label>OTP</label><br />
 							<input name="otp" type="number" className="form-control" placeholder="Enter your OTP" onChange={(e) => setverify(e.target.value)}
+							 onBlur={(e) => {
+								e.target.style.borderColor = ""; 
+								e.target.style.boxShadow = "";
+							  }}
+							  onFocus={(e) => {
+								e.target.style.borderColor = "#ff8c00"; 
+								e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+							   }}
 							/>
 							<div className="text-center">
 								<button type="submit" className="reg-btn">Verify</button>

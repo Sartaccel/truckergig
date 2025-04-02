@@ -11,7 +11,7 @@ import Select from "react-select";
 import Dropdown from "react-bootstrap/Dropdown";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import urls from "../../utilities/AppSettings";
-
+import styles from "./Serviceregistration.module.scss";
 
 
 const schema = yup.object().shape({
@@ -20,8 +20,8 @@ const schema = yup.object().shape({
 	// externalUrl: yup.string().min(2).max(24).required(),
 	title: yup.string().required("Title is required").min(2, "Title must have atleast 2 characters").max(50, "Title should not exceed 50 characters"),
 	shortDescription: yup.string().required("Description is required").min(2, "Description must have atleast 2 characters").max(250, "Title should not exceed 250 characters"),
-	emailAddress: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, "Email is not valid"),
-	externalUrl: yup.string().matches(/^(ftp|https?):\/\/+(www\.)?[a-z0-9\-\.]{3,}\.[a-z]{3}$/, "Url is not valid"),
+	emailAddress: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/, "Email is not valid"),
+	externalUrl: yup.string().matches(/^(ftp|https?):\/\/+(www\.)?[a-z0-9\-\.]{3,}\.[a-z]{3}$/, "Url is not valid"),
 });
 
 
@@ -242,47 +242,97 @@ const Serviceregistration: React.FC = () => {
 			<div className="container">
 				<form onSubmit={handleSubmit(onSubmitHandler)}>
 					<div className="row">
+					
 						<div className="col-12">
-							<h4 className="register">Service Registration</h4>
-							<hr className="register-hr"></hr>
+							
+							
 						</div>
 					</div>
 					<div className="row">
-						<div className="col-xl-8">
+						<div className="col-xl-11">
+							 <div className={styles.card}>
+							 <h4  className={`${styles["name"]}`}>Service Registration</h4>
 							<div className="row">
 								<div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-2">
-									<label>Email</label><sup className="star">*</sup>
-									<input {...register("emailAddress")} name="emailAddress" type="email" placeholder="Enter your email" className={`form-control ${errors.emailAddress ? "is-invalid" : ""}`} 
+									<label className={styles.formLabel}>Email</label><sup className="star">*</sup>
+									<input {...register("emailAddress")} name="emailAddress" type="email"
+									//  onBlur={(e) => {
+									// 	e.target.style.borderColor = "";
+									// 	e.target.style.boxShadow = ""; 
+									//   }}
+									//   onFocus={(e) => {
+									// 	e.target.style.borderColor = "#ff8c00"; 
+									// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+									//   }} 
+									placeholder="Enter your email" className={`${styles.inputField} form-control ${errors.emailAddress ? "is-invalid" : ""}`} 
 									value={email} onChange={ e => setemail(e.target.value)}/>
-									<div className="invalid-feedback">{errors.emailAddress?.message}</div><br />
-									<label>Service Name</label><sup className="star">*</sup>
-									<input {...register("title")} name="title" type="text" placeholder="Enter the name of your service" className={`form-control ${errors.title ? "is-invalid" : ""}`} 
+									<div className="invalid-feedback">{errors.emailAddress?.message}</div>
+									<label className={styles.formLabel}>Service Name</label><sup className="star">*</sup>
+									<input {...register("title")} name="title" type="text"
+									//  onBlur={(e) => {
+									// 	e.target.style.borderColor = ""; 
+									// 	e.target.style.boxShadow = ""; 
+									//   }}
+									//   onFocus={(e) => {
+									// 	e.target.style.borderColor = "#ff8c00"; 
+									// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+									//   }} 
+									  placeholder="Enter the name of your service" className={`${styles.inputField} form-control ${errors.title ? "is-invalid" : ""}`} 
 									value={servicename} onChange={ e => setservicename(e.target.value)}/>
-									<div className="invalid-feedback">{errors.title?.message}</div><br />
-									<label>Service Description</label><sup className="star">*</sup>
-									<input {...register("shortDescription")} name="shortDescription" type="text" placeholder="Enter your service description" className={`form-control ${errors.shortDescription ? "is-invalid" : ""} pt-2 `} 
-									value={description} onChange={ e => setdescription(e.target.value)}/>
-									<div className="invalid-feedback">{errors.shortDescription?.message}</div><br />
+									<div className="invalid-feedback">{errors.title?.message}</div>
+									<label className={styles.formLabel}>Service Description</label>
+            <sup className="star">*</sup>
+
+            <input 
+                {...register("shortDescription", { required: "This field is required" })} 
+                name="shortDescription" 
+                type="text"
+                placeholder="Enter your service description"
+                className={`${styles.inputField} form-control ${errors.shortDescription ? "is-invalid" : ""}`}  
+                value={description} 
+                onChange={(e) => setdescription(e.target.value)}
+            />
+
+            <div className="invalid-feedback">{errors.shortDescription?.message}</div>
 									{/* <div className="pb-3"></div> */}
-									<label>Company Website URL</label><sup className="star">*</sup>
+									<label className={styles.formLabel}>Company Website URL</label><sup className="star">*</sup>
 									<Select {...register("redirect")} name="redirect" options={ExternalUrl} placeholder="Company Website URL" className={` ${errors.redirect ? "is-invalid" : ""} pt-2 `}
 										value={selectedExternal}
+										 styles={{
+																			control: (base, state) => ({
+																			  ...base,
+																			  borderColor: state.isFocused ? "#ff8c00" : base.borderColor,
+																			  boxShadow: state.isFocused ? "0 0 5px rgba(255, 140, 0, 0.5)" : "none",
+																			  "&:hover": {
+																				borderColor: "#ff8c00",
+																			  },
+																			}),
+																		  }}
 										onChange={(value, { action }) =>
 											handleChangeCategoy(value, action, "external")
 										}
 									/>
-									<br />
+									
 
 
 									{showText ? (
-										<div>
+										<div style={{marginBottom:"3px"}}>
 
-											<label>Website URL</label><sup className="star">*</sup>
+											<label className={styles.formLabel}>Website URL</label><sup className="star" >*</sup>
 											<input {...register("externalUrl")}
 												name="externalUrl"
 												type="text"
+												// onBlur={(e) => {
+												// 	e.target.style.borderColor = ""; 
+												// 	e.target.style.boxShadow = ""; 
+												//   }}
+												//   onFocus={(e) => {
+												// 	e.target.style.borderColor = "#ff8c00"; 
+												// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+												//   }}
 												placeholder="Enter external  Url with http/https"
-												className={`form-control ${errors.externalUrl ? "is-invalid" : ""}`} />
+												
+												className={`${styles.inputField} form-control ${errors.externalUrl ? "is-invalid" : ""} `} />
 											<div className="invalid-feedback">{errors.externalUrl?.message}</div><br />
 										</div>
 									) : null}
@@ -295,41 +345,78 @@ const Serviceregistration: React.FC = () => {
                                     />
                                 </div> */}
 								<div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-2">
-									<div className="pt-2">
-										<label>Service Category</label><sup className="star">*</sup>
+									
+										<label className={styles.formLabel}>Service Category</label><sup className="star">*</sup>
 										<Select options={dropdown} value={selectedOption} placeholder="Choose your Service Category" className="srcgap"
+										 styles={{
+																			control: (base, state) => ({
+																			  ...base,
+																			  borderColor: state.isFocused ? "#ff8c00" : base.borderColor,
+																			  boxShadow: state.isFocused ? "0 0 5px rgba(255, 140, 0, 0.5)" : "none",
+																			  "&:hover": {
+																				borderColor: "#ff8c00",
+																			  },
+																			}),
+																		  }}
 
 											onChange={(value, { action }) =>
 												handleChangeCategoy(value, action, "ServiceCategory")
 											}
 										/>
-									</div>
-									<div className="pt-2">
-										<label>Service Sub Category</label>
+									
+									
+										<label className={styles.formLabel} style={{marginTop:"1px"}}>Service Sub Category</label>
 										<Select options={child} value={selectedOptionChild} placeholder="Choose your Service Sub Category" className="srcgap"
+										 styles={{
+																			control: (base, state) => ({
+																			  ...base,
+																			  borderColor: state.isFocused ? "#ff8c00" : base.borderColor,
+																			  boxShadow: state.isFocused ? "0 0 5px rgba(255, 140, 0, 0.5)" : "none",
+																			  "&:hover": {
+																				borderColor: "#ff8c00",
+																			  },
+																			}),
+																		  }}
 											onChange={(value, { action }) =>
 												handleChangeCategoy(value, action, "ServiceSubCategory")
 											}
 										/>
-									</div>
-									<label>Upload your Logo</label><sup className="star">*</sup>
+									
+									
+									<label className={styles.formLabel} style={{marginTop:"1px"}}>Upload your Logo</label><sup className="star">*</sup>
 									<input id="logoFile" name="logoFile" type="file"
+									 onBlur={(e) => {
+										e.target.style.borderColor = ""; 
+										e.target.style.boxShadow = "";
+									  }}
+									  onFocus={(e) => {
+										e.target.style.borderColor = "#ff8c00"; 
+										e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+									  }}
 
 										onChange={(e) => setselectedFile(e.target.value)}
 										className={`form-control ${errors.logoFile ? "is-invalid" : ""}`} />
-									<div className="invalid-feedback">{errors.logoFile?.message}</div><br />
-									<label className="file-type">Maximum allowed file size: 2 MB</label><br />
+									<div className="invalid-feedback ">{errors.logoFile?.message}</div>
+									<label className="file-type " style={{marginTop:"6px"}}>Maximum allowed file size: 2 MB</label><br />
 									<label className="file-type">Allowed formats: .jpeg, .jpg, .png, .bmp</label>
 
 								</div>
+							
 							</div>
+							<div className="text-center mt-1">
+							{email && servicename && description && selectedExternal && selectedOption && selectedFile?
+						<button type="submit" className={`${styles["reg-btn"]} `}>Register</button>
+						:
+						<button type="submit" className={`${styles["reg-btn-disable"]}`} disabled>Register</button>}
+						</div>
 						</div>
 					</div>
 					{/* <button type="submit" className="reg-btn">Register</button> */}
-					{email && servicename && description && selectedExternal && selectedOption && selectedFile?
-						<button type="submit" className=" reg-btn">Register</button>
+					{/* {email && servicename && description && selectedExternal && selectedOption && selectedFile?
+						<button type="submit" className={`${styles["reg-btn"]} `}>Register</button>
 						:
-						<button type="submit" className="reg-btn-disable" disabled>Register</button>}
+						<button type="submit" className={`${styles["reg-btn-disable"]}`} disabled>Register</button>} */}
+						</div>
 				</form>
 
 			</div >
@@ -338,3 +425,5 @@ const Serviceregistration: React.FC = () => {
 };
 
 export default Serviceregistration;
+
+
