@@ -1,6 +1,8 @@
 import React, { useState, useEffect, createRef, useRef } from "react";
 import styles from "./Landing.module.scss";
 import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import Carousel from "react-bootstrap/Carousel";
 import "bootstrap/dist/css/bootstrap.css";
 import Link from "next/link";
@@ -33,6 +35,11 @@ const Landing: React.FC = () => {
   const handleShow = () => setShow(true);
 
   const summaryRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    AOS.init({ duration: 1000,
+     });
+  }, []);
   
   useEffect(() => {
     axios
@@ -176,11 +183,6 @@ const Landing: React.FC = () => {
     ],
   };
 
-  const bottomSettings = {
-    ...settings,
-    rtl: true,
-  };
-
   return (
     <>
       <Modal
@@ -189,14 +191,6 @@ const Landing: React.FC = () => {
         show={show}
         onHide={handleClose}
       >
-        {/* <IoIcons.IoIosClose
-          size="25"
-          className={`${styles["summary-close"]} `}
-          onClick={handleClose}
-        /> */}
-        {/* <Modal.Title className={`${styles["summary-title"]} `}>
-          Greetings from TruckerGIG
-        </Modal.Title> */}
         <Modal.Body>
           <img
             className={`${styles["popup-greet"]} `}
@@ -214,10 +208,10 @@ const Landing: React.FC = () => {
               <Carousel.Item interval={6000}>
                 <img
                   className={`${styles["img-width"]} d-block w-100`}
-                  src="../../images/New_Home.jpg"
+                  src="../../images/Newslider-03.jpg"
                   alt="first-slide"
                 />
-                {/* <Carousel.Caption> */}
+
                 <div className={`${styles["inner"]}`}>
                   <h1 className={`${styles["welcome-title"]}`}>
                     Welcome to{" "}
@@ -236,15 +230,15 @@ const Landing: React.FC = () => {
                     </Link>
                   </div>
                 </div>
-                {/* </Carousel.Caption> */}
+
               </Carousel.Item>
               <Carousel.Item interval={6000}>
                 <img
                   className={`${styles["img-width"]} d-block w-100`}
-                  src="../../images/Newslider-03.jpg"
+                  src="../../images/home22.jpg"
                   alt="second-slide"
                 />
-                {/* <Carousel.Caption> */}
+
                 <div className={`${styles["inner"]}`}>
                   <h1 className={`${styles["welcome-title"]}`}>
                     Welcome to{" "}
@@ -264,15 +258,15 @@ const Landing: React.FC = () => {
                     </Link>
                   </div>
                 </div>
-                {/* </Carousel.Caption> */}
+
               </Carousel.Item>
               <Carousel.Item interval={6000}>
                 <img
                   className={`${styles["img-width"]} d-block w-100`}
-                  src="../../images/home22.jpg"
+                  src="../../images/New_Home.jpg"
                   alt="third-slide"
                 />
-                {/* <Carousel.Caption> */}
+
                 <div className={`${styles["inner"]}`}>
                   <h1 className={`${styles["welcome-title"]}`}>
                     Welcome to{" "}
@@ -290,93 +284,24 @@ const Landing: React.FC = () => {
                     </Link>
                   </div>
                 </div>
-                {/* </Carousel.Caption> */}
+
               </Carousel.Item>
             </Carousel>
           </div>
         </div>
       </div>
-      {/* <div className="container">
-        <h5 className={`${styles["section-title"]}`}>Summary</h5>
-        <div className="row">
-          <div className="col-12 col-lg-6">
-            <div
-              className={`${styles["summary-tab"]} ${styles["leftanime-tab"]}`}
-            >
-              <h3>{vendors}+</h3>
-              <h5>Vendors Onboarded</h5>
-            </div>
-          </div>
-          <div className="col-12 col-lg-6">
-            <div
-              className={`${styles["summary-tab"]} ${styles["rightanime-tab"]}`}
-            >
-              <h3>{carriers}+</h3>
-              <h5>Carriers Connected</h5>
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-12 col-lg-6">
-            <div
-              className={`${styles["summary-tab"]} ${styles["leftanime-tab"]}`}
-            >
-              <h3>{jobs}+</h3>
-              <h5>Jobs Available</h5>
-            </div>
-          </div>
-          <div className="col-12 col-lg-6">
-            <div
-              className={`${styles["summary-tab"]} ${styles["rightanime-tab"]}`}
-            >
-              <h3>{candidates}+</h3>
-              <h5>Drivers Onboarded</h5>
-            </div>
-          </div>
-        </div>
-      </div> */}
-      <div className="container">
-        <h5 className={`${styles["section-title"]}`}>Summary</h5>
-        <div className="row" ref={summaryRef}>
-          <div className="col-12 col-lg-4">
-            <div
-              className={`${styles["summary-tab"]}`}
-            >
-              <h3>{vendors}+</h3>
-              <h5>Vendors Onboarded</h5>
-            </div>
-          </div>
-          <div className="col-12 col-lg-4">
-            <div
-              className={`${styles["summary-tab"]}`}
-            >
-              <h3>{carriers}+</h3>
-              <h5>Carriers Connected</h5>
-            </div>
-          </div>
-          <div className="col-12 col-lg-4">
-            <div
-              className={`${styles["summary-tab"]}`}
-            >
-              <h3>{candidates}+</h3>
-              <h5>Drivers Onboarded</h5>
-            </div>
-          </div>
-        </div>
-      </div>
  
-    <div className="container-fluid service-tab landing-service">
+    <div className="container-fluid service-tab landing-service" data-aos="fade-up">
       <h5 className={styles["section-title"]}>Marketplace</h5>
       <div className="row">
-        {/* Dispatch Services Card */}
-        <div className="col-md-6 col-lg-4 p-0 m-0  d-flex justify-content-center">
+
+        <div className="col-md-6 col-lg-4 p-0 m-0 d-flex justify-content-center">
           <div className={styles.card}>
             <img className={styles["card-img"]} src="/images/marketplace_1.jpg" alt="dispatch-logo"/>
             <div className={styles.overlay}>
               <h3 className={styles.cardheading}>Dispatch Services</h3>
            </div>
-            {/* Hidden Inner Card */}
+
             <div className={styles["inner-card"]}>
 
             <div className={styles["card-inside"]} style={{ maxWidth: "280px" }}>
@@ -396,8 +321,7 @@ const Landing: React.FC = () => {
           </div>
         </div>
 
-        {/* Carrier and Driver Onboarding Card */}
-        <div className="col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
+        <div className="col-md-6 col-lg-4 mb-4 d-flex  p-0 m-0 justify-content-center">
           <div className={styles.card}>
             <img className={styles["card-img"]} src="/images/marketplace_2.jpg" alt="driver-logo" />
             <div className={styles.overlay}>
@@ -420,8 +344,7 @@ const Landing: React.FC = () => {
           </div>
         </div>
 
-        {/* Marketplace Card */}
-        <div className="col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
+        <div className="col-md-6 col-lg-4 mb-4 d-flex  p-0 m-0 justify-content-center">
           <div className={styles.card}>
             <img className={styles["card-img"]} src="/images/marketplace_3.jpg" alt="service-logo" />
             <div className={styles.overlay}>
@@ -445,6 +368,66 @@ const Landing: React.FC = () => {
         </div>
       </div>
     </div>
+
+    <div className="container">
+  <h5 className={`${styles["section-title"]}`}>Summary</h5>
+  <div className="row align-items-center">
+    
+    <div className="col-12 col-lg-3">
+      <div className={`${styles["summary-tab"]}`}>
+        <h3>{vendors}+</h3>
+        <h5>Vendors Onboarded</h5>
+      </div>
+      <div className={`${styles["summary-tab"]}`}>
+        <h3>{carriers}+</h3>
+        <h5>Carriers Connected</h5>
+      </div>
+      <div className={`${styles["summary-tab"]}`}>
+        <h3>{candidates}+</h3>
+        <h5>Drivers Onboarded</h5>
+      </div>
+    </div>
+
+    <div className="col-12 col-lg-4 text-center">
+      <img
+        src="/images/summary.jpg"
+        alt="summary image"
+        className={`${styles["summary-image"]}`}
+      />
+    </div>
+
+    <div className="col-12 col-lg-5">
+      <div className={`${styles["summary-feature"]}`}>
+        <div className={`${styles["feature-icon"]}`}>
+          <i className="bi bi-box-seam"></i>
+        </div>
+        <div>
+          <h5> Vendors Onboarded</h5>
+          <p>Expanding business networks with seamless onboarding.</p>
+        </div>
+      </div>
+      <div className={`${styles["summary-feature"]}`}>
+        <div className={`${styles["feature-icon"]}`}>
+          <i className="bi bi-truck"></i>
+        </div>
+        <div>
+          <h5>Carriers Connected</h5>
+          <p>Enhancing freight movement with a vast carrier network.</p>
+        </div>
+      </div>
+      <div className={`${styles["summary-feature"]}`}>
+        <div className={`${styles["feature-icon"]}`}>
+          <i className="bi bi-person-badge-fill"></i>
+        </div>
+        <div>
+          <h5>Drivers Onboarded</h5>
+          <p>Connecting drivers to better jobs and secure earnings.</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
 
 
       {/* <div className="container-fluid service-tab">
@@ -715,70 +698,11 @@ const Landing: React.FC = () => {
             </div>
           </div>  */}
 
-      <div className="container-fluid">
+      <div className="container-fluid" data-aos="fade-up" style={{marginTop:"70px"}}>
         <div className="row partners">
           <h5 className={`${styles["section-title"]}`}>Our Partners</h5>
 
           <Slider {...settings}>
-          <div className={`${styles["partner-tab"]}`}>
-              <img
-                className={`${styles["service-icon"]}`}
-                src="/images/DexFreight TP.png"
-                alt="dexfreight-logo"
-              />
-            </div>
-            <div className={`${styles["partner-tab"]}`}>
-              <img
-                className={`${styles["service-icon"]}`}
-              src="/images/Kale Logistics TP.png"
-              alt="kale-logo"
-            />
-          </div>
-          <div className={`${styles["partner-tab"]}`}>
-            <img
-              className={`${styles["service-icon"]}`}
-              src="/images/ORT TP.png"
-              alt="OTR Solutions-logo"
-            />
-          </div>
-          <div className={`${styles["partner-tab"]}`}>
-            <img
-              className={`${styles["service-icon"]}`}
-              src="/images/qBotica TP.png"
-              alt="qbotica-logo"
-            />
-          </div>
-
-          <div className={`${styles["partner-tab"]}`}>
-            <img
-              className={`${styles["service-icon"]}`}
-              src="/images/Talent Turbo TP.png"
-              alt="Talent Turbo-logo"
-            />
-          </div>
-          <div className={`${styles["partner-tab"]}`}>
-            <img
-              className={`${styles["service-icon"]}`}
-              src="/images/teamone TP.png"
-              alt="Teamone Logistics-logo"
-            />
-          </div>
-
-          <div className={`${styles["partner-tab"]}`}>
-            <img
-              className={`${styles["service-icon"]}`}
-              src="/images/Trucker cloud TP.png"
-              alt="trucker-cloud-logo"
-            />
-          </div>
-        </Slider>
-        </div>
-      </div>
-
-      <div className="container-fluid">
-        <div className="row partners">
-
-          <Slider {...bottomSettings}>
           <div className={`${styles["partner-tab"]}`}>
               <img
                 className={`${styles["service-icon"]}`}
@@ -845,7 +769,7 @@ const Landing: React.FC = () => {
 
 <div className={styles["testimonials-container"]}>
       <h5 className={styles["section-title"]}>Testimonials</h5>
-      <div className={styles["review-section"]}>
+      <div className={styles["review-section"]} data-aos="fade-up">
         <div className={styles.reviewBox}>
           <div className={`${styles.review} ${styles.left}`}>
             <h3 className={styles["review-title"]}>Noah Oliver</h3>
