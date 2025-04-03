@@ -60,7 +60,7 @@ const Blognews: React.FC = () => {
         {/* <div className={styles.bigCard}> */}
           {/* <div className={styles.imageContainer}> */}
             <Image
-              src="/images/12.jpg"
+              src="/images/News.jpg"
               alt="Truck in Logistics"
               layout="fill"
               priority

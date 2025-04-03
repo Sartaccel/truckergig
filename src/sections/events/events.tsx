@@ -53,7 +53,7 @@ const Events: React.FC = () => {
    <div className={styles.container}>  {/* Added a container for spacing */}
       <div className={styles.eventHead}>
         <Image
-          src="/images/13.jpg"
+          src="/images/e.jpg"
           alt="Truck in Logistics"
           layout="fill"
           priority={false} 

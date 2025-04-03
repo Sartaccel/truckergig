@@ -36,6 +36,19 @@ const Topbar: React.FC = () => {
   const [hidden, setHidden] = useState(false);
   let lastScrollY = 0;
 
+  const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768); // Adjust breakpoint as needed
+  };
+
+  handleResize(); // Check on first load
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -133,7 +146,7 @@ const Topbar: React.FC = () => {
     <Navbar
       collapseOnSelect
       expand="lg"
-      className={`${router.pathname === "/" ? styles["navbar-fixed"] : styles["navbar-other"]}
+      className={`${styles[isMobile ? "navbar-other" : router.pathname === "/" ? "navbar-fixed" : "navbar-other"]}
       ${scrolled ? styles["scrolled"] : ""} ${hidden ? styles["hidden"] : ""}`}
     >
       <Container fluid className={`${styles["navbar-content"]}`}>
@@ -142,7 +155,7 @@ const Topbar: React.FC = () => {
             <a className={`${styles["navbar-brand"]} ${styles.logo}`}>
               <img
                 className="logo_image"
-                src="/images/logo_black.png"
+                src="/images/TruckerGIG_white.png"
                 alt="logo"
               />
             </a>
@@ -159,23 +172,23 @@ const Topbar: React.FC = () => {
           <Nav>
             <div className="navbar-nav">
               <Link href="/about">
-                <a href="#" className={`nav-link ${router.pathname==="/about" ? "active" : ""}`}>
+                <a href="#" className={`nav-link ${styles["navbar-color"]} ${router.pathname==="/about" ? "active" : ""}`}>
                   About Us
                 </a>
               </Link>
      
               <Link href="/marketplace">
-                <a href="#" className={`nav-link ${router.pathname==="/marketplace" ? "active" : ""}`}>
+                <a href="#" className={`nav-link  ${styles["navbar-color"]} ${router.pathname==="/marketplace" ? "active" : ""}`}>
                   Marketplace
                 </a>
               </Link>
               <Link href="/events">
-                <a href="#" className={`nav-link ${router.pathname==="/events" ? "active" : ""}`}>
+                <a href="#" className={`nav-link  ${styles["navbar-color"]} ${router.pathname==="/events" ? "active" : ""}`}>
                   Events
                 </a>
               </Link>
               <Link href="/blognews">
-                <a href="#" className={`nav-link ${router.pathname==="/blognews" || router.pathname === "/blognewsdetail" ? "active" : ""}`}>
+                <a href="#" className={`nav-link  ${styles["navbar-color"]} ${router.pathname==="/blognews" || router.pathname === "/blognewsdetail" ? "active" : ""}`}>
                   Blogs/News
                 </a>
               </Link>
@@ -185,7 +198,7 @@ const Topbar: React.FC = () => {
                     split
                     variant="Secondary"
                     id="dropdown-split-basic"
-                    className={`nav-link ${router.pathname==="/generalinfo"  || router.pathname==="/vendor"  ? "active" : ""}`}>
+                    className={`nav-link ${styles["navbar-color"]} ${router.pathname==="/generalinfo"  || router.pathname==="/vendor"  ? "active" : ""}`}>
                     Register
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
@@ -204,9 +217,16 @@ const Topbar: React.FC = () => {
 
               {!Ath ? (
                 <Link href="/customerlogin">
-                  <a href="#" className={`nav-link ${scrolled ? styles["scroll-login"] : ""}  login-link ${router.pathname==="/customerlogin" ? "active" : ""}`}>
+                  <a className={`${styles.getStartedButton} nav-link login-link ${router.pathname==="/customerlogin" ? "active" : ""}`}>
+          <span>Login</span>
+          <div className={styles["arrow-circle"]}>
+            <i className={`${styles["arrow-icon"]} bi bi-person-fill pl-1`}></i>
+          </div>
+          </a> 
+
+                  {/* <a href="#" className={`nav-link login-link ${router.pathname==="/customerlogin" ? "active" : ""}`}>
                     Login<i className="bi bi-person-fill pl-1"></i>
-                  </a>
+                  </a> */}
                 </Link>
               ) : (
                 <div>

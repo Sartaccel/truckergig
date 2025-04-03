@@ -4,16 +4,80 @@
   align-items: center;
   width: 100%;
 }
-.card {
-  max-width: 400px;
-  margin: auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(255, 165, 0, 0.5);
-  top: 30%;
-  margin-top: 50px;
+// .card {
+//   max-width: 400px;
+//   margin: auto;
+//   padding: 20px;
+//   background: #fff;
+//   border-radius: 10px;
+//   box-shadow: 0 4px 20px rgba(255, 165, 0, 0.5);
+//   top: 30%;
+//   margin-top: 50px;
+// }
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background:white;
 }
+
+.card {
+  display: flex;
+  width: 900px;
+  height: 400px;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 70px;
+  box-shadow: 0 4px 20px  rgb(206, 235, 247)}
+
+/* Left Side */
+.leftSection {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, rgb(0, 112, 156), rgb(110, 199, 234));
+  color: white;
+  padding: 2rem;
+}
+
+.leftSection h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.leftSection p {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* Right Side */
+.rightSection {
+  width: 50%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.signin-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: #6a11cb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signin-btn:hover {
+  background: #531dab;
+}
+
 .header{
   color: #000000;
   font-size: 30px;

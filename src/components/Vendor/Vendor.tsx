@@ -100,9 +100,18 @@ const Vendor: React.FC = (props) => {
                 pauseOnHover
             />
           
-          <div className={styles.card} style={{ overflow: "hidden" }}>
+          <div className={styles.wrapper}>
+  <div className={styles.card}>
+    {/* Left Side */}
+    <div className={styles.leftSection}>
+      <h1>Welcome back!</h1>
+      <p>You can sign in to access with your existing account.</p>
+    </div>
+
+    {/* Right Side - Your Existing Code (Unchanged) */}
+    <div className={styles.rightSection}>
       <div className={styles["login-header"]}>
-        <h1 className={styles.header} >Vendor Login</h1>
+        <h1 className={styles.header}>Vendor Login</h1>
       </div>
 
       <div className={styles.container}>
@@ -113,13 +122,13 @@ const Vendor: React.FC = (props) => {
               {...register("userName")}
               type="email"
               onBlur={(e) => {
-                e.target.style.borderColor = ""; // Reset border color on blur
-                e.target.style.boxShadow = ""; // Reset box shadow on blur
-                }}
-                onFocus={(e) => {
-                e.target.style.borderColor = "#ff8c00"; // Orange border on focus
-                e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
-                }}
+                e.target.style.borderColor = ""; 
+                e.target.style.boxShadow = ""; 
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = "#ff8c00"; 
+                e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+              }}
               className={`form-control ${errors.userName ? "is-invalid" : ""}`}
             />
             <div className={styles["invalid-feedback"]}>{errors.userName?.message}</div>
@@ -132,13 +141,13 @@ const Vendor: React.FC = (props) => {
                 {...register("password")}
                 type={password} 
                 onBlur={(e) => {
-                  e.target.style.borderColor = ""; // Reset border color on blur
-                  e.target.style.boxShadow = ""; // Reset box shadow on blur
-                  }}
-                  onFocus={(e) => {
-                  e.target.style.borderColor = "#ff8c00"; // Orange border on focus
-                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
-                  }}
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = ""; 
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                }}
                 className={`form-control ${errors.password ? "is-invalid" : ""}`}
               />
               <span className={styles.eyeicon} style={{ cursor: "pointer" }} onClick={show}>
@@ -152,6 +161,9 @@ const Vendor: React.FC = (props) => {
         </form>
       </div>
     </div>
+  </div>
+</div>
+
     
             
                     
