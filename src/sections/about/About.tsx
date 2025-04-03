@@ -7,6 +7,7 @@ import axios from "axios";
 import { Modal, Card } from "react-bootstrap";
 import * as IoIcons from "react-icons/io";
 import { FaCheckCircle } from "react-icons/fa";
+import Image from "next/image";
 
 const About: React.FC = () => {
   const [show, setShow] = useState(false);
@@ -115,11 +116,26 @@ const About: React.FC = () => {
       </div>
 
       <div className={`${styles["about-page"]} container pt-0`}>
+      <div className={styles.eventHead}>
+        <Image
+          src="/images/aboutus.jpg"
+          alt="Truck in Logistics"
+          layout="fill"
+          priority={false} 
+          className={styles.eventImage}
+        />
+        <div className={styles.overlay}>
+          <h2 className={styles.title}>ABOUT US</h2>
+          <p className={styles.description}>
+          Revolutionizing logistics with innovative solutions.
+          </p>
+        </div>
+      </div>
         <div className={`${styles["about-page"]} container pt-5`}>
           <div className="row align-items-center">
             {/* Content Section */}
             <div className={`col-12 col-lg-6 ${styles["fade-in-left"]}`}>
-              <div className={styles["section-subtitle"]}>ABOUT US</div>
+            <div className={styles["section-subtitle"]}>ABOUT US</div>
               <div className={styles["main-title"]}>
                 We Make Logistics Seamless
               </div>
