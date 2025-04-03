@@ -12,7 +12,7 @@
 }
 
 .footer-part {
-  background-color:#565353;
+  background: rgb(0, 112, 156);
   border-radius: 20px 20px 0 0;
   color: white;
 }
@@ -50,6 +50,7 @@
   .text-content {
     text-align: center;
     padding: 0.5rem;
+    margin-top: 30px;
 
     @media (min-width: 768px) {
       text-align: left;

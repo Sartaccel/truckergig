@@ -1,3 +1,8 @@
+.container, .row, .col {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .welcome-title{
     // margin-top: 100px;
     font-size: 60px;
@@ -201,40 +206,121 @@ display: -webkit-box;
   from {top: 0px;}
   to {top: 300px;}
 }
+
+// .summary-tab {
+//   display: flex;
+//   align-items: center;
+//   justify-content: flex-start; // Use flex-start instead of start
+//   background-color: #052F43;
+//   padding: 20px;
+//   border-radius: 10px;
+//   width: 100%;
+//   min-height: 150px;
+
+//   h3 {
+//     font-size: 60px;
+//     font-weight: bold;
+//     color: #f7941d;
+//     margin-right: 15px;
+//   }
+
+//   h5 {
+//     font-size: 18px;
+//     margin: 0;
+//     color: white;
+//   }
+
+//   // Responsive Design
+//   @media (max-width: 992px) {
+//     flex-direction: column;
+//     text-align: center;
+//     align-items: center; // Center items on mobile
+//     h3 {
+//       margin-right: 0;
+//       margin-bottom: 10px; // Adjust spacing for stacking
+//     }
+//   }
+// }
+
+.row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  flex-wrap: wrap;
+}
+
+.container {
+  max-width: 100vw; // Ensures it does not exceed viewport width
+  overflow-x: hidden; // Prevents horizontal scroll
+}
+
 .summary-tab {
+  background: #eff5fd;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  flex-grow: 1; // Makes all summary items equal height
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.summary-tab >h3 {
+  font-size: 2.7rem;
+  font-weight: 600;
+}
+
+.summary-image {
+  max-width: 100%;
+  height: 100%;
+  width: 100%;
+  max-height: 540px;
+  object-fit: cover; // Keeps image proportional inside the container
+  border-radius: 10px;
+}
+
+.summary-feature {
   display: flex;
   align-items: center;
-  justify-content: flex-start; // Use flex-start instead of start
-  background-color: #052F43;
-  padding: 20px;
-  border-radius: 10px;
-  width: 100%;
-  min-height: 150px;
+  gap: 10px;
+  padding: 30px;
+  background: #eff5fd;
+  border-bottom: 1px solid #ddd;
+  flex-grow: 1; // Makes all feature items equal height
+  min-height: 180px;
+}
 
-  h3 {
-    font-size: 60px;
-    font-weight: bold;
-    color: #f7941d;
-    margin-right: 15px;
-  }
+.summary-feature h5 {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
 
-  h5 {
-    font-size: 18px;
-    margin: 0;
-    color: white;
-  }
+.feature-icon {
+  width: 5rem;
+  height: 5rem;
+  background: #ffe5cc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: #ff8800;
+}
 
-  // Responsive Design
-  @media (max-width: 992px) {
+@media (max-width: 768px) {
+  .summary-feature {
     flex-direction: column;
-    text-align: center;
-    align-items: center; // Center items on mobile
-    h3 {
-      margin-right: 0;
-      margin-bottom: 10px; // Adjust spacing for stacking
-    }
+    padding: 20px;  // Reduce padding for mobile
+    min-height: auto; // Prevents forced extra height
+  }
+
+  .summary-tab {
+    min-height: auto; // Ensures they don't expand beyond necessary space
   }
 }
+
 
 
 // .summary-tab{
@@ -343,7 +429,7 @@ display: -webkit-box;
 
 .card {
   position: relative;
-  width: 385px;  /* Adjust width for portrait image */
+  width: 75%;  /* Adjust width for portrait image */
   height: 440px; /* Adjust height for better portrait display */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -625,14 +711,16 @@ max-width: 250px;
 
 .review-section {
   position: relative;
-  background: #ffca9813;
   margin-top: 50px;
+  background: #f7f7f7;
+  margin-bottom: 50px;
   padding-top: 60px;
+  padding-bottom: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 40px; /* Increased gap for better spacing */
-  height: 550px; /* Increased height */
+  height: fit-content; /* Increased height */
   border-radius: 20px;
 }
 
@@ -653,7 +741,7 @@ max-width: 250px;
 
 
 .left {
-  background-color: rgba(240, 240, 240, 0.884);
+  background: rgb(176, 213, 226);
   align-self: flex-start;
   text-align: left;
   transition: transform 0.3s ease-in-out;
@@ -665,7 +753,9 @@ max-width: 250px;
 }
 
 .center {
-  background-color: #f1952552;
+  background: rgb(0, 112, 156);
+  // background: rgb(176, 213, 226);
+  color: white;
   align-self: center;
   text-align: left;
   transition: transform 0.3s ease-in-out;
@@ -678,7 +768,7 @@ max-width: 250px;
 }
 
 .right {
-  background-color: rgba(240, 240, 240, 0.884);
+  background: rgb(176, 213, 226);
   align-self: flex-end;
   text-align: left;
   transition: transform 0.3s ease-in-out;
@@ -690,7 +780,7 @@ max-width: 250px;
 }
 
 .review-title {
-  font-size: 20px;
+  font-size: 1.4rem;
   font-weight: bold;
 }
 

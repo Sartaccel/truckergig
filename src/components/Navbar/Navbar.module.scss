@@ -125,7 +125,7 @@ $h-60:60px;
 	align-items: center;
 	justify-content: center;
 	padding: 0 30px;
-	background: rgba(255, 255, 255, 0.664);
+	background: rgba(255, 255, 255, 0.486);
 	transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out;
   }
   
@@ -140,28 +140,31 @@ $h-60:60px;
 	width: 100% !important;
 	border-radius: 0 !important;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
-	background: rgb(240, 240, 240);
+	background: rgb(0, 112, 156);
 	margin-top: 0 !important;
 	opacity: 1;
 	visibility: visible;
+
+	.navbar-color {
+		color: $txt_color_white !important;
+	}
   }
   
-
-  .scroll-login {
-	margin-left: 285px !important;
-
-  }
-
   .navbar-other{
 		position: sticky !important;
 		top: 0;
-		z-index: 9;
-		background: rgb(240, 240, 240);
+		z-index: 999;
+		height: 5rem;
+		background: rgb(0, 112, 156);
+		color: $bg_color_light !important;
 		width: 100% !important;
 		border-radius: 0 !important;
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
 		margin-top: 0 ;
 
+		.navbar-color {
+			color: $txt_color_white !important;
+		}
 }
 
 .navbar-content {
@@ -174,6 +177,10 @@ $h-60:60px;
 @media only screen and (max-width: 600px) {
 	.option-group{
 		width:300px;
+	}
+	.navbar-content {
+		padding-left:0 !important;
+		padding-right: 0 !important;
 	}
 }
 
@@ -211,3 +218,75 @@ $h-60:60px;
     text-decoration: none !important;;
     background-color: white !important;;
 }
+
+.getStartedButton {
+    display: flex; /* Ensures text and icon stay in the same line */
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    color: #ff8800;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 2px solid #f08306;
+    border-radius: 25px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    width: auto; /* Adjusts width dynamically */
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+
+  
+  .getStartedButton:hover {
+	color: white;
+  }
+  
+  .getStartedButton::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: #ff8800;
+	transform: scaleX(0);
+	transform-origin: center;
+	transition: transform 0.4s ease;
+	border-radius: 50px;
+	z-index: 0;
+  }
+  
+  .getStartedButton:hover::before {
+	transform: scaleX(1);
+  }
+  
+  .getStartedButton span {
+	position: relative;
+	z-index: 1;
+  }
+  
+  .arrow-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	flex-direction: column;
+    min-width: 32px; /* Ensures it doesn't shrink */
+    min-height: 32px;
+    background-color: #e2e8f0;
+    border-radius: 50%;
+    z-index: 1;
+    transition: background-color 0.4s ease;
+}
+  
+  .getStartedButton:hover .arrow-circle {
+	background-color: white;
+  }
+  
+  .arrow-icon {
+	color:#f08306;
+	font-size: 1.2rem; /* Adjust the icon size if needed */
+    display: flex;
+    align-items: center;
+	text-align: center;
+	margin-right: 3px;
+  }
