@@ -17,20 +17,23 @@ const Login: React.FC = () => {
             <Breadcrumb.Item active>Login</Breadcrumb.Item>
           </Breadcrumb>
         </div>
-        <div className="col-12">
-          <Tabs
-            defaultActiveKey="vendor"
-            id="uncontrolled-tab-example"
-            className="custom-tab mb-3"
-          >
-            <Tab eventKey="vendor" title="Vendor Login">
-              <Vendor />
-            </Tab>
-            <Tab eventKey="customer" title="Customer Login">
-              <Customer />
-            </Tab>
-          </Tabs>
-        </div>
+       <div className="col-12 d-flex justify-content-center">
+  <div className="text-center">
+    <Tabs
+      defaultActiveKey="vendor"
+      id="uncontrolled-tab-example"
+      className="custom-tab mb-3 d-flex justify-content-center"
+    >
+      <Tab eventKey="vendor" title="Vendor Login">
+        <Vendor />
+      </Tab>
+      <Tab eventKey="customer" title="Customer Login">
+        <Customer />
+      </Tab>
+    </Tabs>
+  </div>
+</div>
+
       </div>
     </>
   );

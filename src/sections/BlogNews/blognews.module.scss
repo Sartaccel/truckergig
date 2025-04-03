@@ -36,6 +36,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
+    border-radius: 20px;
   }
   
   // .bigCard {
@@ -75,7 +76,7 @@
   
   /* Blog Title */
   .title {
-    color: #ec801b;
+    color:white;
     font-size: 50px;
     font-weight: bold;
     text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
@@ -101,7 +102,7 @@
   /* Blog Description */
   .description {
     font-size: 22px;
-    color:#ffdbb2;
+    color: #ff8800;
     font-family: 'Helvetica Neue', 'Raleway', sans-serif;
     font-weight: bold;
     max-width: 70%;
