@@ -7,38 +7,49 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import urls from "../../utilities/AppSettings";
 import styles from "../Customer/Login.module.scss"
+import { useRouter } from "next/router";
 
 export default function GoogleAuth(props) {
-  const onResponse = async (credentialResponse) => {
+  interface GoogleJwtPayload {
+    given_name?: string;
+    family_name?: string;
+    email?: string;
+    picture?: string;
+    sub: string;
+  }
+  
+  const onResponse = async (credentialResponse: { credential?: string }) => {
     try {
       if (!credentialResponse.credential) {
         toast.error("Google Login Failed!", { autoClose: 1500 });
         return;
       }
-
+  
       // Decode the JWT token from Google
-      const decoded = jwtDecode(credentialResponse.credential);
-      
+      const decoded = jwtDecode<GoogleJwtPayload>(credentialResponse.credential);
+  
       // Prepare user data
       const params = {
-        firstName: decoded.given_name || "",
-        lastName: decoded.family_name || "",
+        firstName: decoded?.given_name || "",
+        lastName: decoded?.family_name || "",
         phone: "",
-        email: decoded.email || "",
-        profileImage: decoded.picture || "",
-        socialLoginId: decoded.sub || "",
+        email: decoded?.email || "",
+        profileImage: decoded?.picture || "",
+        socialLoginId: decoded?.sub || "",
         loginTypeId: "2",
       };
-
+  
       // Send login request to backend
       const response = await axios.post(`${urls.baseUrl}login`, params);
-
+  
       if (response.status === 200) {
         toast.success("Login Successful!", { autoClose: 1500 });
-
+  
         const userDetail = response.data.data.userdata;
         localStorage.setItem("user", JSON.stringify(userDetail));
         localStorage.setItem("Authorization", response.data.data.authtoken);
+  
+        const router = useRouter();
         router.push("/service");
       } else {
         toast.error("Login Failed!", { autoClose: 1500 });
