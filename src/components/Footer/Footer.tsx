@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import styles from "./Footer.module.scss"; // Ensure SCSS is correctly imported
 import "boxicons/css/boxicons.min.css";
-import { Facebook, Linkedin, Instagram, Twitter,ChevronRight } from "lucide-react";
+import { Facebook, Linkedin, Instagram, Twitter,ChevronRight,Youtube } from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
@@ -170,18 +170,10 @@ const Footer: React.FC = () => {
                       <div className={`${styles["quick-links"]}`}>
                         <h2>Social Links</h2>
                         <ul className={styles["social-icons"]}>
+                       
                           <li>
                             <a
-                              href="https://www.instagram.com"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Instagram size={20} />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="https://www.linkedin.com"
+                              href=" https://www.linkedin.com/company/truckergig/ "
                               target="_blank"
                               rel="noopener noreferrer"
                             >
@@ -190,22 +182,22 @@ const Footer: React.FC = () => {
                           </li>
                           <li>
                             <a
-                              href="https://www.twitter.com"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Twitter size={20} />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="https://www.facebook.com"
+                              href=" https://www.facebook.com/truckergig/ "
                               target="_blank"
                               rel="noopener noreferrer"
                             >
                               <Facebook size={20} />
                             </a>
                           </li>
+                          <li>
+                          <a
+                             href="https://www.youtube.com/@truckergig8784/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >
+                            <Youtube size={20} />
+                          </a>
+                        </li>
                         </ul>
                       </div>
                     </div>
