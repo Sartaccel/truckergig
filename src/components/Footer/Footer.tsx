@@ -7,37 +7,9 @@ import { Facebook, Linkedin, Instagram, Twitter,ChevronRight,Youtube } from "luc
 const Footer: React.FC = () => {
   return (
     <div className={`${styles["footer-part"]}`}>
-    <section className={styles["footer-section"]}/>
+    {/* <section className={styles["footer-section"]}/> */}
   <div className={`${styles["content-wrapper"]} container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4`}>
-    {/* Text Content on the Left */}
-    {/* <div className={`${styles["footer-container"]} flex flex-col md:flex-row justify-between items-center gap-4`}>
-      
-      <div className={`${styles["text-content"]} text-center md:text-left`}>
-        <h2 style={{ color: "white" }}>
-          Connect with us today and<br /> accelerate your Business growth
-        </h2>
-      </div>
-
-      <div className={`${styles["image-container"]} hidden md:flex justify-center`}>
-        <img
-          src="images/Footer 5.png"
-          alt="Business Growth"
-          style={{ width: "125px", height: "auto" }}
-        />
-      </div>
-
-      <div className="flex justify-center items-center mt-4 md:mt-0">
-        <Link href="/contactus">
-          <button className={styles.getStartedButton}>
-            <span>Contact us</span>
-            <div className={styles["arrow-circle"]}>
-              <ChevronRight className={styles["arrow-icon"]} size={20} />
-            </div>
-          </button>
-        </Link>
-      </div>
-
-    </div> */}
+ 
  <div className={`${styles["footer-container"]} flex flex-col justify-center items-center gap-4 w-full`}>
   
   {/* Join Us Content */}
