@@ -1,0 +1,10 @@
+.customContainer {
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+@media (min-width: 701px) {
+    .customContainer {
+        max-width: calc(100% - 110px);
+    }
+}

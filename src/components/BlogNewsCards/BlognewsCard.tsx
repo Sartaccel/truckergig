@@ -24,23 +24,14 @@ export const BlognewsCard = (props: any) => {
 
   return (
     <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-2 mt-2  d-flex justify-content-center">
-      <div
-        className="card mx-auto "
-        style={{
-          backgroundColor:
-            props.items.date ===
-            new Date()
-              .toDateString()
-              .split(" ")
-              .slice(1)
-              .join("-")
-              ? "rgb(247, 14, 14)"
-              : "white",
-          cursor: "pointer",
-          width: "90%",
-        }}
-        onClick={showBlognewsDetail}
-      >
+    <div className="card mx-auto" 
+      style={{ 
+        backgroundColor: props.items.date === new Date().toDateString().split(' ').slice(1).join('-') ? "rgb(247, 14, 14)" : "white", 
+        cursor: "pointer", 
+        width: "95%",
+      }}
+      onClick={showBlognewsDetail}
+    >
         <div className={`${styles["card-event"]}`}>
           <div className={`${styles["card-event-img"]}`}>
             <img

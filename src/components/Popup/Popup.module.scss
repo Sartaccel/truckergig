@@ -3,11 +3,15 @@
     background-color: #f7941d;
     border: 1px solid #f8a543;
     color: #fff ;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-weight: 700;
-    font-size: 16px;
-    box-sizing: border-box;
+    margin-top: 10px;
+    border-radius: 8px;
+    padding-bottom: 5px;
+}
+
+.card-slider-btn:hover {
+
+    background: rgb(0, 112, 156);
+    border: none;
 }
 
 .modal-content{
