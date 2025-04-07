@@ -4,7 +4,7 @@ import Popup from "../Popup/Popup";
 
 export const CategoriesCards = (props: any) => {
   return (
-    <div className="col-lg-3 col-sm-6 col-12 mb-3">
+    <div className="col-lg-4 col-sm-6 col-12 mb-3">
       <div className="card">
         <div className={`${styles["card-slider"]} `}>
           <div className={`${styles["card-slider-img"]} `}>

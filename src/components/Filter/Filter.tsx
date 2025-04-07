@@ -6,24 +6,39 @@ import urls from "../../utilities/AppSettings";
 import { useRouter } from 'next/router';
 let val = 0;
 const Filter: React.FC = (props: any) => {
+  
   const router = useRouter()
-  const [List, setList] = useState([])
-  const [SearchList, setSearchList] = useState('')
+  const [List, setList] = useState<any[]>([]);
+  const [SearchList, setSearchList] = useState('');
+  const [FilteredList, setFilteredList] = useState<any[]>([]);
   const [activefilter, setactivefilter] = useState("")
   const [childEle, setChildEle] = useState("");
   const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
-
     axios.get(`${urls.baseUrl}services/categories/grouped`)
-
-      .then(function (response) {
+      .then((response) => {
         if (response.status === 200) {
-          const data = (response.data.data)
-          setList(data)
+          const data = response.data.data;
+          setList(data);
+          setFilteredList(data);
         }
       })
+      .catch((error) => {
+        console.error("API Error:", error);
+      });
   }, []);
+
+ const handleInputChange = (e) => {
+  const value = e.target.value;
+  setSearchList(value);
+
+  Router.push({
+    pathname: "/marketplaces",
+    query: { servicename: SearchList },
+  });
+};
+
 
   const handleSearch = () => {
     Router.push({
@@ -92,14 +107,14 @@ const Filter: React.FC = (props: any) => {
           className="form-control col-xs-5"
           placeholder="Search your need here"
           value={SearchList}
-          onChange={(e) => setSearchList(e.target.value)}
+          onChange={handleInputChange}
         />
-        <button type="button" onClick={handleSearch} className={styles["filter-btn"]}>
+        {/* <button type="button" onClick={handleSearch} className={styles["filter-btn"]}>
           <i className="bi bi-check-lg"></i>
         </button>
         <button type="button" onClick={handleClear} className={styles["filter-btn"]}>
           <i className="bi bi-x-lg"></i>
-        </button>
+        </button> */}
       </div>
     </div>
 

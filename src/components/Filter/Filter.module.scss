@@ -10,18 +10,18 @@
 	color: white !important;
 	border-radius: 8px;
 	padding: 8px 12px;
-	transition: background-color 0.3s ease, transform 0.2s ease;
+	// transition: background-color 0.3s ease, transform 0.2s ease;
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	&:hover {
 		background-color: #e6841a !important;
-		transform: scale(1.05);
+		// transform: scale(1.01);
 	}
 }
 
 .filter-cursor img {
-	filter: brightness(0) invert(1);
+	// filter: brightness(0) invert(1);
 }
 
 .filter-cursorActive {
@@ -33,7 +33,7 @@
 .menu-open {
 	background: #e6e6e6!important;
 	color: #f18c11 !important;
-	transform: scale(1.05);
+	// transform: scale(1.01);
 	border-left: 4px solid #f18c11;
   }
 
@@ -47,18 +47,17 @@
 	color: white;
 	padding: 10px 14px;
 	border-radius: 6px;
-	transition: background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-		transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-	will-change: transform, background-color;
+	// transition: background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+	// 	transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+	// will-change: transform, background-color;
 
 	&:hover {
 		background-color: #e6841a;
-		transform: translateY(-2px);
+		// transform: translateY(-1px);
 	}
 }
 
 .filter-categories {
-	background: white;
 	border-radius: 10px;
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 	padding: 15px;
@@ -71,25 +70,25 @@
 		> li {
 			div {
 				border-bottom: 1px solid #ddd;
-				font-weight: 600;
+				// font-weight: bold;
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
 				padding: 12px 15px;
 				background: #f8f8f8;
 				border-radius: 6px;
-				transition: background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-					transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-				will-change: transform, background-color;
+				// transition: background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+				// 	transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+				// will-change: transform, background-color;
 
 				&:hover {
 					background: #e6e6e6;
 					border-left: 6px solid #f7941d;
-					transform: scale(1.05); // Added smooth pop-up effect
+					// transform: scale(1.01);
 				}
 
 				i {
-					transition: transform 0.3s ease;
+					// transition: transform 0.3s ease;
 				}
 			}
 
@@ -99,7 +98,7 @@
 
 					&:hover {
 						i {
-							transform: rotate(180deg);
+							// transform: rotate(180deg);
 						}
 					}
 				}
@@ -112,15 +111,15 @@
 
 				li {
 					div {
-						padding: 8px 40px;
-						transition: background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-							transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-						will-change: transform, background-color;
+						padding: 8px 20px;
+						// transition: background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+						// 	transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+						// will-change: transform, background-color;
 
 						&:hover {
 							background: #e6e6e6;
 							border-left: 4px solid #f7941d;
-							transform: scale(1.05); // Added pop-up effect for submenu items
+							// transform: scale(1.01); 
 						}
 					}
 				}

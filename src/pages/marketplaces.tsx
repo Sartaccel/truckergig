@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import Servicers from "../sections/services/Services";
+import MarketplaceHead from "../sections/service/MarketplaceHead";
 const Services: React.FC = () => {
   return (
     <>
@@ -12,6 +13,7 @@ const Services: React.FC = () => {
         />
       </Head>
       <div className="main">
+        <MarketplaceHead />
         <Servicers />
       </div>
     </>

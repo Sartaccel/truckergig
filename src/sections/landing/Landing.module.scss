@@ -426,6 +426,17 @@ display: -webkit-box;
   margin-left: 65px;
 }
 
+.marketcardSection {
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+@media (min-width: 701px) {
+  .marketcardSection {
+    max-width: calc(100% - 75px);
+  }
+}
+
 .service-heading {
   position: relative;
   text-transform: uppercase;
@@ -446,7 +457,7 @@ display: -webkit-box;
 
 .card {
   position: relative;
-  width: 75%;  /* Adjust width for portrait image */
+  width: 85%;  /* Adjust width for portrait image */
   height: 440px; /* Adjust height for better portrait display */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

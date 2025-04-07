@@ -78,7 +78,7 @@ const Blognews: React.FC = () => {
       </div>
 
       {/* Blog Cards Section */}
-      <div id="card-section" className="row pt-4 pb-4">
+      <div id="card-section" className={`row pt-4 pb-4 ${styles.cardSection}`}>
       {loading ? (
             <div className="text-center">
               <div className="spinner-border text-warning" role="status">

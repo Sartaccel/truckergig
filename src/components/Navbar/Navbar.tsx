@@ -217,7 +217,7 @@ useEffect(() => {
 
               {!Ath ? (
                 <Link href="/customerlogin">
-                  <a className={`${styles.getStartedButton} nav-link login-link ${router.pathname==="/customerlogin" ? "active" : ""}`}>
+                  <a className={`${styles.getStartedButton} login-link ${router.pathname==="/customerlogin" ? "active" : ""}`}>
           <span>Login</span>
           <div className={styles["arrow-circle"]}>
             <i className={`${styles["arrow-icon"]} bi bi-person-fill pl-1`}></i>

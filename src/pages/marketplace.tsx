@@ -1,5 +1,8 @@
 import Head from "next/head";
 import Services from "../sections/service";
+import Image from "next/image";
+import styles from "../sections/about/About.module.scss";
+import MarketplaceHead from "../sections/service/MarketplaceHead";
 export default function Service() {
   return (
     <>
@@ -15,6 +18,7 @@ export default function Service() {
         <meta name="robots" content="nofollow" />
       </Head>
       <div className="main">
+        <MarketplaceHead />
         <Services />
       </div>
     </>

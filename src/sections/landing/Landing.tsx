@@ -293,7 +293,7 @@ const Landing: React.FC = () => {
  
     <div className="container-fluid service-tab landing-service" data-aos="fade-up">
       <h5 className={styles["section-title"]}>Marketplace</h5>
-      <div className="row">
+      <div className={`row ${styles.marketcardSection}`}>
 
         <div className="col-md-6 col-lg-4 p-0 m-0 d-flex justify-content-center">
           <div className={styles.card}>
