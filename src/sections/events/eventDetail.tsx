@@ -51,9 +51,9 @@ const Events: React.FC = (props) => {
 
   return (
     <>
-      <div className="p-3">
+      <div className="p-3" style={{marginLeft:"55px"}}>
         <div className="row">
-          <div className="col">
+          <div className="col" >
             <Breadcrumb>
               <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
               <Breadcrumb.Item href="/events">Event</Breadcrumb.Item>

@@ -25,19 +25,43 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Lora:wght@400;600&family=Raleway:wght@500;700&display=swap');
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f9f9f9;
-    height: 220px;
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-top: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
-    border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f9f9f9;
+  height: 220px; /* Reduced height */
+  width: 90%; /* Set a specific width if needed */
+  margin-left: 70px;
+  margin-right: 20px;
+  margin-top: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px; /* Slightly reduced border-radius */
+  padding:  5px 15px; 
+  margin-top: 1.5rem;
+}
+/* Mobile View */
+@media (max-width: 768px) {
+  .container {
+    height: 180px; /* Reduce height */
+    width: 80%; /* Make it more responsive */
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
   }
+}
+
+/* Smaller Mobile View */
+@media (max-width: 480px) {
+  .container {
+    height: 160px; /* Further reduce height */
+    width: 95%; /* Full width for small screens */
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 8px;
+  }
+}
   
   // .bigCard {
   //   width: 100%;

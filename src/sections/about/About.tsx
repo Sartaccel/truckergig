@@ -118,7 +118,7 @@ const About: React.FC = () => {
       <div className={`${styles["about-page"]} container pt-0`}>
       <div className={styles.eventHead}>
         <Image
-          src="/images/aboutus.jpg"
+          src="/images/sss.jpg"
           alt="Truck in Logistics"
           layout="fill"
           priority={false} 
