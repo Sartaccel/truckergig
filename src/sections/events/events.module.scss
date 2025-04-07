@@ -272,7 +272,26 @@
 //     }
 //   }
 
+.img-fluid {
+  max-width: 100%; /* Ensures image does not overflow */
+  height: auto; /* Keeps aspect ratio */
+  border-radius: 10px; /* Optional: Adds rounded corners */
+}
 
+/* Adjustments for Mobile Screens */
+@media (max-width: 768px) {
+  .img-fluid {
+    max-width: 90%; /* Reduce width slightly for better spacing */
+    border-radius: 8px; /* Reduce border radius */
+  }
+}
+
+@media (max-width: 480px) {
+  .img-fluid {
+    max-width: 100%; /* Full width for smaller screens */
+    border-radius: 5px; /* Further reduce border radius */
+  }
+}
 
 
 
@@ -299,7 +318,23 @@
     overflow: hidden;
     border-radius: 20px;
 }
+/* Mobile screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .eventHead {
+    height: 200px; /* Adjust height dynamically */
+    margin: 10px; /* Reduce margin for better fit */
+    border-radius: 15px; /* Slightly reduce border radius */
+  }
+}
 
+/* Smaller mobile screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .eventHead {
+    margin: 8px; /* Further reduce margin */
+    border-radius: 10px; /* Smaller border radius for compact design */
+    padding: 10px; /* Add some padding for spacing */
+  }
+}
 .eventImage {
   object-fit: cover;
 }
@@ -560,6 +595,7 @@
   }
   .title {
     font-size: 40px;
+    margin-right: 10px;
   }
   .description {
     font-size: 18px;
@@ -610,6 +646,7 @@
     font-weight: bold;
     text-align: center;
     margin: 0;
+    margin-right: 150px;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
   }
 
@@ -1383,8 +1420,10 @@
 //   }
 // }
 .container {
-  max-width: 1250px;  // Increase max width slightly for less left/right space
+  max-width: 95%;  // Increase max width slightly for less left/right space
   margin: auto;  // Centers the container
   padding: 5px 15px;  // Less space on left/right, keeps top/bottom spacing minimal
 }
+
+
 

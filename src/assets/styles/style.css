@@ -23,7 +23,8 @@ div {
 
 .carousel-control-prev,
 .carousel-control-next {
-  width: 5% !important;
+  /* width: 5% !important; */
+  display: none !important;
 }
 
 /* Candidate Register */

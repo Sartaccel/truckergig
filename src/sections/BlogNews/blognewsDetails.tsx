@@ -60,7 +60,7 @@ const Events: React.FC = () => {
 
   return (
     <>
-      <div className="p-3 ml-5">
+      <div className="p-3 ml-4">
         <div className="row ml-4 pl-2">
           <div className="col">
             <Breadcrumb>

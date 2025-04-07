@@ -79,13 +79,30 @@
     padding-top: 30px;
     font-size: 50px;
 }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
 
 .section-title {
   font-size: 46px;
   color: #f7941d;
   text-align: center;
   padding: 30px 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  animation: bounce 1s ease-in-out infinite;
 }
+
+
+
 
 .section-subtitle-contact {
   margin-top: 25px;
@@ -695,11 +712,19 @@ max-width: 250px;
   font-family: serif;
 }
 
-.review-section::before {
-  font-family: "Cursive", sans-serif;
-  content: "\201C";
-  left: 100px;
-  top:-30px;
+  .review-section::before {
+    font-family: "Cursive", sans-serif;
+    content: "\201C";
+    left: 100px;
+    top:-30px;
+  }
+  /* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .review-section::before {
+    left: 20px;  
+    top: -20px;   
+    font-size: 150pxs; 
+  }
 }
 
 .review-section::after {
@@ -708,7 +733,15 @@ max-width: 250px;
   bottom: 10px;
   right: 100px;
 }
-
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .review-section::after {
+    right: 1px; 
+    bottom: 0px; 
+    top: 45rem; 
+    font-size: 150px; 
+  }
+}
 .review-section {
   position: relative;
   margin-top: 50px;
