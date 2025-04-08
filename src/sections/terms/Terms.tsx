@@ -6,7 +6,7 @@ const Terms: React.FC = () => {
   return (
     <>
     <div className='row p-2'>
-        <div className='col'>
+        <div className='col'style={{marginLeft:"60px"}}>
           <Breadcrumb>
             <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
             <Breadcrumb.Item active>Terms & Conditions</Breadcrumb.Item>
