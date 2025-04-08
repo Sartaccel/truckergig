@@ -157,7 +157,9 @@ $h-60:60px;
 		height: 5rem;
 		background: rgb(0, 112, 156);
 		color: $bg_color_light !important;
-		width: 100% !important;
+		margin: 0 auto;
+		// width: 100% !important;
+		max-width: 100%;
 		border-radius: 0 !important;
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
 		margin-top: 0 ;
@@ -168,8 +170,7 @@ $h-60:60px;
 }
 
 .navbar-content {
-	padding-left: 60px !important;
-	padding-right: 60px !important;
+	max-width: calc(100% - 110px);
 }
   
 

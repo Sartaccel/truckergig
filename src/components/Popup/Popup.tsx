@@ -115,7 +115,8 @@ const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
           setshowpopup(carddata);
         }}
       >
-        {carddata.buttonText}
+        {/* {carddata.buttonText} */}
+         <FaIcons.FaExternalLinkAlt size={20} />
       </button>
 
       <Modal

@@ -78,7 +78,7 @@ const Blognews: React.FC = () => {
       </div>
 
       {/* Blog Cards Section */}
-      <div id="card-section" className="row pt-4 pb-4">
+      <div id="card-section" className={`row pt-4 pb-4 ${styles.cardSection}`}>
       {loading ? (
             <div className="text-center">
               <div className="spinner-border text-warning" role="status">
@@ -97,7 +97,7 @@ const Blognews: React.FC = () => {
             <div className="text-center">
               <h2>Oops! There are No Blogs/News at the Moment</h2>
               <img
-                src="/images/no_enents.jpg"
+                src="/images/no enents.jpg"
                 className={styles.imgFluid}
                 alt="No Events Available"
               />

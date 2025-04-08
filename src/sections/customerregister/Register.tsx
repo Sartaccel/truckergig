@@ -59,7 +59,7 @@ const Register = () => {
 
   return (
     <>
-    <div className='row p-2'>
+    <div className='row p-2' style={{marginLeft:"55px"}}>
 				<div className='col'>
 					<Breadcrumb>
 						<Breadcrumb.Item href="/">Home</Breadcrumb.Item>

@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import urls from "../../utilities/AppSettings";
+import styles from './Forgotpassword.module.scss';
 
 const schema = yup.object().shape({
     emailId: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, "Email is not valid"),
@@ -82,49 +83,43 @@ const Forgotpassword: React.FC = () => {
                 draggable
                 pauseOnHover
             />
-            <div className="row no-gutters align-items-center gig-login">
-                <div className="col-md-3 shadow p-5 bg-white rounded">
-                    <div className="row no-gutters">
-                        <div className="col text-center">
-                            <img className="logo" src="/images/logo_black.png" alt="logo" />
-                        </div>
-                    </div>
-                    <div className="row no-gutters">
-                        <div className="col">
-                            <h1 className="pt-4 text-left">Reset Password</h1>
-                            <p>Enter your Email address. We will send you a link to reset your password</p>
-                        </div>
-                    </div>
-                    <div className="row no-gutters">
-                        <div className="col">
-                            <form onSubmit={handleSubmit(onSubmitHandler)}>
-                                <div className="form-group">
-                                    <label htmlFor="emailId">Email Address</label>
-                                    <div className="input-group">
-                                        <div className="input-group-prepend">
-                                            <div className="input-group-text"><i className="bi bi-at"></i></div>
-                                        </div>
-                                        <input name="emailId" id="emailId" placeholder="Email address"
-                                            {...register("emailId")}
-                                            type="email"
-                                            className={`form-control ${errors.emailId ? "is-invalid" : ""
-                                                }`} />
-                                        <div className="invalid-feedback">
-                                            {errors.emailId?.message}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row no-gutters">
-                                    <div className="col">
-                                        <button type="submit" className="submit-button">Reset</button>&nbsp;
-                                        <button type="button" className="submit-button" onClick={(e) => { e.preventDefault(); close(e) }} >Cancel</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            <div className={styles.container}>
+      <div className={styles.leftImage}></div>
+
+      <div className={styles.rightForm}>
+        <div className={styles.formCard}>
+          <div className={styles.logoWrapper}>
+            <img src="/images/logo_black.png" alt="logo" className={styles.logo} />
+          </div>
+
+          <h1>Reset Password</h1>
+          <p>Don’t worry!<br/>
+          Enter your email to reset your password and get back on track</p>
+
+          <form onSubmit={handleSubmit(onSubmitHandler)} className={styles.form}>
+            <div className={styles.inputGroup}>
+              {/* <label htmlFor="emailId">Email Address</label> */}
+              <div className={styles.iconInput}>
+                <span><i className="bi bi-at"></i></span>
+                <input
+                  type="email"
+                  id="emailId"
+                  placeholder="Email address"
+                  {...register("emailId")}
+                  className={errors.emailId ? styles.invalid : ""}
+                />
+              </div>
+              {errors.emailId && <div className={styles.error}>{errors.emailId.message}</div>}
             </div>
+
+            <div className={styles.buttonGroup}>
+              <button type="submit" className={styles.submitButton}>Reset</button>
+              <button type="button" className={styles.submitButton} onClick={close}>Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
         </>
     )
 }

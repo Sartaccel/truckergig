@@ -16,15 +16,26 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 
-
 const onCaptchaChange = (value) => {
   console.log("Captcha value:", value);
 };
 const vendorSchema = yup.object().shape({
-  legalName: yup.string().required("This is a required field").min(2).max(24),
+  legalName: yup
+    .string()
+    .required("This is a required field")
+    .min(2)
+    .max(24),
   contactFirstName: yup.string().required("This is a required field"),
-  emailAddress: yup.string().required("This is a required field").max(50),
-  telephone: yup.string().required("This is required field").matches(/^[0-9]+$/, "Must be only digits").min(10, 'Must be exactly 10 digits').max(10, 'Must be exactly 10 digits'),
+  emailAddress: yup
+    .string()
+    .required("This is a required field")
+    .max(50),
+  telephone: yup
+    .string()
+    .required("This is required field")
+    .matches(/^[0-9]+$/, "Must be only digits")
+    .min(10, "Must be exactly 10 digits")
+    .max(10, "Must be exactly 10 digits"),
   // message: yup.string().required("This is a required field"),
   // productList: yup.string().required("This is required field")
 });
@@ -48,7 +59,6 @@ interface MyFormValues {
   otherProductList: string;
   message: string;
   submit: string;
-
 }
 
 function validateEmail(value) {
@@ -61,7 +71,6 @@ function validateEmail(value) {
   return error;
 }
 
-
 // function validatePhone(value) {
 //   let error;
 //   if (value === undefined || value.toString().length != 10 ||
@@ -73,14 +82,15 @@ function validateEmail(value) {
 //   return error;
 // }
 
-
 const Vendor: React.FC = () => {
   const [selectedCountry, setselectedCountry] = useState(undefined);
   const [selectedProduct, setselectedProduct] = useState(undefined);
   const [types, settypes] = useState([]);
   const [country, setcountry] = useState();
   const [showText, setShowText] = useState(false);
-  const [selectedProductValidation, setselectedProductValidation] = useState(false);
+  const [selectedProductValidation, setselectedProductValidation] = useState(
+    false
+  );
 
   const dispatch = useDispatch();
   const initialValues: MyFormValues = {
@@ -102,28 +112,25 @@ const Vendor: React.FC = () => {
     otherProductList: "",
     message: "",
     submit: "",
-
   };
   let isother = false;
 
   useEffect(() => {
-    axios.get(`${urls.baseUrl}summary`)
-      .then(function (response) {
-        const data = response.data.data.countries.map((x: any) => {
-          return {
-            label: x.dialingCode + " " + x.countryCode,
-            value: x.dialingCode,
-          };
-        });
-        settypes(data);
+    axios.get(`${urls.baseUrl}summary`).then(function(response) {
+      const data = response.data.data.countries.map((x: any) => {
+        return {
+          label: x.dialingCode + " " + x.countryCode,
+          value: x.dialingCode,
+        };
       });
+      settypes(data);
+    });
   }, []);
 
   const newService = (e) => {
     e.preventDefault();
-    router.push('/serviceregistration');
-  }
-
+    router.push("/serviceregistration");
+  };
 
   const handleDropDownChange = (value, action, name) => {
     switch (name) {
@@ -132,30 +139,37 @@ const Vendor: React.FC = () => {
           setselectedCountry(null);
         } else {
           setselectedCountry(value);
-
         }
         break;
       case "product":
         if (action == "clear") {
           setselectedProduct(null);
-          setShowText(false)
-        }
-        else {
+          setShowText(false);
+        } else {
           isother = false;
           // if (value.value == null) {
           //   toast.error("Please select a country");
           // }
           if (value.value === "Others") {
             isother = true;
-            setShowText(true)
-          }
-          else if (value.value === "TruckTax" || "Accessories" || "APIIntegrations" || "FleetManagement" || "Lodging" || "TelematicsELD" || "TMS" || "TrailerLeasing" || "WMS") {
+            setShowText(true);
+          } else if (
+            value.value === "TruckTax" ||
+            "Accessories" ||
+            "APIIntegrations" ||
+            "FleetManagement" ||
+            "Lodging" ||
+            "TelematicsELD" ||
+            "TMS" ||
+            "TrailerLeasing" ||
+            "WMS"
+          ) {
             if (isother == false) {
-              setShowText(false)
+              setShowText(false);
             }
           }
           setselectedProduct(value);
-          setselectedProductValidation(false)
+          setselectedProductValidation(false);
         }
         break;
       default:
@@ -179,7 +193,7 @@ const Vendor: React.FC = () => {
 
   return (
     <>
-      <div className="row p-2">
+      <div className="row p-2" style={{ marginLeft: "55px" }}>
         <div className="col">
           <Breadcrumb>
             <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
@@ -193,22 +207,21 @@ const Vendor: React.FC = () => {
           validationSchema={vendorSchema}
           onSubmit={(values, { resetForm, setSubmitting }) => {
             if (!selectedCountry) {
-              console.error("please select country")
+              console.error("please select country");
               values.telephone = "+1" + " " + values.telephone;
-            }
-            else {
+            } else {
               values.telephone = selectedCountry.value + " " + values.telephone;
             }
             if (!selectedProduct) {
-              setselectedProductValidation(true)
-              const arr = (values.telephone).split(" ");
+              setselectedProductValidation(true);
+              const arr = values.telephone.split(" ");
               console.log(arr);
               values.telephone = arr[1];
               console.log(values.telephone);
             } else {
-              setselectedProductValidation(false)
+              setselectedProductValidation(false);
             }
-            values.productList = (selectedProduct.value);
+            values.productList = selectedProduct.value;
             console.log(values.productList);
             // if (values.productList == null) {
             //   toast.error("Please Select a product");
@@ -229,531 +242,592 @@ const Vendor: React.FC = () => {
             handleSubmit,
             isSubmitting,
             isValid,
-          dirty,
+            dirty,
           }) => (
             <div className="heading">
               {/* <h4 className={`${styles["name"]}`} >Vendor Registration</h4> */}
               {/* <h6><b>Already registered? Register your service <a href="/#" className="verify" onClick={(e) => { newService(e) }}>here</a></b></h6> */}
               <div className={styles.card}>
-              <h4 className={`${styles["name"]}`} >Vendor Registration</h4>
-              <h6 className={styles.here}>
-      <b>
-        Already registered? Register your service 
-        <a href="/#" className={styles.verify} onClick={(e) => newService(e)}> here</a>
-      </b>
-    </h6>
-              <Form onSubmit={handleSubmit}>
-              <div className="row mb-3">
-      <div className="col-12 col-sm-6">
-        <label htmlFor="validationServer01" className={styles.formLabel}>
-          Company Name
-        </label>
-        <sup className="star">*</sup>
-        <Field
-          style={{ width: "100%" }}
-          name="legalName"
-          onChange={handleChange}
-          onBlur={(e) => {
-            e.target.style.borderColor = ""; 
-            e.target.style.boxShadow = "";
-          }}
-          onFocus={(e) => {
-            e.target.style.borderColor = "#ff8c00";
-            e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-          }}
-          value={values.legalName}
-          placeholder="Enter your Legal Name"
-          id="name"
-          
-          className="form-control"
-          type="text"
-        />
-      
-      </div>
-      <div className="col-12 col-sm-6">
-        <label htmlFor="drop-down" className={styles.formLabel}>
-          Product categories that you want to list
-        </label>
-        <sup className="star">*</sup>
-        <Select
-  className={styles.dropDownStyle}
-  value={selectedProduct}
-  onChange={(value, { action }) => handleDropDownChange(value, action, "product")}
-  options={productListDrop}
-  isClearable={true}
-  styles={{
-    control: (base, state) => ({
-      ...base,
-      borderColor: state.isFocused ? "#ff8c00" : base.borderColor,
-      boxShadow: state.isFocused ? "0 0 5px rgba(255, 140, 0, 0.5)" : "none",
-      "&:hover": {
-        borderColor: "#ff8c00",
-      },
-    }),
-  }}
-/>
-
-
-      </div>
-    </div>
-                <div className="row mb-3">
-                  <div className="col-12 col-sm-6">
-                    <label className={styles.formLabel}>FEIN</label>
-
-                    <Field
-  name="fein"
-  onChange={handleChange}
-  onBlur={(e) => {
-    e.target.style.borderColor = ""; 
-    e.target.style.boxShadow = ""; 
-  }}
-  onFocus={(e) => {
-    e.target.style.borderColor = "#ff8c00";
-    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-  }}
-  value={values.fein}
-  placeholder="FEIN"
-  id="name"
-  
-  className="form-control"
-  type="text"
-/>
-
-                    {errors.fein && touched.fein ? (
-                      <div className={`${styles["errorMsgColour"]} `}>
-                        {errors.fein}
-                      </div>
-                    ) : null}
-                  </div>
-
-                  <div className="col-12 col-sm-6">
-                    <label className={styles.formLabel}>
-                      DB Number
-                      {/* {"DB Number"} */}
-                    </label>
-
-                    <Field
-                      name="dbNumber"
-                      onChange={handleChange}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = ""; 
-                        e.target.style.boxShadow = "";
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "#ff8c00"; 
-                        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-                      }}
-                      value={values.dbNumber}
-                      placeholder="DB Number"
-                      id="name"
-                     
-                      className="form-control "
-                      type="text"
-                    />
-                    {errors.dbNumber && touched.dbNumber ? (
-                      <div className={`${styles["errorMsgColour"]} `}>
-                        {errors.dbNumber}
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col-12 col-sm-6">
-                    <label className={styles.formLabel}>
-                      Primary Contact - First Name
-                    </label>
-                    <sup className="star">*</sup>
-
-                    <Field
-                      name="contactFirstName"
-                      onChange={handleChange}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = ""; 
-                        e.target.style.boxShadow = "";
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "#ff8c00"; 
-                        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-                      }}
-                      value={values.contactFirstName}
-                      placeholder="Enter your First Name"
-                      id="name"
-                      
-                      className="form-control "
-                      type="text"
-                    />
-                    {errors.contactFirstName && touched.contactFirstName ? (
-                      <div className={`${styles["errorMsgColour"]} `}>
-                        {errors.contactFirstName}
-                      </div>
-                    ) : null}
-                  </div>
-                  <div className="col-12 col-sm-6">
-                    <label className={styles.formLabel}>
-                      Primary Contact - Last Name
-                    </label>
-
-                    <Field
-                      name="contactLastName"
-                      onChange={handleChange}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = ""; 
-                        e.target.style.boxShadow = ""; 
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "#ff8c00";
-                        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-                      }}
-                      value={values.contactLastName}
-                      placeholder="Enter your Last Name"
-                      id="name"
-                     
-                      className="form-control "
-                      type="text"
-                    />
-                    {errors.contactLastName && touched.contactLastName ? (
-                      <div className={`${styles["errorMsgColour"]} `}>
-                        {errors.contactLastName}
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col-12 col-sm-6">
-                    <label  className={styles.formLabel}>
-                      Phone Number
-                    </label>
-                    <sup className="star">*</sup>
-                    <div className="input-group">
+                <h4 className={`${styles["name"]}`}>Vendor Registration</h4>
+                <h6 className={styles.here}>
+                  <b>
+                    Already registered? Register your service
+                    <a
+                      href="/#"
+                      className={styles.verify}
+                      onClick={(e) => newService(e)}
+                    >
+                      {" "}
+                      here
+                    </a>
+                  </b>
+                </h6>
+                <Form onSubmit={handleSubmit}>
+                  <div className="row mb-3">
+                    <div className="col-12 col-sm-6">
+                      <label
+                        htmlFor="validationServer01"
+                        className={styles.formLabel}
+                      >
+                        Company Name
+                      </label>
+                      <sup className="star">*</sup>
+                      <Field
+                        style={{ width: "100%" }}
+                        name="legalName"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.legalName}
+                        placeholder="Enter your Legal Name"
+                        id="name"
+                        className="form-control"
+                        type="text"
+                      />
+                    </div>
+                    <div className="col-12 col-sm-6">
+                      <label htmlFor="drop-down" className={styles.formLabel}>
+                        Product categories that you want to list
+                      </label>
+                      <sup className="star">*</sup>
                       <Select
-                        className={`${styles["phone-drop-down-style"]} `}
-                        options={types}
+                        className={styles.dropDownStyle}
+                        value={selectedProduct}
+                        onChange={(value, { action }) =>
+                          handleDropDownChange(value, action, "product")
+                        }
+                        options={productListDrop}
+                        isClearable={true}
                         styles={{
+                          control: (base, state) => ({
+                            ...base,
+                            borderColor: state.isFocused
+                              ? "#ff8c00"
+                              : base.borderColor,
+                            boxShadow: state.isFocused
+                              ? "0 0 5px rgba(255, 140, 0, 0.5)"
+                              : "none",
+                            "&:hover": {
+                              borderColor: "#ff8c00",
+                            },
+                          }),
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>FEIN</label>
+
+                      <Field
+                        name="fein"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.fein}
+                        placeholder="FEIN"
+                        id="name"
+                        className="form-control"
+                        type="text"
+                      />
+
+                      {errors.fein && touched.fein ? (
+                        <div className={`${styles["errorMsgColour"]} `}>
+                          {errors.fein}
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>
+                        DB Number
+                        {/* {"DB Number"} */}
+                      </label>
+
+                      <Field
+                        name="dbNumber"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.dbNumber}
+                        placeholder="DB Number"
+                        id="name"
+                        className="form-control "
+                        type="text"
+                      />
+                      {errors.dbNumber && touched.dbNumber ? (
+                        <div className={`${styles["errorMsgColour"]} `}>
+                          {errors.dbNumber}
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>
+                        Primary Contact - First Name
+                      </label>
+                      <sup className="star">*</sup>
+
+                      <Field
+                        name="contactFirstName"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.contactFirstName}
+                        placeholder="Enter your First Name"
+                        id="name"
+                        className="form-control "
+                        type="text"
+                      />
+                      {errors.contactFirstName && touched.contactFirstName ? (
+                        <div className={`${styles["errorMsgColour"]} `}>
+                          {errors.contactFirstName}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>
+                        Primary Contact - Last Name
+                      </label>
+
+                      <Field
+                        name="contactLastName"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.contactLastName}
+                        placeholder="Enter your Last Name"
+                        id="name"
+                        className="form-control "
+                        type="text"
+                      />
+                      {errors.contactLastName && touched.contactLastName ? (
+                        <div className={`${styles["errorMsgColour"]} `}>
+                          {errors.contactLastName}
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>Phone Number</label>
+                      <sup className="star">*</sup>
+                      <div className="input-group">
+                        <Select
+                          className={`${styles["phone-drop-down-style"]} `}
+                          options={types}
+                          styles={{
                             control: (base, state) => ({
                               ...base,
-                              borderColor: state.isFocused ? "#ff8c00" : base.borderColor,
-                              boxShadow: state.isFocused ? "0 0 5px rgba(255, 140, 0, 0.5)" : "none",
+                              borderColor: state.isFocused
+                                ? "#ff8c00"
+                                : base.borderColor,
+                              boxShadow: state.isFocused
+                                ? "0 0 5px rgba(255, 140, 0, 0.5)"
+                                : "none",
                               "&:hover": {
                                 borderColor: "#ff8c00",
                               },
                             }),
                           }}
-                        isClearable={true}
-                        placeholder="Country"
-                        value={country}
-                        onChange={(value, { action }) =>
-                          handleDropDownChange(value, action, "phonecode")
-                        }
+                          isClearable={true}
+                          placeholder="Country"
+                          value={country}
+                          onChange={(value, { action }) =>
+                            handleDropDownChange(value, action, "phonecode")
+                          }
+                        />
+                        <Field
+                          name="telephone"
+                          onChange={handleChange}
+                          onBlur={(e) => {
+                            e.target.style.borderColor = "";
+                            e.target.style.boxShadow = "";
+                          }}
+                          onFocus={(e) => {
+                            e.target.style.borderColor = "#ff8c00";
+                            e.target.style.boxShadow =
+                              "0 0 5px rgba(255, 140, 0, 0.5)";
+                          }}
+                          value={values.telephone}
+                          placeholder="Enter your PhoneNumber"
+                          id="name"
+                          className={`${styles["phone-style"]} form-control`}
+                          type="text"
+                          maxlength={10}
+                        />
+                        {errors.telephone && touched.telephone ? (
+                          <div className={`${styles["errorMsgColour"]} `}>
+                            {errors.telephone}
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>Email</label>
+                      <sup className="star">*</sup>
 
+                      <Field
+                        name="emailAddress"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.emailAddress}
+                        placeholder="Enter your Email Address"
+                        id="name"
+                        className="form-control "
+                        type="text"
+                        validate={validateEmail}
                       />
-                      <Field name="telephone" onChange={handleChange} onBlur={(e) => {
-                        e.target.style.borderColor = ""; 
-                        e.target.style.boxShadow = "";
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "#ff8c00"; 
-                        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-                      }}value={values.telephone} placeholder="Enter your PhoneNumber"
-                        id="name"  className={`${styles["phone-style"]} form-control`} type="text" maxlength={10}  />
-                      {errors.telephone && touched.telephone ? (
+                      {errors.emailAddress && touched.emailAddress ? (
                         <div className={`${styles["errorMsgColour"]} `}>
-                          {errors.telephone}
+                          {errors.emailAddress}
                         </div>
                       ) : null}
                     </div>
                   </div>
-                  <div className="col-12 col-sm-6">
-                    <label  className={styles.formLabel}>Email</label>
-                    <sup className="star">*</sup>
+                  <div className="row mb-1">
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>Password</label>
+                      <sup className="star">*</sup>
 
-                    <Field
-                      name="emailAddress"
-                      onChange={handleChange}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = ""; 
-                        e.target.style.boxShadow = "";
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "#ff8c00"; 
-                        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-                      }}
-                      value={values.emailAddress}
-                      placeholder="Enter your Email Address"
-                      id="name"
-                     
-                      className="form-control "
-                      type="text"
-                      validate={validateEmail}
-                    />
-                    {errors.emailAddress && touched.emailAddress ? (
-                      <div className={`${styles["errorMsgColour"]} `}>
-                        {errors.emailAddress}
-                      </div>
-                    ) : null}
+                      <Field
+                        name="password"
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        
+                        placeholder="Enter your password"
+                        id="name"
+                        className="form-control "
+                        type="text"
+                      />
+                    </div>
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>
+                        Billing Address
+                      </label>
+                      <Field
+                        name="address"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.address}
+                        placeholder="Billing Address"
+                        className="form-control"
+                        type="text"
+                      />
+                      {errors.address && touched.address && (
+                        <div className={styles.errorMsgColour}>
+                          {errors.address}
+                        </div>
+                      )}
+                                
+                    </div>
                   </div>
-                </div>
-                <div className="row mb-3">
-  <div className="col-12 col-sm-6">
-    <label className={styles.formLabel}>Billing Address</label>
-    <Field
-      name="address"
-      onChange={handleChange}
-      onBlur={(e) => {
-        e.target.style.borderColor = "";
-        e.target.style.boxShadow = ""; 
-      }}
-      onFocus={(e) => {
-        e.target.style.borderColor = "#ff8c00"; 
-        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-      }}
-      value={values.address}
-      placeholder="Billing Address"
-      className="form-control"
-      type="text"
-    />
-    {errors.address && touched.address && (
-      <div className={styles.errorMsgColour}>{errors.address}</div>
-    )}
-  </div>
-  <div className="col-12 col-sm-6">
-    <label className={styles.formLabel}>Website URL</label>
-    <Field
-      name="websiteUrl"
-      onChange={handleChange}
-      onBlur={(e) => {
-        e.target.style.borderColor = ""; 
-        e.target.style.boxShadow = ""; 
-      }}
-      onFocus={(e) => {
-        e.target.style.borderColor = "#ff8c00"; 
-        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-      }}
-      value={values.websiteUrl}
-      placeholder="Website URL"
-      className="form-control"
-      type="text"
-    />
-    {errors.websiteUrl && touched.websiteUrl && (
-      <div className={styles.errorMsgColour}>{errors.websiteUrl}</div>
-    )}
-  </div>
-</div>
+                  <div className="row mb-1">
+                    <div className="col-6 col-sm-6">
+                      <label className={styles.formLabel}>Website URL</label>
+                      <Field
+                        name="websiteUrl"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.websiteUrl}
+                        placeholder="Website URL"
+                        className="form-control"
+                        type="text"
+                      />
+                      {errors.websiteUrl && touched.websiteUrl && (
+                        <div className={styles.errorMsgColour}>
+                          {errors.websiteUrl}
+                        </div>
+                      )}
+                                
+                    </div>
+                    <div className="col-6 col-sm-6">
+                      <label className={styles.formLabel}>Instagram URL</label>
+                      <Field
+                        name="instagramUrl"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.instagramUrl}
+                        placeholder="Instagram URL"
+                        id="name"
+                        className="form-control "
+                        type="text"
+                      />
+                      {errors.instagramUrl && touched.instagramUrl ? (
+                        <div className={`${styles["errorMsgColour"]} `}>
+                          {errors.twitterUrl}
+                        </div>
+                      ) : null}
+                                
+                    </div>
+                  </div>
+                  <div className="row mb-1">
+                    <div className="col-6">
+                      <label className={styles.formLabel}>Twitter URL</label>
+                      <Field
+                        name="twitterUrl"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.twitterUrl}
+                        placeholder="Twitter URL"
+                        id="name"
+                        className="form-control "
+                        type="text"
+                      />
+                      {errors.twitterUrl && touched.twitterUrl ? (
+                        <div className={`${styles["errorMsgColour"]} `}>
+                          {errors.twitterUrl}
+                        </div>
+                      ) : null}
+                               
+                    </div>
+                    <div className="col-6">
+                      <label className={styles.formLabel}>Facebook URL</label>
+                      <Field
+                        name="facebookUrl"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.facebookUrl}
+                        placeholder="Facebook URL"
+                        id="name"
+                        className="form-control "
+                        type="text"
+                      />
+                      {errors.facebookUrl && touched.facebookUrl ? (
+                        <div className={`${styles["errorMsgColour"]} `}>
+                          {errors.facebookUrl}
+                        </div>
+                      ) : null}
+                                
+                    </div>
+                  </div>
+                  {showText ? (
+                    // {True ? (
+                    <div className="mb-3">
+                      <label className={styles.formLabel}>
+                        Other product(s) that you want to list
+                      </label>
+                      <span className={`${styles["required-color"]} `}>
+                        {" "}
+                        *{" "}
+                      </span>
 
-                <div className="row mb-3">
-                  <div className="col-6 col-sm-6">
-                    <label className={styles.formLabel}>
-                      Instagram URL
-                    </label>
-
-                    <Field
-                      name="instagramUrl"
-                      onChange={handleChange}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = ""; 
-                        e.target.style.boxShadow = "";
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "#ff8c00"; 
-                        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-                      }}
-                      value={values.instagramUrl}
-                      placeholder="Instagram URL"
-                      id="name"
-                     
-                      className="form-control "
-                      type="text"
-                    />
-                    {errors.instagramUrl && touched.instagramUrl ? (
-                      <div className={`${styles["errorMsgColour"]} `}>
-                        {errors.twitterUrl}
-                      </div>
-                    ) : null}
-                  </div>
-                  <div className="col-6">
-                    <label className={styles.formLabel}>
-                      Twitter URL
-                    </label>
-                    <Field
-                      name="twitterUrl"
-                      onChange={handleChange}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = ""; 
-                        e.target.style.boxShadow = ""; 
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "#ff8c00"; 
-                        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-                      }}
-                      value={values.twitterUrl}
-                      placeholder="Twitter URL"
-                      id="name"
-                     
-                      className="form-control "
-                      type="text"
-                    />
-                    {errors.twitterUrl && touched.twitterUrl ? (
-                      <div className={`${styles["errorMsgColour"]} `}>
-                        {errors.twitterUrl}
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col-6">
-                    <label className={styles.formLabel}>
-                      Facebook URL
-                    </label>
-
-                    <Field
-                      name="facebookUrl"
-                      onChange={handleChange}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = ""; 
-                        e.target.style.boxShadow = ""; 
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "#ff8c00"; 
-                        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-                      }}
-                      value={values.facebookUrl}
-                      placeholder="Facebook URL"
-                      id="name"
-                      
-                      className="form-control "
-                      type="text"
-                    />
-                    {errors.facebookUrl && touched.facebookUrl ? (
-                      <div className={`${styles["errorMsgColour"]} `}>
-                        {errors.facebookUrl}
-                      </div>
-                    ) : null}
-                  </div>
-                  <div className="col-6">
-                    <label className={styles.formLabel}>
-                      LinkedIn URL
-                    </label>
-                    <Field
-                      name="linkedinUrl"
-                      onChange={handleChange}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = ""; 
-                        e.target.style.boxShadow = ""; 
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "#ff8c00"; 
-                        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-                      }}
-                      value={values.linkedinUrl}
-                      placeholder="LinkedIn URL"
-                      id="name"
-                      
-                      className="form-control "
-                      type="text"
-                    />
-                    {errors.linkedinUrl && touched.linkedinUrl ? (
-                      <div className={`${styles["errorMsgColour"]} `}>
-                        {errors.linkedinUrl}
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-                {showText ? (
-                  // {True ? (
-                  <div className="mb-3">
-                    <label className={styles.formLabel}>
-                      Other product(s) that you want to list
-                    </label>
-                    <span className={`${styles["required-color"]} `}> * </span>
-
-                    <Field
-                      name="otherProductList"
-                      onChange={handleChange}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = ""; 
-                        e.target.style.boxShadow = ""; 
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "#ff8c00"; 
-                        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-                      }}
-                      value={values.otherProductList}
-                      placeholder="Other product that you want to list"
-                      id="name"
-                      
-                      className="form-control "
-                      type="text"
-                    />
-                  </div>
-                  // )
+                      <Field
+                        name="otherProductList"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.otherProductList}
+                        placeholder="Other product that you want to list"
+                        id="name"
+                        className="form-control "
+                        type="text"
+                      />
+                    </div>
+                  ) : // )
                   // : False ? ("") : ("")}
-                ) : null}
+                  null}
 
-<div className="row mb-3">
-  <div className="col-12 col-sm-6">
-    <label className={styles.formLabel}>Message</label>
-    <Field
-      name="message"
-      onChange={handleChange}
-      onBlur={(e) => {
-        e.target.style.borderColor = ""; 
-        e.target.style.boxShadow = ""; 
-      }}
-      onFocus={(e) => {
-        e.target.style.borderColor = "#ff8c00"; 
-        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-      }}
-      value={values.message}
-      placeholder="Message if any"
-      className="form-control"
-      type="text"
-    />
-  </div>
-  <div className="col-12 col-sm-6">
-    <label className={styles.formLabel}>How did you hear about us?</label>
-    <Field
-      name="referenceCategory"
-      onChange={handleChange}
-      onBlur={(e) => {
-        e.target.style.borderColor = ""; 
-        e.target.style.boxShadow = ""; 
-      }}
-      onFocus={(e) => {
-        e.target.style.borderColor = "#ff8c00"; 
-        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-      }}
-      value={values.referenceCategory}
-      placeholder="How did you hear about us?"
-      className="form-control"
-      type="text"
-    />
-    {errors.referenceCategory && touched.referenceCategory && (
-      <div className={styles.errorMsgColour}>{errors.referenceCategory}</div>
-    )}
-  </div>
-</div>
+                  <div className="row mb-3">
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>LinkedIn URL</label>
+                      <Field
+                        name="linkedinUrl"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.linkedinUrl}
+                        placeholder="LinkedIn URL"
+                        id="name"
+                        className="form-control "
+                        type="text"
+                      />
+                      {errors.linkedinUrl && touched.linkedinUrl ? (
+                        <div className={`${styles["errorMsgColour"]} `}>
+                          {errors.linkedinUrl}
+                        </div>
+                      ) : null}
+                               
+                    </div>
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>Message</label>
+                      <Field
+                        name="message"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.message}
+                        placeholder="Message if any"
+                        className="form-control"
+                        type="text"
+                      />
+                                
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <label className={styles.formLabel}>
+                      How did you hear about us?
+                    </label>
+                    <Field
+                      name="referenceCategory"
+                      onChange={handleChange}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = "";
+                        e.target.style.boxShadow = "";
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = "#ff8c00";
+                        e.target.style.boxShadow =
+                          "0 0 5px rgba(255, 140, 0, 0.5)";
+                      }}
+                      value={values.referenceCategory}
+                      placeholder="How did you hear about us?"
+                      className="form-control"
+                      type="text"
+                    />
+                    {errors.referenceCategory && touched.referenceCategory && (
+                      <div className={styles.errorMsgColour}>
+                        {errors.referenceCategory}
+                      </div>
+                    )}
+                              
+                  </div>
 
-                <br />
-                <ReCAPTCHA
-                  sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
-                  onChange={onCaptchaChange}
-                />
-                <br />
+                  <br />
+                  <ReCAPTCHA
+                    sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
+                    onChange={onCaptchaChange}
+                  />
+                  <br />
 
-                <p>{errors.submit && "Please complete all required field."}</p>
-                <div className="col-12 pl-0 text-center mt-1">
-  {dirty && isValid ? (
-    <button type="submit" className={styles.regBtn}>
-      Submit Form
-    </button>
-  ) : (
-    <button type="submit" className={styles.regBtnDisable} disabled>
-      Submit Form
-    </button>
-  )}
-</div>
-
-              </Form>
-            </div>
+                  <p>
+                    {errors.submit && "Please complete all required field."}
+                  </p>
+                  <div className="col-12 pl-0 text-center mt-1">
+                    {dirty && isValid ? (
+                      <button type="submit" className={styles.regBtn}>
+                        Submit Form
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className={styles.regBtnDisable}
+                        disabled
+                      >
+                        Submit Form
+                      </button>
+                    )}
+                  </div>
+                </Form>
+              </div>
             </div>
           )}
         </Formik>

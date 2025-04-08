@@ -30,11 +30,11 @@ const NewArrivals: React.FC = (props) => {
                     setcards(datas)
                     setfast(datas[0])
                     setslider(datas.length > 3 ? true : false)
-                    if (datas.length < 4) {
-                        setslidesToShow(4)
+                    if (datas.length < 3) {
+                        setslidesToShow(3)
 
-                    } else if (datas.length >= 4) {
-                        setslidesToShow(datas.length >= 4 ? 4 : datas.length)
+                    } else if (datas.length >= 3) {
+                        setslidesToShow(datas.length >= 3 ? 3 : datas.length)
                     }
                 }
             })
@@ -54,7 +54,7 @@ const NewArrivals: React.FC = (props) => {
             {
                 breakpoint: 1200,
                 settings: {
-                    slidesToShow: 4,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                 }
             },

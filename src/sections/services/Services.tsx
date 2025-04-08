@@ -51,16 +51,16 @@ const Services: React.FC = (props) => {
   }, [router.query.id, router.query.servicename, router.query.ids])
   console.log(servicelist);
   const [minValue, setminValue] = useState(0)
-  const [maxValue, setmaxValue] = useState(12)
+  const [maxValue, setmaxValue] = useState(9)
   const handleChange = (Value) => {
     console.log(Value)
     if (Value <= 1) {
       setminValue(0);
-      setmaxValue(12)
+      setmaxValue(9)
     } else {
-      setminValue(Value * 12 - 12),
+      setminValue(Value * 9 - 9),
         console.log(minValue)
-      setmaxValue(Value * 12)
+      setmaxValue(Value * 9)
       console.log(maxValue)
     }
   };
@@ -70,9 +70,10 @@ const Services: React.FC = (props) => {
   return (
 
     <>
-      <div className="p-3">
+      <div className="p-3 d-flex justify-content-center">
+      <div className={`container ${styles.customContainer}`}>
         <div className="row">
-          <div className="col">
+          <div className="col-12">
             <Breadcrumb>
               <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
               <Breadcrumb.Item href="/marketplace">Marketplace</Breadcrumb.Item>
@@ -85,7 +86,7 @@ const Services: React.FC = (props) => {
             <Filter />
           </div>
           {
-            (categories.length > 12) ?
+            (categories.length > 9) ?
               <div className="col-lg-9">
                 <div className="row pt-4 pb-4">
                   {categories && categories.length > 0 && categories.slice(minValue, maxValue).map((z, k) => {
@@ -127,6 +128,7 @@ const Services: React.FC = (props) => {
                 </div>
               </div>
           }
+        </div>
         </div>
       </div>
     </>
