@@ -1,13 +1,12 @@
 import React from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import router from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import urls from "../../utilities/AppSettings";
 import styles from "../Customer/Login.module.scss"
-import { useRouter } from "next/router";
+import router from "next/router";
 
 export default function GoogleAuth(props) {
   interface GoogleJwtPayload {
@@ -49,13 +48,12 @@ export default function GoogleAuth(props) {
         localStorage.setItem("user", JSON.stringify(userDetail));
         localStorage.setItem("Authorization", response.data.data.authtoken);
   
-        const router = useRouter();
-        router.push("/service");
+        router.push("/marketplace");
       } else {
         toast.error("Login Failed!", { autoClose: 1500 });
       }
     } catch (error) {
-      toast.warning("An error occurred!", { autoClose: 1500 });
+      // toast.warning("An error occurred!", { autoClose: 1500 });
     }
   };
 
