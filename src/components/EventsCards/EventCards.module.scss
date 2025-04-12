@@ -125,7 +125,22 @@
   font-weight: bold;
   color: #333;
   margin-bottom: 5px;
+  white-space: nowrap;
 }
+
+@media (max-width: 576px) {
+  .card-clock-event {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .card-clock-event {
+    font-size: 12px;
+  }
+}
+
+
 
 .card-location-event{
   margin-bottom: 10px;

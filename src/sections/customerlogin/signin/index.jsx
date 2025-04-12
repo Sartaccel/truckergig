@@ -409,26 +409,26 @@ const Signin = () => {
                   )}
                 />
               </Grid>
-              <Grid item xs={10} lg={8} mt={0.5} >
-              {/* <div className="d-flex align-items-start"> */}
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-              >
-                <FormControlLabel value="vendor" checked={"vendor"==valueforradio} control={<Radio onChange={() => handleRadioChange("vendor")}/>} label="Vendor" />
-                <FormControlLabel value="customer" checked={"customer"==valueforradio} control={<Radio onChange={() => handleRadioChange("customer")}/>} label="Customer" />
-              </RadioGroup>
-
-              <p
-                      className={`${styles["forgetpassword"]} `}
-                      onClick={(e) =>{forgotPassword(e)}}
-                      >
-                        Forgot Password
-                      </p>
-       
-              {/* </div> */}
-              </Grid>
+                <Grid item xs={10} lg={8} mt={0.5} >
+                <div className={styles["radio-forgot-wrapper"]}>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="row-radio-buttons-group"
+                >
+                  <FormControlLabel value="vendor" checked={"vendor"==valueforradio} control={<Radio onChange={() => handleRadioChange("vendor")}/>} label="Vendor" />
+                  <FormControlLabel value="customer" checked={"customer"==valueforradio} control={<Radio onChange={() => handleRadioChange("customer")}/>} label="Customer" />
+                </RadioGroup>
+                    
+                <p
+                        className={`${styles["forgetpassword"]} `}
+                        onClick={(e) =>{forgotPassword(e)}}
+                        >
+                          Forgot Password
+                        </p>
+        
+                </div>
+                </Grid>
   
 
               <Grid item xs={10} lg={8}>
@@ -482,7 +482,8 @@ const Signin = () => {
                     <span 
                     style={{
                     color:"rgb(0, 112, 156)",
-                    textdecoration:"none !important"
+                    textdecoration:"none !important",
+                    cursor:"pointer"
                   }}>Sign Up</span>
                   </Link> */}
                 </p>
@@ -510,7 +511,7 @@ const Signin = () => {
                 </Box>
               </Grid>
 
-              <Grid item xs={8} lg={8}>
+              <Grid item xs={6} lg={6}>
                 <Box className="google">
                 <GoogleLogin isformlogin={true} />
                   {/* <GoogleLogin

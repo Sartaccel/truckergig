@@ -10,16 +10,35 @@ font-size: 13px;
 color: #000;
 }
 
-.signin-btn{
-background-color: #f7941d;
-border: 1px solid #f8a543;
-color: #fff;
-font-weight: 700;
-padding: 4px 15px;
-font-size: 15px;
-border-radius: 4px;
-float: right;
-}
+.signin-btn {
+    background-color: #f7941d;
+    border: 1px solid #f8a543;
+    color: #fff;
+    font-weight: 700;
+    padding: 8px 15px;
+    font-size: 15px;
+    border-radius: 4px;
+    margin-left: 20rem;
+  
+    @media (max-width: 768px) {
+      margin-left: 0;
+      margin-right: 0;
+      width: 60%;
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+    }
+  }
+  .recaptha {
+    transform: scale(0.65); // adjust 0.85 to your preferred size
+    transform-origin: 0 0; // keeps it aligned from the top-left corner
+    margin-top: 10px;
+  
+    @media (max-width: 768px) {
+      transform: scale(0.75);
+    }
+  }
+  
 
 .star{
 color: #e02b27;

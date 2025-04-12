@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
  <div className={`${styles["footer-container"]} flex flex-col justify-center items-center gap-4 w-full`}>
   
   {/* Join Us Content */}
-  <div className={`${styles["text-content"]} text-center`}>
+  <div className={`${styles["text-content"]} text-left`}>
     <h2 style={{ color: "white" }}>
       Connect with us today and<br /> accelerate your Business growth
     </h2>
@@ -71,9 +71,9 @@ const Footer: React.FC = () => {
                       {/* Address */}
                       <div className={`${styles["footer-icons"]}`}>
                         <i className="bx bx-location-plus"></i>
-                        <span>
-                          11555 Medlock Bridge Road,Suite 100,Johns Creek,
-                          GA-30097
+                        <span style={{marginRight:"45px"}}>
+                         <span style={{marginRight:"25px"}}> 11555 Medlock Bridge Road,</span><br/>Suite 100,Johns Creek,GA-30097
+                          
                         </span>
                         <br />
                         <span> </span>

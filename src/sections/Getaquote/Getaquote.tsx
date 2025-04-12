@@ -19,13 +19,13 @@ const onChange = (value) => {
 
 const schema = yup.object().shape({
     businessName: yup.string().required("Please enter Business/Individual Name").min(2).max(24),
-    country: yup.string().required("This is a required field"),
-    state: yup.string().required("This is a required field"),
-    city: yup.string().required("This is a required field"),
-    zipcode: yup.string().required("This field is Required").matches(/^\d{4,}$/, "Zipcode is not valid"),
-    email: yup.string().email().required("This is a required field"),
-    contactNo: yup.string().required("This field is Required").matches(/^\d{10}$/, "Phone number is not valid"),
-    address: yup.string().required("This is a required field"),
+    country: yup.string().required("Country is required"),
+    state: yup.string().required("State is required"),
+    city: yup.string().required("City is required"),
+    zipcode: yup.string().required("Zipcode is required").matches(/^\d{4,}$/, "Zipcode is not valid"),
+    email: yup.string().email().required("Email is required"),
+    contactNo: yup.string().required("ContactNo is required").matches(/^\d{10}$/, "Phone number is not valid"),
+    address: yup.string().required("Address is required"),
 
 })
 
@@ -225,7 +225,7 @@ const Getaquote: React.FC = (props: any) => {
                                     <div className={`${styles["equipment-form-text"]}`}>
                                         <label>Verify Captcha</label><sup className={`${styles["star"]} `} >*</sup>
                                     </div>
-                                    <div>
+                                    <div  className={`${styles["recaptha"]}`}>
                                         <ReCAPTCHA sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV" onChange={onChange} />
                                     </div>
                                 </div>
