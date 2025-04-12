@@ -21,6 +21,15 @@ const Myservices: React.FC = (props) => {
   const [childEle, setChildEle] = useState("");
   const [minValue, setminValue] = useState(0)
   const [maxValue, setmaxValue] = useState(12)
+  const [role, setrole] = useState(null)
+
+ 
+
+    useEffect(() => {
+      if (typeof window !== "undefined") {
+        setrole(localStorage.getItem("role"));
+      }
+    }, []);
 
   useEffect(() => {
 
@@ -75,13 +84,17 @@ const Myservices: React.FC = (props) => {
             </Breadcrumb>
           </div>
           <div className="col-6 ">
-            <button className={`${styles["card-slider-btn"]} float-right`} onClick={(e) => {
-              e.preventDefault();
-              Router.push({
-                pathname: "/addservice",
-              });
-            }}
-            >Add New</button>
+          {
+        role !== 'user' &&
+        <button className={`${styles["card-slider-btn"]} float-right`} onClick={(e) => {
+          e.preventDefault();
+          Router.push({
+            pathname: "/addservice",
+          });
+        }}>
+          Add New
+        </button> 
+      }
           </div>
         </div>
         <div className="row"   style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
@@ -119,6 +132,7 @@ const Myservices: React.FC = (props) => {
                 <div className="row pt-4 pb-4">
                   {mycategories.map((z, k) => {
                     return <MyCards
+                      role={role}
                       key={k}
                       items={z}
                       setservice={setmyservice}

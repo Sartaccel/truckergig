@@ -172,6 +172,7 @@ const Signin = () => {
             const userdetail = response.data.data.userdata;
             localStorage.setItem("user", JSON.stringify(userdetail));
             localStorage.setItem("Authorization", response.data.data.authtoken);
+            localStorage.setItem("role", "user");
             router.push("/marketplace");
           }else {
             toast.error("Login error", {
@@ -232,6 +233,7 @@ const Signin = () => {
                 localStorage.setItem("Authorization", response.data.data.authtoken);
                 localStorage.setItem("Clientname", response.data.data.clientName);
                 localStorage.setItem("Clientid", response.data.data.clientId);
+                localStorage.setItem("role", response.data.data.userType);
                 router.push("/marketplace");
               }else {
                 toast.error("Login error", {
