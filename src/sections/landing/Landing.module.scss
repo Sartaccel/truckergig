@@ -34,6 +34,12 @@
   object-fit: cover; // Maintain aspect ratio while covering the section
 }
 
+@media only screen and (max-width: 600px) {
+  .img-width {
+    height: 200px !important;
+    object-fit: cover;
+  }
+}
 
 .get-button {
   width: 140px;
@@ -59,11 +65,12 @@
 
   a {
     text-decoration: none;
-    font-size: 18px;
+    font-size: 1rem;
     color: white;
     transition: color 0.3s ease-in-out;
   }
 }
+
 
 .truck-img{
     width: auto;
@@ -302,7 +309,7 @@ display: -webkit-box;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 30px;
+  padding: 23px;
   background: #eff5fd;
   border-bottom: 1px solid #ddd;
   flex-grow: 1; // Makes all feature items equal height
@@ -315,7 +322,7 @@ display: -webkit-box;
 }
 
 .feature-icon {
-  width: 5rem;
+  width: 11rem;
   height: 5rem;
   background: #ffe5cc;
   border-radius: 50%;
@@ -663,15 +670,15 @@ max-width: 250px;
   animation: none;
   padding-left: 30px;
 }
-.get-button{
-  width: 95px;
-  height:30px;
-  padding: 1px;
-  margin-top: 5px;
+.get-button {
+  width: 45%;
+  height: 42px;
+  border-radius: 10px;
+  margin-top: 10px;
 
-}
-.start-text{
-  font-size: 15px;
+  a {
+    font-size: 0.95rem;
+  }
 }
 .truck-title{
   display: inline-block;
