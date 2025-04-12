@@ -21,7 +21,18 @@ const schema = yup.object().shape({
 	title: yup.string().required("Title is required").min(2, "Title must have atleast 2 characters").max(50, "Title should not exceed 50 characters"),
 	shortDescription: yup.string().required("Description is required").min(2, "Description must have atleast 2 characters").max(250, "Title should not exceed 250 characters"),
 	emailAddress: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/, "Email is not valid"),
-	externalUrl: yup.string().matches(/^(ftp|https?):\/\/+(www\.)?[a-z0-9\-\.]{3,}\.[a-z]{3}$/, "Url is not valid"),
+	externalUrl: yup.string()
+    .test('is-valid-url', 'Please enter a valid URL', (value) => {
+      if (!value) return false;
+      try {
+        // Prepend 'http://' if no protocol is specified
+        const url = new URL(value.startsWith('http') ? value : `http://${value}`);
+        return true;
+      } catch (err) {
+        return false;
+      }
+    })
+    .required('Website URL is required'),
 });
 
 
@@ -256,27 +267,13 @@ const Serviceregistration: React.FC = () => {
 								<div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-2">
 									<label className={styles.formLabel}>Email</label><sup className="star">*</sup>
 									<input {...register("emailAddress")} name="emailAddress" type="email"
-									//  onBlur={(e) => {
-									// 	e.target.style.borderColor = "";
-									// 	e.target.style.boxShadow = ""; 
-									//   }}
-									//   onFocus={(e) => {
-									// 	e.target.style.borderColor = "#ff8c00"; 
-									// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-									//   }} 
+									
 									placeholder="Enter your email" className={`${styles.inputField} form-control ${errors.emailAddress ? "is-invalid" : ""}`} 
 									value={email} onChange={ e => setemail(e.target.value)}/>
 									<div className="invalid-feedback">{errors.emailAddress?.message}</div>
 									<label className={styles.formLabel}>Service Name</label><sup className="star">*</sup>
 									<input {...register("title")} name="title" type="text"
-									//  onBlur={(e) => {
-									// 	e.target.style.borderColor = ""; 
-									// 	e.target.style.boxShadow = ""; 
-									//   }}
-									//   onFocus={(e) => {
-									// 	e.target.style.borderColor = "#ff8c00"; 
-									// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-									//   }} 
+									
 									  placeholder="Enter the name of your service" className={`${styles.inputField} form-control ${errors.title ? "is-invalid" : ""}`} 
 									value={servicename} onChange={ e => setservicename(e.target.value)}/>
 									<div className="invalid-feedback">{errors.title?.message}</div>
@@ -318,21 +315,16 @@ const Serviceregistration: React.FC = () => {
 									{showText ? (
 										<div style={{marginBottom:"3px"}}>
 
-											<label className={styles.formLabel}>Website URL</label><sup className="star" >*</sup>
-											<input {...register("externalUrl")}
-												name="externalUrl"
-												type="text"
-												// onBlur={(e) => {
-												// 	e.target.style.borderColor = ""; 
-												// 	e.target.style.boxShadow = ""; 
-												//   }}
-												//   onFocus={(e) => {
-												// 	e.target.style.borderColor = "#ff8c00"; 
-												// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-												//   }}
-												placeholder="Enter external  Url with http/https"
-												
-												className={`${styles.inputField} form-control ${errors.externalUrl ? "is-invalid" : ""} `} />
+<label className={styles.formLabel}>Company Website URL</label><sup className="star">*</sup>
+<input
+  {...register('externalUrl')}
+  name="externalUrl"
+  type="text"
+  placeholder="Enter external URL with http/https"
+  className={`${styles.inputField} form-control ${errors.externalUrl ? 'is-invalid' : ''}`}
+/>
+<div className="invalid-feedback">{errors.externalUrl?.message}</div>
+
 											<div className="invalid-feedback">{errors.externalUrl?.message}</div><br />
 										</div>
 									) : null}
