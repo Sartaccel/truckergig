@@ -135,7 +135,7 @@ useEffect(() => {
   const logout = () => {
     window.localStorage.clear();
     window.sessionStorage.clear();
-    Router.push("/marketplace");
+    Router.push("/");
   };
 
   const myService = () => {

@@ -39,7 +39,8 @@
         .post(`${urls.baseUrl}login`, params)
 
         .then(function (response) {
-          if (response.status === 200) {
+          alert(response?.data?.headers?.statusCode)
+          if(response?.data?.headers?.statusCode==407){
             toast.success("Login Success", {
               theme: "colored",
               position: "top-right",
@@ -50,22 +51,34 @@
               draggable: true,
               progress: undefined,
             });
-            const userdetail = response.data.data.userdata;
-            localStorage.setItem("user", JSON.stringify(userdetail));
-            localStorage.setItem("Authorization", response.data.data.authtoken);
-            router.push("/marketplace");
-          } else {
-            toast.error("Login error", {
-              theme: "colored",
-              position: "top-right",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
           }
+          // if (response.status === 200) {
+            // toast.success("Login Success", {
+            //   theme: "colored",
+            //   position: "top-right",
+            //   autoClose: 1500,
+            //   hideProgressBar: false,
+            //   closeOnClick: true,
+            //   pauseOnHover: true,
+            //   draggable: true,
+            //   progress: undefined,
+            // });
+          //   const userdetail = response.data.data.userdata;
+          //   localStorage.setItem("user", JSON.stringify(userdetail));
+          //   localStorage.setItem("Authorization", response.data.data.authtoken);
+          //   router.push("/marketplace");
+          // } else {
+          //   toast.error("Login error", {
+          //     theme: "colored",
+          //     position: "top-right",
+          //     autoClose: 1500,
+          //     hideProgressBar: false,
+          //     closeOnClick: true,
+          //     pauseOnHover: true,
+          //     draggable: true,
+          //     progress: undefined,
+          //   });
+          // }
         })
         .catch(function (error) {
           toast.error("Invalid Credentials", {
