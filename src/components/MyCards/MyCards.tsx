@@ -5,8 +5,8 @@ import DeleteService from "../DeleteService/DelService";
 export const MyCards = (props: any) => {
   return (
     <div className="col-lg-3 col-sm-6 col-12 mb-3">
-      <div className="card">
-        <div className={`${styles["card-slider"]} `}>
+      <div className="card" >
+        <div className={`${styles["card-slider"]} `} style={{width:"200px"}}>
           <div className={`${styles["card-slider-img"]} `}>
             <img
               className={`${styles["card-slider-image"]} `}
