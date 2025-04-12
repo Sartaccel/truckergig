@@ -3,6 +3,7 @@ import styles from '../cards/HomeCards.module.scss';
 import DeleteService from "../DeleteService/DelService";
 
 export const MyCards = (props: any) => {
+  console.log(props,"props...")
   return (
     <div className="col-lg-3 col-sm-6 col-12 mb-3">
       <div className="card">
@@ -24,7 +25,10 @@ export const MyCards = (props: any) => {
                 className={`${styles["card-slider-desc-text"]} `}
                 dangerouslySetInnerHTML={{ __html: props.items.description }}
               ></div>
-              <DeleteService carddata={props.items ? props.items : new Array()} />
+              {
+                props?.role!=="user" && <DeleteService carddata={props.items ? props.items : new Array()} />
+              }
+             
             </div>
           </div>
         </div>
