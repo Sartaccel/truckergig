@@ -542,30 +542,25 @@ const Vendor: React.FC = () => {
                       ) : null}
                     </div>
                   </div>
-                  <div className="row mb-3">
-                  <div className="col-12 col-sm-6">
-  <label className={styles.formLabel}>Password</label>
-  <sup className="star">*</sup>
+                  <div className="row mb-1">
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>Password</label>
+                      <sup className="star">*</sup>
 
-  <Field
-    name="password"
-    onFocus={(e) => {
-      e.target.style.borderColor = "#ff8c00";
-      e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-    }}
-    value={values.password}
-    placeholder="Enter your password"
-    id="password"
-    className={`form-control ${errors.password && touched.password ? "is-invalid" : ""}`}
-    type="password"
-  />
-  
-  {/* Display error message */}
-  {errors.password && touched.password && (
-    <div className="invalid-feedback">{errors.password}</div>
-  )}
-</div>
-
+                      <Field
+                        name="password"
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        
+                        placeholder="Enter your password"
+                        id="name"
+                        className="form-control "
+                        type="text"
+                      />
+                    </div>
                     <div className="col-12 col-sm-6">
                       <label className={styles.formLabel}>
                         Billing Address
@@ -592,12 +587,38 @@ const Vendor: React.FC = () => {
                           {errors.address}
                         </div>
                       )}
-                    </div>
-                      </div>
-                  <div className="row mb-3">
+                                
+                    </div>
+                  </div>
+                  <div className="row mb-1">
+                    <div className="col-6 col-sm-6">
+                      <label className={styles.formLabel}>Website URL</label>
+                      <Field
+                        name="websiteUrl"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.websiteUrl}
+                        placeholder="Website URL"
+                        className="form-control"
+                        type="text"
+                      />
+                      {errors.websiteUrl && touched.websiteUrl && (
+                        <div className={styles.errorMsgColour}>
+                          {errors.websiteUrl}
+                        </div>
+                      )}
+                                
+                    </div>
                     <div className="col-6 col-sm-6">
                       <label className={styles.formLabel}>Instagram URL</label>
-
                       <Field
                         name="instagramUrl"
                         onChange={handleChange}
@@ -621,7 +642,10 @@ const Vendor: React.FC = () => {
                           {errors.twitterUrl}
                         </div>
                       ) : null}
+                                
                     </div>
+                  </div>
+                  <div className="row mb-1">
                     <div className="col-6">
                       <label className={styles.formLabel}>Twitter URL</label>
                       <Field
@@ -647,12 +671,10 @@ const Vendor: React.FC = () => {
                           {errors.twitterUrl}
                         </div>
                       ) : null}
+                               
                     </div>
-                  </div>
-                  <div className="row mb-3">
                     <div className="col-6">
                       <label className={styles.formLabel}>Facebook URL</label>
-
                       <Field
                         name="facebookUrl"
                         onChange={handleChange}
@@ -676,32 +698,7 @@ const Vendor: React.FC = () => {
                           {errors.facebookUrl}
                         </div>
                       ) : null}
-                    </div>
-                    <div className="col-6">
-                      <label className={styles.formLabel}>LinkedIn URL</label>
-                      <Field
-                        name="linkedinUrl"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.linkedinUrl}
-                        placeholder="LinkedIn URL"
-                        id="name"
-                        className="form-control "
-                        type="text"
-                      />
-                      {errors.linkedinUrl && touched.linkedinUrl ? (
-                        <div className={`${styles["errorMsgColour"]} `}>
-                          {errors.linkedinUrl}
-                        </div>
-                      ) : null}
+                                
                     </div>
                   </div>
                   {showText ? (
@@ -740,6 +737,33 @@ const Vendor: React.FC = () => {
 
                   <div className="row mb-3">
                     <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>LinkedIn URL</label>
+                      <Field
+                        name="linkedinUrl"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.linkedinUrl}
+                        placeholder="LinkedIn URL"
+                        id="name"
+                        className="form-control "
+                        type="text"
+                      />
+                      {errors.linkedinUrl && touched.linkedinUrl ? (
+                        <div className={`${styles["errorMsgColour"]} `}>
+                          {errors.linkedinUrl}
+                        </div>
+                      ) : null}
+                               
+                    </div>
+                    <div className="col-12 col-sm-6">
                       <label className={styles.formLabel}>Message</label>
                       <Field
                         name="message"
@@ -758,35 +782,36 @@ const Vendor: React.FC = () => {
                         className="form-control"
                         type="text"
                       />
+                                
                     </div>
-                    <div className="col-12 col-sm-6">
-                      <label className={styles.formLabel}>
-                        How did you hear about us?
-                      </label>
-                      <Field
-                        name="referenceCategory"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.referenceCategory}
-                        placeholder="How did you hear about us?"
-                        className="form-control"
-                        type="text"
-                      />
-                      {errors.referenceCategory &&
-                        touched.referenceCategory && (
-                          <div className={styles.errorMsgColour}>
-                            {errors.referenceCategory}
-                          </div>
-                        )}
-                    </div>
+                  </div>
+                  <div className="col-6">
+                    <label className={styles.formLabel}>
+                      How did you hear about us?
+                    </label>
+                    <Field
+                      name="referenceCategory"
+                      onChange={handleChange}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = "";
+                        e.target.style.boxShadow = "";
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = "#ff8c00";
+                        e.target.style.boxShadow =
+                          "0 0 5px rgba(255, 140, 0, 0.5)";
+                      }}
+                      value={values.referenceCategory}
+                      placeholder="How did you hear about us?"
+                      className="form-control"
+                      type="text"
+                    />
+                    {errors.referenceCategory && touched.referenceCategory && (
+                      <div className={styles.errorMsgColour}>
+                        {errors.referenceCategory}
+                      </div>
+                    )}
+                              
                   </div>
 
                   <br />

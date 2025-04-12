@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Filter.module.scss";
+import { FaSearch } from 'react-icons/fa';
 import Router from "next/router";
 import urls from "../../utilities/AppSettings";
 import { useRouter } from 'next/router';
@@ -29,13 +30,18 @@ const Filter: React.FC = (props: any) => {
       });
   }, []);
 
- const handleInputChange = (e) => {
+ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const value = e.target.value;
   setSearchList(value);
 
+  const filtered = List.filter((item) =>
+    item?.serviceName?.toLowerCase().includes(value.toLowerCase())
+  );
+  setFilteredList(filtered);
+
   Router.push({
     pathname: "/marketplaces",
-    query: { servicename: SearchList },
+    query: { servicename: value },
   });
 };
 
@@ -104,11 +110,21 @@ const Filter: React.FC = (props: any) => {
       <div className="input-group">
         <input
           type="text"
-          className="form-control col-xs-5"
+          className="form-control pe-5"
           placeholder="Search your need here"
           value={SearchList}
           onChange={handleInputChange}
         />
+         <FaSearch
+    className="position-absolute"
+    style={{
+      right: '15px',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      color: '#ff9239',
+      pointerEvents: 'none',
+    }}
+  />
         {/* <button type="button" onClick={handleSearch} className={styles["filter-btn"]}>
           <i className="bi bi-check-lg"></i>
         </button>
@@ -136,14 +152,14 @@ const Filter: React.FC = (props: any) => {
                   className={element.id === val ? styles["filter-cursor"] : ""}
                 >
                   <img src={element.imagePath} alt={element.name} />
-                  &nbsp;&nbsp;{element.name}
+                  <span className="category-label">{element.name}</span>
                 </div>
               ) : (
                 <div
                 className={`${styles["menu-item"]} ${openMenus[element.id] ? styles["menu-open"] : ""}`} 
                 onClick={() => handleToggleMenu(element.id)}>
                   <img src={element.imagePath} alt={element.name} />
-                  &nbsp;&nbsp;{element.name}
+                  <span className="category-label">{element.name}</span>
                   <i className={`bi bi-chevron-${openMenus[element.id] ? "down" : "right"} float-right`}></i>
                 </div>
               )}

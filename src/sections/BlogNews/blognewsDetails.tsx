@@ -95,6 +95,10 @@ const Events: React.FC = () => {
       </a>
     </div>
   </div>
+  <p className="text-muted fst-italic" style={{ fontSize: "13px" }}>
+  {eventdate}
+</p>
+
   <p dangerouslySetInnerHTML={{ __html: eventdescription }}></p>
 </div>
 

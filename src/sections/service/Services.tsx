@@ -46,12 +46,12 @@ const Services: React.FC = () => {
 <div className="p-3 d-flex justify-content-center">
 <div className={`container ${styles.customContainer}`}>
         <div className="row">
-            <div className="col-12">
+            {/* <div className="col-12">
                 <Breadcrumb>
                     <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
                     <Breadcrumb.Item active>Marketplace</Breadcrumb.Item>
                 </Breadcrumb>
-            </div>
+            </div> */}
         </div>
         <div className="row">
             {/* Filter section (equal width as cards section) */}

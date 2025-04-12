@@ -135,7 +135,7 @@ useEffect(() => {
   const logout = () => {
     window.localStorage.clear();
     window.sessionStorage.clear();
-    Router.push("/marketplace");
+    Router.push("/");
   };
 
   const myService = () => {
@@ -149,7 +149,8 @@ useEffect(() => {
       className={`${styles[isMobile ? "navbar-other" : router.pathname === "/" ? "navbar-fixed" : "navbar-other"]}
       ${scrolled ? styles["scrolled"] : ""} ${hidden ? styles["hidden"] : ""}`}
     >
-      <Container fluid className={`${styles["navbar-content"]}`}>
+      <Container fluid className={`${styles["navbar-content"]} d-flex align-items-center justify-content-between`}>
+      <div className="d-flex align-items-center justify-content-between w-100 navbar-header">
         <Navbar.Brand>
           <Link href="/">
             <a className={`${styles["navbar-brand"]} ${styles.logo}`}>
@@ -162,12 +163,13 @@ useEffect(() => {
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        </div>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto"></Nav>
           <Nav className="mr-auto">
-            <Nav>
+            {/* <Nav>
              
-            </Nav>
+            </Nav> */}
           </Nav>
           <Nav>
             <div className="navbar-nav">

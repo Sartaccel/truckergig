@@ -41,97 +41,97 @@ const Landing: React.FC = () => {
      });
   }, []);
   
-  useEffect(() => {
-    axios
-      .get(`${urls.baseUrl}summary`)
-      .then((response) => {
-        console.log(response.data.data);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${urls.baseUrl}summary`)
+  //     .then((response) => {
+  //       console.log(response.data.data);
 
-        const actualCandidates = parseNumber(response.data.data.candidates?.in_progress);
-        const actualJobs = parseNumber(response.data.data.jobs?.open);
-        const actualCarriers = parseNumber(response.data.data.carriers?.active);
-        const actualVendors = parseNumber(response.data.data.vendors?.active);
+  //       const actualCandidates = parseNumber(response.data.data.candidates?.in_progress);
+  //       const actualJobs = parseNumber(response.data.data.jobs?.open);
+  //       const actualCarriers = parseNumber(response.data.data.carriers?.active);
+  //       const actualVendors = parseNumber(response.data.data.vendors?.active);
 
-        setJobs(response.data.data.jobs.open);
+  //       setJobs(response.data.data.jobs.open);
 
-        setCandidates(actualCandidates);
-        setCarriers(actualCarriers);
-        setVendors(actualVendors);
+  //       setCandidates(actualCandidates);
+  //       setCarriers(actualCarriers);
+  //       setVendors(actualVendors);
 
-        animateNumber(setCandidates, actualCandidates);
-        animateNumber(setCarriers, actualCarriers);
-        animateNumber(setVendors, actualVendors);
+  //       animateNumber(setCandidates, actualCandidates);
+  //       animateNumber(setCarriers, actualCarriers);
+  //       animateNumber(setVendors, actualVendors);
 
-        const Ve = response.data.data.greetings;
-        if (Ve?.imagePath) {
-          setGreet(Ve.imagePath);
-          handleShow();
-        } else {
-          handleClose();
-        }
-      })
-      .catch((error) => {
-        console.error("API Error:", error);
-      });
-  }, []);
+  //       const Ve = response.data.data.greetings;
+  //       if (Ve?.imagePath) {
+  //         setGreet(Ve.imagePath);
+  //         handleShow();
+  //       } else {
+  //         handleClose();
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("API Error:", error);
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.8 } // Trigger when 50% of the section is visible
-    );
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         setIsVisible(true);
+  //         observer.disconnect();
+  //       }
+  //     },
+  //     { threshold: 0.8 } // Trigger when 50% of the section is visible
+  //   );
 
-    if (summaryRef.current) {
-      observer.observe(summaryRef.current);
-    }
+  //   if (summaryRef.current) {
+  //     observer.observe(summaryRef.current);
+  //   }
 
-    return () => {
-      if (summaryRef.current) {
-        observer.unobserve(summaryRef.current);
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (summaryRef.current) {
+  //       observer.unobserve(summaryRef.current);
+  //     }
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    if (isVisible) {
-      animateNumber(setCandidates, candidates);
-      animateNumber(setCarriers, carriers);
-      animateNumber(setVendors, vendors);
-    }
-  }, [isVisible]);
+  // useEffect(() => {
+  //   if (isVisible) {
+  //     animateNumber(setCandidates, candidates);
+  //     animateNumber(setCarriers, carriers);
+  //     animateNumber(setVendors, vendors);
+  //   }
+  // }, [isVisible]);
 
-  const parseNumber = (value: any): number => {
-    if (typeof value === "string") {
-      return Number(value.replace(/,/g, "")) || 0; // Remove commas and convert to number
-    }
-    return typeof value === "number" ? value : 0; // Default to 0 if undefined or invalid
-  };
+  // const parseNumber = (value: any): number => {
+  //   if (typeof value === "string") {
+  //     return Number(value.replace(/,/g, "")) || 0; // Remove commas and convert to number
+  //   }
+  //   return typeof value === "number" ? value : 0; // Default to 0 if undefined or invalid
+  // };
 
-  const animateNumber = (setState: React.Dispatch<React.SetStateAction<number>>, actualValue: number) => {
-    if (isNaN(actualValue) || actualValue < 0) {
-      console.warn("Invalid number received for animation:", actualValue);
-      return;
-    }
+  // const animateNumber = (setState: React.Dispatch<React.SetStateAction<number>>, actualValue: number) => {
+  //   if (isNaN(actualValue) || actualValue < 0) {
+  //     console.warn("Invalid number received for animation:", actualValue);
+  //     return;
+  //   }
 
-    let start = 0;
-    const duration = 2000; // 2 seconds animation
-    const increment = Math.ceil(actualValue / (duration / 50));
+  //   let start = 0;
+  //   const duration = 2000; // 2 seconds animation
+  //   const increment = Math.ceil(actualValue / (duration / 50));
 
-    const interval = setInterval(() => {
-      start += increment;
-      setState((prev) => Math.min(start, actualValue));
+  //   const interval = setInterval(() => {
+  //     start += increment;
+  //     setState((prev) => Math.min(start, actualValue));
 
-      if (start >= actualValue) {
-        setState(actualValue);
-        clearInterval(interval);
-      }
-    }, 50);
-  };
+  //     if (start >= actualValue) {
+  //       setState(actualValue);
+  //       clearInterval(interval);
+  //     }
+  //   }, 50);
+  // };
 
   
 
@@ -295,11 +295,12 @@ const Landing: React.FC = () => {
       <h5 className={styles["section-title"]}>Marketplace</h5>
       <div className={`row ${styles.marketcardSection}`}>
 
-        <div className="col-md-6 col-lg-4 p-0 m-0 d-flex justify-content-center">
-          <div className={styles.card}>
+        <div className="col-md-6 col-lg-4 mb-4 p-0 m-0 d-flex justify-content-center">
+        <Link href="/marketplace" passHref>
+          <div className={styles.card} style={{cursor:"pointer"}}>
             <img className={styles["card-img"]} src="/images/marketplace_1.jpg" alt="dispatch-logo"/>
             <div className={styles.overlay}>
-              <h3 className={styles.cardheading}>Dispatch Services</h3>
+              <h3 className={styles.cardheading}>Marketplace</h3>
            </div>
 
             <div className={styles["inner-card"]}>
@@ -312,17 +313,20 @@ const Landing: React.FC = () => {
               style={{ width: "80px" }}
             />
             <div className={styles["card-body"]}>
-              <h4 className={`${styles["service-heading"]}`}>Dispatch Services</h4>
-              <p>Get your dispatch done with real-time scenarios of trucks and trailers, after-hours support, and a lot more.</p>
+              <h4 className={`${styles["service-heading"]}`}>Marketplace</h4>
+              <p>Trucks/Trailers Leasing, Fleet management, API & Integrations, and more.</p>
             </div>
           </div>
 
             </div>
           </div>
+        </Link>
+
         </div>
-
+        
         <div className="col-md-6 col-lg-4 mb-4 d-flex  p-0 m-0 justify-content-center">
-          <div className={styles.card}>
+        <Link href="/generalinfo" passHref>
+          <div className={styles.card} style={{cursor:"pointer"}}>
             <img className={styles["card-img"]} src="/images/marketplace_2.jpg" alt="driver-logo" />
             <div className={styles.overlay}>
               <h3 className={styles.cardheading}>Carrier & Driver Onboarding</h3>
@@ -342,13 +346,15 @@ const Landing: React.FC = () => {
           </div>
             </div>
           </div>
+        </Link>
         </div>
 
         <div className="col-md-6 col-lg-4 mb-4 d-flex  p-0 m-0 justify-content-center">
-          <div className={styles.card}>
+        <Link href="/marketplace" passHref>
+          <div className={styles.card} style={{cursor:"pointer"}}>
             <img className={styles["card-img"]} src="/images/marketplace_3.jpg" alt="service-logo" />
             <div className={styles.overlay}>
-              <h3 className={styles.cardheading}>Marketplace</h3>
+              <h3 className={styles.cardheading}>Dispatch Services</h3>
            </div>
             <div className={styles["inner-card"]}>
             <div className={styles["card-inside"]} style={{ maxWidth: "280px" }}>
@@ -359,12 +365,14 @@ const Landing: React.FC = () => {
               style={{ width: "80px" }}
             />
             <div className={styles["card-body"]}>
-              <h4 className={`${styles["service-heading"]}`}>Marketplace</h4>
-              <p>Trucks/Trailers Leasing, Fleet management, API & Integrations, and more.</p>
+              <h4 className={`${styles["service-heading"]}`}>Dispatch Services</h4>
+              <p>Get your dispatch done with real-time scenarios of trucks and trailers, after-hours support, and a lot more.
+              </p>
             </div>
           </div>
             </div>
           </div>
+        </Link>
         </div>
       </div>
     </div>
@@ -373,7 +381,7 @@ const Landing: React.FC = () => {
   <h5 className={`${styles["section-title"]}`}>Summary</h5>
   <div className="row align-items-center">
     
-    <div className="col-12 col-lg-3">
+    {/* <div className="col-12 col-lg-3">
       <div className={`${styles["summary-tab"]}`}>
         <h3>{vendors}+</h3>
         <h5>Vendors Onboarded</h5>
@@ -386,9 +394,9 @@ const Landing: React.FC = () => {
         <h3>{candidates}+</h3>
         <h5>Drivers Onboarded</h5>
       </div>
-    </div>
+    </div> */}
 
-    <div className="col-12 col-lg-4 text-center">
+    <div className="col-12 col-lg-5 text-center">
       <img
         src="/images/summary.jpg"
         alt="summary image"
@@ -396,14 +404,14 @@ const Landing: React.FC = () => {
       />
     </div>
 
-    <div className="col-12 col-lg-5">
+    <div className="col-12 col-lg-7">
       <div className={`${styles["summary-feature"]}`}>
         <div className={`${styles["feature-icon"]}`}>
           <i className="bi bi-box-seam"></i>
         </div>
         <div>
-          <h5> Vendors Onboarded</h5>
-          <p>Expanding business networks with seamless onboarding.</p>
+          <h5>Vendors Onboarded</h5>
+          <p>We onboard vendors seamlessly, giving them real-time logistics visibility and simplified digital access. Our platform helps vendors grow through trusted partnerships and easy freight integration.</p>
         </div>
       </div>
       <div className={`${styles["summary-feature"]}`}>
@@ -412,7 +420,7 @@ const Landing: React.FC = () => {
         </div>
         <div>
           <h5>Carriers Connected</h5>
-          <p>Enhancing freight movement with a vast carrier network.</p>
+          <p>A vast network of carriers is connected through smart tools that reduce empty miles and boost efficiency. We offer direct access to shippers and consistent load opportunities.</p>
         </div>
       </div>
       <div className={`${styles["summary-feature"]}`}>
@@ -421,7 +429,7 @@ const Landing: React.FC = () => {
         </div>
         <div>
           <h5>Drivers Onboarded</h5>
-          <p>Connecting drivers to better jobs and secure earnings.</p>
+          <p>Drivers are matched with better jobs, real-time updates, and transparent pay. We support their success with optimized scheduling and a reliable work experience.</p>
         </div>
       </div>
     </div>
@@ -429,77 +437,6 @@ const Landing: React.FC = () => {
   </div>
 </div>
 
-
-      {/* <div className="container-fluid service-tab">
-        <h5 className={`${styles["section-title"]}`}>Marketplace</h5>
-        <div className="row landing-service">
-          <div className="col-md-12 col-lg-4 d-flex justify-content-center">
-            <div className={`${styles["service-container"]}`}>
-              <img
-                className={`${styles["service-logo"]}`}
-                src="/images/dispatch-logo.png"
-                alt="dispatch-logo"
-              />
-            </div>
-          </div>
-
-          <div className="col-md-12 col-lg-8">
-            <h4 className={`${styles["service-heading"]}`}>Dispatch Services</h4>
-            <ul className={`${styles["service-listing"]}`}>
-             
-              <li>
-                <span>Get your dispatch done with real-time scenarios of trucks and trailers, after-hours support, and a lot more.
-                </span>
-              </li>
-             
-            </ul>
-          </div>
-        </div>
-        <div className="row landing-service">
-          <div className="col-md-12 col-lg-4 d-flex justify-content-center">
-            <div className={`${styles["service-container"]}`}>
-              <img
-                className={`${styles["service-logo"]}`}
-                src="/images/driver-logo.png"
-                alt="driver-logo"
-              />
-            </div>
-          </div>
-
-          <div className="col-md-12 col-lg-8">
-            <h4 className={`${styles["service-heading"]}`}>Carrier and Driver Onboarding</h4>
-            <ul className={`${styles["service-listing"]}`}>
-              <li>
-                <span>
-                  Customers can get access to our database on a subscription basis.
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="row landing-service">
-          <div className="col-md-12 col-lg-4 d-flex justify-content-center">
-            <div className={`${styles["service-container"]}`}>
-              <img
-                className={`${styles["service-logo"]}`}
-                src="/images/service-logo.png"
-                alt="service-logo"
-              />
-            </div>
-          </div>
-
-          <div className="col-md-12 col-lg-8">
-            <h4 className={`${styles["service-heading"]}`}>Marketplace</h4>
-            <ul className={`${styles["service-listing"]}`}>
-              <li>
-                <span>
-                  Trucks/Trailers Leasing, Fleet management, TMS/WMS providers, API & Integrations, Factoring,
-                  Insurance and much more.
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div> */}
         {/* <div className="row landing-service">
           <div className="col-md-12 col-lg-4 d-flex justify-content-center">
             <div className={`${styles["service-container"]}`}>
