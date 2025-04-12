@@ -237,7 +237,7 @@ useEffect(() => {
                       split
                       variant="Secondary"
                       id="dropdown-split-basic"
-                      className="nav-link"
+                      className={`nav-link ${styles["navbar-color"]} ${router.pathname==="/myservice" ? "active" : ""}`}
                     >
                       Hi,{Name}
                     </Dropdown.Toggle>
