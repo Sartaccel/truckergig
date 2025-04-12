@@ -209,7 +209,7 @@ const Candidateregister: React.FC = () => {
 				const data = response.data.data.countries.map((x: any) => {
 					console.log(x)
 					return {
-						label: x.dialingCode + " " + x.countryCode,
+						label: x.dialingCode ,
 						value: x.dialingCode,
 						countryId: x.id,
 					};
@@ -262,7 +262,7 @@ const Candidateregister: React.FC = () => {
 
 
                         <label className={styles.formLabel}>First Name</label><sup className="star">*</sup>
-                        <input {...register("FirstName")} name="firstName" 
+                        <input {...register("firstName")} name="firstName" 
 						//  onBlur={(e) => {
 						// 	e.target.style.borderColor = ""; 
 						// 	e.target.style.boxShadow = ""; 
@@ -290,14 +290,7 @@ const Candidateregister: React.FC = () => {
 
 						<label className={styles.formLabel}>Last Name</label><sup className="star">*</sup>
                         <input {...register("lastName")} name="lastName" type="text"
-						//  onBlur={(e) => {
-						// 	e.target.style.borderColor = "";
-						// 	e.target.style.boxShadow = ""; 
-						//   }}
-						//   onFocus={(e) => {
-						// 	e.target.style.borderColor = "#ff8c00"; 
-						// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-						 // }} 
+						
 						  placeholder="Enter your last name" className={` ${styles.inputField} form-control ${errors.lastName ? "is-invalid" : ""}`} />
                         <div className="invalid-feedback">{errors.lastName?.message}</div>
                         
@@ -307,14 +300,7 @@ const Candidateregister: React.FC = () => {
                     <div className="col-md-6">
                         <label className={styles.formLabel}>Email</label><sup className="star">*</sup>
                         <input {...register("email")} name="email" type="email" 
-						//  onBlur={(e) => {
-						// 	e.target.style.borderColor = ""; 
-						// 	e.target.style.boxShadow = ""; 
-						//   }}
-						//   onFocus={(e) => {
-						// 	e.target.style.borderColor = "#ff8c00"; 
-						// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-						  //}}
+						
 						  placeholder="Enter your email" className={`${styles.inputField} form-control w-100 ${errors.email ? "is-invalid" : ""}`} />
                         <div className="invalid-feedback">{errors.email?.message}</div>
                         
@@ -333,19 +319,12 @@ const Candidateregister: React.FC = () => {
 								  }}onChange={(value, { action }) => handleChange(value, action)} className="srcgap" style={{width:"300px"}} />
                             </div>
                             <input {...register("phoneNumber")} name="phoneNumber" type="number"
-							//  onBlur={(e) => {
-							// 	e.target.style.borderColor = ""; 
-							// 	e.target.style.boxShadow = ""; 
-							//   }}
-							//   onFocus={(e) => {
-							// 	e.target.style.borderColor = "#ff8c00"; 
-							// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-							  //}}
+							
 							   placeholder="Enter your phone number" className={`${styles.inputField} form-control w-50 ${errors.phoneNumber ? "is-invalid" : ""}`} onChange={(e) => setmobile(e.target.value)} />
                         </div>
                         <div className="invalid-feedback">{errors.phoneNumber?.message}</div>
 
-                        <a className="verify" onClick={() => { sentOtp(); }} href="#">Send Verification Code</a>
+                        <a className="verify" onClick={() => { sentOtp(); }} style={{fontSize:"18px"}} href="#">Send Verification Code</a>
                         
                         {licensetypeHidden && (
                             <div className="pt-2">

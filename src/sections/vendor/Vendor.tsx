@@ -36,6 +36,16 @@ const vendorSchema = yup.object().shape({
     .matches(/^[0-9]+$/, "Must be only digits")
     .min(10, "Must be exactly 10 digits")
     .max(10, "Must be exactly 10 digits"),
+    password: yup
+  .string()
+  .required("This is a required field")
+  .min(6, "Password must be at least 6 characters")
+  .matches(/[A-Z]/, "Must contain at least one uppercase letter")
+  .matches(/\d/, "Must contain at least one number")
+  .matches(/[@$!%*?&]/, "Must contain at least one special character"),
+
+
+
   // message: yup.string().required("This is a required field"),
   // productList: yup.string().required("This is required field")
 });
@@ -59,6 +69,7 @@ interface MyFormValues {
   otherProductList: string;
   message: string;
   submit: string;
+  password: string;
 }
 
 function validateEmail(value) {
@@ -112,6 +123,8 @@ const Vendor: React.FC = () => {
     otherProductList: "",
     message: "",
     submit: "",
+    password: "",
+    
   };
   let isother = false;
 
@@ -119,7 +132,7 @@ const Vendor: React.FC = () => {
     axios.get(`${urls.baseUrl}summary`).then(function(response) {
       const data = response.data.data.countries.map((x: any) => {
         return {
-          label: x.dialingCode + " " + x.countryCode,
+          label: x.dialingCode,
           value: x.dialingCode,
         };
       });
@@ -531,25 +544,28 @@ const Vendor: React.FC = () => {
                   </div>
                   <div className="row mb-3">
                   <div className="col-12 col-sm-6">
-                      <label className={styles.formLabel}>Password</label>
-                      <sup className="star">*</sup>
+  <label className={styles.formLabel}>Password</label>
+  <sup className="star">*</sup>
 
-                      <Field
-                        name="password"
-                       
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.emailAddress}
-                        placeholder="Enter your password"
-                        id="name"
-                        className="form-control "
-                        type="text"
-                       
-                      />
-                    </div>
+  <Field
+    name="password"
+    onFocus={(e) => {
+      e.target.style.borderColor = "#ff8c00";
+      e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+    }}
+    value={values.password}
+    placeholder="Enter your password"
+    id="password"
+    className={`form-control ${errors.password && touched.password ? "is-invalid" : ""}`}
+    type="password"
+  />
+  
+  {/* Display error message */}
+  {errors.password && touched.password && (
+    <div className="invalid-feedback">{errors.password}</div>
+  )}
+</div>
+
                     <div className="col-12 col-sm-6">
                       <label className={styles.formLabel}>
                         Billing Address
