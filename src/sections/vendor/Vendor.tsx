@@ -543,24 +543,29 @@ const Vendor: React.FC = () => {
                     </div>
                   </div>
                   <div className="row mb-1">
-                    <div className="col-12 col-sm-6">
-                      <label className={styles.formLabel}>Password</label>
-                      <sup className="star">*</sup>
+                  <div className="col-12 col-sm-6">
+  <label className={styles.formLabel}>Password</label>
+  <sup className="star">*</sup>
 
-                      <Field
-                        name="password"
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        
-                        placeholder="Enter your password"
-                        id="name"
-                        className="form-control "
-                        type="text"
-                      />
-                    </div>
+  <Field
+    name="password"
+    onFocus={(e) => {
+      e.target.style.borderColor = "#ff8c00";
+      e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+    }}
+    value={values.password}
+    placeholder="Enter your password"
+    id="password"
+    className={`form-control ${errors.password && touched.password ? "is-invalid" : ""}`}
+    type="password"
+  />
+  
+  {/* Display error message */}
+  {errors.password && touched.password && (
+    <div className="invalid-feedback">{errors.password}</div>
+  )}
+</div>
+
                     <div className="col-12 col-sm-6">
                       <label className={styles.formLabel}>
                         Billing Address
