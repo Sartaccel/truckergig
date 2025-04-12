@@ -23,16 +23,35 @@
 }
 
 
-.forgetpassword {
-  font-size: 12px;
-  color: rgb(0, 112, 156);
-  text-align: end;
-  margin-top: 5px;
-  margin-bottom: 0;
-  cursor: pointer;
-}
+// .forgetpassword {
+//   font-size: 15px;
+//   color: rgb(0, 112, 156);
+//   text-align: end;
+//   // margin-top: 5px;
+//   margin-bottom:0px;
+//   cursor: pointer;
+// }
 
 .signuplink{
   text-decoration: none !important;
   color: rgb(0, 112, 156);
+}
+.radio-forgot-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .MuiFormGroup-root {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .forgetpassword {
+    color: #006688; // your theme color
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    white-space: nowrap; // prevent it from wrapping
+    margin-left: auto; // push to right if needed
+  }
 }

@@ -225,6 +225,7 @@
   .footer-contact-item{
     font-weight: 400;
     font-size: 14px;
+    
   }
   .footer-icons {
     display: flex;
@@ -444,7 +445,7 @@
 
   .footer-contact-item,
   .footer-icons {
-    justify-content: center;
+    // justify-content: center;
     font-size: 12px;
     gap: 5px;
   }
@@ -455,7 +456,7 @@
   }
 
   .social-icons {
-    justify-content: center;
+    // justify-content: center; 
     gap: 15px;
   }
 
@@ -540,68 +541,7 @@
 }
 }
 
-// .getStartedButton {
-//   display: inline-flex;
-//   align-items: center;
-//   gap: 0.5rem;
-//   padding: 0.75rem 1.5rem;
-//   background: white;
-//   color:  #ff8800;
-//   font-size: 1.1rem;
-//   font-weight: 600;
-//   border: 2px solid #f08306;
-//   border-radius: 50px;
-//   cursor: pointer;
-//   position: relative;
-//   overflow: hidden;
-//   transition: all 0.4s ease;
-// }
-
-// .getStartedButton:hover {
-//   color: white;
-// }
-
-// .getStartedButton::before {
-//   content: "";
-//   position: absolute;
-//   inset: 0;
-//   background: #ff8800;
-//   transform: scaleX(0);
-//   transform-origin: center;
-//   transition: transform 0.4s ease;
-//   border-radius: 50px;
-//   z-index: 0;
-// }
-
-// .getStartedButton:hover::before {
-//   transform: scaleX(1);
-// }
-
-// .getStartedButton span {
-//   position: relative;
-//   z-index: 1;
-// }
-
-// .arrow-circle {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   width: 32px;
-//   height: 32px;
-//   background-color: #e2e8f0;
-//   border-radius: 50%;
-//   z-index: 1;
-//   transition: background-color 0.4s ease;
-// }
-
-// .getStartedButton:hover .arrow-circle {
-//   background-color: white;
-// }
-
-// .arrow-icon {
-//   color:  #f08306;
-// }
-
+// 
 .footer-section {
   padding-top: 30px;
   margin-top: 1.25rem;

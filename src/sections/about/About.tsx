@@ -131,7 +131,8 @@ const About: React.FC = () => {
           </p>
         </div>
       </div>
-        <div className={`${styles["about-page"]} container pt-5`}>
+      </div>
+        <div className={`${styles["about-pagee"]} container pt-5`}>
           <div className="row align-items-center">
             {/* Content Section */}
             <div className={`col-12 col-lg-6 ${styles["fade-in-left"]}`}>
@@ -172,7 +173,7 @@ const About: React.FC = () => {
                 </li>
                 <li>
                   <FaCheckCircle className={styles["orange-tick"]} />
-                  API based integration
+                  Microservice Based API Integration
                 </li>
               </ul>
             </div>
@@ -217,7 +218,7 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          <div className="row">
+          <div className={`${styles["about-pagee"]}row`}>
             <div className="col-12 col-sm-12 col-md-6">
               <div className={`${styles["service-subtitle"]}`}>MARKETPLACE</div>
               <div className={`${styles["main-title"]}`}>
@@ -225,10 +226,11 @@ const About: React.FC = () => {
               </div>
             </div>
           </div>
+          
           <div className="row">
           <Link href="">
-  <div className="row align-items-center my-4 flex-row-reverse">
-    <div className={`col-md-6 ${styles['slide-right']}  `}>
+          <div className="row align-items-center mb-1 flex-row-reverse">
+          <div className={`col-md-6 ${styles['slide-right']}  `}>
       <h5 className={`${styles["service-heading"]}`}>
         Marketplace 
       </h5>
@@ -240,14 +242,14 @@ const About: React.FC = () => {
         className={`${styles["service-icon"]}`}
         src="/images/ma.jpg"
         alt="tech-partner"
-        style={{ width: "100%", maxWidth: "400px", height: "auto" }}
+        style={{ width: "100%", maxWidth: "450px", height: "auto" }}
       />
     </div>
   </div>
 </Link>
 
 <Link href="">
-  <div className="row align-items-center my-4">
+  <div className="row align-items-center my-0 mb-5">
     <div className={`col-md-6 ${styles['slide-left']}  shrink-animation shrink-animation-delay-3`}>
       <h5 className={`${styles["service-heading"]}`}>
        Driver Service
@@ -260,14 +262,14 @@ const About: React.FC = () => {
         className={`${styles["service-icon"]}`}
         src="/images/Driver.jpg"
         alt="tech-partner"
-        style={{ width: "100%", maxWidth: "370px", height: "auto" }}
+        style={{ width: "100%", maxWidth: "350px", height: "auto" }}
       />
     </div>
   </div>
 </Link>
 
 <Link href="">
-      <div className="row align-items-center my-4 flex-row-reverse">
+<div className="row align-items-center mb-5 flex-row-reverse">
         <div
           className={`col-md-6 ${styles['slide-right']}  shrink-animation shrink-animation-delay-5 animate-on-scroll`}
         >
@@ -283,13 +285,40 @@ const About: React.FC = () => {
             className={`${styles["service-icon"]}`}
             src="/images/marketp;lace.png"
             alt="tech-partner"
-            style={{ width: "100%", maxWidth: "400px", height: "auto" }}
+            style={{ width: "100%", maxWidth: "450px", height: "auto" }}
           />
         </div>
       </div>
     </Link>
 
           </div>
+          <div className="row">
+            <div className="col-12 col-sm-12 col-md-6">
+              <div className={`${styles["service-subtitle"]}`}>TECHNOLOGY SERVICE</div>
+              <div className={`${styles["main-title"]}`}>
+               Telematics Data Services
+              </div>
+            </div>
+          </div>
+          <div className="row align-items-center my-2 flex-row-reverse">
+    <div className={`col-md-6 ${styles['slide-right']}  `}>
+      <h5 className={`${styles["service-heading"]}`}>
+      Microservice-Based API Integration
+       
+      </h5>
+      <p className={`${styles["content-para"]}`}>
+      Microservice-Based API Integration in Logistics enables transportation platforms to function with greater speed, flexibility, and precision by dividing complex logistics operations into smaller, independent services. Core functionalities such as live vehicle tracking, speed monitoring, fuel management, and driver behavior analysis are each handled by dedicated microservices that communicate through APIs. These services are accessed via a secure API gateway, which directs requests from client applications like dispatcher dashboards or fleet management tools to the appropriate service. Each microservice operates with its own database, ensuring modularity, easy scaling, and seamless integration within the overall logistics ecosystem.</p>    </div>
+    <div className="col-md-6 text-start slide-left shrink-animation shrink-animation-delay-2">
+      <img
+        className={`${styles["service-icon"]}`}
+        src="/images/APIi.svg"
+        alt="API Integration"
+        style={{ width: "100%", maxWidth: "420px", height: "auto" }}
+      />
+    </div>
+  </div>
+
+
           <div className="row"></div>
           {/* -------------------------MEMBERS SECTION------------------------- */}
           <div className={`${styles["board-subtitle"]}`}>
@@ -437,7 +466,7 @@ const About: React.FC = () => {
           </div>
 
         </div>
-      </div>
+      
     </>
   );
 };

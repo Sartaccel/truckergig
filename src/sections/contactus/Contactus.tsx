@@ -7,10 +7,10 @@ import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./Contactus.module.scss";
 
 const contactusSchema = yup.object().shape({
-  name: yup.string().required("This is a required field").min(2).max(24),
-  emailAddress: yup.string().required("This is a required field").email(),
-  phone: yup.string().required("This is a required field"),
-  message: yup.string().required("This is a required field"),
+  name: yup.string().required("Name is required").min(2).max(24),
+  emailAddress: yup.string().required("Email is  required").email(),
+  phone: yup.string().required("Phone is required "),
+  message: yup.string().required("Message is required"),
 });
 
 const Contactus: React.FC = () => {
