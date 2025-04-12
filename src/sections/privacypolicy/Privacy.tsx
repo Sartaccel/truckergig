@@ -6,7 +6,7 @@ const Privacy: React.FC = () => {
   return (
     <>
       <div className="row p-2">
-        <div className='col'>
+        <div className='col'style={{marginLeft:"70px"}}>
           <Breadcrumb>
             <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
             <Breadcrumb.Item active>Privacy Policy</Breadcrumb.Item>

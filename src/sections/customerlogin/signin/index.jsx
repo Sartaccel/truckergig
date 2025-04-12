@@ -41,7 +41,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
 const schema = yup.object().shape({
-  username: yup
+  userName: yup
     .string()
     .email('Invalid email format')
     .matches(
@@ -119,20 +119,46 @@ const Signin = () => {
     // }
   }
 
+  const handleRedirect = (e) => {
+    e.preventDefault(); // Prevent default Link behavior
+
+    if (valueforradio === 'customer') {
+      router.push('/customerregister');
+    } else if (valueforradio === 'vendor') {
+      router.push('/vendor');
+    } else {
+      router.push('/unauthorized');
+    }
+  };
+
   const forgotPassword = (e) => {
     e.preventDefault();
     router.push('/forgotpassword');
 }
 
   const onSubmitHandler1 = (data) => {
-      data.loginTypeId = "1";
-      var params = data;
+    data.loginTypeId = "1";
+    var params = {
+      ...data,
+      username: data.userName,
+    };
+    delete params.userName;
       axios
 
         .post(`${urls.baseUrl}login`, params)
-
         .then(function (response) {
-          if (response.status === 200) {
+          if(response?.data?.headers?.statusCode == 407){
+            toast.error("Invalid Credentials", {
+              theme: "colored",
+              position: "top-right",
+              autoClose: 1500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }else if(response?.data?.headers?.statusCode == 200){
             toast.success("Login Success", {
               theme: "colored",
               position: "top-right",
@@ -147,7 +173,7 @@ const Signin = () => {
             localStorage.setItem("user", JSON.stringify(userdetail));
             localStorage.setItem("Authorization", response.data.data.authtoken);
             router.push("/marketplace");
-          } else {
+          }else {
             toast.error("Login error", {
               theme: "colored",
               position: "top-right",
@@ -161,6 +187,7 @@ const Signin = () => {
           }
         })
         .catch(function (error) {
+          console.log("errror")
           toast.error("Invalid Credentials", {
             theme: "colored",
             position: "top-right",
@@ -178,35 +205,45 @@ const Signin = () => {
           var params = data;
           axios.post(`${urls.userUrl}gateway/trmlogin`, params).then(function (response) {
               console.log(params)
-              if (response.status === 200) {
-                  toast.success("Login Success", {
-                      theme: "colored",
-                      position: "top-right",
-                      autoClose: 1500,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                  });
-                  const userdetail = response.data.data;
-                  localStorage.setItem("user", JSON.stringify(userdetail));
-                  localStorage.setItem("Authorization", response.data.data.authtoken);
-                  localStorage.setItem("Clientname", response.data.data.clientName);
-                  localStorage.setItem("Clientid", response.data.data.clientId);
-                  router.push("/marketplace");
-                  // setTimeout(() => { window.location.reload(); }, 3000);
-              } else {
-                  toast.error("Login error", {
-                      theme: "colored",
-                      position: "top-right",
-                      autoClose: 1500,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                  });
+              if(response?.data?.headers?.statusCode == 407){
+                toast.error("Invalid Credentials", {
+                  theme: "colored",
+                  position: "top-right",
+                  autoClose: 1500,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              }else if(response?.data?.headers?.statusCode == 200){
+                toast.success("Login Success", {
+                  theme: "colored",
+                  position: "top-right",
+                  autoClose: 1500,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+                const userdetail = response.data.data;
+                localStorage.setItem("user", JSON.stringify(userdetail));
+                localStorage.setItem("Authorization", response.data.data.authtoken);
+                localStorage.setItem("Clientname", response.data.data.clientName);
+                localStorage.setItem("Clientid", response.data.data.clientId);
+                router.push("/marketplace");
+              }else {
+                toast.error("Login error", {
+                  theme: "colored",
+                  position: "top-right",
+                  autoClose: 1500,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
               }
           })
               .catch(function (error) {
@@ -239,6 +276,17 @@ const Signin = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="login-container">
+             <ToastContainer
+                  position="top-right"
+                  autoClose={1500}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                />
         <Grid container mt={{ xs: 0, lg: 13 }}>
           <Grid
             item
@@ -266,14 +314,14 @@ const Signin = () => {
 
               <Grid item xs={10} lg={8}>
                 <Controller
-                  name="username"
+                  name="userName"
                   control={control}
                   render={({ field }) => (
                     <TextField
                       {...field}
                       placeholder="Enter your email address"
                       variant="outlined"
-                      error={!!errors.username}
+                      error={!!errors.userName}
                       fullWidth
                       sx={{
                         '& .MuiInputBase-input': {
@@ -295,9 +343,9 @@ const Signin = () => {
                     />
                   )}
                 />
-                {errors.username && (
+                {errors.userName && (
                   <p className="m-0" style={{ fontSize: '11px', color: 'red' }}>
-                    {errors.username.message}
+                    {errors.userName.message}
                   </p>
                 )}
               </Grid>
@@ -402,7 +450,7 @@ const Signin = () => {
                   }
                   handleSubmit={handleSubmit(onSubmitHandler)}
                  
-                /> :   <Buttons
+                /> : <Buttons
                 loading={false}
                 name={
                   <>
@@ -426,14 +474,17 @@ const Signin = () => {
               <Grid item xs={10} lg={8} textAlign="center">
                 <p className="m-0 dont">
                   Don't have an account?{' '}
-                  <Link href="/customerregister"
+                  <a href="#" onClick={handleRedirect} style={{ color: "rgb(0, 112, 156)", textDecoration: "none" }}>
+                    Sign Up
+                  </a>
+                  {/* <Link href="/customerregister"
                   >
                     <span 
                     style={{
                     color:"rgb(0, 112, 156)",
                     textdecoration:"none !important"
                   }}>Sign Up</span>
-                  </Link>
+                  </Link> */}
                 </p>
               </Grid>
 
