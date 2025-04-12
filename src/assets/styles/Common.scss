@@ -3,6 +3,7 @@ $bg_color_Regular: #D1D1D1;
 $bg_color_Dark: #4A4A4A;
 $txt_color_white: #FFFFFF;
 $txt_color_orange: #ff9239;
+$bg-color-newBlue : rgb(0, 112, 156);
 
 .main{
     min-height: 300px;
@@ -41,7 +42,7 @@ $txt_color_orange: #ff9239;
 		}
 	}
     .navbar-nav {
-        background: $bg_color_light;
+        background: $bg-color-newBlue;
     }
 }
 
@@ -49,7 +50,8 @@ $txt_color_orange: #ff9239;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px; // Adds spacing between links
+    width: 100%;
+    gap: 20px;
   
     .nav-link {
       position: relative;
@@ -63,6 +65,7 @@ $txt_color_orange: #ff9239;
       display: flex; /* Ensures proper alignment */
       align-items: center; /* Aligns text and icon properly */
       justify-content: center;
+      white-space: nowrap;
       
       &:hover {
         color: $txt_color_white !important;
@@ -73,6 +76,9 @@ $txt_color_orange: #ff9239;
         border-bottom: 3px solid $txt_color_orange !important;
       }
     }
+    .dropdown-toggle {
+        white-space: nowrap; // prevent dropdown text wrapping
+      }
   }
   
   .login-link {

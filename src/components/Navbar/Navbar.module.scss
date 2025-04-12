@@ -45,6 +45,8 @@ $h-60:60px;
 .navbar-brand.logo {
 	img {
 		height: 42px;
+		max-width: 100%;
+  object-fit: contain;
 	}
 }
 .navbar-expand-lg {
@@ -171,7 +173,13 @@ $h-60:60px;
 
 .navbar-content {
 	max-width: calc(100% - 110px);
-}
+  }
+  
+//   @media (max-width: 430px) {
+// 	.navbar-content > div {
+// 	  flex-wrap: nowrap !important;
+// 	}
+//   }
   
 
 /* Extra small devices (phones, 600px and down) */
@@ -183,6 +191,9 @@ $h-60:60px;
 		padding-left:0 !important;
 		padding-right: 0 !important;
 	}
+	.navbar-header {
+		flex-wrap: nowrap !important;
+	  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -273,7 +284,7 @@ $h-60:60px;
 	flex-direction: column;
     min-width: 32px; /* Ensures it doesn't shrink */
     min-height: 32px;
-    background-color: #e2e8f0;
+    // background-color: #e2e8f0;
     border-radius: 50%;
     z-index: 1;
     transition: background-color 0.4s ease;
