@@ -287,7 +287,7 @@ const Signin = () => {
                   draggable
                   pauseOnHover
                 />
-        <Grid container mt={{ xs: 0, lg: 13 }}>
+        <Grid container mt={{ xs: 0, lg: 8 }}>
           <Grid
             item
             xs={12}
