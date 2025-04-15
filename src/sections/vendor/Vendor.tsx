@@ -15,7 +15,7 @@ import urls from "../../utilities/AppSettings";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
-
+import { Eye, EyeOff } from "lucide-react";
 const onCaptchaChange = (value) => {
   console.log("Captcha value:", value);
 };
@@ -99,6 +99,7 @@ const Vendor: React.FC = () => {
   const [types, settypes] = useState([]);
   const [country, setcountry] = useState();
   const [showText, setShowText] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [selectedProductValidation, setselectedProductValidation] = useState(
     false
   );
@@ -543,29 +544,50 @@ const Vendor: React.FC = () => {
                     </div>
                   </div>
                   <div className="row mb-1">
-                  <div className="col-12 col-sm-6">
-  <label className={styles.formLabel}>Password</label>
-  <sup className="star">*</sup>
+      <div className="col-12 col-sm-6">
+        <label className={styles?.formLabel || "form-label"}>Password</label>
+        <sup className="star">*</sup>
 
-  <Field
-    name="password"
-    onFocus={(e) => {
-      e.target.style.borderColor = "#ff8c00";
-      e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-    }}
-    value={values.password}
-    placeholder="Enter your password"
-    id="password"
-    className={`form-control ${errors.password && touched.password ? "is-invalid" : ""}`}
-    type="password"
-  />
-  
-  {/* Display error message */}
-  {errors.password && touched.password && (
-    <div className="invalid-feedback">{errors.password}</div>
-  )}
-</div>
+        {/* Form Group with relative positioning */}
+        <div style={{ position: "relative" }}>
+          <Field
+            name="password"
+            placeholder="Enter your password"
+            id="password"
+            type={showPassword ? "text" : "password"}
+            className={`form-control pe-5 ${
+              touched.password && errors.password ? "is-invalid" : ""
+            }`}
+            onFocus={(e) => {
+              e.target.style.borderColor = "#ff8c00";
+              e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+            }}
+          />
 
+          {/* Eye icon inside the input */}
+          <span
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              top: "50%",
+              right: "12px",
+              transform: "translateY(-50%)",
+              cursor: "pointer",
+              color: "#6c757d",
+              zIndex: 10,
+              pointerEvents: "auto",
+            }}
+          >
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </span>
+        </div>
+
+        {/* Error message */}
+        {touched.password && errors.password && (
+          <div className="invalid-feedback d-block">{errors.password}</div>
+        )}
+      </div>
+   
                     <div className="col-12 col-sm-6">
                       <label className={styles.formLabel}>
                         Billing Address
