@@ -75,7 +75,7 @@ const Myservices: React.FC = (props) => {
   return (
 
     <>
-      <div className="p-3">
+      <div className="p-2" style={{ marginLeft: "65px" }}>
         <div className="row">
           <div className="col-6">
             <Breadcrumb>

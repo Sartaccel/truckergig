@@ -7,6 +7,9 @@ import Select from "react-select";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import urls from "../../utilities/AppSettings";
 import { Form } from "react-bootstrap";
+import styles from "../EditService/Editservice.module.scss";
+
+
 
 const EditService: React.FC = () => {
   const router = useRouter()
@@ -224,7 +227,7 @@ const EditService: React.FC = () => {
     <>
       <ToastContainer position="top-right" autoClose={1500} hideProgressBar={false} newestOnTop={false}
         closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-      <div className='row p-2'>
+      <div className='row p-2' style={{ marginLeft: "65px" }}>
         <div className='col'>
           <Breadcrumb>
             <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
@@ -233,49 +236,94 @@ const EditService: React.FC = () => {
           </Breadcrumb>
         </div>
       </div>
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <h4 className="register">Edit Service</h4>
-            <hr className="register-hr"></hr>
-          </div>
-        </div>
+      <div className={`${styles.card} container`}>
+       
+            <h4 className={`${styles["name"]}`}>Edit Service</h4>
+          
+        
+       
         <Form>
           <div className="row">
             <div className="form-group col-4">
-              <label>Service Name</label><sup className="star">*</sup>
+              <label className={styles.formLabel}>Service Name</label><sup className="star">*</sup>
               <input type="text" className={`form-control`}
                 value={fields["serviceName"]} name="serviceName" placeholder="Service Name "
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
                 onChange={(e) => handleChange(e)} />
               {errorList["serviceName"] && <div className="star">Service Name is required!</div>}
             </div>
             <div className="form-group col-4">
-              <label>Title</label><sup className="star">*</sup>
+              <label className={styles.formLabel}>Title</label><sup className="star">*</sup>
               <input type="text" className={`form-control`}
                 value={fields["title"]} name="title" placeholder="Title "
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
                 onChange={(e) => handleChange(e)} />
               {errorList["title"] && <div className="star">Title is required!</div>}
             </div>
             <div className="form-group col-4">
-              <label>Price</label><sup className="star">*</sup>
+              <label className={styles.formLabel}>Price</label><sup className="star">*</sup>
               <input type="number" className={`form-control`}
                 value={fields["price"].toString()} name="price" placeholder="Price "
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
                 onChange={(e) => handleChange(e)}
               />
             </div>
             <div className="form-group col-4">
-              <label>Sort Order</label><sup className="star">*</sup>
+              <label className={styles.formLabel}>Sort Order</label><sup className="star">*</sup>
               <input type="number" className={`form-control`}
                 value={fields["sortOrder"]} name="sortOrder" placeholder="Sort Order"
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
                 onChange={(e) => handleChange(e)}
               />
               {errorList["sortOrder"] && <div className="star">Sort Order is required!</div>}
             </div>
             <div className="form-group col-4">
-              <label>Is External</label>
+              <label className={styles.formLabel}>Is External</label>
               <Select name="isExternal" options={ExternalUrl}
                 value={selectedExternal}
                 placeholder="Is External"
+                 styles={{
+                                                    control: (base, state) => ({
+                                                      ...base,
+                                                      borderColor: state.isFocused
+                                                        ? "#ff8c00"
+                                                        : base.borderColor,
+                                                      boxShadow: state.isFocused
+                                                        ? "0 0 5px rgba(255, 140, 0, 0.5)"
+                                                        : "none",
+                                                      "&:hover": {
+                                                        borderColor: "#ff8c00",
+                                                      },
+                                                    }),
+                                                  }}
                 // onChange={(e) => handleChange(e)}
                 onChange={(value, { action }) =>
                   handleChangeCategoy(value, action, "isExternal")
@@ -283,90 +331,168 @@ const EditService: React.FC = () => {
               />
             </div>
             <div className="form-group col-4">
-              <label>External Url</label>
+              <label className={styles.formLabel}>External Url</label>
               <input
                 name="externalUrl"
                 type="text" className={`form-control`}
                 value={fields["externalUrl"]}
                 onChange={(e) => handleChange(e)}
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
                 placeholder="Enter external Url with http/https" />
+               
             </div>
             <div className="form-group col-4">
-              <label>Description</label><sup className="star">*</sup>
+              <label className={styles.formLabel}>Description</label><sup className="star">*</sup>
               <textarea
                 rows={2}
                 name="description" className={`form-control`}
                 value={fields["description"]}
+                style={{ height: '38px', resize: 'none' }}
                 onChange={(e) => handleChange(e)}
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
                 placeholder="Description" />
+            
               {errorList["description"] && <div className="star">Description is required!</div>}
             </div>
             <div className="form-group col-4">
-              <label>Search Text</label>
+              <label className={styles.formLabel}>Search Text</label>
               <input
                 name="searchText" className={`form-control`}
                 value={fields["searchText"]}
                 type="text"
                 onChange={(e) => handleChange(e)}
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
                 placeholder="Search Text" />
             </div>
             <div className="form-group col-4">
-              <label>Meta Title</label>
+              <label className={styles.formLabel}>Meta Title</label>
               <input
                 name="metaTitle" className={`form-control`}
                 value={fields["metaTitle"]}
                 type="text"
                 onChange={(e) => handleChange(e)}
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
                 placeholder="Meta Title" />
             </div>
             <div className="form-group col-4">
-              <label>Meta Key</label>
+              <label className={styles.formLabel}>Meta Key</label>
               <input
                 name="metaKey" className={`form-control`}
                 value={fields["metaKey"]}
                 type="text"
                 onChange={(e) => handleChange(e)}
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
                 placeholder="Meta Key" />
             </div>
             <div className="form-group col-4">
-              <label>Short Description</label>
+              <label className={styles.formLabel}>Short Description</label>
               <input name="shortDescription" className={`form-control`}
                 value={fields["shortDescription"]} type="text" placeholder="service description"
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
+                
                 onChange={(e) => handleChange(e)}
               />
             </div>
             <div className="form-group col-4">
-              <label>Discount Info</label>
+              <label className={styles.formLabel}>Discount Info</label>
               <input
                 name="discountInfo" className={`form-control`}
                 value={fields["discountInfo"]}
                 type="text"
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
                 onChange={(e) => handleChange(e)}
                 placeholder="Discount Info" />
             </div>
             <div className="form-group col-4">
-              <label>Hubspot Id</label>
+              <label className={styles.formLabel}>Hubspot Id</label>
               <input
                 name="hubspotId" className={`form-control`}
                 value={fields["hubspotId"]}
                 type="text"
                 onChange={(e) => handleChange(e)}
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
                 placeholder="Hubspot Id" />
             </div>
             <div className="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pt-2">
-              <label>Existing Image: {mydata.logo}</label><br></br>
+              <label className={styles.formLabel}>Existing Image: {mydata.logo}</label><br></br>
               <input id="logoFile" name="logoFile" type="file" className={`form-control`}
                 value={fields["logoFile"]}
+                onBlur={(e) => {
+                  e.target.style.borderColor = ""; 
+                  e.target.style.boxShadow = "";
+                  }}
+                  onFocus={(e) => {
+                  e.target.style.borderColor = "#ff8c00"; 
+                  e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+                  }}
                 onChange={(e) => setselectedFile(e.target.value)} />
               <label className="file-type">Maximum allowed file size: 2 MB</label><br />
               <label className="file-type">Allowed formats: .jpeg, .jpg, .png, .bmp</label>
             </div>
             <div className="form-group">
-              <button className=" reg-btn" onClick={(e) => { onUpdate(e) }}>Update</button>
+              <button className={styles.regBtn} onClick={(e) => { onUpdate(e) }}>Update</button>
             </div>
           </div>
         </Form>
-      </div >
+        </div>
+      
+     
     </>
   );
 };
