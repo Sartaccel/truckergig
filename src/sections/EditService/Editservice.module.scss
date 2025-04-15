@@ -56,25 +56,25 @@
     font-size: 15px;
   }
   
-  .submit-btn{
-    background-color: #f7941d;
-    border: 1px solid #f8a543;
-    color: #fff;
-    font-weight: 700;
-    padding: 4px 15px;
-    font-size: 15px;
-    border-radius: 4px;
-  }
+  // .submit-btn{
+  //   background-color: #f7941d;
+  //   border: 1px solid #f8a543;
+  //   color: #fff;
+  //   font-weight: 700;
+  //   padding: 4px 15px;
+  //   font-size: 15px;
+  //   border-radius: 4px;
+  // }
   
-  .back-btn{
-    background: #ddd;
-    border: 1px solid #ddd;
-    padding: 2px 15px;
-    transition: .5s;
-    color: #292929;
-    font-size: 18px;
-    float: right;
-  }
+  // .back-btn{
+  //   background: #ddd;
+  //   border: 1px solid #ddd;
+  //   padding: 2px 15px;
+  //   transition: .5s;
+  //   color: #292929;
+  //   font-size: 18px;
+  //   float: right;
+  // }
   
   .captcha-note{
     font-size: 14px;
@@ -107,3 +107,53 @@
     font-size: 14px;
     font-weight: lighter;
   }
+
+
+
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(255, 165, 0, 0.5);
+    margin: 0 auto; /* Centers card */
+   max-width: 900px;
+   width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  h4.name {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-left: 30px; 
+  }
+  .formLabel {
+    font-weight: bold;
+    color: #ff8c00;
+    margin-top: 10px;
+  }
+   
+.regBtn {
+  background-color: #e07b00;
+  color: white;
+  border-radius: 20px;
+  padding: 8px;
+  width:150px;
+  border: none;
+  cursor: pointer;
+  margin-top: 3px;
+  transition: 0.3s ease-in-out;
+  margin-left: 330px;
+}
+
+.regBtn:hover {
+  background: #e07b00;
+  transform: scale(1.05);
+}
+.text-danger {
+  color: red;
+  font-size: 16px;
+  vertical-align: top;
+}

@@ -75,7 +75,7 @@ const Myservices: React.FC = (props) => {
   return (
 
     <>
-      <div className="p-3">
+      <div className="p-2" style={{ marginLeft: "65px" }}>
         <div className="row">
           <div className="col-6">
             <Breadcrumb>
@@ -97,8 +97,8 @@ const Myservices: React.FC = (props) => {
       }
           </div>
         </div>
-        <div className="row">
-        <div className="col-lg-1"></div>
+        <div className="row"   style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+        {/* <div className="col-lg-2" ></div> */}
           {
             (mycategories.length > 12) ?
               <div className="col-lg-10">
@@ -144,7 +144,6 @@ const Myservices: React.FC = (props) => {
                 </div>
               </div>
           }
-          <div className="col-lg-1"></div>
         </div>
       </div>
     </>

@@ -107,3 +107,51 @@
     font-size: 14px;
     font-weight: lighter;
   }
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(255, 165, 0, 0.5);
+    margin: 0 auto; /* Centers card */
+   max-width: 900px;
+   width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  h4.name {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-left: 30px; 
+  }
+  .formLabel {
+    font-weight: bold;
+    color: #ff8c00;
+    margin-top: 10px;
+  }
+  
+.regBtn {
+  background-color: #e07b00;
+  color: white;
+  border-radius: 20px;
+  padding: 8px;
+  width:150px;
+  border: none;
+  cursor: pointer;
+  margin-top: 3px;
+  transition: 0.3s ease-in-out;
+}
+
+.regBtn:hover {
+  background: #e07b00;
+  transform: scale(1.05);
+}
+.text-danger {
+  color: red;
+  font-size: 16px;
+  vertical-align: top;
+}
+
+  

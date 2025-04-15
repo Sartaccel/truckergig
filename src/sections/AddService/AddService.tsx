@@ -11,6 +11,7 @@ import Select from "react-select";
 import Dropdown from "react-bootstrap/Dropdown";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import urls from "../../utilities/AppSettings";
+import styles from "../AddService/Addservice.module.scss";
 
 
 
@@ -226,173 +227,319 @@ const Serviceregistration: React.FC = () => {
     <>
       <ToastContainer position="top-right" autoClose={1500} hideProgressBar={false} newestOnTop={false}
         closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-      <div className='row p-2'>
-        <div className='col'>
-          <Breadcrumb>
+      <div className='row p-2' style={{ marginLeft: "65px" }}>
+        <div className='col' >
+          <Breadcrumb >
             <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
             <Breadcrumb.Item href="/myservice">My Service</Breadcrumb.Item>
             <Breadcrumb.Item active>New Service</Breadcrumb.Item>
           </Breadcrumb>
         </div>
       </div>
-      <div className="container">
-        <form onSubmit={handleSubmit(onSubmitHandler)}>
-          <div className="row">
-            <div className="col-12">
-              <h4 className="register">New Service</h4>
-              <hr className="register-hr"></hr>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="row">
-                <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 pt-2">
-                  <div className="pt-2">
-                    <label>Service Name</label><sup className="star">*</sup>
-                    <input {...register("serviceName")} name="serviceName" type="text" placeholder="Service Name" className={`form-control ${errors.serviceName ? "is-invalid" : ""}`}
-                      value={servicename} onChange={e => setservicename(e.target.value)} />
-                    <div className="invalid-feedback">{errors.serviceName?.message}</div><br />
-                  </div>
-                  <label>Title</label><sup className="star">*</sup>
-                  <input {...register("title")} name="title" type="text" placeholder="Title" className={`form-control ${errors.title ? "is-invalid" : ""}`}
-                    value={title} onChange={e => settitle(e.target.value)} />
-                  <div className="invalid-feedback">{errors.title?.message}</div><br />
-                  <label>Is External</label><sup className="star">*</sup>
-                  <Select  {...register("isExternal")} name="isExternal" options={ExternalUrl} value={selectedExternal} placeholder="Is External" className={` ${errors.isExternal ? "is-invalid" : ""} pt-2 `}
+      <div className={`${styles.card} container`}>
+  <form onSubmit={handleSubmit(onSubmitHandler)}>
+    <div className="row">
+      <div className="col-12">
+        <h4 className={`${styles["name"]}`}>New Service</h4>
+      </div>
+    </div>
 
-                    onChange={(value, { action }) =>
-                      handleChangeCategoy(value, action, "external")
-                    }
-                  />
-                  <div className="pt-3">
-                    <label>Meta Title</label>
-                    <input {...register("metaTitle")}
-                      name="metaTitle"
-                      type="text"
-                      placeholder="Meta Title"
-                      className={`form-control ${errors.metaTitle ? "is-invalid" : ""}`} />
-                    <div className="invalid-feedback">{errors.metaTitle?.message}</div><br />
-                  </div>
-                  <label>Short Description</label>
-                  <input {...register("shortDescription")} name="shortDescription" type="text" placeholder="Enter your service description" className={`form-control ${errors.shortDescription ? "is-invalid" : ""} pt-2 `}
-                    value={description} onChange={e => setdescription(e.target.value)} />
-                  <div className="invalid-feedback">{errors.shortDescription?.message}</div><br />
-                  <br />
+    {/* Row 1 */}
+    <div className="row">
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Service Name</label><sup className="star">*</sup>
+        <input {...register("serviceName")} name="serviceName" type="text" placeholder="Service Name"
+         onFocus={(e) => {
+          e.target.style.borderColor = "#ff8c00"; 
+          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+      }}
+      onBlur={(e) => {
+          e.target.style.borderColor = ""; 
+          e.target.style.boxShadow = "none"; 
+      }}
+          className={`form-control ${errors.serviceName ? "is-invalid" : ""}`}
+         />
+        <div className="invalid-feedback">{errors.serviceName?.message}</div>
+      </div>
 
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Service Category</label><sup className="star">*</sup>
+        <Select options={dropdown} value={selectedOption} placeholder="Service Category"
+          className={` ${errors.serviceCategory ? "is-invalid" : ""}`}  styles={{
+                                      control: (base, state) => ({
+                                        ...base,
+                                        borderColor: state.isFocused
+                                          ? "#ff8c00"
+                                          : base.borderColor,
+                                        boxShadow: state.isFocused
+                                          ? "0 0 5px rgba(255, 140, 0, 0.5)"
+                                          : "none",
+                                        "&:hover": {
+                                          borderColor: "#ff8c00",
+                                        },
+                                      }),
+                                    }}
+          onChange={(value, { action }) => handleChangeCategoy(value, action, "ServiceCategory")} />
+      </div>
 
-
-                </div>
-                <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 pt-2">
-                  <div className="pt-2">
-                    <label>Service Category</label><sup className="star">*</sup>
-                    <Select options={dropdown} value={selectedOption} placeholder="Choose your Service Category" className="srcgap"
-
-                      onChange={(value, { action }) =>
-                        handleChangeCategoy(value, action, "ServiceCategory")
-                      }
-                    />
-                  </div>
-                  <div className="pt-3">
-                    <label>Price</label><sup className="star">*</sup>
-                    <input {...register("price")}
-                      name="price"
-                      type="number"
-                      placeholder="Price"
-                      className={`form-control ${errors.price ? "is-invalid" : ""}`} />
-                    <div className="invalid-feedback">{errors.price?.message}</div><br />
-                  </div>
-
-                  <label>External Url</label>
-                  <input {...register("externalUrl")}
-                    name="externalUrl"
-                    type="text"
-                    placeholder="Enter external  Url with http/https"
-                    className={`form-control ${errors.externalUrl ? "is-invalid" : ""}`} />
-                  <div className="invalid-feedback">{errors.externalUrl?.message}</div>
-                  <br />
-                  <label>Meta Key</label>
-                  <input {...register("metaKey")}
-                    name="metaKey"
-                    type="text"
-                    placeholder="Meta Key"
-                    className={`form-control ${errors.metaKey ? "is-invalid" : ""}`} />
-                  <div className="invalid-feedback">{errors.metaKey?.message}</div><br />
-
-                  <label>Discount Info</label>
-                  <input {...register("discountInfo")}
-                    name="discountInfo"
-                    type="text"
-                    placeholder="Discount Info"
-                    className={`form-control ${errors.discountInfo ? "is-invalid" : ""}`} />
-                  <div className="invalid-feedback">{errors.discountInfo?.message}</div><br />
-
-
-                </div>
-                <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 pt-2">
-                  <div className="pt-2">
-                    <label>Service Sub Category</label>
-                    <Select options={child} value={selectedOptionChild} placeholder="Choose your Service Sub Category" className="srcgap"
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Service Sub Category</label>
+        <Select options={child} value={selectedOptionChild} placeholder="Service Sub Category" className="srcgap"
+         styles={{
+                                    control: (base, state) => ({
+                                      ...base,
+                                      borderColor: state.isFocused
+                                        ? "#ff8c00"
+                                        : base.borderColor,
+                                      boxShadow: state.isFocused
+                                        ? "0 0 5px rgba(255, 140, 0, 0.5)"
+                                        : "none",
+                                      "&:hover": {
+                                        borderColor: "#ff8c00",
+                                      },
+                                    }),
+                                  }}
                       onChange={(value, { action }) =>
                         handleChangeCategoy(value, action, "ServiceSubCategory")
                       }
                     />
-                  </div>
-                  <div className="pt-3">
-                    <label>Sort Order</label><sup className="star">*</sup>
-                    <input {...register("sortOrder")}
-                      name="sortOrder"
-                      type="number"
-                      min="0"
-                      placeholder="Sort Order"
-                      className={`form-control ${errors.sortOrder ? "is-invalid" : ""}`} />
-                    <div className="invalid-feedback">{errors.sortOrder?.message}</div><br />
-                  </div>
+      </div>
+    </div>
 
-                  <label>Description</label><sup className="star">*</sup>
-                  <textarea {...register("description")}
-                    rows={2}
-                    name="description"
-                    placeholder="Description"
-                    className={`form-control ${errors.description ? "is-invalid" : ""}`} />
-                  <div className="invalid-feedback">{errors.description?.message}</div>
+    {/* Row 2 */}
+    <div className="row">
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Title</label><sup className="star">*</sup>
+        <input
+  {...register("title")}
+  type="text"
+  placeholder="Title"
+  onFocus={(e) => {
+    e.target.style.borderColor = "#ff8c00";
+    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+  }}
+  onBlur={(e) => {
+    e.target.style.borderColor = "";
+    e.target.style.boxShadow = "none";
+  }}
+  className={`form-control ${errors.title ? "is-invalid" : ""}`}
+/>
+<div className="invalid-feedback">{errors.title?.message}</div>
 
-                  <label>Search Text</label>
-                  <input {...register("searchText")}
-                    name="searchText"
-                    type="text"
-                    placeholder="Search Text"
-                    className={`form-control ${errors.searchText ? "is-invalid" : ""}`} />
-                  <div className="invalid-feedback">{errors.searchText?.message}</div><br />
+      </div>
 
-                  <label>Hubspot Id</label>
-                  <input {...register("hubspotId")}
-                    name="hubspotId"
-                    type="text"
-                    placeholder="Hubspot Id"
-                    className={`form-control ${errors.hubspotId ? "is-invalid" : ""}`} />
-                  <div className="invalid-feedback">{errors.hubspotId?.message}</div><br />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pt-2>
-            <label>Upload your Logo</label>
-            <input id="logoFile" name="logoFile" type="file"
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Price</label><sup className="star">*</sup>
+        <input {...register("price")} name="price" type="number" placeholder="Price"
+         onFocus={(e) => {
+          e.target.style.borderColor = "#ff8c00"; 
+          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+      }}
+      onBlur={(e) => {
+          e.target.style.borderColor = ""; 
+          e.target.style.boxShadow = "none"; 
+      }}
+          className={`form-control ${errors.price ? "is-invalid" : ""}`} />
+        <div className="invalid-feedback">{errors.price?.message}</div>
+      </div>
 
-              onChange={(e) => setselectedFile(e.target.value)}
-              className={`form-control ${errors.logoFile ? "is-invalid" : ""}`} />
-            <div className="invalid-feedback">{errors.logoFile?.message}</div><br />
-            <label className="file-type">Maximum allowed file size: 2 MB</label><br />
-            <label className="file-type">Allowed formats: .jpeg, .jpg, .png, .bmp</label>
-          </div>
-          {/* {title && servicename && description && selectedExternal && selectedOption && selectedFile ? */}
-          <button type="submit" className=" reg-btn">Save</button>
-          {/* : */}
-          {/* <button type="submit" className="reg-btn-disable" disabled>Register</button> */}
-          {/* } */}
-        </form>
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Sort Order</label><sup className="star">*</sup>
+        <input {...register("sortOrder")} name="sortOrder" type="number" placeholder="Sort Order"
+         onFocus={(e) => {
+          e.target.style.borderColor = "#ff8c00"; 
+          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+      }}
+      onBlur={(e) => {
+          e.target.style.borderColor = ""; 
+          e.target.style.boxShadow = "none"; 
+      }} min="0"
+          className={`form-control ${errors.sortOrder ? "is-invalid" : ""}`} />
+        <div className="invalid-feedback">{errors.sortOrder?.message}</div>
+      </div>
+    </div>
 
-      </div >
+    {/* Row 3 */}
+    <div className="row">
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Is External</label><sup className="star">*</sup>
+        <Select {...register("isExternal")} name="isExternal" options={ExternalUrl}
+          value={selectedExternal} placeholder="Is External"
+           styles={{
+                                      control: (base, state) => ({
+                                        ...base,
+                                        borderColor: state.isFocused
+                                          ? "#ff8c00"
+                                          : base.borderColor,
+                                        boxShadow: state.isFocused
+                                          ? "0 0 5px rgba(255, 140, 0, 0.5)"
+                                          : "none",
+                                        "&:hover": {
+                                          borderColor: "#ff8c00",
+                                        },
+                                      }),
+                                    }}
+          className={` ${errors.isExternal ? "is-invalid" : ""}`}
+          onChange={(value, { action }) => handleChangeCategoy(value, action, "external")} />
+      </div>
+
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>External URL</label>
+        <input {...register("externalUrl")} name="externalUrl" type="text"
+          placeholder="Enter external Url with http/https"
+          onFocus={(e) => {
+            e.target.style.borderColor = "#ff8c00"; 
+            e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+        }}
+        onBlur={(e) => {
+            e.target.style.borderColor = ""; 
+            e.target.style.boxShadow = "none"; 
+        }}
+          className={`form-control ${errors.externalUrl ? "is-invalid" : ""}`} />
+        <div className="invalid-feedback">{errors.externalUrl?.message}</div>
+      </div>
+
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Description</label><sup className="star">*</sup>
+        <textarea {...register("description")} name="description" rows={2}
+          placeholder="Description"  
+          onFocus={(e) => {
+            e.target.style.borderColor = "#ff8c00"; 
+            e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+        }}
+        onBlur={(e) => {
+            e.target.style.borderColor = ""; 
+            e.target.style.boxShadow = "none"; 
+        }} style={{ height: '38px', resize: 'none' }}
+          className={`form-control ${errors.description ? "is-invalid" : ""}`} />
+        <div className="invalid-feedback">{errors.description?.message}</div>
+      </div>
+    </div>
+
+    {/* Row 4 */}
+    <div className="row">
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Meta Title</label>
+        <input {...register("metaTitle")} name="metaTitle" type="text" placeholder="Meta Title"
+         onFocus={(e) => {
+          e.target.style.borderColor = "#ff8c00"; 
+          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+      }}
+      onBlur={(e) => {
+          e.target.style.borderColor = ""; 
+          e.target.style.boxShadow = "none"; 
+      }}
+          className={`form-control ${errors.metaTitle ? "is-invalid" : ""}`} />
+        <div className="invalid-feedback">{errors.metaTitle?.message}</div>
+      </div>
+
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Meta Key</label>
+        <input {...register("metaKey")} name="metaKey" type="text" placeholder="Meta Key"
+         onFocus={(e) => {
+          e.target.style.borderColor = "#ff8c00"; 
+          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+      }}
+      onBlur={(e) => {
+          e.target.style.borderColor = ""; 
+          e.target.style.boxShadow = "none"; 
+      }}
+          className={`form-control ${errors.metaKey ? "is-invalid" : ""}`} />
+        <div className="invalid-feedback">{errors.metaKey?.message}</div>
+      </div>
+
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Search Text</label>
+        <input {...register("searchText")} name="searchText" type="text" placeholder="Search Text"
+         onFocus={(e) => {
+          e.target.style.borderColor = "#ff8c00"; 
+          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+      }}
+      onBlur={(e) => {
+          e.target.style.borderColor = ""; 
+          e.target.style.boxShadow = "none"; 
+      }}
+          className={`form-control ${errors.searchText ? "is-invalid" : ""}`} />
+        <div className="invalid-feedback">{errors.searchText?.message}</div>
+      </div>
+    </div>
+
+    {/* Row 5 */}
+    <div className="row">
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Discount Info</label>
+        <input {...register("discountInfo")} name="discountInfo" type="text" placeholder="Discount Info"
+         onFocus={(e) => {
+          e.target.style.borderColor = "#ff8c00"; 
+          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+      }}
+      onBlur={(e) => {
+          e.target.style.borderColor = ""; 
+          e.target.style.boxShadow = "none"; 
+      }}
+          className={`form-control ${errors.discountInfo ? "is-invalid" : ""}`} />
+        <div className="invalid-feedback">{errors.discountInfo?.message}</div>
+      </div>
+
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Hubspot Id</label>
+        <input {...register("hubspotId")} name="hubspotId" type="text" placeholder="Hubspot Id"
+         onFocus={(e) => {
+          e.target.style.borderColor = "#ff8c00"; 
+          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+      }}
+      onBlur={(e) => {
+          e.target.style.borderColor = ""; 
+          e.target.style.boxShadow = "none"; 
+      }}
+          className={`form-control ${errors.hubspotId ? "is-invalid" : ""}`} />
+        <div className="invalid-feedback">{errors.hubspotId?.message}</div>
+      </div>
+
+      <div className="col-md-4 pt-2 mb-3">
+        <label className={styles.formLabel}>Short Description</label>
+        <input {...register("shortDescription")} name="shortDescription" type="text" placeholder="Enter your service description"
+         onFocus={(e) => {
+          e.target.style.borderColor = "#ff8c00"; 
+          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+      }}
+      onBlur={(e) => {
+          e.target.style.borderColor = ""; 
+          e.target.style.boxShadow = "none"; 
+      }}
+          value={description} onChange={e => setdescription(e.target.value)}
+          className={`form-control ${errors.shortDescription ? "is-invalid" : ""}`} />
+        <div className="invalid-feedback">{errors.shortDescription?.message}</div>
+      </div>
+    </div>
+
+    {/* Upload Logo */}
+    <div className="row">
+      <div className="col-md-12 pt-2 mb-3">
+        <label className={styles.formLabel}>Upload your Logo</label>
+        <input id="logoFile" name="logoFile" type="file"
+         onBlur={(e) => {
+          e.target.style.borderColor = ""; 
+          e.target.style.boxShadow = "";
+          }}
+          onFocus={(e) => {
+          e.target.style.borderColor = "#ff8c00"; 
+          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+          }}
+          onChange={(e) => setselectedFile(e.target.value)}
+          className={`form-control ${errors.logoFile ? "is-invalid" : ""}`} />
+        <div className="invalid-feedback">{errors.logoFile?.message}</div>
+        <label className="file-type">Maximum allowed file size: 2 MB</label><br />
+        <label className="file-type">Allowed formats: .jpeg, .jpg, .png, .bmp</label>
+      </div>
+    </div>
+
+    <div className="pt-3 text-center">
+      <button type="submit" className={styles.regBtn}>Save</button>
+    </div>
+  </form>
+</div>
+
     </>
   );
 };
