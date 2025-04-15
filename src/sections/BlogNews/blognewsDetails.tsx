@@ -40,7 +40,7 @@ const Events: React.FC = () => {
         seteventimg(eventData.imageUrl);
         seteventtitle(eventData.title);
         seteventdescription(eventData.description);
-        seteventdate(eventData.date);
+        seteventdate(eventData.createdOn);
         seteventlink(eventData.link);
 
         setRecentPosts((prevPosts) => {
@@ -86,18 +86,24 @@ const Events: React.FC = () => {
                     height={300}
                   />
                 </div>
+  {/* <p className="text-muted mt-2 ml-3" style={{ fontSize: "15px" }}>{formatDate(eventdate)}</p> */}
                 <div className={styles.blogdetails}>
-  <div className="d-flex justify-content-between align-items-center">
+                <div>
+  {/* Row 1: Title */}
+  <div>
     <h2 className="m-0">{eventtitle}</h2>
-    <div title="Click to Open Link">
+  </div>
+
+  {/* Row 2: Date (left) and Icon (right) */}
+  <div className="d-flex align-items-center mt-1">
+    <p className="text-muted mr-2" style={{ fontSize: "15px" }}>{formatDate(eventdate)}</p>
+    <div className="mt-3 ml-2" title="Click to Open Link">
       <a href={eventlink} target="_blank" rel="noopener noreferrer" style={{ color: "#ff8c00" }}>
-        <FaExternalLinkAlt size={20} />
+        <FaExternalLinkAlt size={19} />
       </a>
     </div>
   </div>
-  <p className="text-muted fst-italic" style={{ fontSize: "13px" }}>
-  {eventdate}
-</p>
+</div>
 
   <p dangerouslySetInnerHTML={{ __html: eventdescription }}></p>
 </div>
@@ -118,7 +124,7 @@ const Events: React.FC = () => {
                     {/* <img src="/images/blogStatic.jpg" alt="Recent Post" width={100} height={100} /> */}
                     <div className={styles.postContent}>
                       <h4>{post.title}</h4>
-                      <p>{formatDate(post.createdOn)}</p>
+                      <p className="text-muted mt-2 ml-1">{formatDate(post.createdOn)}</p>
                     </div>
                   </li>
                 ))}

@@ -551,7 +551,7 @@ span {
   margin: 0;
 }
 
-.loader-overlay {
+/* .loader-overlay {
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -564,12 +564,13 @@ span {
   display: none;
   opacity: 0;
   transition: opacity 0.5s ease;
+  color: #e77f00;
 }
 
 .loader-overlay.active {
   display: flex;
   opacity: 1;
-}
+} */
 
 .checkmark {
   width: 56px;

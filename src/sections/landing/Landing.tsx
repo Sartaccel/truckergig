@@ -139,7 +139,7 @@ const Landing: React.FC = () => {
     dots: false,
     infinite: true,
     speed: 1000,
-    slidesToShow: 6,
+    slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
     autoplay: true,
@@ -148,7 +148,7 @@ const Landing: React.FC = () => {
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 6,
+          slidesToShow: 4,
           slidesToScroll: 1,
         },
       },
@@ -411,7 +411,7 @@ const Landing: React.FC = () => {
         </div>
         <div>
           <h5>Vendors Onboarded</h5>
-          <p>We onboard vendors seamlessly, giving them real-time logistics visibility and simplified digital access. Our platform helps vendors grow through trusted partnerships and easy freight integration.</p>
+          <p>We seamlessly onboard vendors with real time logistics visibility. Our platform enables growth through trusted partnerships and digital access.</p>
         </div>
       </div>
       <div className={`${styles["summary-feature"]}`}>
@@ -420,7 +420,7 @@ const Landing: React.FC = () => {
         </div>
         <div>
           <h5>Carriers Connected</h5>
-          <p>A vast network of carriers is connected through smart tools that reduce empty miles and boost efficiency. We offer direct access to shippers and consistent load opportunities.</p>
+          <p>We connect a vast network of carriers using smart tools that reduce empty miles. Direct shipper access ensures steady and efficient load opportunities.</p>
         </div>
       </div>
       <div className={`${styles["summary-feature"]}`}>
@@ -429,7 +429,7 @@ const Landing: React.FC = () => {
         </div>
         <div>
           <h5>Drivers Onboarded</h5>
-          <p>Drivers are matched with better jobs, real-time updates, and transparent pay. We support their success with optimized scheduling and a reliable work experience.</p>
+          <p>Drivers get matched with better jobs, real-time updates, and transparent pay. We ensure reliable work experiences with optimized scheduling.</p>
         </div>
       </div>
     </div>

@@ -9,6 +9,9 @@ import { Button } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import { Container, Nav } from "react-bootstrap";
 import urls from "../../utilities/AppSettings";
+import { Loader } from "../Loader";
+import { Spin } from "antd";
+
 
 const Topbar: React.FC = () => {
   const [active, setActive] = useState(false);
@@ -25,6 +28,7 @@ const Topbar: React.FC = () => {
   };
 
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const [dropdown, setdropdown] = useState([]);
   const [candidates, setCandidates] = useState("");
@@ -142,7 +146,9 @@ useEffect(() => {
     Router.push("/myservice");
   };
 
+
   return (
+    <>
     <Navbar
       collapseOnSelect
       expand="lg"
@@ -218,18 +224,16 @@ useEffect(() => {
               )}
 
               {!Ath ? (
-                <Link href="/customerlogin">
-                  <a className={`${styles.getStartedButton} login-link ${router.pathname==="/customerlogin" ? "active" : ""}`}>
-          <span>Login</span>
-          <div className={styles["arrow-circle"]}>
-            <i className={`${styles["arrow-icon"]} bi bi-person-fill pl-1`}></i>
-          </div>
-          </a> 
-
-                  {/* <a href="#" className={`nav-link login-link ${router.pathname==="/customerlogin" ? "active" : ""}`}>
-                    Login<i className="bi bi-person-fill pl-1"></i>
-                  </a> */}
-                </Link>
+            
+               <Link href="/customerlogin">
+                 <a className={`${styles.getStartedButton} login-link ${router.pathname === "/customerlogin" ? "active" : ""}`}>
+                   <span>Login</span>
+                   <div className={styles["arrow-circle"]}>
+                     <i className={`${styles["arrow-icon"]} bi bi-person-fill pl-1`}></i>
+                   </div>
+                 </a>
+               </Link>
+             
               ) : (
                 <div>
                   <Dropdown className="margin-fixs">
@@ -258,6 +262,7 @@ useEffect(() => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    </>
   );
 };
 export default Topbar;
