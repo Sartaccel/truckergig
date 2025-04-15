@@ -32,7 +32,7 @@
 .card-event {
   padding: 15px;
   background-color: #fff;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 15px rgba(86, 85, 85, 0.15);
   transition: all 0.4s ease-in-out;
   border-radius: 12px;
   display: flex;
@@ -47,7 +47,7 @@
   transform: scale(1.05); 
   box-shadow: 0 6px 12px rgb(206, 142, 38);
   background-color: #dba56470; 
-  color: black; 
+  color: rgb(57, 56, 56); 
   margin-bottom: 20px;
 }
 
@@ -122,7 +122,7 @@
 
 .card-clock-event {
   font-size: 14px;
-  font-weight: bold;
+  // font-weight: bold;
   color: #333;
   margin-bottom: 5px;
   white-space: nowrap;
@@ -144,11 +144,13 @@
 
 .card-location-event{
   margin-bottom: 10px;
-  font-weight: bold;
+  font-weight: 500;
+  color: #333;
 }
 .card-calender-event{
   margin-bottom: 10px;
-  font-weight: bold;
+  font-weight: 500;
+  color: #333;
 }
 
 /* Red background for today's events */

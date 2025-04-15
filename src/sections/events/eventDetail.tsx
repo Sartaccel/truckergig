@@ -3,11 +3,10 @@ import { useRouter } from 'next/router'
 import axios from "axios";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import urls from "../../utilities/AppSettings";
-import "antd/dist/antd.css";
 import styles from './events.module.scss';
 import Popup from "reactjs-popup";
 import EventShare from "../../components/ShareEvent/EventShare";
-import { Spin } from "antd";  
+import { Spin } from "antd";
 
 const Events: React.FC = (props) => {
   const router = useRouter()
@@ -87,7 +86,7 @@ const Events: React.FC = (props) => {
             <Popup
               trigger={
                 <i className="bi bi-share" style={{ color: "#f7941d", fontStyle: "normal", marginLeft :"-10px", cursor:"pointer" }}>
-  <span style={{ color: "#000", marginLeft:"8px" }}> Share </span>
+  <span style={{ color: "#555", marginLeft:"8px" }}> Share </span>
 </i>
 
               }
@@ -113,8 +112,8 @@ const Events: React.FC = (props) => {
             <div className={`${styles["event-clock-detail"]} col-6`}><i className="bi bi-clock" style={{ color: "#f7941d" }}></i> {eventfromtime}</div>
             : <div className={`${styles["event-clock-detail"]} col-6`}><i className="bi bi-clock" style={{ color: "#f7941d" }}></i> {eventfromtime} - {eventtotime}</div>
           }
-          <div className="col-12"><h5>{eventtitle}</h5></div>
-          <div className="col-12" dangerouslySetInnerHTML={{ __html: eventdescription }}></div>
+          <div className={`${styles["event-desc-title"]} col-12`}><p>{eventtitle}</p></div>
+          <div className="col-12" style={{}} dangerouslySetInnerHTML={{ __html: eventdescription }}></div>
         </div>
       </div>
     </>
