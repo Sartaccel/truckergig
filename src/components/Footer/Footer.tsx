@@ -21,12 +21,14 @@ const Footer: React.FC = () => {
 
   {/* Image (Hidden on Mobile) */}
   <div className={`${styles["image-container"]} hidden md:flex justify-center`}>
+  <Link href="/contactus">
     <img
-      src="images/Footer 5.png"
+      src="/images/Footer 5.png"
       alt="Business Growth"
-      style={{ width: "125px", height: "auto" }}
+      style={{ width: "125px", height: "auto", cursor: "pointer" }}
     />
-  </div>
+  </Link>
+</div>
 
   {/* Get Started Button */}
   <div className="flex justify-center items-center mt-4 md:mt-0 w-full">
