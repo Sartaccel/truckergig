@@ -129,7 +129,9 @@ const Serviceregistration: React.FC = () => {
 						theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
 						closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
 					});
-					setTimeout(() => { window.location.reload(); }, 3000);
+					setTimeout(() => {
+						router.push("/"); // This will redirect to the home page after 3 seconds
+					}); 
 
 				}
 
