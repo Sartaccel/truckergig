@@ -153,6 +153,7 @@ const About: React.FC = () => {
                 registry with transportation carriers, brokers and facilitates
                 integration of data through services offered by vendors
               </p>
+              <br></br>
 
               <h5 style={{ color: " #ff8800" }}>
                 Key Logistics & Technology Services
