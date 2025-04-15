@@ -1,0 +1,18 @@
+.loaderOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw!important;
+	height: 100vh!important;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .spinner {
+    width: 80px;
+    height: 80px;
+  }
+  
