@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createRef, useRef } from "react";
 import { useRouter } from 'next/router'
 import { CategoriesCards } from "../../components/CategoriesCards/CategoriesCards";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import Filter from '../../components/Filter/Filter';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import urls from "../../utilities/AppSettings";
@@ -76,7 +76,7 @@ const Services: React.FC = (props) => {
 
       // POST request
       axios.post(`${urls.baseUrl}services`, params, {
-        signal: controller.signal,
+        ...(controller.signal && { signal: controller.signal }) as AxiosRequestConfig
       })
         .then((response) => {
           const data = response.data.data;
@@ -102,7 +102,7 @@ const Services: React.FC = (props) => {
 
       // GET request for categories list
       axios.get(`${urls.baseUrl}services/categories/list`, {
-        signal: controller.signal,
+        ...(controller.signal && { signal: controller.signal }) as AxiosRequestConfig
       })
         .then((response) => {
           const data = response.data.data;

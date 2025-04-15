@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Loader.module.scss';
-import { useLoader } from '../../pages/LoaderContext'; 
+import { useLoader } from '../../Context/LoaderContext'; 
 
 export const Loader: React.FC = () => {
   const { loading } = useLoader();
