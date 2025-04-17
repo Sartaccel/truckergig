@@ -8,6 +8,7 @@ import * as yup from "yup";
 import axios from "axios";
 import urls from "../../utilities/AppSettings";
 import $ from "jquery";
+import styles from "../Customerresetpassword/Password.module.scss"
 
 const schema = yup.object().shape({
     emailId: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, "Email is not valid"),
@@ -130,77 +131,55 @@ const Customerresetpassword: React.FC = () => {
                 draggable
                 pauseOnHover
             />
-            <div className="row no-gutters align-items-center gig-login">
-                <div className="col-md-3 shadow p-5 bg-white rounded">
-                    <div className="row no-gutters">
-                        <div className="col text-center">
-                            <img className="logo" src="/images/logo_black.png" alt="logo" />
-                        </div>
-                    </div>
-                    <div className="row no-gutters">
-                        <div className="col">
-                            <h1 className="pt-4 text-left">Reset Password</h1>
-                            <p>Please enter your email address and new password</p>
-                        </div>
-                    </div>
-                    <div className="row no-gutters">
-                        <div className="col">
-                            <form onSubmit={handleSubmit(onSubmitHandler)}>
-                                <div className="form-group">
-                                    <div className="input-group">
-                                        <div className="input-group-prepend">
-                                            <div className="input-group-text"><i className="bi bi-at"></i></div>
-                                        </div>
-                                        <input name="emailId" id="emailId" placeholder="Email address"
-                                            {...register("emailId")}
-                                            type="email"
-                                            className={`form-control ${errors.emailId ? "is-invalid" : ""
-                                                }`} />
-                                        <div className="invalid-feedback">
-                                            {errors.emailId?.message}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-group">
-                                    <div className="input-group">
-                                        <div className="input-group-prepend">
-                                            <div className="input-group-text"><i className="bi bi-key"></i></div>
-                                        </div>
-                                        <input name="newPassword" id="newPassword" placeholder="New Password"
-                                            {...register("newPassword")}
-                                            type="password"
-                                            className={`form-control ${errors.newPassword ? "is-invalid" : ""
-                                                }`} />
-                                        <div className="invalid-feedback">
-                                            {errors.newPassword?.message}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-group">
-                                    <div className="input-group">
-                                        <div className="input-group-prepend">
-                                            <div className="input-group-text"><i className="bi bi-key"></i></div>
-                                        </div>
-                                        <input name="retypepwd" id="retypepwd" placeholder="Retype Password"
-                                            {...register("retypepwd")}
-                                            type="password"
-                                            className={`form-control ${errors.retypepwd ? "is-invalid" : ""
-                                                }`} />
-                                        <div className="invalid-feedback">
-                                            {errors.retypepwd?.message}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row no-gutters">
-                                    <div className="col">
-                                        <button type="submit" className="submit-button">Reset</button>&nbsp;
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            <div className={styles.resetPasswordPage}>
+      <div className={styles.leftPanel}>
+        <img src="/images/mail.jpg" alt="Shipping background" className={styles.backgroundImage} />
+      </div>
+      <div className={styles.rightPanel}>
+        <div className={styles.formContainer}>
+          <img src="/images/logo_black.png" alt="Logo" className={styles.logo} />
+          <h1>Reset Password</h1>
+          <p className={styles.subtitle}>Don’t worry! Enter your email to reset your password and get back on track</p>
+
+          <form onSubmit={handleSubmit(onSubmitHandler)}>
+            <div className={styles.inputGroup}>
+              <input
+                type="email"
+                placeholder="Email address"
+                {...register('emailId', { required: "Email is required" })}
+                className={errors.emailId ? styles.invalid : ''}
+              />
+              {errors.emailId && <span className={styles.error}>{errors.emailId.message}</span>}
             </div>
+
+            <div className={styles.inputGroup}>
+              <input
+                type="password"
+                placeholder="New Password"
+                {...register('newPassword', { required: "Password is required" })}
+                className={errors.newPassword ? styles.invalid : ''}
+              />
+              {errors.newPassword && <span className={styles.error}>{errors.newPassword.message}</span>}
+            </div>
+
+            <div className={styles.inputGroup}>
+              <input
+                type="password"
+                placeholder="Retype Password"
+                {...register('retypepwd', { required: "Please retype your password" })}
+                className={errors.retypepwd ? styles.invalid : ''}
+              />
+              {errors.retypepwd && <span className={styles.error}>{errors.retypepwd.message}</span>}
+            </div>
+
+            <div className={styles.buttonGroup}>
+              <button type="submit" className={styles.resetButton}>Reset</button>
+              <button type="button" className={styles.cancelButton}>Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
         </>
     );
 }
