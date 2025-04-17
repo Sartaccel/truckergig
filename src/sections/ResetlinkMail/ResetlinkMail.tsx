@@ -11,40 +11,33 @@ const ResetLinkMail: React.FC = () => {
 
     return (
         <>
-            <div className={styles.resetLinkContainer}>
-      <div className={`${styles.card}`}>
-        <div className="row no-gutters">
-          <div className="col text-center">
-            <img className={styles.logo} src="/images/logo_black.png" alt="logo" />
-          </div>
-        </div>
-        <div className="row no-gutters">
-          <div className="col">
-            <h1 className={styles.heading}>Reset Link Mailed</h1>
-          </div>
-        </div>
-        <div className="row no-gutters">
-          <div className="col">
-            <form action="/#" className="pt-4">
-              <p className={styles.message}>
-                Please check your inbox for the reset link. The link is valid for 10 minutes.
-              </p>
-              <div className="row no-gutters">
-                <div className="col">
-                  <button
-                    className={styles.submitButton}
-                    type="button"
-                    onClick={(e) => checkReset(e)}
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
+            <div className={styles.container}>
+  {/* Left Side - Background Image */}
+  <div className={styles.leftSide}></div>
+
+  {/* Right Side - Reset Link Message */}
+  <div className={styles.rightSide}>
+    <div className={styles.card}>
+      <div className="text-center">
+        <img className={styles.logo} src="/images/logo_black.png" alt="logo" />
+      </div>
+      <h1 className={styles.heading}>Reset Link Mailed</h1>
+      <p className={styles.message}>
+        Please check your inbox for the reset link. The link is valid for 10 minutes.
+      </p>
+      <div className="text-center">
+        <button
+          className={styles.submitButton}
+          type="button"
+          onClick={(e) => checkReset(e)}
+        >
+          Close
+        </button>
       </div>
     </div>
+  </div>
+</div>
+
         </>
     );
 }

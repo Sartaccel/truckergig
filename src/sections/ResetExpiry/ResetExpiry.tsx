@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import router from "next/router";
+import styles from "../ResetExpiry/Resetexpiry.module.scss"
 
 const ResetLinkMail: React.FC = () => {
 
@@ -8,36 +9,30 @@ const ResetLinkMail: React.FC = () => {
         router.push('/customerlogin');
     }
 
-    return (
-        <>
-            <div className="row no-gutters align-items-center gig-login">
-                <div className="col-md-3 shadow p-5 bg-white rounded">
-                    <div className="row no-gutters">
-                        <div className="col text-center">
-                            <img className="logo" src="/images/logo_black.png" alt="logo" />
-                        </div>
-                    </div>
-                    <div className="row no-gutters">
-                        <div className="col">
-                            <h1 className="pt-4 text-left">Reset Link Expired</h1>
-                        </div>
-                    </div>
-                    <div className="row no-gutters">
-                        <div className="col">
-                            <form>
-                                <p>Reset password link is expired or invalid.</p>
-                                <div className="row no-gutters">
-                                    <div className="col">
-                                        <button className="submit-button" type="button" onClick={(e) => { checkReset(e) }}>Close</button>
-                                    </div>
-                                </div>
+  
 
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </>
+  return (
+    <div className={styles.resetPage}>
+      <div className={styles.leftPanel}>
+        <div className={styles.formWrapper}>
+          <div className={styles.logoWrapper}>
+            <img className={styles.logo} src="/images/logo_black.png" alt="logo" />
+          </div>
+          <h1 className={styles.title}>Reset Link Expired</h1>
+          <p className={styles.description}>Reset password link is expired or invalid.</p>
+          <button className={styles.submitButton} type="button" onClick={(e) => checkReset(e)}>
+            Close
+          </button>
+        </div>
+      </div>
+
+      <div className={styles.rightPanel}>
+        <img className={styles.backgroundImage} src="/images/forgot.jpg" alt="Background" />
+      </div>
+    </div>
+
+
+      
     );
 }
 
