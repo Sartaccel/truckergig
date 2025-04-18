@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^2.8.2",
     "@mui/icons-material": "^7.0.1",
     "@mui/material": "^5.17.1",
+    "@react-aria/ssr": "^3.9.8",
     "@react-oauth/google": "^0.12.1",
     "@types/jquery": "^3.5.32",
     "@types/react-router": "^5.1.17",

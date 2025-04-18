@@ -90,7 +90,7 @@ export const JobDescription = ({
             draggable: true,
             progress: undefined,
           });
-          router.push("/customerlogin");
+          router.push("/login");
         }
       })
       .catch(function (error) {
@@ -133,14 +133,14 @@ export const JobDescription = ({
           window.location.reload();
           localStorage.clear();
           sessionStorage.clear();
-          router.push("/customerlogin");
+          router.push("/login");
         }
       })
       .catch(function (error) {
         window.location.reload();
         localStorage.clear();
         sessionStorage.clear();
-        router.push("/customerlogin");
+        router.push("/login");
       });
   };
 

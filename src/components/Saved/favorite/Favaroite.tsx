@@ -34,14 +34,14 @@ export const Favorite = (props) => {
           window.location.reload();
           window.localStorage.clear();
           window.sessionStorage.clear();
-          Router.push("/customerlogin");
+          Router.push("/login");
         }
       })
       .catch(function (error) {
         window.location.reload();
         window.localStorage.clear();
         window.sessionStorage.clear();
-        Router.push("/customerlogin");
+        Router.push("/login");
       });
 
   }, [])
