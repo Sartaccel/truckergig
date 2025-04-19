@@ -111,7 +111,8 @@ const Serviceregistration: React.FC = () => {
 		setLoading(true);
 		data.serviceCategoryId = selectedOption.value;
 		data.serviceSubCategoryId = selectedOptionChild.value ? selectedOptionChild.value : "0";
-		data.isExternal = selectedExternal?.value ?? null;
+		//data.isExternal = selectedExternal?.value ?? null;
+		data.isExternal = data?.externalUrl!=="" ? 1 : 0;
 
 		let logoFile = document.getElementById("logoFile") as HTMLInputElement;
 
