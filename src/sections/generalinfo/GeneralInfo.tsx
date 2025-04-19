@@ -184,7 +184,7 @@ const Candidateregister: React.FC = () => {
 			.then(function (response) {
 				console.log(response.data.headers.status);
 				if (response.data.headers.status == "success") {
-					toast.success(response.data.headers.message, {
+					toast.success('Otp Verified Successfully', {
 						theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
 						closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
 					});

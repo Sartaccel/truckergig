@@ -398,7 +398,7 @@ const Serviceregistration: React.FC = () => {
 							
 							</div>
 							<div className="text-center mt-1">
-							{email && servicename && description && selectedExternal && selectedOption && selectedFile?
+							{!errors.emailAddress && servicename && description && selectedExternal && selectedOption && selectedFile?
 						<button type="submit" className={`${styles["reg-btn"]} `}>Register</button>
 						:
 						<button type="submit" className={`${styles["reg-btn-disable"]}`} disabled>Register</button>}
