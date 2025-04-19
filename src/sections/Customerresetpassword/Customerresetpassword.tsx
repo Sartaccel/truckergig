@@ -8,14 +8,34 @@ import * as yup from "yup";
 import axios from "axios";
 import urls from "../../utilities/AppSettings";
 import $ from "jquery";
+import styles from "../Customerresetpassword/Password.module.scss"
+import { CircularProgress } from '@mui/material';
+import { Eye, EyeOff } from 'lucide-react';
 
 const schema = yup.object().shape({
     emailId: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, "Email is not valid"),
-    newPassword: yup.string().required("Enter new password").min(6, "Password must be atleast six characters").max(24),
-    retypepwd: yup.string().required("Enter new password").oneOf([yup.ref("newPassword")], "Password does not matched"),
-});
+    newPassword: yup
+    .string()
+    .required("Enter new password")
+    .matches(
+      /^(?=.[a-z])(?=.[A-Z])(?=.*[^a-zA-Z0-9]).{6}$/,
+      "Password must be exactly 6 characters, include uppercase, lowercase, and special character"
+    ),
+    retypepwd: yup
+    .string()
+    .required("Enter new password")
+    .matches(
+      /^(?=.[a-z])(?=.[A-Z])(?=.*[^a-zA-Z0-9]).{6}$/,
+      "Password must be exactly 6 characters, include uppercase, lowercase, and special character"
+    )
+    .oneOf([yup.ref("newPassword")], "Passwords do not match")});
 
 const Customerresetpassword: React.FC = () => {
+    
+        const [loading, setLoading] = useState(false);
+        const [showPassword, setShowPassword] = useState(false);
+    const [showRetypePassword, setShowRetypePassword] = useState(false)
+        
     useEffect(() => {
         const search = window.location.search;
         const params = new URLSearchParams(search);
@@ -76,6 +96,7 @@ const Customerresetpassword: React.FC = () => {
         console.log(params)
         axios.post(`${urls.baseUrl}users/reset/password`, params)
             .then(function (response) {
+        setLoading(true);   
                 console.log(response)
                 if (response.status === 200) {
                     toast.success("Users modified successfully", {
@@ -88,7 +109,10 @@ const Customerresetpassword: React.FC = () => {
                         draggable: true,
                         progress: undefined,
                     });
-                    router.push("/resetnext")
+                    setTimeout(() => {
+                        router.push("/resetnext");
+                        setLoading(false);
+                      }, 1000);
                 }
                 else {
                     toast.error("Oops!", {
@@ -101,6 +125,7 @@ const Customerresetpassword: React.FC = () => {
                         draggable: true,
                         progress: undefined,
                     });
+		        setLoading(false)
                 }
             })
             .catch(function (error) {
@@ -114,9 +139,10 @@ const Customerresetpassword: React.FC = () => {
                     draggable: true,
                     progress: undefined,
                 });
+		        setLoading(false)
             });
     };
-
+      
     return (
         <>
             <ToastContainer
@@ -130,77 +156,93 @@ const Customerresetpassword: React.FC = () => {
                 draggable
                 pauseOnHover
             />
-            <div className="row no-gutters align-items-center gig-login">
-                <div className="col-md-3 shadow p-5 bg-white rounded">
-                    <div className="row no-gutters">
-                        <div className="col text-center">
-                            <img className="logo" src="/images/logo_black.png" alt="logo" />
-                        </div>
-                    </div>
-                    <div className="row no-gutters">
-                        <div className="col">
-                            <h1 className="pt-4 text-left">Reset Password</h1>
-                            <p>Please enter your email address and new password</p>
-                        </div>
-                    </div>
-                    <div className="row no-gutters">
-                        <div className="col">
-                            <form onSubmit={handleSubmit(onSubmitHandler)}>
-                                <div className="form-group">
-                                    <div className="input-group">
-                                        <div className="input-group-prepend">
-                                            <div className="input-group-text"><i className="bi bi-at"></i></div>
-                                        </div>
-                                        <input name="emailId" id="emailId" placeholder="Email address"
-                                            {...register("emailId")}
-                                            type="email"
-                                            className={`form-control ${errors.emailId ? "is-invalid" : ""
-                                                }`} />
-                                        <div className="invalid-feedback">
-                                            {errors.emailId?.message}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-group">
-                                    <div className="input-group">
-                                        <div className="input-group-prepend">
-                                            <div className="input-group-text"><i className="bi bi-key"></i></div>
-                                        </div>
-                                        <input name="newPassword" id="newPassword" placeholder="New Password"
-                                            {...register("newPassword")}
-                                            type="password"
-                                            className={`form-control ${errors.newPassword ? "is-invalid" : ""
-                                                }`} />
-                                        <div className="invalid-feedback">
-                                            {errors.newPassword?.message}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-group">
-                                    <div className="input-group">
-                                        <div className="input-group-prepend">
-                                            <div className="input-group-text"><i className="bi bi-key"></i></div>
-                                        </div>
-                                        <input name="retypepwd" id="retypepwd" placeholder="Retype Password"
-                                            {...register("retypepwd")}
-                                            type="password"
-                                            className={`form-control ${errors.retypepwd ? "is-invalid" : ""
-                                                }`} />
-                                        <div className="invalid-feedback">
-                                            {errors.retypepwd?.message}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row no-gutters">
-                                    <div className="col">
-                                        <button type="submit" className="submit-button">Reset</button>&nbsp;
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            <div className={styles.resetPasswordPage}>
+      <div className={styles.leftPanel}>
+        <img src="/images/mail.jpg" alt="Shipping background" className={styles.backgroundImage} />
+      </div>
+      <div className={styles.rightPanel}>
+        <div className={styles.formContainer}>
+          <img src="/images/logo_black.png" alt="Logo" className={styles.logo} />
+          <h1>Reset Password</h1>
+          <p className={styles.subtitle}>Don’t worry! Enter your email to reset your password and get back on track</p>
+
+          <form onSubmit={handleSubmit(onSubmitHandler)}>
+            <div className={styles.inputGroup}>
+              <input
+                type="email"
+                placeholder="Email address"
+                {...register('emailId', { required: "Email is required" })}
+                className={errors.emailId ? styles.invalid : ''}
+              />
+              {errors.emailId && <span className={styles.error}>{errors.emailId.message}</span>}
             </div>
+
+            <div className={styles.inputGroup} style={{ position: 'relative' }}>
+      <input
+        type={showPassword ? 'text' : 'password'}
+        placeholder="New Password"
+        {...register('newPassword', { required: "Enter new password" })}
+        className={errors.newPassword ? styles.invalid : ''}
+      />
+      <span
+        onClick={() => setShowPassword(!showPassword)}
+        style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+      >
+        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+      </span>
+      {errors.newPassword && <span className={styles.error}>{errors.newPassword.message}</span>}
+    </div>
+    <div className={styles.inputGroup} style={{ position: 'relative' }}>
+      <input
+        type={showRetypePassword ? 'text' : 'password'}
+        placeholder="Retype Password"
+        {...register('retypepwd', { required: "Please retype your password" })}
+        className={errors.retypepwd ? styles.invalid : ''}
+      />
+      <span
+        onClick={() => setShowRetypePassword(!showRetypePassword)}
+        style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+      >
+        {showRetypePassword ? <EyeOff size={20} /> : <Eye size={20} />}
+      </span>
+      {errors.retypepwd && <span className={styles.error}>{errors.retypepwd.message}</span>}
+    </div>
+
+    <div className={styles.buttonGroup}>
+  <button
+    type="submit"
+    className={styles.resetButton}
+    disabled={loading}
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "8px",
+      padding: "0.5rem 1rem", // Added padding to ensure spacing and even height
+    }}
+  >
+    {loading ? (
+      <>
+        Reset
+        <CircularProgress size={20} style={{ color: "#fff" }} />
+      </>
+    ) : (
+      "Reset"
+    )}
+  </button>
+  <button
+      type="button"
+      className={styles.cancelButton}
+      onClick={() => router.back()}
+    >
+      Cancel
+    </button>
+</div>
+
+          </form>
+        </div>
+      </div>
+    </div>
         </>
     );
 }

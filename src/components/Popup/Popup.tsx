@@ -40,7 +40,7 @@ const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
 
   const postData = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    alert("Email cannot be empty");
+    console.warn("Email cannot be empty");
   };
 
   const Address6 = require("ip-address").Address6;
@@ -61,7 +61,7 @@ const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
         if (data.statusCode === 200) {
           setlist(data);
         } else {
-          alert("Error occurred");
+          console.warn("Clickout failed:", response.data);
         }
       });
 
@@ -92,12 +92,12 @@ const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
               setlist(data);
               window.open(popupdata.externalUrl, "_blank"); // Open only after API success
             } else {
-              alert("Error occurred while processing request.");
+              console.warn("Error occurred while processing request.");
             }
           })
           .catch((error) => {
             console.error("API error:", error);
-            alert("Failed to connect. Please try again.");
+            console.warn("Failed to connect. Please try again.");
           });
   
       } else {

@@ -123,7 +123,7 @@ const Footer: React.FC = () => {
                       <div className={`${styles["quick-links"]}`}>
                         <h2>My Accounts</h2>
                         <ul>
-                          <Link href="/customerlogin">
+                          <Link href="/login">
                             <li>
                               <a href="#">Login</a>
                             </li>

@@ -17,10 +17,34 @@ import styles from './GeneralInfo.module.scss';
 
 
 const schema = yup.object().shape({
-	lastName: yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid name').min(2).max(24).required(),
-	firstName: yup.string().matches(/^[A-Za-z ]*$/, 'Please enter valid name').min(2).max(24).required(),
-	email: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/, "Email is not valid"),
-	phoneNumber: yup.string().required("Phone is Required").matches(/^\d{10}$/, "Phone number is not valid"),
+	lastName: yup
+	.string()
+	.matches(/^[A-Za-z\s]+$/, "Only alphabets are allowed")
+	.min(1, "Last name must be at least 1 character")
+	.max(24, "Last name must not exceed 24 characters")
+	.required("Last name is required"),
+	  firstName: yup
+  .string()
+  .matches(/^[A-Za-z]+$/, 'Only alphabets are allowed') // no spaces, no numbers
+  .min(2, "First name must be at least 2 characters")
+  .max(24, "First name must not exceed 24 characters")
+  .required("First name is required"),
+  middleName: yup
+  .string()
+  .matches(/^[A-Za-z\s]*$/, "Only alphabets are allowed")
+  .min(2, "Middle name must be at least 6 characters")
+  .max(24, "Middle name must not exceed 24 characters")
+  .nullable(), // because Middle Name can be optional
+
+  email: yup
+  .string()
+  .required("Email is required")
+  .matches(
+    /^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,}$/,
+    "Only lowercase email allowed, without special characters except '@'",
+  
+
+  ),	phoneNumber: yup.string().required("Phone is Required").matches(/^\d{10}$/, "Phone number is not valid"),
 });
 
 const Candidateregister: React.FC = () => {
@@ -261,68 +285,162 @@ const Candidateregister: React.FC = () => {
                     
 
 
-                        <label className={styles.formLabel}>First Name</label><sup className="star">*</sup>
-                        <input {...register("firstName")} name="firstName" 
-						//  onBlur={(e) => {
-						// 	e.target.style.borderColor = ""; 
-						// 	e.target.style.boxShadow = ""; 
-						//   }}
-						//   onFocus={(e) => {
-						// 	e.target.style.borderColor = "#ff8c00"; 
-						// 	e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-						//   }}
-						  type="text" placeholder="Enter your first name" className={`${styles.inputField} form-control ${errors.firstName ? "is-invalid" : ""}`} />
-                        <div className="invalid-feedback">{errors.firstName?.message}</div>
-                        
-                        
-                        
-                        <label className={styles.formLabel}>Middle Name</label>
-                        <input {...register("middleName")} name="middleName" type="text"
-						 onBlur={(e) => {
-							e.target.style.borderColor = ""; 
-							e.target.style.boxShadow = ""; 
-						  }}
-						  onFocus={(e) => {
-							e.target.style.borderColor = "#ff8c00"; 
-							e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-						  }} 
-						  placeholder="Enter your middle name" className="form-control" />
+						{/* <label className={styles.formLabel}>First Name</label><sup className="star">*</sup>
+<input 
+  {...register("firstName", {
+    required: "First name is required",
+    pattern: {
+      value: /^[A-Za-z]+$/,
+      message: "Only alphabets are allowed",
+    },
+  })}
+  name="firstName"
+  type="text"
+  placeholder="Enter your first name"
+  className={`${styles.inputField} form-control ${errors.firstName ? "is-invalid" : ""}`}
+/>
+<div className="invalid-feedback">{errors.firstName?.message}</div>
 
-						<label className={styles.formLabel}>Last Name</label><sup className="star">*</sup>
-                        <input {...register("lastName")} name="lastName" type="text"
-						
-						  placeholder="Enter your last name" className={` ${styles.inputField} form-control ${errors.lastName ? "is-invalid" : ""}`} />
-                        <div className="invalid-feedback">{errors.lastName?.message}</div>
+                         */}
+						 <label className={styles.formLabel}>First Name</label><sup className="star">*</sup>
+<input 
+  {...register("firstName", {
+    required: "First name is required",
+    pattern: {
+      value: /^[A-Za-z]+$/, // only letters
+      message: "Only alphabets are allowed",
+    },
+  })}
+  name="firstName"
+  type="text"
+  placeholder="Enter your first name"
+  className={`${styles.inputField} form-control ${errors.firstName ? "is-invalid" : ""}`}
+  onInput={(e) => {
+    const input = e.target as HTMLInputElement;
+    input.value = input.value.replace(/[^A-Za-z]/g, '');
+  }}
+/>
+<div className="invalid-feedback">{errors.firstName?.message}</div>
+
+                        
+                        
+<label className={styles.formLabel}>Middle Name</label>
+<input 
+  {...register("middleName", {
+    pattern: {
+      value: /^[A-Za-z\s]*$/,
+      message: "Only alphabets are allowed",
+    },
+    maxLength: {
+      value: 24,
+      message: "Middle name must not exceed 24 characters",
+    },
+  })}
+  name="middleName"
+  type="text"
+  placeholder="Enter your middle name"
+  className={`form-control ${errors.middleName ? "is-invalid" : ""}`}
+  onBlur={(e) => {
+    e.target.style.borderColor = ""; 
+    e.target.style.boxShadow = ""; 
+  }}
+  onFocus={(e) => {
+    e.target.style.borderColor = "#ff8c00"; 
+    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
+  }}
+  onInput={(e) => {
+    const input = e.target as HTMLInputElement;
+    input.value = input.value.replace(/[^A-Za-z\s]/g, '');
+  }}
+/>
+<div className="invalid-feedback">{errors.middleName?.message}</div>
+
+<label className={styles.formLabel}>Last Name</label><sup className="star">*</sup>
+<input 
+  {...register("lastName", {
+    required: "Last name is required",
+    pattern: {
+      value: /^[A-Za-z\s]+$/,
+      message: "Only alphabets are allowed",
+    },
+  })}
+  name="lastName"
+  type="text"
+  placeholder="Enter your last name"
+  className={`${styles.inputField} form-control ${errors.lastName ? "is-invalid" : ""}`}
+  onInput={(e) => {
+    const input = e.target as HTMLInputElement;
+    input.value = input.value.replace(/[^A-Za-z\s]/g, '');
+  }}
+/>
+<div className="invalid-feedback">{errors.lastName?.message}</div>
+
                         
                         
                     </div>
 
                     <div className="col-md-6">
-                        <label className={styles.formLabel}>Email</label><sup className="star">*</sup>
-                        <input {...register("email")} name="email" type="email" 
-						
-						  placeholder="Enter your email" className={`${styles.inputField} form-control w-100 ${errors.email ? "is-invalid" : ""}`} />
-                        <div className="invalid-feedback">{errors.email?.message}</div>
+					<label className={styles.formLabel}>Email</label><sup className="star">*</sup>
+<input 
+  {...register("email", {
+    required: "Email is required",
+    pattern: {
+      value: /^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,}$/,
+      message: "Only lowercase email allowed, without special characters except '@'",
+    },
+  })}
+  name="email"
+  type="email"
+  placeholder="Enter your email"
+  className={`${styles.inputField} form-control w-100 ${errors.email ? "is-invalid" : ""}`}
+  onInput={(e) => {
+    const input = e.target as HTMLInputElement;
+    input.value = input.value.toLowerCase().replace(/[^a-z0-9@.]/g, ''); // force lowercase and restrict unwanted chars
+  }}
+/>
+<div className="invalid-feedback">{errors.email?.message}</div>
+
+
+
                         
-                        <label className={styles.formLabel}>Phone Number</label><sup className="star">*</sup>
-                        <div className="input-group">
-                            <div className="w-30">
-                                <Select options={types} placeholder="Country"   styles={{
-									control: (base, state) => ({
-									  ...base,
-									  borderColor: state.isFocused ? "#ff8c00" : base.borderColor,
-									  boxShadow: state.isFocused ? "0 0 5px rgba(255, 140, 0, 0.5)" : "none",
-									  "&:hover": {
-										borderColor: "#ff8c00",
-									  },
-									}),
-								  }}onChange={(value, { action }) => handleChange(value, action)} className="srcgap" style={{width:"300px"}} />
-                            </div>
-                            <input {...register("phoneNumber")} name="phoneNumber" type="number"
-							
-							   placeholder="Enter your phone number" className={`${styles.inputField} form-control w-50 ${errors.phoneNumber ? "is-invalid" : ""}`} onChange={(e) => setmobile(e.target.value)} />
-                        </div>
-                        <div className="invalid-feedback">{errors.phoneNumber?.message}</div>
+<label className={styles.formLabel}>Phone Number</label><sup className="star">*</sup>
+<div className="input-group">
+  <div className="w-30">
+    <Select
+      options={types}
+      placeholder="Country"
+      styles={{
+        control: (base, state) => ({
+          ...base,
+          borderColor: state.isFocused ? "#ff8c00" : base.borderColor,
+          boxShadow: state.isFocused ? "0 0 5px rgba(255, 140, 0, 0.5)" : "none",
+          "&:hover": {
+            borderColor: "#ff8c00",
+          },
+        }),
+      }}
+      onChange={(value, { action }) => handleChange(value, action)}
+      className="srcgap"
+      style={{ width: "300px" }}
+    />
+  </div>
+
+  <input
+  {...register("phoneNumber")}
+  name="phoneNumber"
+  type="tel"
+  inputMode="numeric"
+  maxLength={10}
+  value={mobile} 
+  placeholder="Enter your phone number"
+  className={`${styles.inputField} form-control w-50 ${errors.phoneNumber ? "is-invalid" : ""} no-spinner`}
+  onChange={(e) => {
+    const newValue = e.target.value.replace(/[^0-9]/g, ''); 
+    setmobile(newValue); 
+  }}
+/>
+</div>
+<div className="invalid-feedback">{errors.phoneNumber?.message}</div>
 
                         <a className="verify" onClick={() => { sentOtp(); }} style={{fontSize:"18px"}} href="#">Send Verification Code</a>
                         
@@ -375,7 +493,7 @@ const Candidateregister: React.FC = () => {
 					<Modal.Body>
 						<form onSubmit={(e) => handleOtpSubmit(e)}>
 							<label>OTP</label><br />
-							<input name="otp" type="number" className="form-control" placeholder="Enter your OTP" onChange={(e) => setverify(e.target.value)}
+							<input name="otp" type="text" className="form-control" placeholder="Enter your OTP" onChange={(e) => setverify(e.target.value)}
 							 onBlur={(e) => {
 								e.target.style.borderColor = ""; 
 								e.target.style.boxShadow = "";

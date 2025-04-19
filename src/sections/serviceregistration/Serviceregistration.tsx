@@ -12,6 +12,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import urls from "../../utilities/AppSettings";
 import styles from "./Serviceregistration.module.scss";
+import { CircularProgress } from "@mui/material";
 
 
 const schema = yup.object().shape({
@@ -22,23 +23,24 @@ const schema = yup.object().shape({
 	shortDescription: yup.string().required("Description is required").min(2, "Description must have atleast 2 characters").max(250, "Title should not exceed 250 characters"),
 	emailAddress: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/, "Email is not valid"),
 	externalUrl: yup.string()
-    .test('is-valid-url', 'Please enter a valid URL', (value) => {
-      if (!value) return false;
-      try {
-        // Prepend 'http://' if no protocol is specified
-        const url = new URL(value.startsWith('http') ? value : `http://${value}`);
-        return true;
-      } catch (err) {
-        return false;
-      }
-    })
-    .required('Website URL is required'),
+    // .test('is-valid-url', 'Please enter a valid URL', (value) => {
+    //   if (!value) return false;
+    //   try {
+    //     // Prepend 'http://' if no protocol is specified
+    //     const url = new URL(value.startsWith('http') ? value : `http://${value}`);
+    //     return true;
+    //   } catch (err) {
+    //     return false;
+    //   }
+    // })
+    // .required('Website URL is required'),
 });
 
 
 const Serviceregistration: React.FC = () => {
 	const router = useRouter()
 	const [show, setShow] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [Country, setCountry] = useState();
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -82,13 +84,13 @@ const Serviceregistration: React.FC = () => {
 			})
 			return;
 		}
-		else if (!selectedExternal) {
-			toast.error('Please select redirect option', {
-				theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-				closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
-			})
-			return;
-		}
+		// else if (!selectedExternal) {
+		// 	toast.error('Please select redirect option', {
+		// 		theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
+		// 		closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
+		// 	})
+		// 	return;
+		// }
 
 		else if (!selectedFile) {
 			toast.error('Please upload your logo', {
@@ -105,9 +107,10 @@ const Serviceregistration: React.FC = () => {
 
 
 		console.log(data)
+		setLoading(true);
 		data.serviceCategoryId = selectedOption.value;
 		data.serviceSubCategoryId = selectedOptionChild.value ? selectedOptionChild.value : "0";
-		data.isExternal = selectedExternal.value;
+		data.isExternal = selectedExternal?.value ?? null; // or "0" if backend expects a string
 
 		let logoFile = document.getElementById("logoFile") as HTMLInputElement;
 
@@ -121,7 +124,7 @@ const Serviceregistration: React.FC = () => {
 		formdata.append("serviceInfo", serviceInfo);
 		// params.logoFile = selectedFile;
 		console.log(params)
-
+		setLoading(true);
 		axios.post(`${urls.baseUrl}services/add`, formdata)
 			.then(function (response) {
 				if (response.status === 200) {
@@ -129,9 +132,10 @@ const Serviceregistration: React.FC = () => {
 						theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
 						closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
 					});
-					setTimeout(() => {
-						router.push("/"); // This will redirect to the home page after 3 seconds
-					}); 
+					setTimeout(async() => {
+						await router.push("/");
+						setLoading(false);
+					},1000); 
 
 				}
 
@@ -205,41 +209,41 @@ const Serviceregistration: React.FC = () => {
 					setselectedOptionChild(value);
 				}
 				break;
-			case "external":
-				if (action == "clear") {
-					setselectedExternal(null);
-					setShowText(false)
-				}
-				else {
+			// case "external":
+			// 	if (action == "clear") {
+			// 		setselectedExternal(null);
+			// 		setShowText(false)
+			// 	}
+			// 	else {
 
-					setselectedExternal(value);
+			// 		setselectedExternal(value);
 
-					if (value.value === 1) {
+			// 		if (value.value === 1) {
 
-						setShowText(true);
-					}
-					else {
-						setShowText(false);
-					}
+			// 			setShowText(true);
+			// 		}
+			// 		else {
+			// 			setShowText(false);
+			// 		}
 
-					// else {
+			// 		// else {
 
-					// }
-				}
-				break;
-			default:
+			// 		// }
+			// 	}
+			// 	break;
+			// default:
 				break;
 		}
 	}
 
-	const ExternalUrl: Array<any> = [
-		{ value: 1, label: "Webiste URL" },
-		{ value: 0, label: "Get a Quote" },
-	];
-	const style = {
-		color: 'red',
-		fontSize: 20
-	};
+	// const ExternalUrl: Array<any> = [
+	// 	{ value: 1, label: "Webiste URL" },
+	// 	{ value: 0, label: "Get a Quote" },
+	// ];
+	// const style = {
+	// 	color: 'red',
+	// 	fontSize: 20
+	// };
 	return (
 		<>
 			<ToastContainer position="top-right" autoClose={1500} hideProgressBar={false} newestOnTop={false}
@@ -293,9 +297,9 @@ const Serviceregistration: React.FC = () => {
             />
 
             <div className="invalid-feedback">{errors.shortDescription?.message}</div>
-									{/* <div className="pb-3"></div> */}
-									<label className={styles.formLabel}>Company Website URL</label><sup className="star">*</sup>
-									<Select {...register("redirect")} name="redirect" options={ExternalUrl} placeholder="Company Website URL" className={` ${errors.redirect ? "is-invalid" : ""} pt-2 `}
+								
+									{/* <label className={styles.formLabel}>Company Website URL</label> */}
+									{/* <Select {...register("redirect")} name="redirect" options={ExternalUrl} placeholder="Company Website URL" className={` ${errors.redirect ? "is-invalid" : ""} pt-2 `}
 										value={selectedExternal}
 										 styles={{
 																			control: (base, state) => ({
@@ -310,16 +314,16 @@ const Serviceregistration: React.FC = () => {
 										onChange={(value, { action }) =>
 											handleChangeCategoy(value, action, "external")
 										}
-									/>
+									/> */}
 									
 
 
-									{showText ? (
+									
 										<div style={{marginBottom:"3px"}}>
 
-<label className={styles.formLabel}>Company Website URL</label><sup className="star">*</sup>
+<label className={styles.formLabel}>Company Website URL</label>
 <input
-  {...register('externalUrl')}
+//   {...register('externalUrl')}
   name="externalUrl"
   type="text"
   placeholder="Enter external URL with http/https"
@@ -329,7 +333,7 @@ const Serviceregistration: React.FC = () => {
 
 											<div className="invalid-feedback">{errors.externalUrl?.message}</div><br />
 										</div>
-									) : null}
+									
 								</div>
 
 								{/* <div className="pt-2">
@@ -397,12 +401,33 @@ const Serviceregistration: React.FC = () => {
 								</div>
 							
 							</div>
-							<div className="text-center mt-1">
-							{!errors.emailAddress && servicename && description && selectedExternal && selectedOption && selectedFile?
+							{/* <div className="text-center mt-1">
+							{email && servicename && description && selectedExternal && selectedOption && selectedFile?
 						<button type="submit" className={`${styles["reg-btn"]} `}>Register</button>
 						:
 						<button type="submit" className={`${styles["reg-btn-disable"]}`} disabled>Register</button>}
-						</div>
+						</div> */}
+						<div className="text-center mt-1">
+  <button
+    type="submit"
+    className={!errors.emailAddress && servicename && description && selectedOption && selectedFile
+      ? styles["reg-btn"]
+      : styles["reg-btn-disable"]}
+    disabled={
+      !errors.emailAddress || !servicename || !description || !selectedOption || !selectedFile || loading
+    }
+  >
+    {loading ? (
+      <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
+        Registering...
+        <CircularProgress size={20} color="inherit" />
+      </span>
+    ) : (
+      "Register"
+    )}
+  </button>	
+</div>
+
 						</div>
 					</div>
 					{/* <button type="submit" className="reg-btn">Register</button> */}

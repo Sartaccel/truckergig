@@ -71,7 +71,7 @@ const Signin = () => {
   // const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [valueforradio, setvalueforradio] = useState("vendor")
-
+  const [loading,setLoading] = useState(false);
   // const dispatch = useDispatch()
   // const location = useLocation()
 
@@ -137,10 +137,11 @@ const Signin = () => {
 }
 
   const onSubmitHandler1 = (data) => {
+    setLoading(true);
     data.loginTypeId = "1";
     var params = {
       ...data,
-      username: data.userName,
+      username: data.userName,  
     };
     delete params.userName;
       axios
@@ -158,6 +159,7 @@ const Signin = () => {
               draggable: true,
               progress: undefined,
             });
+    setLoading(false);
           }else if(response?.data?.headers?.statusCode == 200){
             toast.success("Login Success", {
               theme: "colored",
@@ -185,6 +187,7 @@ const Signin = () => {
               draggable: true,
               progress: undefined,
             });
+    setLoading(false);
           }
         })
         .catch(function (error) {
@@ -199,10 +202,12 @@ const Signin = () => {
             draggable: true,
             progress: undefined,
           });
+    setLoading(false);
         });
     };
 
       const onSubmitHandler = (data) => {
+        setLoading(true);
           var params = data;
           axios.post(`${urls.userUrl}gateway/trmlogin`, params).then(function (response) {
               console.log(params)
@@ -217,6 +222,7 @@ const Signin = () => {
                   draggable: true,
                   progress: undefined,
                 });
+    setLoading(false);
               }else if(response?.data?.headers?.statusCode == 200){
                 toast.success("Login Success", {
                   theme: "colored",
@@ -246,6 +252,7 @@ const Signin = () => {
                   draggable: true,
                   progress: undefined,
                 });
+    setLoading(false);
               }
           })
               .catch(function (error) {
@@ -259,6 +266,7 @@ const Signin = () => {
                       draggable: true,
                       progress: undefined,
                   });
+    setLoading(false);
               });
       };
 
@@ -437,8 +445,12 @@ const Signin = () => {
                 {
                   valueforradio=="vendor" ?
                   <Buttons
-                  loading={false}
                   name={
+                  loading? (
+                    <>Signing in...
+                    <CircularProgress size={20} color="inherit" />
+                    </>
+                  ):(
                     <>
                       Sign In
                       <EastIcon
@@ -449,22 +461,28 @@ const Signin = () => {
                         }}
                       />
                     </>
+                  )
                   }
                   handleSubmit={handleSubmit(onSubmitHandler)}
                  
                 /> : <Buttons
-                loading={false}
                 name={
-                  <>
-                    Sign In
-                    <EastIcon
-                      sx={{
-                        color: 'white',
-                        marginLeft: '5px',
-                        fontSize: '18px',
-                      }}
-                    />
+                  loading? (
+                    <>Signing in...
+                    <CircularProgress size={20} color="inherit" />
+                    </>
+                  ):(
+                    <>
+                      Sign In
+                      <EastIcon
+                        sx={{
+                          color: 'white',
+                          marginLeft: '5px',
+                          fontSize: '18px',
+                        }}
+                      />
                   </>
+                )
                 }
                 handleSubmit={handleSubmit(onSubmitHandler1)}
                

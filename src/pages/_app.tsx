@@ -12,6 +12,8 @@ import { useRouter } from 'next/router';
 import * as ga from '../lib/ga';
 import { LoaderProvider, useLoader } from '../Context/LoaderContext';
 import { Loader } from '../components/Loader';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoaderWrapper() {
   const router = useRouter();
@@ -89,6 +91,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Loader />
         <Component {...pageProps} />
         <NotificationContainer />
+        <ToastContainer />
       </Layouts>
     </LoaderProvider>
   );
