@@ -12,6 +12,7 @@ import router from "next/router";
 import { Eye, EyeOff } from "lucide-react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CircularProgress } from "@mui/material";
 
 
 const onChange = (value) => {
@@ -63,9 +64,10 @@ const Register = () => {
   const [selectedCode, setSelectedCode] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const [loading,setLoading] = useState(false);
 
   const onSubmitHandler = (data) => {
+    setLoading(true);
     // Combine the country code with the phone number
     const fullPhone = `${selectedCode}${data.phoneNumber}`;
     
@@ -110,6 +112,7 @@ const Register = () => {
         draggable: true,
         progress: undefined,
       });
+    setLoading(false);
     }
   })
   .catch((error) => {
@@ -126,6 +129,7 @@ const Register = () => {
       draggable: true,
       progress: undefined,
     });
+    setLoading(false);
     console.log(error);
   });
 
@@ -406,7 +410,15 @@ const Register = () => {
 </div>
        
         <div className={styles.buttonContainer}>
-  <button type="submit" className={styles.submitBtn}>Register</button>
+        <button type="submit" className={styles.submitBtn} disabled={loading}>
+        {loading ? (
+          <>
+          Registering... <CircularProgress size={20} color="inherit" />
+          </>
+          ) : (
+          "Register"
+          )}
+        </button>
 </div>
         
       </div>
