@@ -23,6 +23,18 @@ const schema = yup.object().shape({
 	title: yup.string().required("Title is required").min(2, "Title must have atleast 2 characters").max(50, "Title should not exceed 50 characters"),
 	shortDescription: yup.string().required("Description is required").min(2, "Description must have atleast 2 characters").max(250, "Title should not exceed 250 characters"),
 	emailAddress: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/, "Email is not valid"),
+	// externalUrl: yup.string()
+    // .test('is-valid-url', 'Please enter a valid URL', (value) => {
+    //   if (!value) return false;
+    //   try {
+    //     // Prepend 'http://' if no protocol is specified
+    //     const url = new URL(value.startsWith('http') ? value : `http://${value}`);
+    //     return true;
+    //   } catch (err) {
+    //     return false;
+    //   }
+    // })
+    // .required('Website URL is required'),
 });
 
 
@@ -104,7 +116,7 @@ const Serviceregistration: React.FC = () => {
 		let logoFile = document.getElementById("logoFile") as HTMLInputElement;
 
 		var params = (data);
-		var imagefile = logoFile.files[0];
+		var imagefile = logoFile?.files[0];
 		console.log("ImageFile", imagefile);
 		const formdata = new FormData()
 		const serviceInfo = JSON.stringify(params);
@@ -399,11 +411,11 @@ const Serviceregistration: React.FC = () => {
 						<div className="text-center mt-1">
   <button
     type="submit"
-    className={!errors.emailAddress && servicename && description && selectedOption && selectedFile
+    className={servicename && description && selectedOption && selectedFile
       ? styles["reg-btn"]
       : styles["reg-btn-disable"]}
     disabled={
-      !!errors.emailAddress || !servicename || !description || !selectedOption || !selectedFile || loading
+       !servicename || !description || !selectedOption || !selectedFile || loading
     }
   >
     {loading ? (
