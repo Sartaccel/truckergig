@@ -410,11 +410,11 @@ const Serviceregistration: React.FC = () => {
 						<div className="text-center mt-1">
   <button
     type="submit"
-    className={email && servicename && description && selectedOption && selectedFile
+    className={!errors.emailAddress && servicename && description && selectedOption && selectedFile
       ? styles["reg-btn"]
       : styles["reg-btn-disable"]}
     disabled={
-      !email || !servicename || !description || !selectedOption || !selectedFile || loading
+      !errors.emailAddress || !servicename || !description || !selectedOption || !selectedFile || loading
     }
   >
     {loading ? (
