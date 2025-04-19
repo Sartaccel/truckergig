@@ -13,22 +13,43 @@ import { CircularProgress } from '@mui/material';
 import { Eye, EyeOff } from 'lucide-react';
 
 const schema = yup.object().shape({
-    emailId: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, "Email is not valid"),
-    newPassword: yup
+  emailId: yup
     .string()
-    .required("Enter new password")
+    .required("Email is required")
     .matches(
-      /^(?=.[a-z])(?=.[A-Z])(?=.*[^a-zA-Z0-9]).{6}$/,
-      "Password must be exactly 6 characters, include uppercase, lowercase, and special character"
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+      "Email is not valid"
     ),
-    retypepwd: yup
+  newPassword: yup
     .string()
     .required("Enter new password")
     .matches(
-      /^(?=.[a-z])(?=.[A-Z])(?=.*[^a-zA-Z0-9]).{6}$/,
-      "Password must be exactly 6 characters, include uppercase, lowercase, and special character"
-    )
-    .oneOf([yup.ref("newPassword")], "Passwords do not match")});
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/,
+      "Password must be at least 6 characters, include uppercase, lowercase, and special character"
+    ),
+  retypepwd: yup
+    .string()
+    .required("Enter new password")
+    .oneOf([yup.ref("newPassword")], "Passwords do not match")
+});
+
+// const schema = yup.object().shape({
+//     emailId: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, "Email is not valid"),
+//     newPassword: yup
+//     .string()
+//     .required("Enter new password")
+//     .matches(
+//       /^(?=.[a-z])(?=.[A-Z])(?=.*[^a-zA-Z0-9]).{6}$/,
+//       "Password must be exactly 6 characters, include uppercase, lowercase, and special character"
+//     ),
+//     retypepwd: yup
+//     .string()
+//     .required("Enter new password")
+//     .matches(
+//       /^(?=.[a-z])(?=.[A-Z])(?=.*[^a-zA-Z0-9]).{6}$/,
+//       "Password must be exactly 6 characters, include uppercase, lowercase, and special character"
+//     )
+//     .oneOf([yup.ref("newPassword")], "Passwords do not match")});
 
 const Customerresetpassword: React.FC = () => {
     
