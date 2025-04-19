@@ -15,7 +15,9 @@ import urls from "../../utilities/AppSettings";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
+import { useRouter } from "next/router";
 import { Eye, EyeOff } from "lucide-react";
+import { CircularProgress } from "@mui/material";
 const onCaptchaChange = (value) => {
   console.log("Captcha value:", value);
 };
@@ -25,11 +27,18 @@ const vendorSchema = yup.object().shape({
     .required("This is a required field")
     .min(2)
     .max(24),
-  contactFirstName: yup.string().required("This is a required field"),
-  emailAddress: yup
-    .string()
+    contactFirstName: yup.string()
+    .matches(/^[A-Za-z]+$/, "Only alphabets are allowed")
+    .required("This is a required field"),
+      emailAddress: yup
+      .string()
     .required("This is a required field")
-    .max(50),
+    .transform((value) => value?.toLowerCase()) // auto-lowercase
+    .matches(
+      /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
+      "Enter a valid email address (lowercase only)"
+    )
+    .max(50),
   telephone: yup
     .string()
     .required("This is required field")
@@ -42,8 +51,7 @@ const vendorSchema = yup.object().shape({
   .min(6, "Password must be at least 6 characters")
   .matches(/[A-Z]/, "Must contain at least one uppercase letter")
   .matches(/\d/, "Must contain at least one number")
-  .matches(/[@$!%*?&]/, "Must contain at least one special character"),
-
+  .matches(/[@$!%*?&]/, "Must contain at least one special character")
 
 
   // message: yup.string().required("This is a required field"),
@@ -100,6 +108,8 @@ const Vendor: React.FC = () => {
   const [country, setcountry] = useState();
   const [showText, setShowText] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const [selectedProductValidation, setselectedProductValidation] = useState(
     false
   );
@@ -219,7 +229,7 @@ const Vendor: React.FC = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={vendorSchema}
-          onSubmit={(values, { resetForm, setSubmitting }) => {
+          onSubmit={async (values, { resetForm, setSubmitting }) => {
             if (!selectedCountry) {
               console.error("please select country");
               values.telephone = "+1" + " " + values.telephone;
@@ -240,11 +250,16 @@ const Vendor: React.FC = () => {
             // if (values.productList == null) {
             //   toast.error("Please Select a product");
             // }
-            resetForm({ values: null });
-            setTimeout(() => {
-              dispatch(setVendorInfo(values));
+            dispatch(setVendorInfo(values));
+
+            // Optional form reset
+            resetForm();
+            setLoading(true);
+            setTimeout(async () => {
+              await router.push("/serviceregistration");
+              setLoading(false);
               setSubmitting(false);
-            }, 400);
+            }, 1000); 
           }}
         >
           {({
@@ -341,23 +356,31 @@ const Vendor: React.FC = () => {
                       <label className={styles.formLabel}>FEIN</label>
 
                       <Field
-                        name="fein"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.fein}
-                        placeholder="FEIN"
-                        id="name"
-                        className="form-control"
-                        type="text"
-                      />
+  name="fein"
+  onChange={(e) => {
+    const onlyNumbers = e.target.value.replace(/[^0-9]/g, ""); // keep only digits
+    handleChange({
+      target: {
+        name: "fein",
+        value: onlyNumbers,
+      },
+    });
+  }}
+  onBlur={(e) => {
+    e.target.style.borderColor = "";
+    e.target.style.boxShadow = "";
+  }}
+  onFocus={(e) => {
+    e.target.style.borderColor = "#ff8c00";
+    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+  }}
+  value={values.fein}
+  placeholder="FEIN"
+  id="fein"
+  className="form-control"
+  type="text"
+/>
+
 
                       {errors.fein && touched.fein ? (
                         <div className={`${styles["errorMsgColour"]} `}>
@@ -373,23 +396,31 @@ const Vendor: React.FC = () => {
                       </label>
 
                       <Field
-                        name="dbNumber"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.dbNumber}
-                        placeholder="DB Number"
-                        id="name"
-                        className="form-control "
-                        type="text"
-                      />
+  name="dbNumber"
+  onChange={(e) => {
+    const onlyNumbers = e.target.value.replace(/[^0-9]/g, ""); // allow only digits
+    handleChange({
+      target: {
+        name: "dbNumber",
+        value: onlyNumbers,
+      },
+    });
+  }}
+  onBlur={(e) => {
+    e.target.style.borderColor = "";
+    e.target.style.boxShadow = "";
+  }}
+  onFocus={(e) => {
+    e.target.style.borderColor = "#ff8c00";
+    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+  }}
+  value={values.dbNumber}
+  placeholder="DB Number"
+  id="name"
+  className="form-control"
+  type="text"
+/>
+
                       {errors.dbNumber && touched.dbNumber ? (
                         <div className={`${styles["errorMsgColour"]} `}>
                           {errors.dbNumber}
@@ -405,23 +436,27 @@ const Vendor: React.FC = () => {
                       <sup className="star">*</sup>
 
                       <Field
-                        name="contactFirstName"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.contactFirstName}
-                        placeholder="Enter your First Name"
-                        id="name"
-                        className="form-control "
-                        type="text"
-                      />
+  name="contactFirstName"
+  onChange={(e) => {
+    const regex = /^[A-Za-z]*$/; // only letters allowed
+    if (regex.test(e.target.value)) {
+      handleChange(e); // allow only if valid
+    }
+  }}
+  onBlur={(e) => {
+    e.target.style.borderColor = "";
+    e.target.style.boxShadow = "";
+  }}
+  onFocus={(e) => {
+    e.target.style.borderColor = "#ff8c00";
+    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+  }}
+  value={values.contactFirstName}
+  placeholder="Enter your First Name"
+  id="name"
+  className="form-control"
+  type="text"
+/>
                       {errors.contactFirstName && touched.contactFirstName ? (
                         <div className={`${styles["errorMsgColour"]} `}>
                           {errors.contactFirstName}
@@ -434,23 +469,27 @@ const Vendor: React.FC = () => {
                       </label>
 
                       <Field
-                        name="contactLastName"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.contactLastName}
-                        placeholder="Enter your Last Name"
-                        id="name"
-                        className="form-control "
-                        type="text"
-                      />
+  name="contactLastName"
+  onChange={(e) => {
+    const regex = /^[A-Za-z]*$/; // only letters allowed
+    if (regex.test(e.target.value)) {
+      handleChange(e); // allow only if valid
+    }
+  }}
+  onBlur={(e) => {
+    e.target.style.borderColor = "";
+    e.target.style.boxShadow = "";
+  }}
+  onFocus={(e) => {
+    e.target.style.borderColor = "#ff8c00";
+    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+  }}
+  value={values.contactLastName}
+  placeholder="Enter your Last Name"
+  id="lastName"
+  className="form-control"
+  type="text"
+/>
                       {errors.contactLastName && touched.contactLastName ? (
                         <div className={`${styles["errorMsgColour"]} `}>
                           {errors.contactLastName}
@@ -487,25 +526,30 @@ const Vendor: React.FC = () => {
                             handleDropDownChange(value, action, "phonecode")
                           }
                         />
-                        <Field
-                          name="telephone"
-                          onChange={handleChange}
-                          onBlur={(e) => {
-                            e.target.style.borderColor = "";
-                            e.target.style.boxShadow = "";
-                          }}
-                          onFocus={(e) => {
-                            e.target.style.borderColor = "#ff8c00";
-                            e.target.style.boxShadow =
-                              "0 0 5px rgba(255, 140, 0, 0.5)";
-                          }}
-                          value={values.telephone}
-                          placeholder="Enter your PhoneNumber"
-                          id="name"
-                          className={`${styles["phone-style"]} form-control`}
-                          type="text"
-                          maxlength={10}
-                        />
+                       <Field
+  name="telephone"
+  onChange={handleChange}
+  onBlur={(e) => {
+    e.target.style.borderColor = "";
+    e.target.style.boxShadow = "";
+  }}
+  onFocus={(e) => {
+    e.target.style.borderColor = "#ff8c00";
+    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+  }}
+  onKeyPress={(e) => {
+    if (!/^\d$/.test(e.key)) {
+      e.preventDefault();
+    }
+  }}
+  inputMode="numeric" // helps mobile keyboards show only numbers
+  value={values.telephone}
+  placeholder="Enter your PhoneNumber"
+  id="telephone"
+  className={`${styles["phone-style"]} form-control`}
+  type="text"
+  maxLength={10}
+/>
                         {errors.telephone && touched.telephone ? (
                           <div className={`${styles["errorMsgColour"]} `}>
                             {errors.telephone}
@@ -518,30 +562,36 @@ const Vendor: React.FC = () => {
                       <sup className="star">*</sup>
 
                       <Field
-                        name="emailAddress"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.emailAddress}
-                        placeholder="Enter your Email Address"
-                        id="name"
-                        className="form-control "
-                        type="text"
-                        validate={validateEmail}
-                      />
-                      {errors.emailAddress && touched.emailAddress ? (
-                        <div className={`${styles["errorMsgColour"]} `}>
-                          {errors.emailAddress}
-                        </div>
-                      ) : null}
-                    </div>
+    name="emailAddress"
+    onChange={(e) => {
+      let value = e.target.value.toLowerCase();
+      // Allow only a-z, A-Z, 0-9, @ and .
+      const filteredValue = value.replace(/[^a-z0-9@.]/g, '');
+
+      e.target.value = filteredValue; // Update the event value
+      handleChange(e); // Pass to Formik
+    }}
+    onBlur={(e) => {
+      e.target.style.borderColor = "";
+      e.target.style.boxShadow = "";
+    }}
+    onFocus={(e) => {
+      e.target.style.borderColor = "#ff8c00";
+      e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+    }}
+    value={values.emailAddress}
+    placeholder="Enter your Email Address"
+    id="emailAddress"
+    className="form-control"
+    type="text"
+  />
+
+  {errors.emailAddress && touched.emailAddress ? (
+    <div className={`${styles["errorMsgColour"]}`}>
+      {errors.emailAddress}
+    </div>
+  ) : null}
+</div>
                   </div>
                   <div className="row mb-1">
       <div className="col-12 col-sm-6">
@@ -674,9 +724,9 @@ const Vendor: React.FC = () => {
                   </div>
                   <div className="row mb-1">
                     <div className="col-6">
-                      <label className={styles.formLabel}>Twitter URL</label>
+                      <label className={styles.formLabel}>X URL</label>
                       <Field
-                        name="twitterUrl"
+                        name="X Url"
                         onChange={handleChange}
                         onBlur={(e) => {
                           e.target.style.borderColor = "";
@@ -688,7 +738,7 @@ const Vendor: React.FC = () => {
                             "0 0 5px rgba(255, 140, 0, 0.5)";
                         }}
                         value={values.twitterUrl}
-                        placeholder="Twitter URL"
+                        placeholder="X URL"
                         id="name"
                         className="form-control "
                         type="text"
@@ -851,7 +901,7 @@ const Vendor: React.FC = () => {
                   <p>
                     {errors.submit && "Please complete all required field."}
                   </p>
-                  <div className="col-12 pl-0 text-center mt-1">
+                  {/* <div className="col-12 pl-0 text-center mt-1">
                     {dirty && isValid ? (
                       <button type="submit" className={styles.regBtn}>
                         Submit Form
@@ -865,7 +915,24 @@ const Vendor: React.FC = () => {
                         Submit Form
                       </button>
                     )}
-                  </div>
+                  </div> */}
+<div className="col-12 pl-0 text-center mt-1">
+<button
+  type="submit"
+  className={dirty && isValid ? styles.regBtn : styles.regBtnDisable}
+  disabled={!dirty || !isValid || loading}
+>
+  {loading ? (
+    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
+      Submitting...
+      <CircularProgress size={20} color="inherit" />
+    </span>
+  ) : (
+    "Submit Form"
+  )}
+</button>
+</div>
+
                 </Form>
               </div>
             </div>

@@ -9,14 +9,33 @@ import axios from "axios";
 import urls from "../../utilities/AppSettings";
 import $ from "jquery";
 import styles from "../Customerresetpassword/Password.module.scss"
+import { CircularProgress } from '@mui/material';
+import { Eye, EyeOff } from 'lucide-react';
 
 const schema = yup.object().shape({
     emailId: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, "Email is not valid"),
-    newPassword: yup.string().required("Enter new password").min(6, "Password must be atleast six characters").max(24),
-    retypepwd: yup.string().required("Enter new password").oneOf([yup.ref("newPassword")], "Password does not matched"),
-});
+    newPassword: yup
+    .string()
+    .required("Enter new password")
+    .matches(
+      /^(?=.[a-z])(?=.[A-Z])(?=.*[^a-zA-Z0-9]).{6}$/,
+      "Password must be exactly 6 characters, include uppercase, lowercase, and special character"
+    ),
+    retypepwd: yup
+    .string()
+    .required("Enter new password")
+    .matches(
+      /^(?=.[a-z])(?=.[A-Z])(?=.*[^a-zA-Z0-9]).{6}$/,
+      "Password must be exactly 6 characters, include uppercase, lowercase, and special character"
+    )
+    .oneOf([yup.ref("newPassword")], "Passwords do not match")});
 
 const Customerresetpassword: React.FC = () => {
+    
+        const [loading, setLoading] = useState(false);
+        const [showPassword, setShowPassword] = useState(false);
+    const [showRetypePassword, setShowRetypePassword] = useState(false)
+        
     useEffect(() => {
         const search = window.location.search;
         const params = new URLSearchParams(search);
@@ -77,6 +96,7 @@ const Customerresetpassword: React.FC = () => {
         console.log(params)
         axios.post(`${urls.baseUrl}users/reset/password`, params)
             .then(function (response) {
+        setLoading(true);   
                 console.log(response)
                 if (response.status === 200) {
                     toast.success("Users modified successfully", {
@@ -89,7 +109,10 @@ const Customerresetpassword: React.FC = () => {
                         draggable: true,
                         progress: undefined,
                     });
-                    router.push("/resetnext")
+                    setTimeout(() => {
+                        router.push("/resetnext");
+                        setLoading(false);
+                      }, 1000);
                 }
                 else {
                     toast.error("Oops!", {
@@ -102,6 +125,7 @@ const Customerresetpassword: React.FC = () => {
                         draggable: true,
                         progress: undefined,
                     });
+		        setLoading(false)
                 }
             })
             .catch(function (error) {
@@ -115,9 +139,10 @@ const Customerresetpassword: React.FC = () => {
                     draggable: true,
                     progress: undefined,
                 });
+		        setLoading(false)
             });
     };
-
+      
     return (
         <>
             <ToastContainer
@@ -152,30 +177,68 @@ const Customerresetpassword: React.FC = () => {
               {errors.emailId && <span className={styles.error}>{errors.emailId.message}</span>}
             </div>
 
-            <div className={styles.inputGroup}>
-              <input
-                type="password"
-                placeholder="New Password"
-                {...register('newPassword', { required: "Password is required" })}
-                className={errors.newPassword ? styles.invalid : ''}
-              />
-              {errors.newPassword && <span className={styles.error}>{errors.newPassword.message}</span>}
-            </div>
+            <div className={styles.inputGroup} style={{ position: 'relative' }}>
+      <input
+        type={showPassword ? 'text' : 'password'}
+        placeholder="New Password"
+        {...register('newPassword', { required: "Enter new password" })}
+        className={errors.newPassword ? styles.invalid : ''}
+      />
+      <span
+        onClick={() => setShowPassword(!showPassword)}
+        style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+      >
+        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+      </span>
+      {errors.newPassword && <span className={styles.error}>{errors.newPassword.message}</span>}
+    </div>
+    <div className={styles.inputGroup} style={{ position: 'relative' }}>
+      <input
+        type={showRetypePassword ? 'text' : 'password'}
+        placeholder="Retype Password"
+        {...register('retypepwd', { required: "Please retype your password" })}
+        className={errors.retypepwd ? styles.invalid : ''}
+      />
+      <span
+        onClick={() => setShowRetypePassword(!showRetypePassword)}
+        style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+      >
+        {showRetypePassword ? <EyeOff size={20} /> : <Eye size={20} />}
+      </span>
+      {errors.retypepwd && <span className={styles.error}>{errors.retypepwd.message}</span>}
+    </div>
 
-            <div className={styles.inputGroup}>
-              <input
-                type="password"
-                placeholder="Retype Password"
-                {...register('retypepwd', { required: "Please retype your password" })}
-                className={errors.retypepwd ? styles.invalid : ''}
-              />
-              {errors.retypepwd && <span className={styles.error}>{errors.retypepwd.message}</span>}
-            </div>
+    <div className={styles.buttonGroup}>
+  <button
+    type="submit"
+    className={styles.resetButton}
+    disabled={loading}
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "8px",
+      padding: "0.5rem 1rem", // Added padding to ensure spacing and even height
+    }}
+  >
+    {loading ? (
+      <>
+        Reset
+        <CircularProgress size={20} style={{ color: "#fff" }} />
+      </>
+    ) : (
+      "Reset"
+    )}
+  </button>
+  <button
+      type="button"
+      className={styles.cancelButton}
+      onClick={() => router.back()}
+    >
+      Cancel
+    </button>
+</div>
 
-            <div className={styles.buttonGroup}>
-              <button type="submit" className={styles.resetButton}>Reset</button>
-              <button type="button" className={styles.cancelButton}>Cancel</button>
-            </div>
           </form>
         </div>
       </div>

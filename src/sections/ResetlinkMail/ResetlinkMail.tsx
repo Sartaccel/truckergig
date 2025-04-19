@@ -6,7 +6,7 @@ const ResetLinkMail: React.FC = () => {
 
     const checkReset = (e) => {          
         e.preventDefault();
-        router.push('/customerlogin');
+        router.push('/login');
     }
 
     return (

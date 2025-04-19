@@ -10,31 +10,51 @@ import urls from "../../utilities/AppSettings";
 import ReCAPTCHA from "react-google-recaptcha";
 import router from "next/router";
 import { Eye, EyeOff } from "lucide-react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const onChange = (value) => {
   console.log("Captcha value:", value);
 };
 
+const checkResponse = (responseStatusCode) => {
+  let code = Number(responseStatusCode);
+  return (code > 199 && code < 300)
+}
+
 const schema = yup.object().shape({
-  firstName: yup.string().required("This is a required field").min(2).max(24),
-  lastName: yup.string().required("This is a required field").min(1).max(24),
-  phoneNumber: yup.string().required("Phone is Required").matches(/^\d{10}$/, "Phone number is not valid"),
-  emailId: yup.string().email().required("This is a required field"),
+  firstName: yup.string()
+  .required("First Name  is a required field")
+  .min(6, "Minimum 6 characters required")
+  .max(24, "Maximum 24 characters allowed")
+  .matches(/^[A-Za-z]+$/, "Only alphabets are allowed"),
+  lastName: yup.string()
+  .required("Last Name  is a required field")
+  .min(1, "Minimum 1 characters required")
+  .max(24, "Maximum 24 characters allowed")
+  .matches(/^[A-Za-z]+$/, "Only alphabets are allowed"),
+  phoneNumber: yup
+  .string()
+  .required("Phone is Required")
+  .matches(/^\d{10}$/, "Phone number is not valid"),
+  emailId: yup
+  .string()
+  .required("Email is required")
+  .matches(/^[a-z0-9@.]+$/, "Only lowercase letters, numbers, @ and . allowed")
+  .email("Enter a valid email address"),
   password: yup
   .string()
   .required("This is a required field")
-  .min(6, "Password must be at least 6 characters")
-  .matches(/[A-Z]/, "Must contain at least one uppercase letter")
-  .matches(/\d/, "Must contain at least one number")
-  .matches(/[@$!%*?&]/, "Must contain at least one special character"),
-  confirmPassword: yup
+  .matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&]).{6,}$/,
+    "Password must be at least 6 characters and include uppercase, lowercase, number, and special character"
+  ),
+
+confirmPassword: yup
   .string()
   .required("This is a required field")
-  .min(6, "Password must be at least 6 characters")
-  .matches(/[A-Z]/, "Must contain at least one uppercase letter")
-  .matches(/\d/, "Must contain at least one number")
-  .matches(/[@$!%*?&]/, "Must contain at least one special character")
-  .oneOf([yup.ref("password")], "Passwords must match"),
+  .oneOf([yup.ref("password")], "Passwords must match"),
 })
 
 
@@ -60,22 +80,56 @@ const Register = () => {
     };
   
     console.log(params); // For debugging to check the final phone number
-  
-    // Send the request to the backend
+
     axios
-      .post(`${urls.baseUrl}users/register`, params)
-      .then((response) => {
-        if (response.status === 200) {
-          alert("User added successfully");
-          router.push("/customerlogin");
-        } else {
-          alert("Error registering user");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        alert("User already exists or registration failed");
+  .post(`${urls.baseUrl}users/register`, params)
+  .then((response) => {
+    const res = response.data;
+    const headers = res.headers;
+
+      if (response && checkResponse(headers.statusCode)){
+      toast.success("User Added Successfully", {
+        theme: "dark",
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
+        router.push("/login");
+    } else {
+      toast.error(headers.message || "Something went wrong", {
+        theme: "dark",
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  })
+  .catch((error) => {
+    const errorMsg =
+      error.response?.data?.headers?.message ||
+      "Registration failed. Please try again.";
+    toast.error(errorMsg, {
+      theme: "dark",
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    console.log(error);
+  });
+
+  
   };
   
 
@@ -85,7 +139,7 @@ const Register = () => {
 				<div className='col'>
 					<Breadcrumb>
 						<Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-            <Breadcrumb.Item href="/customerlogin">Customer Login</Breadcrumb.Item>
+            <Breadcrumb.Item href="/login">Customer Login</Breadcrumb.Item>
 						<Breadcrumb.Item active>Customer Registration</Breadcrumb.Item>
 					</Breadcrumb>
 				</div>
@@ -107,22 +161,46 @@ const Register = () => {
       <div className={styles.column}>
         <p className={styles.sectionTitle}>Personal Information</p>
         <div className={styles.formGroup}>
-          <label>First Name<span className={styles.star}>*</span></label>
-          <input {...register("firstName")} type="text" 
-           placeholder="Enter your FirstName" onBlur={(e) => {
-							e.target.style.borderColor = ""; // Reset border color on blur
-							e.target.style.boxShadow = ""; // Reset box shadow on blur
-						  }}
-						  onFocus={(e) => {
-							e.target.style.borderColor = "#ff8c00"; // Orange border on focus
-							e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
-						  }} className={errors.firstName ? styles.invalid : ""} />
-          {errors.firstName && <span className={styles.error}>{errors.firstName.message}</span>}
-        </div>
+        <label>
+    First Name<span className={styles.star}>*</span>
+  </label>
+  <input
+    {...register("firstName")}
+    type="text"
+    placeholder="Enter your First Name"
+    onKeyPress={(e) => {
+      const regex = /^[A-Za-z]+$/;
+      if (!regex.test(e.key)) {
+        e.preventDefault(); // Block the character if not alphabet
+      }
+    }}
+    onBlur={(e) => {
+      const input = e.target as HTMLInputElement;
+      input.style.borderColor = "";
+      input.style.boxShadow = "";
+    }}
+    onFocus={(e) => {
+      const input = e.target as HTMLInputElement;
+      input.style.borderColor = "#ff8c00";
+      input.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+    }}
+    className={errors.firstName ? styles.invalid : ""}
+  />
+  {errors.firstName && (
+    <span className={styles.error}>{errors.firstName.message}</span>
+  )}
+</div>
         <div className={styles.formGroup}>
           <label>Last Name<span className={styles.star}>*</span></label>
-          <input {...register("lastName")} type="text" 
-          placeholder="Enter your LastName" onBlur={(e) => {
+          <input {...register("lastName")}
+    type="text"
+    placeholder="Enter your First Name"
+    onKeyPress={(e) => {
+      const regex = /^[A-Za-z]+$/;
+      if (!regex.test(e.key)) {
+        e.preventDefault(); // Block the character if not alphabet
+      }
+    }} onBlur={(e) => {
 							e.target.style.borderColor = ""; // Reset border color on blur
 							e.target.style.boxShadow = ""; // Reset box shadow on blur
 						  }}
@@ -161,16 +239,22 @@ const Register = () => {
 
     <input
   {...register("phoneNumber")}
-  onBlur={(e) => {
-    e.target.style.borderColor = "";
-    e.target.style.boxShadow = "";
-  }}
-  onFocus={(e) => {
-    e.target.style.borderColor = "#ff8c00";
-    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-  }}
   type="text"
   placeholder="Enter your phone number"
+  inputMode="numeric"
+  pattern="[0-9]*"
+  maxLength={10}
+  onBlur={(e) => {
+    const input = e.target;
+    input.style.borderColor = "";
+    input.style.boxShadow = "";
+  }}
+  onFocus={(e) => {
+    const input = e.target;
+    input.style.borderColor = "#ff8c00";
+    input.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+  }}
+ 
   className={`form-control ${errors.phoneNumber ? "is-invalid" : ""}`}
   style={{
     borderTopLeftRadius: "0",
@@ -199,15 +283,35 @@ const Register = () => {
         <p className={styles.sectionTitle}>Sign-in Information</p>
         <div className={styles.formGroup}>
           <label>Email<span className={styles.star}>*</span></label>
-          <input {...register("emailId")} type="email" placeholder="Enter your Email" onBlur={(e) => {
-							e.target.style.borderColor = ""; // Reset border color on blur
-							e.target.style.boxShadow = ""; // Reset box shadow on blur
-						  }}
-						  onFocus={(e) => {
-							e.target.style.borderColor = "#ff8c00"; // Orange border on focus
-							e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
-						  }} className={errors.emailId ? styles.invalid : ""} />
-          {errors.emailId && <span className={styles.error}>{errors.emailId.message}</span>}
+          <input
+  {...register("emailId")}
+  type="email"
+  placeholder="Enter your Email"
+  onKeyPress={(e) => {
+    const regex = /[a-z0-9@.]/;
+    if (!regex.test(e.key)) {
+      e.preventDefault(); // Block the character
+    }
+  }}
+  onInput={(e) => {
+    const input = e.target as HTMLInputElement;
+    input.value = input.value.toLowerCase(); // Always lowercase
+  }}
+  onBlur={(e) => {
+    const input = e.target as HTMLInputElement;
+    input.style.borderColor = "";
+    input.style.boxShadow = "";
+  }}
+  onFocus={(e) => {
+    const input = e.target as HTMLInputElement;
+    input.style.borderColor = "#ff8c00";
+    input.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+  }}
+  className={errors.emailId ? styles.invalid : ""}
+/>
+{errors.emailId && (
+  <span className={styles.error}>{errors.emailId.message}</span>
+)}
         </div>
         <div className={styles.formGroup} style={{ position: "relative" }}>
   <label>
@@ -227,8 +331,8 @@ const Register = () => {
       e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
     }}
     className={errors.password ? styles.invalid : ""}
-    style={{ paddingRight: "40px" }}
-  />
+    style={{ paddingRight: "40px" }}
+  />
 
   {/* 👁 Eye Icon */}
   <span
@@ -244,8 +348,8 @@ const Register = () => {
       pointerEvents: "auto",
     }}
   >
-    {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
-  </span>
+    {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
+  </span>
 
   {/* ✅ Reserve space for error message to prevent layout shift */}
   <div style={{ minHeight: "20px", marginTop: "4px" }}>

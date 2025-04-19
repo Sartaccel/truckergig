@@ -9,13 +9,16 @@ import * as yup from "yup";
 import axios from "axios";
 import urls from "../../utilities/AppSettings";
 import styles from './Forgotpassword.module.scss';
+import { CircularProgress } from '@mui/material';
 
 const schema = yup.object().shape({
     emailId: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, "Email is not valid"),
 });
 const Forgotpassword: React.FC = () => {
+          const [loading, setLoading] = useState(false);
     const { register, handleSubmit, formState: { errors }, } = useForm({ resolver: yupResolver(schema) });
     const onSubmitHandler = (data) => {
+      setLoading(true);
         var params = data;
         console.log(params)
         axios.post(`${urls.baseUrl}users/change/password`, params)
@@ -34,7 +37,10 @@ const Forgotpassword: React.FC = () => {
                         progress: undefined,
                     });
                     //   e.preventDefault();
-                    router.push("/resetlinkmail")
+                    setTimeout(() => {
+                      router.push("/resetlinkmail");
+                      setLoading(false);
+                    }, 1000);
                 }
                 else {
                     toast.error("Oops!", {
@@ -47,6 +53,7 @@ const Forgotpassword: React.FC = () => {
                         draggable: true,
                         progress: undefined,
                     });
+		        setLoading(false)
                 }
             })
             .catch(function (error) {
@@ -61,12 +68,13 @@ const Forgotpassword: React.FC = () => {
                     draggable: true,
                     progress: undefined,
                 });
+		        setLoading(false)
             });
     };
 
     const close = (e) => {
         e.preventDefault();
-        router.push('/customerlogin');
+        router.push('/login');
     }
 
 
@@ -113,9 +121,32 @@ const Forgotpassword: React.FC = () => {
             </div>
 
             <div className={styles.buttonGroup}>
-              <button type="submit" className={styles.submitButton}>Reset</button>
-              <button type="button" className={styles.submitButton} onClick={close}>Cancel</button>
-            </div>
+  <button
+    type="submit"
+    className={styles.submitButton}
+    disabled={loading}
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "8px",
+      padding: "0.5rem 1rem", // Added padding to ensure spacing and even height
+    }}
+  >
+    {loading ? (
+      <>
+        Reset
+        <CircularProgress size={20} style={{ color: "#fff" }} />
+      </>
+    ) : (
+      "Reset"
+    )}
+  </button>
+  <button type="button" className={styles.submitButton} onClick={close}>
+    Cancel
+  </button>
+</div>
+
           </form>
         </div>
       </div>
