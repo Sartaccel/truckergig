@@ -165,7 +165,7 @@ const Customerresetpassword: React.FC = () => {
       <div className={styles.rightPanel}>
         <div className={styles.formContainer}>
           <img src="/images/logo_black.png" alt="Logo" className={styles.logo} />
-          <h1>Reset Password</h1>
+          <h3>Reset Password</h3>
           <p className={styles.subtitle}>Don’t worry! Enter your email to reset your password and get back on track</p>
 
           <form onSubmit={handleSubmit(onSubmitHandler)}>
@@ -190,9 +190,8 @@ const Customerresetpassword: React.FC = () => {
       />
       <span
         onClick={() => setShowPassword(!showPassword)}
-        style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
-      >
-        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+        className={styles.eyeIcon}      >
+        {showPassword ? <Eye size={15} /> : <EyeOff size={15} />}
       </span>
       {errors.newPassword && <span className={styles.error}>{errors.newPassword.message}</span>}
     </div>
@@ -205,11 +204,11 @@ const Customerresetpassword: React.FC = () => {
       />
       <span
         onClick={() => setShowRetypePassword(!showRetypePassword)}
-        style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
-      >
-        {showRetypePassword ? <EyeOff size={20} /> : <Eye size={20} />}
+        className={styles.eyeIcon}   style={{top:"30%"}}   >
+        {showRetypePassword ? <Eye size={15} /> : <EyeOff size={15} />}
       </span>
-      {errors.retypepwd && <span className={styles.error}>{errors.retypepwd.message}</span>}
+      
+      {errors.retypepwd && <span className={styles.error} style={{top:"50px"}}>{errors.retypepwd.message}</span>}
     </div>
 
     <div className={styles.buttonGroup}>

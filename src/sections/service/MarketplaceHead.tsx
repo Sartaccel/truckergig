@@ -16,7 +16,7 @@ return(
           className={styles.marketImage}
         />
         <div className={styles.overlay}>
-          <h2 className={styles.title}>Market Place</h2>
+          <h2 className={styles.title}>MarketPlace</h2>
           <p className={styles.description}>Find and connect with top trucking services on TruckerGIG.</p>
         </div>
       </div>

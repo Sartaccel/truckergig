@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import router from "next/router";
+import styles from "../SetPwdSuccess/Setpwd.module.scss"
 
 const SetPwdSuccess: React.FC = () => {
 
@@ -9,32 +10,33 @@ const SetPwdSuccess: React.FC = () => {
     }
     return (
         <>
-            <div className="row no-gutters align-items-center gig-login">
-                <div className="col-md-3 shadow p-5 bg-white rounded">
-                    <div className="row no-gutters">
-                        <div className="col text-center">
-                            <img className="logo" src="/images/logo_black.png" alt="logo" />
-                        </div>
-                    </div>
-                    <div className="row no-gutters">
-                        <div className="col">
-                            <h1 className="pt-4 text-left bold">Reset Password</h1>
+            <div className={styles.resetPasswordContainer}>
+      
+      {/* Left side: Content */}
+      <div className={styles.contentSection}>
+        <div className={styles.logoWrapper}>
+          <img className={styles.logo} src="/images/logo_black.png" alt="logo" />
+        </div>
 
-                        </div>
-                    </div>
-                    <div className="row no-gutters">
-                        <div className="col"> <p>Your Password is reset successfully. Please login</p>
-                            <div className="row no-gutters">
-                                <div className="col">
-                                    <button className="submit-button" type="button"
-                                        onClick={(e) => { checkReset(e) }}
-                                    >Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <h3 className={styles.heading}>Reset Password</h3>
+
+        <p className={styles.message}>Your Password is reset successfully. Please login</p>
+
+        <button
+          className={styles.submitButton}
+          type="button"
+          onClick={(e) => { checkReset(e); }}
+        >
+          Close
+        </button>
+      </div>
+
+      {/* Right side: Image */}
+      <div className={styles.imageSection}>
+        <img src="/images/flight.jpg" alt="Reset Password Visual" />
+      </div>
+
+    </div>
         </>
     );
 }
