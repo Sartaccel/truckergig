@@ -5,13 +5,36 @@ import { useDispatch } from "react-redux";
 import { setInfo } from "../../redux/action/main";
 import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./Contactus.module.scss";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const contactusSchema = yup.object().shape({
-  name: yup.string().required("Name is required").min(2).max(24),
-  emailAddress: yup.string().required("Email is  required").email(),
-  phone: yup.string().required("Phone is required "),
-  message: yup.string().required("Message is required"),
-});
+  name: yup
+    .string()
+    .required("Name is required")
+    .min(2, "Name must be at least 2 characters")
+    .max(24, "Name must be at most 24 characters")
+    .matches(/^[A-Za-z]+$/, "Name can only contain letters"),
+    emailAddress: yup
+    .string()
+    .required("Email is required")
+    .matches(
+     /^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,}$/,
+      "Only lowercase letters, numbers, and one @ are allowed"
+    ), 
+    phone: yup
+    .string()
+    .required("Phone is required")
+    .matches(/^[0-9]+$/, "Phone number must contain only digits")
+    .length(10, "Phone number must be exactly 10 digits"),
+    message: yup
+    .string()
+    .required("Message is required")
+    .test(
+      "no-only-spaces",
+      "Message cannot be empty spaces",
+      (value) => value && value.trim().length > 0
+    ),});
 
 const Contactus: React.FC = () => {
   const dispatch = useDispatch();
@@ -42,7 +65,12 @@ const Contactus: React.FC = () => {
           onSubmit={(values, { resetForm, setSubmitting }) => {
             const recaptchaValue = recaptchaRef.current?.getValue();
             if (!recaptchaValue) {
-              alert("Please complete the CAPTCHA.");
+              // alert("Please complete the CAPTCHA.");
+               toast.error("Please complete the CAPTCHA.", {
+                      theme: "dark",
+                      position: "top-right",
+                      autoClose: 5000,
+                    });
               setSubmitting(false);
               return;
             }
@@ -51,13 +79,14 @@ const Contactus: React.FC = () => {
             recaptchaRef.current?.reset();
             resetForm();
             setSubmitting(false);
-            alert("Message sent successfully!");
+            // alert("Message sent successfully!");
           }}
         >
           {({ errors, touched, handleSubmit }) => (
             <Form onSubmit={handleSubmit}>
-              <Field name="name" placeholder="Your Name*" className={styles.inputField} />
-              {errors.name && touched.name && <div className={styles.error}>{errors.name}</div>}
+             <Field name="name" placeholder="Your Name*" className={styles.inputField} />
+{errors.name && touched.name && <div className={styles.error}>{errors.name}</div>}
+
 
               <Field name="emailAddress" placeholder="Your Email*" className={styles.inputField} />
               {errors.emailAddress && touched.emailAddress && <div className={styles.error}>{errors.emailAddress}</div>}

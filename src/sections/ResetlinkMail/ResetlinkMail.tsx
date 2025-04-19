@@ -21,7 +21,7 @@ const ResetLinkMail: React.FC = () => {
       <div className="text-center">
         <img className={styles.logo} src="/images/logo_black.png" alt="logo" />
       </div>
-      <h1 className={styles.heading}>Reset Link Mailed</h1>
+      <h3 className={styles.heading}>Reset Link Mailed</h3>
       <p className={styles.message}>
         Please check your inbox for the reset link. The link is valid for 10 minutes.
       </p>

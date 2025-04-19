@@ -100,7 +100,7 @@ const Forgotpassword: React.FC = () => {
             <img src="/images/logo_black.png" alt="logo" className={styles.logo} />
           </div>
 
-          <h1>Reset Password</h1>
+          <h3>Reset Password</h3>
           <p>Don’t worry!<br/>
           Enter your email to reset your password and get back on track</p>
 
