@@ -17,8 +17,9 @@ import { CircularProgress } from "@mui/material";
 
 const schema = yup.object().shape({
 	// logoFile: yup.string().required(),
-	// redirect: yup.string().required("Please select option"),
+	// redirect: yup.string().required("Please select option"),	
 	// externalUrl: yup.string().min(2).max(24).required(),
+	externalUrl: yup.string().nullable().notRequired(),
 	title: yup.string().required("Title is required").min(2, "Title must have atleast 2 characters").max(50, "Title should not exceed 50 characters"),
 	shortDescription: yup.string().required("Description is required").min(2, "Description must have atleast 2 characters").max(250, "Title should not exceed 250 characters"),
 	emailAddress: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/, "Email is not valid"),
@@ -110,12 +111,12 @@ const Serviceregistration: React.FC = () => {
 		setLoading(true);
 		data.serviceCategoryId = selectedOption.value;
 		data.serviceSubCategoryId = selectedOptionChild.value ? selectedOptionChild.value : "0";
-		data.isExternal = selectedExternal?.value ?? null; // or "0" if backend expects a string
+		data.isExternal = selectedExternal?.value ?? null;
 
 		let logoFile = document.getElementById("logoFile") as HTMLInputElement;
 
 		var params = (data);
-		var imagefile = logoFile.files[0];
+		var imagefile = logoFile?.files[0];
 		console.log("ImageFile", imagefile);
 		const formdata = new FormData()
 		const serviceInfo = JSON.stringify(params);
@@ -209,41 +210,41 @@ const Serviceregistration: React.FC = () => {
 					setselectedOptionChild(value);
 				}
 				break;
-			// case "external":
-			// 	if (action == "clear") {
-			// 		setselectedExternal(null);
-			// 		setShowText(false)
-			// 	}
-			// 	else {
+			case "external":
+				if (action == "clear") {
+					setselectedExternal(null);
+					setShowText(false)
+				}
+				else {
 
-			// 		setselectedExternal(value);
+					setselectedExternal(value);
 
-			// 		if (value.value === 1) {
+					if (value.value === 1) {
 
-			// 			setShowText(true);
-			// 		}
-			// 		else {
-			// 			setShowText(false);
-			// 		}
+						setShowText(true);
+					}
+					else {
+						setShowText(false);
+					}
 
-			// 		// else {
+					// else {
 
-			// 		// }
-			// 	}
-			// 	break;
-			// default:
+					// }
+				}
+				break;
+			default:
 				break;
 		}
 	}
 
-	// const ExternalUrl: Array<any> = [
-	// 	{ value: 1, label: "Webiste URL" },
-	// 	{ value: 0, label: "Get a Quote" },
-	// ];
-	// const style = {
-	// 	color: 'red',
-	// 	fontSize: 20
-	// };
+	const ExternalUrl: Array<any> = [
+		{ value: 1, label: "Webiste URL" },
+		{ value: 0, label: "Get a Quote" },
+	];
+	const style = {
+		color: 'red',
+		fontSize: 20
+	};
 	return (
 		<>
 			<ToastContainer position="top-right" autoClose={1500} hideProgressBar={false} newestOnTop={false}
@@ -314,8 +315,8 @@ const Serviceregistration: React.FC = () => {
 										onChange={(value, { action }) =>
 											handleChangeCategoy(value, action, "external")
 										}
-									/> */}
-									
+									/>
+									 */}
 
 
 									
@@ -323,7 +324,7 @@ const Serviceregistration: React.FC = () => {
 
 <label className={styles.formLabel}>Company Website URL</label>
 <input
-//   {...register('externalUrl')}
+  {...register('externalUrl')}
   name="externalUrl"
   type="text"
   placeholder="Enter external URL with http/https"
