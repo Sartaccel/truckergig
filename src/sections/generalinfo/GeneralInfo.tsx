@@ -31,9 +31,9 @@ const schema = yup.object().shape({
   .required("First name is required"),
   middleName: yup
   .string()
-  .matches(/^[A-Za-z\s]*$/, "Only alphabets are allowed")
-  .min(2, "Middle name must be at least 6 characters")
-  .max(24, "Middle name must not exceed 24 characters")
+//   .matches(/^[A-Za-z\s]*$/, "Only alphabets are allowed")
+//   .min(2, "Middle name must be at least 6 characters")
+//   .max(24, "Middle name must not exceed 24 characters")
   .nullable(), // because Middle Name can be optional
 
   email: yup
