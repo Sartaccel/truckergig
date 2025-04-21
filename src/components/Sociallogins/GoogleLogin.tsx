@@ -63,7 +63,7 @@ export default function GoogleAuth(props) {
 
   return (
     <div className={`${styles["google"]} `}>
-    <GoogleOAuthProvider clientId="1065378203448-cr72phlmt5n860gu8avvc9hpu3ev95u9.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="1065378203448-na0u99v571sgfj994c8a38ihc7jskval.apps.googleusercontent.com">
       <GoogleLogin onSuccess={onResponse} onError={onGoogleFailure} />  
     </GoogleOAuthProvider>
     </div>
