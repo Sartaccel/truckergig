@@ -141,29 +141,45 @@ const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
           <p className={`${styles["modal-lead"]} `}>
             How do you want to signup?
           </p>
-          <div className={` align-center`}>
-            <ul className="p-0">
-              <li className={`${styles["modal-list"]} `}>
-                <a
-                  className={`${active ? "active" : ""} `}
-                  onClick={handleClick}
-                  href="#"
-                  data-bs-toggle="collapse"
-                >
-                  <MdIcons.MdEmail
-                    size="25"
-                    style={{ color: "rgb(15, 10, 36)" }}
-                  />{" "}
-                </a>
-              </li>
-              <li className={`${styles["modal-list"]}`}>
-                <FacebookLogin />
-              </li>
-              <li className={`${styles["modal-list"]}`}>
-                <GoogleLogin />
-              </li>
-            </ul>
-          </div>
+          {/* <div className={styles.authButtons}>
+  <ul className={styles.buttonList}>
+    <li className={styles.buttonItem}>
+      <a
+        className={styles.iconButton}
+        onClick={handleClick}
+        href="#"
+        data-bs-toggle="collapse"
+      >
+        <MdIcons.MdEmail size="28" />
+      </a>
+    </li>
+    <li className={styles.buttonItemWide}>
+      <div className={styles.googleButton}>
+        <GoogleLogin />
+      </div>
+    </li>
+  </ul>
+</div> */}
+<div className={styles.authSection}>
+  <ul className={styles.authList}>
+    <li className={styles.authItem}>
+      <a
+        className={styles.iconWrapper}
+        onClick={handleClick}
+        href="#"
+        data-bs-toggle="collapse"
+      >
+        <MdIcons.MdEmail size="28" />
+        <span>Email</span>
+      </a>
+    </li>
+    <li className={styles.authItem}>
+      <div className={styles.googleWrapper}>
+        <GoogleLogin />
+      </div>
+    </li>
+  </ul>
+</div>
           <div className={`${active ? "show" : "hidden"} mail-login`}>
             <form>
               <input type="text" placeholder="Enter your Email" />
