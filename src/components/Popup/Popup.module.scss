@@ -120,3 +120,129 @@ border-radius: 50% !important;
 .modal-list span button{
     padding: 0px;
 }
+
+// // styles/AuthButtonsV2.module.scss
+
+// .authButtons {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     padding: 2rem;
+//   }
+  
+//   .buttonList {
+//     display: flex;
+//     gap: 1.8rem;
+//     list-style: none;
+//     padding: 0;
+//     margin: 0;
+//   }
+  
+//   .buttonItem {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     border: 1px solid #dadce0;
+//     border-radius: 16px;
+//     padding: 1rem;
+//     background: #fff;
+//     width: 70px;
+//     height: 70px;
+//     transition: all 0.3s ease;
+  
+//     &:hover {
+//       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+//       transform: translateY(-3px);
+//     }
+//   }
+  
+//   .buttonItemWide {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     border: 1px solid #dadce0;
+//     border-radius: 16px;
+//     padding: 0.8rem 1.5rem;
+//     background: #fff;
+//     min-width: 250px;
+//     height: 70px;
+//     transition: all 0.3s ease;
+  
+//     &:hover {
+//       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+//       transform: translateY(-3px);
+//     }
+//   }
+  
+//   .iconButton {
+//     color: #3c4043;
+//     font-size: 28px;
+//     text-decoration: none;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//   }
+  
+//   .googleButton {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//   }
+  // styles/AuthButtonsUnique.module.scss
+
+.authSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .authList {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .authItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .iconWrapper {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    background: #fff;
+    text-decoration: none;
+    color: #1a73e8;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s ease;
+    
+  
+    // &:hover {
+    //   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    //   background: #f1f3f4;
+    //   transform: translateY(-5px);
+    // }
+  
+    // span {
+    //   margin-top: 6px;
+    //   font-size: 12px;
+    //   color: #555;
+    // }
+  }
+  
+  .googleWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
