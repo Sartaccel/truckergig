@@ -248,6 +248,11 @@ const Register = () => {
   inputMode="numeric"
   pattern="[0-9]*"
   maxLength={10}
+onKeyPress={(e) => {
+  if (!/[0-9]/.test(e.key)){
+    e.preventDefault();
+  }
+}}
   onBlur={(e) => {
     const input = e.target;
     input.style.borderColor = "";

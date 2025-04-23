@@ -862,45 +862,50 @@ const Vendor: React.FC = () => {
                                 
                     </div>
                   </div>
-                  <div className="col-6">
-                    <label className={styles.formLabel}>
-                      How did you hear about us?
-                    </label>
-                    <Field
-                      name="referenceCategory"
-                      onChange={handleChange}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = "";
-                        e.target.style.boxShadow = "";
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = "#ff8c00";
-                        e.target.style.boxShadow =
-                          "0 0 5px rgba(255, 140, 0, 0.5)";
-                      }}
-                      value={values.referenceCategory}
-                      placeholder="How did you hear about us?"
-                      className="form-control"
-                      type="text"
-                    />
-                    {errors.referenceCategory && touched.referenceCategory && (
-                      <div className={styles.errorMsgColour}>
-                        {errors.referenceCategory}
-                      </div>
-                    )}
-                              
-                  </div>
+                  <div className="col-12 d-flex flex-wrap align-items-center gap-3">
+  <div className="col-12 col-md-6">
+    <label className={styles.formLabel}>
+      How did you hear about us?
+    </label>
+    <Field
+      name="referenceCategory"
+      onChange={handleChange}
+      onBlur={(e) => {
+        e.target.style.borderColor = "";
+        e.target.style.boxShadow = "";
+      }}
+      onFocus={(e) => {
+        e.target.style.borderColor = "#ff8c00";
+        e.target.style.boxShadow =
+          "0 0 5px rgba(255, 140, 0, 0.5)";
+      }}
+      value={values.referenceCategory}
+      placeholder="How did you hear about us?"
+      className="form-control"
+      type="text"
+    />
+    {errors.referenceCategory && touched.referenceCategory && (
+      <div className={styles.errorMsgColour}>
+        {errors.referenceCategory}
+      </div>
+    )}
+  </div>
 
-                  <br />
-                  <ReCAPTCHA
-                    sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
-                    onChange={onCaptchaChange}
-                  />
-                  <br />
+  <div className="col-12 col-md-auto" style={{ transform: "scale(0.90)", transformOrigin: "0 0" }}>
+  <ReCAPTCHA
+    sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
+    onChange={onCaptchaChange}
+  />
+</div>
 
-                  <p>
-                    {errors.submit && "Please complete all required field."}
-                  </p>
+</div>
+
+<br />
+
+<p>
+  {errors.submit && "Please complete all required field."}
+</p>
+
                   {/* <div className="col-12 pl-0 text-center mt-1">
                     {dirty && isValid ? (
                       <button type="submit" className={styles.regBtn}>
