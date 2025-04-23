@@ -26,7 +26,7 @@ const Forgotpassword: React.FC = () => {
             .then(function (response) {
                 console.log(response)
                 if (response.status === 200) {
-                    toast.success("password sent to mailid", {
+                    toast.success("Password sent to email", {
                         theme: "colored",
                         position: "top-right",
                         autoClose: 5000,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef  } from "react";
 import axios from "axios";
 import styles from "./Filter.module.scss";
 import { FaSearch } from 'react-icons/fa';
@@ -6,6 +6,7 @@ import Router from "next/router";
 import urls from "../../utilities/AppSettings";
 import { useRouter } from 'next/router';
 let val = 0;
+
 const Filter: React.FC = (props: any) => {
   
   const router = useRouter()
@@ -15,6 +16,7 @@ const Filter: React.FC = (props: any) => {
   const [activefilter, setactivefilter] = useState("")
   const [childEle, setChildEle] = useState("");
   const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     axios.get(`${urls.baseUrl}services/categories/grouped`)
@@ -30,36 +32,86 @@ const Filter: React.FC = (props: any) => {
       });
   }, []);
 
- const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const value = e.target.value;
-  setSearchList(value);
+  
+//  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   const value = e.target.value;
+//   setSearchList(value);
+//   if (value.trim().length > 0) {
+//     setSearchTriggered(true);
+//   } else {
+//     setSearchTriggered(false);
+//   }
 
-  const filtered = List.filter((item) =>
-    item?.serviceName?.toLowerCase().includes(value.toLowerCase())
-  );
-  setFilteredList(filtered);
+//   if (typingTimeoutRef.current) {
+//     clearTimeout(typingTimeoutRef.current);
+//   }
 
-  Router.push({
-    pathname: "/marketplaces",
-    query: { servicename: value },
-  });
-};
+//   // Set new debounce timeout
+//   typingTimeoutRef.current = setTimeout(() => {
+//     const filtered = List.filter((item) =>
+//       item?.serviceName?.toLowerCase().includes(value.toLowerCase())
+//     );
+//     setFilteredList(filtered);
+
+//     Router.push(
+//       {
+//         pathname: "/marketplace",
+//         query: { servicename: value },
+//       },
+//       undefined,
+//       { shallow: true }
+//     );
+//   }, 100); // 1 second debounce
+// };
 
 
-  const handleSearch = () => {
-    Router.push({
-      pathname: "/marketplaces",
-      query: { servicename: SearchList, },
-    });
-  }
-  const handleClear = () => {
-    setSearchList('');
-    Router.push({
-      // pathname: "/marketplaces",
-      pathname: "/marketplace",
-    })
+  // const handleSearch = () => {
+  //   Router.push({
+  //     pathname: "/marketplaces",
+  //     query: { servicename: SearchList, },
+  //   });
+  // }
+  // const handleClear = () => {
+  //   setSearchList('');
+  //   Router.push({
+  //     // pathname: "/marketplaces",
+  //     pathname: "/marketplace",
+  //   })
 
+  // };
+  
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchList(value);
+  
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+  
+    // Set new debounce timeout
+    typingTimeoutRef.current = setTimeout(() => {
+      if (value.trim().length > 0) {
+  
+        const filtered = List.filter((item) =>
+          item?.serviceName?.toLowerCase().includes(value.toLowerCase())
+        );
+        setFilteredList(filtered);
+  
+        Router.push(
+          {
+            pathname: "/marketplace",
+            query: { servicename: value },
+          },
+          undefined,
+          { shallow: true }
+        );
+      } else {
+        // Navigate back to base /marketplace
+        Router.push("/marketplace", undefined, { shallow: true });
+      }
+    }, 300); // Increased debounce
   };
+  
   const pulldata = (data) => {
     console.log(data);
 
@@ -73,7 +125,7 @@ const Filter: React.FC = (props: any) => {
     setChildEle("")
     if (id) {
       Router.push({
-        pathname: "/marketplaces",
+        pathname: "/marketplace",
         query: { id: id, ids: 0, name: name },
       });
 
@@ -87,7 +139,7 @@ const Filter: React.FC = (props: any) => {
     setactivefilter("")
     if (id) {
       Router.push({
-        pathname: "/marketplaces",
+        pathname: "/marketplace",
         query: { id: ids, ids: id, name: names },
       });
     }

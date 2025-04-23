@@ -108,7 +108,7 @@ useEffect(() => {
             pathname: "/",
           });
           Router.push({
-            pathname: "/marketplaces",
+            pathname: "/marketplace",
             query: { id: value.value },
           });
         }

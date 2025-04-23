@@ -14,6 +14,7 @@ import { LoaderProvider, useLoader } from '../Context/LoaderContext';
 import { Loader } from '../components/Loader';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SSRProvider } from 'react-bootstrap';
 
 function LoaderWrapper() {
   const router = useRouter();
@@ -85,6 +86,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   return (
+    <SSRProvider>
     <LoaderProvider>
       <LoaderWrapper />
       <Layouts>
@@ -94,6 +96,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ToastContainer />
       </Layouts>
     </LoaderProvider>
+    </SSRProvider>
   );
 }
 
