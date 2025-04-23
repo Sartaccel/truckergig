@@ -358,7 +358,7 @@ const Vendor: React.FC = () => {
                       <Field
   name="fein"
   onChange={(e) => {
-    const onlyNumbers = e.target.value.replace(/[^0-9]/g, ""); // keep only digits
+    const onlyNumbers = e.target.value.replace(/[^0-9]/g, "").slice(0, 9); // keep only digits
     handleChange({
       target: {
         name: "fein",
@@ -398,7 +398,7 @@ const Vendor: React.FC = () => {
                       <Field
   name="dbNumber"
   onChange={(e) => {
-    const onlyNumbers = e.target.value.replace(/[^0-9]/g, ""); // allow only digits
+    const onlyNumbers = e.target.value.replace(/[^0-9]/g, "").slice(0, 9); // allow only digits
     handleChange({
       target: {
         name: "dbNumber",

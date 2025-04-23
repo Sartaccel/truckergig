@@ -62,7 +62,7 @@ const Vendor: React.FC = (props) => {
             }
         })
             .catch(function (error) {
-                toast.error("Invalid Credentials", {
+                toast.error("Invalid email format", {
                     theme: "colored",
                     position: "top-right",
                     autoClose: 1500,

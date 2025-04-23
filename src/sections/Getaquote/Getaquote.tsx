@@ -24,7 +24,7 @@ const schema = yup.object().shape({
     city: yup.string().required("City is required"),
     zipcode: yup.string().required("Zipcode is required").matches(/^\d{4,}$/, "Zipcode is not valid"),
     email: yup.string().email().required("Email is required"),
-    contactNo: yup.string().required("ContactNo is required").matches(/^\d{10}$/, "Phone number is not valid"),
+    contactNo: yup.string().required("Contact number is required").matches(/^\d{10}$/, "Phone number is not valid"),
     address: yup.string().required("Address is required"),
 
 })
@@ -59,6 +59,23 @@ const Getaquote: React.FC = (props: any) => {
                 }
             })
     }, [])
+
+    const allowOnlyLettersAndSpaces = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const allowedKeys = ["Backspace", "Tab", "ArrowLeft", "ArrowRight", "Delete", " "];
+        const isLetter = /^[a-zA-Z]$/.test(e.key);
+        if (!isLetter && !allowedKeys.includes(e.key)) {
+          e.preventDefault();
+        }
+      };
+      
+      const allowOnlyNumbers = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const allowedKeys = ["Backspace", "Tab", "ArrowLeft", "ArrowRight", "Delete"];
+        const isNumber = /^[0-9]$/.test(e.key);
+        if (!isNumber && !allowedKeys.includes(e.key)) {
+          e.preventDefault();
+        }
+      };
+      
 
     const onSubmitHandler = (data) => {
         data.serviceId = '1';
@@ -144,7 +161,9 @@ const Getaquote: React.FC = (props: any) => {
                                                 <label>Country</label><sup className={`${styles["star"]} `} >*</sup>
                                             </div>
                                             <div>
-                                                <input {...register("country")} type="text" placeholder="Country"
+                                                <input {...register("country")}
+                                                onKeyDown={allowOnlyLettersAndSpaces}
+                                                 type="text" placeholder="Country"
                                                     className={`form-control ${errors.country ? "is-invalid" : ""}`} />
                                                 <div className="invalid-feedback"> {errors.country?.message}</div>
                                             </div>
@@ -154,7 +173,8 @@ const Getaquote: React.FC = (props: any) => {
                                                 <label>State</label><sup className={`${styles["star"]} `} >*</sup>
                                             </div>
                                             <div>
-                                                <input {...register("state")} type="text" placeholder="State"
+                                                <input {...register("state")}
+                                                onKeyDown={allowOnlyLettersAndSpaces} type="text" placeholder="State"
                                                     className={`form-control ${errors.state ? "is-invalid" : ""}`} />
                                                 <div className="invalid-feedback"> {errors.state?.message}</div>
                                             </div>
@@ -169,7 +189,8 @@ const Getaquote: React.FC = (props: any) => {
                                                 <label>City</label><sup className={`${styles["star"]} `} >*</sup>
                                             </div>
                                             <div>
-                                                <input {...register("city")} type="text" placeholder="City"
+                                                <input {...register("city")}
+                                                onKeyDown={allowOnlyLettersAndSpaces} type="text" placeholder="City"
                                                     className={`form-control ${errors.city ? "is-invalid" : ""}`} />
                                                 <div className="invalid-feedback"> {errors.city?.message}</div>
                                             </div>
@@ -179,8 +200,12 @@ const Getaquote: React.FC = (props: any) => {
                                                 <label>Zipcode</label><sup className={`${styles["star"]} `} >*</sup>
                                             </div>
                                             <div>
-                                                <input {...register("zipcode")} type="text" placeholder="Zipcode"
-                                                    className={`form-control ${errors.zipcode ? "is-invalid" : ""}`} />
+                                            <input {...register("zipcode")} type="text" placeholder="Zipcode" maxLength={6}
+                                                    className={`form-control ${errors.zipcode ? "is-invalid" : ""}`}
+                                                    onInput={(e) => {
+                                                        (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/[^0-9]/g, '');
+                                                      }}
+                                                       />
                                                 <div className="invalid-feedback"> {errors.zipcode?.message}</div>
                                             </div>
                                         </div>
@@ -193,8 +218,19 @@ const Getaquote: React.FC = (props: any) => {
                                                 <label>Email</label><sup className={`${styles["star"]} `} >*</sup>
                                             </div>
                                             <div>
-                                                <input {...register("email")} type="email" placeholder="Email"
-                                                    className={`form-control ${errors.email ? "is-invalid" : ""}`} />
+                                                <input {...register("email", {
+    required: "Email is required",
+    pattern: {
+      value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+      message: "Enter a valid email address",
+    },
+  })} type="email" placeholder="Email"
+                                                    className={`form-control ${errors.email ? "is-invalid" : ""}`}
+                                                    onInput={(e) => {
+                                                        const input = e.target as HTMLInputElement;
+                                                        input.value = input.value.toLowerCase();
+                                                      }} 
+                                                    />
                                                 <div className="invalid-feedback"> {errors.email?.message}</div>
                                             </div>
                                         </div>
@@ -203,7 +239,8 @@ const Getaquote: React.FC = (props: any) => {
                                                 <label>Contact No</label><sup className={`${styles["star"]} `} >*</sup>
                                             </div>
                                             <div>
-                                                <input {...register("contactNo")} type="text" placeholder="Phone"
+                                                <input {...register("contactNo")}
+                                                onKeyDown={allowOnlyNumbers} type="text" placeholder="Phone"
                                                     className={`form-control ${errors.contactNo ? "is-invalid" : ""}`} />
                                                 <div className="invalid-feedback"> {errors.contactNo?.message}</div>
                                             </div>

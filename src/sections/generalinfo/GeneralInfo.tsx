@@ -208,14 +208,14 @@ const Candidateregister: React.FC = () => {
 			.then(function (response) {
 				console.log(response.data.headers.status);
 				if (response.data.headers.status == "success") {
-					toast.success('Otp Verified Successfully', {
+					toast.success('OTP Verified Successfully', {
 						theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
 						closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
 					});
 					setdisableRegister(false);
 				}
 				else {
-					toast.error('otp verification failed', {
+					toast.error('OTP verification failed', {
 						theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
 						closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
 					});
@@ -493,16 +493,34 @@ const Candidateregister: React.FC = () => {
 					<Modal.Body>
 						<form onSubmit={(e) => handleOtpSubmit(e)}>
 							<label>OTP</label><br />
-							<input name="otp" type="text" className="form-control" placeholder="Enter your OTP" onChange={(e) => setverify(e.target.value)}
-							 onBlur={(e) => {
-								e.target.style.borderColor = ""; 
-								e.target.style.boxShadow = "";
-							  }}
-							  onFocus={(e) => {
-								e.target.style.borderColor = "#ff8c00"; 
-								e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-							   }}
-							/>
+							<input
+  name="otp"
+  type="text"
+  maxLength={6}
+  inputMode="numeric"
+  pattern="[0-9]*"
+  className="form-control"
+  placeholder="Enter your OTP"
+  onChange={(e) => setverify(e.target.value.replace(/\D/g, ""))}
+  onKeyDown={(e) => {
+    // Allow only numbers and control keys
+    if (
+      !/[0-9]/.test(e.key) &&
+      !["Backspace", "ArrowLeft", "ArrowRight", "Delete", "Tab"].includes(e.key)
+    ) {
+      e.preventDefault();
+    }
+  }}
+  onBlur={(e) => {
+    e.target.style.borderColor = "";
+    e.target.style.boxShadow = "";
+  }}
+  onFocus={(e) => {
+    e.target.style.borderColor = "#ff8c00";
+    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+  }}
+/>
+
 							<div className="text-center">
 								<button type="submit" className="reg-btn">Verify</button>
 							</div>

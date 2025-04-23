@@ -49,7 +49,7 @@ const schema = yup.object().shape({
       'Email must include a valid domain (e.g., example.com)',
     )
     .required('Email is required')
-    .transform((value) => value.toLowerCase()),
+    .transform((value) => value?.toLowerCase()),
   password: yup
     .string()
     // .min(8, 'Password must be at least 8 characters')
@@ -330,6 +330,7 @@ const Signin = () => {
                     <TextField
                       {...field}
                       placeholder="Enter your email address"
+                      onChange={(e) => field.onChange(e.target.value.toLowerCase())}
                       variant="outlined"
                       error={!!errors.userName}
                       fullWidth
