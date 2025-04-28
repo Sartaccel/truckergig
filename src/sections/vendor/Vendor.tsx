@@ -23,40 +23,54 @@ const onCaptchaChange = (value) => {
 };
 const vendorSchema = yup.object().shape({
   legalName: yup
-    .string()
-    .required("This is a required field")
-    .min(2)
-    .max(24),
-    contactFirstName: yup.string()
-    .matches(/^[A-Za-z]+$/, "Only alphabets are allowed")
-    .required("This is a required field"),
-      emailAddress: yup
-      .string()
-    .required("This is a required field")
-    .transform((value) => value?.toLowerCase()) // auto-lowercase
-    .matches(
-      /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
-      "Enter a valid email address (lowercase only)"
-    )
-    .max(50),
-  telephone: yup
-    .string()
-    .required("This is required field")
-    .matches(/^[0-9]+$/, "Must be only digits")
-    .min(10, "Must be exactly 10 digits")
-    .max(10, "Must be exactly 10 digits"),
-    password: yup
+  .string()
+  .required("This is a required field")
+  .min(2)
+  .max(24),
+
+contactFirstName: yup
+  .string()
+  .matches(/^[A-Za-z]+$/, "Only alphabets are allowed")
+  .required("This is a required field"),
+
+emailAddress: yup
+  .string()
+  .required("This is a required field")
+  .transform((value) => value?.toLowerCase())
+  .matches(
+    /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
+    "Enter a valid email address (lowercase only)"
+  )
+  .max(50),
+
+telephone: yup
+  .string()
+  .required("This is a required field")
+  .matches(/^[0-9]+$/, "Must be only digits")
+  .min(10, "Must be exactly 10 digits")
+  .max(10, "Must be exactly 10 digits"),
+
+password: yup
   .string()
   .required("This is a required field")
   .min(6, "Password must be at least 6 characters")
   .matches(/[A-Z]/, "Must contain at least one uppercase letter")
   .matches(/\d/, "Must contain at least one number")
-  .matches(/[@$!%*?&]/, "Must contain at least one special character")
+  .matches(/[@$!%*?&]/, "Must contain at least one special character"),
+
+websiteUrl: yup
+  .string()
+  .nullable()
+.notRequired()
+.matches(
+  /^$|^https:\/\/(?!$)(?!.\.$)(?!.\.\.)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/,
+  "Invalid URL format")
+});
 
 
   // message: yup.string().required("This is a required field"),
   // productList: yup.string().required("This is required field")
-});
+// });
 
 interface MyFormValues {
   legalName: string;
@@ -628,7 +642,7 @@ const Vendor: React.FC = () => {
               pointerEvents: "auto",
             }}
           >
-            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            {showPassword ? <Eye size={18} /> :  <EyeOff size={18} /> }
           </span>
         </div>
 
@@ -726,7 +740,7 @@ const Vendor: React.FC = () => {
                     <div className="col-6">
                       <label className={styles.formLabel}>X URL</label>
                       <Field
-                        name="X Url"
+                        name="twitterUrl"
                         onChange={handleChange}
                         onBlur={(e) => {
                           e.target.style.borderColor = "";
@@ -739,7 +753,7 @@ const Vendor: React.FC = () => {
                         }}
                         value={values.twitterUrl}
                         placeholder="X URL"
-                        id="name"
+                        id="twitterUrl"
                         className="form-control "
                         type="text"
                       />
