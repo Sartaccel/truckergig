@@ -41,7 +41,7 @@
         .then(function (response) {
           alert(response?.data?.headers?.statusCode)
           if(response?.data?.headers?.statusCode==407){
-            toast.success("Login Success", {
+            toast.success("Login Successful", {
               theme: "colored",
               position: "top-right",
               autoClose: 1500,
