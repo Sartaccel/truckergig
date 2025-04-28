@@ -161,7 +161,7 @@ const Signin = () => {
             });
     setLoading(false);
           }else if(response?.data?.headers?.statusCode == 200){
-            toast.success("Login Success", {
+            toast.success("Login Successful", {
               theme: "colored",
               position: "top-right",
               autoClose: 1500,
@@ -224,7 +224,7 @@ const Signin = () => {
                 });
     setLoading(false);
               }else if(response?.data?.headers?.statusCode == 200){
-                toast.success("Login Success", {
+                toast.success("Login Successful", {
                   theme: "colored",
                   position: "top-right",
                   autoClose: 1500,
