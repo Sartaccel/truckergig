@@ -196,7 +196,7 @@ const Candidateregister: React.FC = () => {
 			|| verify.substring(0, 1) == "-"
 			|| verify.indexOf('.') !== -1
 		) {
-			toast.error('Invalid otp Number', {
+			toast.error('Please enter the OTP', {
 				theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
 				closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
 			});
@@ -215,7 +215,7 @@ const Candidateregister: React.FC = () => {
 					setdisableRegister(false);
 				}
 				else {
-					toast.error('OTP verification failed', {
+					toast.error('Incorrect OTP', {
 						theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
 						closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
 					});
