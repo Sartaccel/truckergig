@@ -50,7 +50,7 @@ telephone: yup
   .min(10, "Must be exactly 10 digits")
   .max(10, "Must be exactly 10 digits"),
 
-password: yup
+password: yup
   .string()
   .required("This is a required field")
   .min(6, "Password must be at least 6 characters")
@@ -58,16 +58,56 @@ password: yup
   .matches(/\d/, "Must contain at least one number")
   .matches(/[@$!%*?&]/, "Must contain at least one special character"),
 
-websiteUrl: yup
+  websiteUrl: yup
   .string()
   .nullable()
-.notRequired()
-.matches(
-  /^$|^https:\/\/(?!$)(?!.\.$)(?!.\.\.)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/,
-  "Invalid URL format")
+  .notRequired()
+  .matches(
+    /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
+    "Invalid URL format"
+  ),
+
+  instagramUrl: yup
+  .string()
+  .nullable()
+  .notRequired()
+  .matches(
+    /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
+    "Invalid URL format"
+  ),
+
+  twitterUrl: yup
+  .string()
+  .nullable()
+  .notRequired()
+  .matches(
+    /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
+    "Invalid URL format"
+  ),
+
+  linkedinUrl: yup
+  .string()
+  .nullable()
+  .notRequired()
+  .matches(
+    /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
+    "Invalid URL format"
+  ),
+
+  facebookUrl: yup
+  .string()
+  .nullable()
+  .notRequired()
+  .matches(
+    /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
+    "Invalid URL format"
+  ),
+
+  message: yup
+  .string()
+  .trim()
+  .required("Message field cannot be empty."),
 });
-
-
   // message: yup.string().required("This is a required field"),
   // productList: yup.string().required("This is required field")
 // });
@@ -682,116 +722,138 @@ const Vendor: React.FC = () => {
                     </div>
                   </div>
                   <div className="row mb-1">
-                    <div className="col-6 col-sm-6">
-                      <label className={styles.formLabel}>Website URL</label>
-                      <Field
-                        name="websiteUrl"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.websiteUrl}
-                        placeholder="Website URL"
-                        className="form-control"
-                        type="text"
-                      />
-                      {errors.websiteUrl && touched.websiteUrl && (
-                        <div className={styles.errorMsgColour}>
-                          {errors.websiteUrl}
-                        </div>
-                      )}
-                                
-                    </div>
-                    <div className="col-6 col-sm-6">
-                      <label className={styles.formLabel}>Instagram URL</label>
-                      <Field
-                        name="instagramUrl"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.instagramUrl}
-                        placeholder="Instagram URL"
-                        id="name"
-                        className="form-control "
-                        type="text"
-                      />
-                      {errors.instagramUrl && touched.instagramUrl ? (
-                        <div className={`${styles["errorMsgColour"]} `}>
-                          {errors.twitterUrl}
-                        </div>
-                      ) : null}
-                                
-                    </div>
-                  </div>
+                  <div className="col-6 col-sm-6">
+    <label className={styles.formLabel}>Website URL</label>
+    <div style={{ position: "relative" }}>
+      <Field
+        name="websiteUrl"
+      >
+        {({ field, form: { touched, errors } }) => (
+          <>
+            <input
+              {...field}
+              onBlur={(e) => {
+                e.target.style.borderColor = "";
+                e.target.style.boxShadow = "";
+                field.onBlur(e); // Important to call Formik's onBlur
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = "#ff8c00";
+                e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+              }}
+              placeholder="Website URL"
+              type="text"
+              className={`form-control pe-5 ${touched.websiteUrl && errors.websiteUrl ? "is-invalid" : ""}`}
+            />
+            {touched.websiteUrl && errors.websiteUrl && (
+              <div className="invalid-feedback d-block">
+                {errors.websiteUrl}
+              </div>
+            )}
+          </>
+        )}
+      </Field>
+    </div>
+  </div>
+
+  <div className="col-6 col-sm-6">
+  <label className={styles.formLabel}>Instagram URL</label>
+  <div style={{ position: "relative" }}>
+    <Field name="instagramUrl">
+      {({ field, form: { touched, errors } }) => (
+        <>
+          <input
+            {...field}
+            onBlur={(e) => {
+              e.target.style.borderColor = "";
+              e.target.style.boxShadow = "";
+              field.onBlur(e);
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = "#ff8c00";
+              e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+            }}
+            placeholder="Instagram URL"
+            type="text"
+            className={`form-control pe-5 ${touched.instagramUrl && errors.instagramUrl ? "is-invalid" : ""}`}
+          />
+          {touched.instagramUrl && errors.instagramUrl && (
+            <div className="invalid-feedback d-block">
+              {errors.instagramUrl}
+            </div>
+          )}
+        </>
+      )}
+    </Field>
+  </div>
+</div>
+</div>
+
                   <div className="row mb-1">
-                    <div className="col-6">
-                      <label className={styles.formLabel}>X URL</label>
-                      <Field
-                        name="twitterUrl"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.twitterUrl}
-                        placeholder="X URL"
-                        id="twitterUrl"
-                        className="form-control "
-                        type="text"
-                      />
-                      {errors.twitterUrl && touched.twitterUrl ? (
-                        <div className={`${styles["errorMsgColour"]} `}>
-                          {errors.twitterUrl}
-                        </div>
-                      ) : null}
-                               
-                    </div>
-                    <div className="col-6">
-                      <label className={styles.formLabel}>Facebook URL</label>
-                      <Field
-                        name="facebookUrl"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.facebookUrl}
-                        placeholder="Facebook URL"
-                        id="name"
-                        className="form-control "
-                        type="text"
-                      />
-                      {errors.facebookUrl && touched.facebookUrl ? (
-                        <div className={`${styles["errorMsgColour"]} `}>
-                          {errors.facebookUrl}
-                        </div>
-                      ) : null}
-                                
-                    </div>
-                  </div>
+                  <div className="col-6">
+  <label className={styles.formLabel}>X URL</label>
+  <div style={{ position: "relative" }}>
+    <Field name="twitterUrl">
+      {({ field, form: { touched, errors } }) => (
+        <>
+          <input
+            {...field}
+            onBlur={(e) => {
+              e.target.style.borderColor = "";
+              e.target.style.boxShadow = "";
+              field.onBlur(e);
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = "#ff8c00";
+              e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+            }}
+            placeholder="X URL"
+            type="text"
+            className={`form-control pe-5 ${touched.twitterUrl && errors.twitterUrl ? "is-invalid" : ""}`}
+          />
+          {touched.twitterUrl && errors.twitterUrl && (
+            <div className="invalid-feedback d-block">
+              {errors.twitterUrl}
+            </div>
+          )}
+        </>
+      )}
+    </Field>
+  </div>
+</div>
+
+<div className="col-6">
+  <label className={styles.formLabel}>Facebook URL</label>
+  <div style={{ position: "relative" }}>
+    <Field name="facebookUrl">
+      {({ field, form: { touched, errors } }) => (
+        <>
+          <input
+            {...field}
+            onBlur={(e) => {
+              e.target.style.borderColor = "";
+              e.target.style.boxShadow = "";
+              field.onBlur(e);
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = "#ff8c00";
+              e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+            }}
+            placeholder="Facebook URL"
+            type="text"
+            className={`form-control pe-5 ${touched.facebookUrl && errors.facebookUrl ? "is-invalid" : ""}`}
+          />
+          {touched.facebookUrl && errors.facebookUrl && (
+            <div className="invalid-feedback d-block">
+              {errors.facebookUrl}
+            </div>
+          )}
+        </>
+      )}
+    </Field>
+  </div>
+</div>
+</div>
                   {showText ? (
                     // {True ? (
                     <div className="mb-3">
@@ -827,55 +889,70 @@ const Vendor: React.FC = () => {
                   null}
 
                   <div className="row mb-3">
-                    <div className="col-12 col-sm-6">
-                      <label className={styles.formLabel}>LinkedIn URL</label>
-                      <Field
-                        name="linkedinUrl"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.linkedinUrl}
-                        placeholder="LinkedIn URL"
-                        id="name"
-                        className="form-control "
-                        type="text"
-                      />
-                      {errors.linkedinUrl && touched.linkedinUrl ? (
-                        <div className={`${styles["errorMsgColour"]} `}>
-                          {errors.linkedinUrl}
-                        </div>
-                      ) : null}
-                               
-                    </div>
-                    <div className="col-12 col-sm-6">
-                      <label className={styles.formLabel}>Message</label>
-                      <Field
-                        name="message"
-                        onChange={handleChange}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = "";
-                          e.target.style.boxShadow = "";
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = "#ff8c00";
-                          e.target.style.boxShadow =
-                            "0 0 5px rgba(255, 140, 0, 0.5)";
-                        }}
-                        value={values.message}
-                        placeholder="Message if any"
-                        className="form-control"
-                        type="text"
-                      />
-                                
-                    </div>
-                  </div>
+                  <div className="col-12 col-sm-6">
+  <label className={styles.formLabel}>LinkedIn URL</label>
+  <div style={{ position: "relative" }}>
+    <Field name="linkedinUrl">
+      {({ field, form: { touched, errors } }) => (
+        <>
+          <input
+            {...field}
+            onBlur={(e) => {
+              e.target.style.borderColor = "";
+              e.target.style.boxShadow = "";
+              field.onBlur(e);
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = "#ff8c00";
+              e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+            }}
+            placeholder="LinkedIn URL"
+            type="text"
+            className={`form-control pe-5 ${touched.linkedinUrl && errors.linkedinUrl ? "is-invalid" : ""}`}
+          />
+          {touched.linkedinUrl && errors.linkedinUrl && (
+            <div className="invalid-feedback d-block">
+              {errors.linkedinUrl}
+            </div>
+          )}
+        </>
+      )}
+    </Field>
+  </div>
+</div>
+
+<div className="col-12 col-sm-6">
+  <label className={styles.formLabel}>Message</label>
+  <div style={{ position: "relative" }}>
+    <Field name="message">
+      {({ field, form: { touched, errors } }) => (
+        <>
+          <input
+            {...field}
+            onBlur={(e) => {
+              e.target.style.borderColor = "";
+              e.target.style.boxShadow = "";
+              field.onBlur(e);
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = "#ff8c00";
+              e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+            }}
+            placeholder="Message if any"
+            type="text"
+            className={`form-control pe-5 ${touched.message && errors.message ? "is-invalid" : ""}`}
+          />
+          {touched.message && errors.message && (
+            <div className="invalid-feedback d-block">
+              {errors.message}
+            </div>
+          )}
+        </>
+      )}
+    </Field>
+  </div>
+</div>
+</div>
                   <div className="col-12 d-flex flex-wrap align-items-center gap-3">
   <div className="col-12 col-md-6">
     <label className={styles.formLabel}>
