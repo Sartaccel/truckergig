@@ -94,7 +94,7 @@ const Contactus: React.FC = () => {
               <Field name="phone" placeholder="Your Phone*" className={styles.inputField} />
               {errors.phone && touched.phone && <div className={styles.error}>{errors.phone}</div>}
 
-              <Field as="textarea" name="message" placeholder="Your Message*" className={styles.textareaField} />
+              <Field as="textarea" name="message" placeholder="Your Message*"maxLength={600} className={styles.textareaField} />
               {errors.message && touched.message && <div className={styles.error}>{errors.message}</div>}
 
               <div className={styles.recaptchaContainer}>

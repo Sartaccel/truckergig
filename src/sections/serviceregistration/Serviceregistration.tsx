@@ -1,307 +1,414 @@
 import React, { useRef, useState, useEffect, createRef } from "react";
-import { Modal } from "react-bootstrap"
+import { Modal } from "react-bootstrap";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import * as yup from "yup";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import Dropdown from "react-bootstrap/Dropdown";
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 import urls from "../../utilities/AppSettings";
 import styles from "./Serviceregistration.module.scss";
 import { CircularProgress } from "@mui/material";
 
-
 const schema = yup.object().shape({
-	// logoFile: yup.string().required(),
-	// redirect: yup.string().required("Please select option"),	
-	// externalUrl: yup.string().min(2).max(24).required(),
-	externalUrl: yup.string().nullable().notRequired(),
-	title: yup.string().required("Title is required").min(2, "Title must have atleast 2 characters").max(50, "Title should not exceed 50 characters"),
-	shortDescription: yup.string().required("Description is required").min(2, "Description must have atleast 2 characters").max(250, "Title should not exceed 250 characters"),
-	emailAddress: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/, "Email is not valid"),
-	// externalUrl: yup.string()
-    // .test('is-valid-url', 'Please enter a valid URL', (value) => {
-    //   if (!value) return false;
-    //   try {
-    //     // Prepend 'http://' if no protocol is specified
-    //     const url = new URL(value.startsWith('http') ? value : `http://${value}`);
-    //     return true;
-    //   } catch (err) {
-    //     return false;
-    //   }
-    // })
-    // .required('Website URL is required'),
+  // logoFile: yup.string().required(),
+  // redirect: yup.string().required("Please select option"),
+  // externalUrl: yup.string().min(2).max(24).required(),
+  externalUrl: yup
+  .string()
+  .nullable()
+.notRequired()
+.matches(
+  /^$|^https:\/\/(?!$)(?!.\.$)(?!.\.\.)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/,
+  "Invalid URL format"),
+  title: yup
+    .string()
+    .required("Title is required")
+    .min(2, "Title must have atleast 2 characters")
+    .max(50, "Title should not exceed 50 characters"),
+//   shortDescription: yup
+//     .string()
+//     .required("Description is required")
+//     .min(2, "Description must have atleast 2 characters")
+//     .max(250, "Title should not exceed 250 characters"),
+
+shortDescription: yup
+.string()
+.required("Description is required")
+.min(2, "Description must have at least 2 characters")
+.max(250, "Description should not exceed 250 characters")
+.test(
+  "no-whitespace",
+  "Spaces are not allowed",
+  (value) => value && value.trim().length > 0
+),
+  emailAddress: yup
+    .string()
+    .required("Email is required")
+    .matches(
+      /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/,
+      "Email is not valid"
+    ),
+  // externalUrl: yup.string()
+  // .test('is-valid-url', 'Please enter a valid URL', (value) => {
+  //   if (!value) return false;
+  //   try {
+  //     // Prepend 'http://' if no protocol is specified
+  //     const url = new URL(value.startsWith('http') ? value : `http://${value}`);
+  //     return true;
+  //   } catch (err) {
+  //     return false;
+  //   }
+  // })
+  // .required('Website URL is required'),
 });
 
-
 const Serviceregistration: React.FC = () => {
-	const router = useRouter()
-	const [show, setShow] = useState(false);
-	const [loading, setLoading] = useState(false);
-	const [Country, setCountry] = useState();
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
-	const [modalIsOpen, setIsOpen] = useState(false);
-	const [PhNumber, setIsPhNumber] = useState('');
-	const [mobile, setmobile] = useState('');
-	const [verify, setverify] = useState('');
-	const [types, settypes] = useState([]);
-	const [license, setlicense] = useState([]);
-	const [licensetype, setlicensetype] = useState('');
-	const [driverlicenseType, setdriverlicenseType] = useState('');
-	const [disableRegister, setdisableRegister] = useState(true);
-	const [licensetypeHidden, setlicensetypeHidden] = useState(false);
-	const [selectedFile, setselectedFile] = useState('');
-	const [selectedOption, setSelectedOption] = useState(undefined);
-	const [dropdown, setdropdown] = useState([]);
-	const [child, setchild] = useState([]);
-	const [List, setList] = useState([]);
-	const [showText, setShowText] = useState(false);
-	const [selectedOptionChild, setselectedOptionChild] = useState(undefined);
-	const [selectedExternal, setselectedExternal] = useState(undefined);
+  const router = useRouter();
+  const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [Country, setCountry] = useState();
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [PhNumber, setIsPhNumber] = useState("");
+  const [mobile, setmobile] = useState("");
+  const [verify, setverify] = useState("");
+  const [types, settypes] = useState([]);
+  const [license, setlicense] = useState([]);
+  const [licensetype, setlicensetype] = useState("");
+  const [driverlicenseType, setdriverlicenseType] = useState("");
+  const [disableRegister, setdisableRegister] = useState(true);
+  const [licensetypeHidden, setlicensetypeHidden] = useState(false);
+  const [selectedFile, setselectedFile] = useState("");
+  const [selectedOption, setSelectedOption] = useState(undefined);
+  const [dropdown, setdropdown] = useState([]);
+  const [child, setchild] = useState([]);
+  const [List, setList] = useState([]);
+  const [showText, setShowText] = useState(false);
+  const [selectedOptionChild, setselectedOptionChild] = useState(undefined);
+  const [selectedExternal, setselectedExternal] = useState(undefined);
 
-	const [email, setemail] = useState('');
-	const [servicename, setservicename] = useState('');
-	const [description, setdescription] = useState('');
+  const [email, setemail] = useState("");
+  const [servicename, setservicename] = useState("");
+  const [description, setdescription] = useState("");
+  const {
+	register,
+	handleSubmit,
+	formState: { errors },
+  } = useForm({
+	resolver: yupResolver(schema),
+  });
+//   const {
+//     register,
+//     handleSubmit,
+//     reset,
+//     formState: { errors },
+//   } = useForm({ resolver: yupResolver(schema) });
 
-	const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
+  const onSubmitHandler = (data) => {
+    if (!selectedOption) {
+      toast.error("Please select service category", {
+        theme: "dark",
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    } else if (child.length > 0 && selectedOptionChild.length == 0) {
+      toast.error("Please select service sub category", {
+        theme: "dark",
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    // else if (!selectedExternal) {
+    // 	toast.error('Please select redirect option', {
+    // 		theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
+    // 		closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
+    // 	})
+    // 	return;
+    // }
+    else if (!selectedFile) {
+      toast.error("Please upload your logo", {
+        theme: "dark",
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    } else {
+    }
+    console.log(selectedExternal);
 
-	const onSubmitHandler = (data) => {
-		if (!selectedOption) {
-			toast.error('Please select service category', {
-				theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-				closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
-			})
-			return;
-		}
-		else if (child.length > 0 && selectedOptionChild.length == 0) {
-			toast.error('Please select service sub category', {
-				theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-				closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
-			})
-			return;
-		}
-		// else if (!selectedExternal) {
-		// 	toast.error('Please select redirect option', {
-		// 		theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-		// 		closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
-		// 	})
-		// 	return;
-		// }
+    console.log(data);
+    setLoading(true);
+    data.serviceCategoryId = selectedOption.value;
+    data.serviceSubCategoryId = selectedOptionChild.value
+      ? selectedOptionChild.value
+      : "0";
+    //data.isExternal = selectedExternal?.value ?? null;
+    data.isExternal = data?.externalUrl !== "" ? 1 : 0;
 
-		else if (!selectedFile) {
-			toast.error('Please upload your logo', {
-				theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-				closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
-			})
-			return;
-		}
-		else {
+    let logoFile = document.getElementById("logoFile") as HTMLInputElement;
+
+    var params = data;
+    var imagefile = logoFile?.files[0];
+    console.log("ImageFile", imagefile);
+    const formdata = new FormData();
+    const serviceInfo = JSON.stringify(params);
+    console.log(serviceInfo);
+    formdata.append("LOGO_FILE", imagefile);
+    formdata.append("serviceInfo", serviceInfo);
+    // params.logoFile = selectedFile;
+    console.log(params);
+    setLoading(true);
+    axios
+      .post(`${urls.baseUrl}services/add`, formdata)
+      .then(function(response) {
+        if (response.status === 200) {
+          toast.success("Service Registered Sucessfully", {
+            theme: "dark",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setTimeout(async () => {
+            await router.push("/");
+            setLoading(false);
+          }, 1000);
+        } else {
+          toast.error(response.data.headers.message, {
+            theme: "dark",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+      })
+      .catch(function(error) {
+        toast.error(error.response.data.headers.message, {
+          theme: "dark",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  };
+
+  console.log(selectedOptionChild);
+
+  let isother = false;
+  useEffect(() => {
+    axios
+      .get(`${urls.baseUrl}services/categories/grouped`)
+      .then(function(response) {
+        const dataList = response.data.data;
+        setList(dataList);
+        console.log(dataList);
+
+        const data = response.data.data.map((x: any) => {
+          return {
+            label: x.name,
+            value: x.id,
+          };
+        });
+        setdropdown(data);
+        console.log(data);
+        // settotaldata(response.data.data.children);
+      });
+  }, []);
+
+  const handleChangeCategoy = (value, action, name) => {
+    switch (name) {
+      case "ServiceCategory":
+        if (action == "clear") {
+        } else {
+          setSelectedOption(value);
+          setselectedOptionChild([]);
+          let childdata = [];
+          List.map((element: any) => {
+            if (element.id == value.value) {
+              childdata = element.children.map((el: any) => {
+                return {
+                  label: el.name,
+                  value: el.id,
+                };
+              });
+            }
+          });
+          setchild(childdata);
+        }
+        break;
+      case "ServiceSubCategory":
+        if (action == "clear") {
+          setselectedOptionChild([]);
+        } else {
+          setselectedOptionChild(value);
+        }
+        break;
+      case "external":
+        if (action == "clear") {
+          setselectedExternal(null);
+          setShowText(false);
+        } else {
+          setselectedExternal(value);
+
+          if (value.value === 1) {
+            setShowText(true);
+          } else {
+            setShowText(false);
+          }
+
+          // else {
+
+          // }
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  const ExternalUrl: Array<any> = [
+    { value: 1, label: "Webiste URL" },
+    { value: 0, label: "Get a Quote" },
+  ];
+  const style = {
+    color: "red",
+    fontSize: 20,
+  };
+  return (
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <div className="row p-2" style={{ marginLeft: "60px" }}>
+        <div className="col">
+          <Breadcrumb>
+            <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+            <Breadcrumb.Item active>New Service Registration</Breadcrumb.Item>
+          </Breadcrumb>
+        </div>
+      </div>
+      <div className="container">
+        <form onSubmit={handleSubmit(onSubmitHandler)}>
+          <div className="row">
+            <div className="col-12"></div>
+          </div>
+          <div className="row">
+            <div className="col-xl-11">
+              <div className={styles.card}>
+                <h4 className={`${styles["name"]}`}>Service Registration</h4>
+                <div className="row">
+                  <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-2">
+                    <label className={styles.formLabel}>Email</label>
+                    <sup className="star">*</sup>
+                    <input
+                      {...register("emailAddress")}
+                      name="emailAddress"
+                      type="email"
+                      placeholder="Enter your email"
+                      className={`${styles.inputField} form-control ${
+                        errors.emailAddress ? "is-invalid" : ""
+                      }`}
+                      value={email}
+                      onChange={(e) => setemail(e.target.value)}
+                    />
+                    <div className="invalid-feedback">
+                      {errors.emailAddress?.message}
+                    </div>
+                    <label className={styles.formLabel}>Service Name</label>
+                    <sup className="star">*</sup>
+                    <input
+                      {...register("title")}
+                      name="title"
+                      type="text"
+                      placeholder="Enter the name of your service"
+                      className={`${styles.inputField} form-control ${
+                        errors.title ? "is-invalid" : ""
+                      }`}
+                      value={servicename}
+                      onChange={(e) => setservicename(e.target.value)}
+                    />
+                    <div className="invalid-feedback">
+                      {errors.title?.message}
+                    </div>
+                    <label className={styles.formLabel}>
+                      Service Description
+                    </label>
+                    <sup className="star">*</sup>
+
+                    {/* <input
+                      {...register("shortDescription", {
+                        required: "This field is required",
+                      })}
+                      name="shortDescription"
+                      type="text"
+                      placeholder="Enter your service description"
+                      className={`${styles.inputField} form-control ${
+                        errors.shortDescription ? "is-invalid" : ""
+                      }`}
+                      value={description}
+                      onChange={(e) => setdescription(e.target.value)}
+                    /> */}
+					<input
+  {...register("shortDescription")}
+  name="shortDescription"
+  type="text"
+  placeholder="Enter your service description"
+  className={`${styles.inputField} form-control ${
+    errors.shortDescription ? "is-invalid" : ""
+  }`}
+  value={description}
+  onChange={(e) => setdescription(e.target.value)}
+/>
 
 
-		}
-		console.log(selectedExternal);
+                    <div className="invalid-feedback">
+                      {errors.shortDescription?.message}
+                    </div>
 
-
-		console.log(data)
-		setLoading(true);
-		data.serviceCategoryId = selectedOption.value;
-		data.serviceSubCategoryId = selectedOptionChild.value ? selectedOptionChild.value : "0";
-		//data.isExternal = selectedExternal?.value ?? null;
-		data.isExternal = data?.externalUrl!=="" ? 1 : 0;
-
-		let logoFile = document.getElementById("logoFile") as HTMLInputElement;
-
-		var params = (data);
-		var imagefile = logoFile?.files[0];
-		console.log("ImageFile", imagefile);
-		const formdata = new FormData()
-		const serviceInfo = JSON.stringify(params);
-		console.log(serviceInfo);
-		formdata.append("LOGO_FILE", imagefile);
-		formdata.append("serviceInfo", serviceInfo);
-		// params.logoFile = selectedFile;
-		console.log(params)
-		setLoading(true);
-		axios.post(`${urls.baseUrl}services/add`, formdata)
-			.then(function (response) {
-				if (response.status === 200) {
-					toast.success('Service Registered Sucessfully', {
-						theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-						closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
-					});
-					setTimeout(async() => {
-						await router.push("/");
-						setLoading(false);
-					},1000); 
-
-				}
-
-				else {
-					toast.error(response.data.headers.message, {
-						theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-						closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
-					});
-				}
-			})
-			.catch(function (error) {
-
-				toast.error(error.response.data.headers.message, {
-					theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-					closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
-				});
-
-			});
-	}
-
-	console.log(selectedOptionChild)
-
-	let isother = false;
-	useEffect(() => {
-		axios
-			.get(`${urls.baseUrl}services/categories/grouped`)
-			.then(function (response) {
-				const dataList = (response.data.data);
-				setList(dataList);
-				console.log(dataList)
-
-				const data = response.data.data.map((x: any) => {
-					return {
-						label: x.name,
-						value: x.id,
-					};
-				});
-				setdropdown(data);
-				console.log(data)
-				// settotaldata(response.data.data.children);
-			});
-	}, []);
-
-	const handleChangeCategoy = (value, action, name) => {
-		switch (name) {
-			case "ServiceCategory":
-				if (action == "clear") {
-				}
-				else {
-					setSelectedOption(value);
-					setselectedOptionChild([]);
-					let childdata = []
-					List.map((element: any) => {
-						if (element.id == value.value) {
-							childdata = element.children.map((el: any) => {
-								return {
-									label: el.name,
-									value: el.id,
-								};
-							})
-						}
-					})
-					setchild(childdata)
-				}
-				break;
-			case "ServiceSubCategory":
-				if (action == "clear") {
-					setselectedOptionChild([]);
-				}
-				else {
-					setselectedOptionChild(value);
-				}
-				break;
-			case "external":
-				if (action == "clear") {
-					setselectedExternal(null);
-					setShowText(false)
-				}
-				else {
-
-					setselectedExternal(value);
-
-					if (value.value === 1) {
-
-						setShowText(true);
-					}
-					else {
-						setShowText(false);
-					}
-
-					// else {
-
-					// }
-				}
-				break;
-			default:
-				break;
-		}
-	}
-
-	const ExternalUrl: Array<any> = [
-		{ value: 1, label: "Webiste URL" },
-		{ value: 0, label: "Get a Quote" },
-	];
-	const style = {
-		color: 'red',
-		fontSize: 20
-	};
-	return (
-		<>
-			<ToastContainer position="top-right" autoClose={1500} hideProgressBar={false} newestOnTop={false}
-				closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-			<div className='row p-2' style={{marginLeft:"60px"}}>
-				<div className='col'>
-					<Breadcrumb>
-						<Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-						<Breadcrumb.Item active>New Service Registration</Breadcrumb.Item>
-					</Breadcrumb>
-				</div>
-			</div>
-			<div className="container">
-				<form onSubmit={handleSubmit(onSubmitHandler)}>
-					<div className="row">
-					
-						<div className="col-12">
-							
-							
-						</div>
-					</div>
-					<div className="row">
-						<div className="col-xl-11">
-							 <div className={styles.card}>
-							 <h4  className={`${styles["name"]}`}>Service Registration</h4>
-							<div className="row">
-								<div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-2">
-									<label className={styles.formLabel}>Email</label><sup className="star">*</sup>
-									<input {...register("emailAddress")} name="emailAddress" type="email"
-									
-									placeholder="Enter your email" className={`${styles.inputField} form-control ${errors.emailAddress ? "is-invalid" : ""}`} 
-									value={email} onChange={ e => setemail(e.target.value)}/>
-									<div className="invalid-feedback">{errors.emailAddress?.message}</div>
-									<label className={styles.formLabel}>Service Name</label><sup className="star">*</sup>
-									<input {...register("title")} name="title" type="text"
-									
-									  placeholder="Enter the name of your service" className={`${styles.inputField} form-control ${errors.title ? "is-invalid" : ""}`} 
-									value={servicename} onChange={ e => setservicename(e.target.value)}/>
-									<div className="invalid-feedback">{errors.title?.message}</div>
-									<label className={styles.formLabel}>Service Description</label>
-            <sup className="star">*</sup>
-
-            <input 
-                {...register("shortDescription", { required: "This field is required" })} 
-                name="shortDescription" 
-                type="text"
-                placeholder="Enter your service description"
-                className={`${styles.inputField} form-control ${errors.shortDescription ? "is-invalid" : ""}`}  
-                value={description} 
-                onChange={(e) => setdescription(e.target.value)}
-            />
-
-            <div className="invalid-feedback">{errors.shortDescription?.message}</div>
-								
-									{/* <label className={styles.formLabel}>Company Website URL</label> */}
-									{/* <Select {...register("redirect")} name="redirect" options={ExternalUrl} placeholder="Company Website URL" className={` ${errors.redirect ? "is-invalid" : ""} pt-2 `}
+                    {/* <label className={styles.formLabel}>Company Website URL</label> */}
+                    {/* <Select {...register("redirect")} name="redirect" options={ExternalUrl} placeholder="Company Website URL" className={` ${errors.redirect ? "is-invalid" : ""} pt-2 `}
 										value={selectedExternal}
 										 styles={{
 																			control: (base, state) => ({
@@ -319,132 +426,223 @@ const Serviceregistration: React.FC = () => {
 									/>
 									 */}
 
+                    <div style={{ marginBottom: "3px" }}>
+                      <label className={styles.formLabel}>
+                        Company Website URL
+                      </label>
+                      <input
+                        {...register("externalUrl")}
+                        name="externalUrl"
+                        type="text"
+                        placeholder="Enter external URL with http/https"
+                        className={`${styles.inputField} form-control ${
+                          errors.externalUrl ? "is-invalid" : ""
+                        }`}
+                      />
+                      <div className="invalid-feedback">
+                        {errors.externalUrl?.message}
+                      </div>
 
-									
-										<div style={{marginBottom:"3px"}}>
+                      {/* <div className="invalid-feedback">
+                        {errors.externalUrl?.message}
+                      </div> */}
+                      <br />
+                    </div>
+                  </div>
 
-<label className={styles.formLabel}>Company Website URL</label>
-<input
-  {...register('externalUrl')}
-  name="externalUrl"
-  type="text"
-  placeholder="Enter external URL with http/https"
-  className={`${styles.inputField} form-control ${errors.externalUrl ? 'is-invalid' : ''}`}
-/>
-<div className="invalid-feedback">{errors.externalUrl?.message}</div>
-
-											<div className="invalid-feedback">{errors.externalUrl?.message}</div><br />
-										</div>
-									
-								</div>
-
-								{/* <div className="pt-2">
+                  {/* <div className="pt-2">
                                     <label>License Type</label>
                                     <Select options={license} value={licensetype} placeholder="License Type" className="srcgap"
                                         onChange={handleChangeLicense}
                                     />
                                 </div> */}
-								<div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-2">
-									
-										<label className={styles.formLabel}>Service Category</label><sup className="star">*</sup>
-										<Select options={dropdown} value={selectedOption} placeholder="Choose your Service Category" className="srcgap"
-										 styles={{
-																			control: (base, state) => ({
-																			  ...base,
-																			  borderColor: state.isFocused ? "#ff8c00" : base.borderColor,
-																			  boxShadow: state.isFocused ? "0 0 5px rgba(255, 140, 0, 0.5)" : "none",
-																			  "&:hover": {
-																				borderColor: "#ff8c00",
-																			  },
-																			}),
-																		  }}
+                  <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-2">
+                    <label className={styles.formLabel}>Service Category</label>
+                    <sup className="star">*</sup>
+                    <Select
+                      options={dropdown}
+                      value={selectedOption}
+                      placeholder="Choose your Service Category"
+                      className="srcgap"
+                      styles={{
+                        control: (base, state) => ({
+                          ...base,
+                          borderColor: state.isFocused
+                            ? "#ff8c00"
+                            : base.borderColor,
+                          boxShadow: state.isFocused
+                            ? "0 0 5px rgba(255, 140, 0, 0.5)"
+                            : "none",
+                          "&:hover": {
+                            borderColor: "#ff8c00",
+                          },
+                        }),
+                      }}
+                      onChange={(value, { action }) =>
+                        handleChangeCategoy(value, action, "ServiceCategory")
+                      }
+                    />
 
-											onChange={(value, { action }) =>
-												handleChangeCategoy(value, action, "ServiceCategory")
-											}
-										/>
-									
-									
-										<label className={styles.formLabel} style={{marginTop:"1px"}}>Service Sub Category</label>
-										<Select options={child} value={selectedOptionChild} placeholder="Choose your Service Sub Category" className="srcgap"
-										 styles={{
-																			control: (base, state) => ({
-																			  ...base,
-																			  borderColor: state.isFocused ? "#ff8c00" : base.borderColor,
-																			  boxShadow: state.isFocused ? "0 0 5px rgba(255, 140, 0, 0.5)" : "none",
-																			  "&:hover": {
-																				borderColor: "#ff8c00",
-																			  },
-																			}),
-																		  }}
-											onChange={(value, { action }) =>
-												handleChangeCategoy(value, action, "ServiceSubCategory")
-											}
-										/>
-									
-									
-									<label className={styles.formLabel} style={{marginTop:"1px"}}>Upload your Logo</label><sup className="star">*</sup>
-									<input id="logoFile" name="logoFile" type="file"
-									 onBlur={(e) => {
-										e.target.style.borderColor = ""; 
-										e.target.style.boxShadow = "";
-									  }}
-									  onFocus={(e) => {
-										e.target.style.borderColor = "#ff8c00"; 
-										e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-									  }}
+                    <label
+                      className={styles.formLabel}
+                      style={{ marginTop: "1px" }}
+                    >
+                      Service Sub Category
+                    </label>
+                    <Select
+                      options={child}
+                      value={selectedOptionChild}
+                      placeholder="Choose your Service Sub Category"
+                      className="srcgap"
+                      styles={{
+                        control: (base, state) => ({
+                          ...base,
+                          borderColor: state.isFocused
+                            ? "#ff8c00"
+                            : base.borderColor,
+                          boxShadow: state.isFocused
+                            ? "0 0 5px rgba(255, 140, 0, 0.5)"
+                            : "none",
+                          "&:hover": {
+                            borderColor: "#ff8c00",
+                          },
+                        }),
+                      }}
+                      onChange={(value, { action }) =>
+                        handleChangeCategoy(value, action, "ServiceSubCategory")
+                      }
+                    />
 
-										onChange={(e) => setselectedFile(e.target.value)}
-										className={`form-control ${errors.logoFile ? "is-invalid" : ""}`} />
-									<div className="invalid-feedback ">{errors.logoFile?.message}</div>
-									<label className="file-type " style={{marginTop:"6px"}}>Maximum allowed file size: 2 MB</label><br />
-									<label className="file-type">Allowed formats: .jpeg, .jpg, .png, .bmp</label>
+                    <label
+                      className={styles.formLabel}
+                      style={{ marginTop: "1px" }}
+                    >
+                      Upload your Logo
+                    </label>
+                    <sup className="star">*</sup>
+                    {/* <input
+                      id="logoFile"
+                      name="logoFile"
+                      type="file"
+                      onBlur={(e) => {
+                        e.target.style.borderColor = "";
+                        e.target.style.boxShadow = "";
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = "#ff8c00";
+                        e.target.style.boxShadow =
+                          "0 0 5px rgba(255, 140, 0, 0.5)";
+                      }}
+                      onChange={(e) => setselectedFile(e.target.value)}
+                      className={`form-control ${
+                        errors.logoFile ? "is-invalid" : ""
+                      }`}
+                    /> */}
+					<input
+  id="logoFile"
+  name="logoFile"
+  type="file"
+  accept=".jpeg,.jpg,.png,.bmp"
+  onBlur={(e) => {
+    e.target.style.borderColor = "";
+    e.target.style.boxShadow = "";
+  }}
+  onFocus={(e) => {
+    e.target.style.borderColor = "#ff8c00";
+    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+  }}
+  onChange={(e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/bmp'];
+      if (!validImageTypes.includes(file.type)) {
+        toast.error('Only image files (.jpeg, .jpg, .png, .bmp) are allowed!', {
+          theme: "dark",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        e.target.value = ''; // Clear the invalid file
+        setselectedFile('');
+        return;
+      }
+      setselectedFile(file.name);
+    }
+  }}
+  className={`form-control ${errors.logoFile ? "is-invalid" : ""}`}
+/>
 
-								</div>
-							
-							</div>
-							{/* <div className="text-center mt-1">
+					
+                    <div className="invalid-feedback ">
+                      {errors.logoFile?.message}
+                    </div>
+                    <label className="file-type " style={{ marginTop: "6px" }}>
+                      Maximum allowed file size: 2 MB
+                    </label>
+                    <br />
+                    <label className="file-type">
+                      Allowed formats: .jpeg, .jpg, .png, .bmp
+                    </label>
+                  </div>
+                </div>
+                {/* <div className="text-center mt-1">
 							{email && servicename && description && selectedExternal && selectedOption && selectedFile?
 						<button type="submit" className={`${styles["reg-btn"]} `}>Register</button>
 						:
 						<button type="submit" className={`${styles["reg-btn-disable"]}`} disabled>Register</button>}
 						</div> */}
-						<div className="text-center mt-1">
-  <button
-    type="submit"
-    className={servicename && description && selectedOption && selectedFile
-      ? styles["reg-btn"]
-      : styles["reg-btn-disable"]}
-    disabled={
-       !servicename || !description || !selectedOption || !selectedFile || loading
-    }
-  >
-    {loading ? (
-      <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
-        Registering...
-        <CircularProgress size={20} color="inherit" />
-      </span>
-    ) : (
-      "Register"
-    )}
-  </button>	
-</div>
-
-						</div>
-					</div>
-					{/* <button type="submit" className="reg-btn">Register</button> */}
-					{/* {email && servicename && description && selectedExternal && selectedOption && selectedFile?
+                <div className="text-center mt-1">
+                  <button
+                    type="submit"
+                    className={
+                      servicename &&
+                      description &&
+                      selectedOption &&
+                      selectedFile
+                        ? styles["reg-btn"]
+                        : styles["reg-btn-disable"]
+                    }
+                    disabled={
+                      !servicename ||
+                      !description ||
+                      !selectedOption ||
+                      !selectedFile ||
+                      loading
+                    }
+                  >
+                    {loading ? (
+                      <span
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "8px",
+                        }}
+                      >
+                        Registering...
+                        <CircularProgress size={20} color="inherit" />
+                      </span>
+                    ) : (
+                      "Register"
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+            {/* <button type="submit" className="reg-btn">Register</button> */}
+            {/* {email && servicename && description && selectedExternal && selectedOption && selectedFile?
 						<button type="submit" className={`${styles["reg-btn"]} `}>Register</button>
 						:
 						<button type="submit" className={`${styles["reg-btn-disable"]}`} disabled>Register</button>} */}
-						</div>
-				</form>
-
-			</div >
-		</>
-	);
+          </div>
+        </form>
+      </div>
+    </>
+  );
 };
 
 export default Serviceregistration;
-
-
