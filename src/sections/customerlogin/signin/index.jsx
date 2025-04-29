@@ -136,32 +136,22 @@ const Signin = () => {
     router.push('/forgotpassword');
 }
 
-  const onSubmitHandler1 = (data) => {
-    setLoading(true);
-    data.loginTypeId = "1";
-    var params = {
-      ...data,
-      username: data.userName,  
-    };
-    delete params.userName;
-      axios
-
-        .post(`${urls.baseUrl}login`, params)
+    const onSubmitHandler1 = (data) => {
+      setLoading(true);
+      data.loginTypeId = "1";
+      var params = {
+        ...data,
+        username: data.userName,
+      };
+      delete params.userName;
+    
+      axios.post(`${urls.baseUrl}login`, params)
         .then(function (response) {
-          if(response?.data?.headers?.statusCode == 407){
-            toast.error("Invalid Credentials", {
-              theme: "colored",
-              position: "top-right",
-              autoClose: 1500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-    setLoading(false);
-          }else if(response?.data?.headers?.statusCode == 200){
-            toast.success("Login Successful", {
+          const message = response?.data?.headers?.message;
+          const statusCode = response?.data?.headers?.statusCode;
+    
+          if (statusCode == 200) {
+            toast.success(message || "Login Successful", {
               theme: "colored",
               position: "top-right",
               autoClose: 1500,
@@ -176,8 +166,8 @@ const Signin = () => {
             localStorage.setItem("Authorization", response.data.data.authtoken);
             localStorage.setItem("role", "user");
             router.push("/marketplace");
-          }else {
-            toast.error("Login error", {
+          } else {
+            toast.error(message || "Login Failed", {
               theme: "colored",
               position: "top-right",
               autoClose: 1500,
@@ -187,12 +177,47 @@ const Signin = () => {
               draggable: true,
               progress: undefined,
             });
-    setLoading(false);
+            setLoading(false);
           }
         })
-        .catch(function (error) {
-          console.log("errror")
-          toast.error("Invalid Credentials", {
+        .catch(function () {
+          // Optional: only log error, don’t show toast here
+          console.log("Login request failed.");
+          setLoading(false);
+        });
+    };
+
+    
+    const onSubmitHandler = (data) => {
+      setLoading(true);
+      axios.post(`${urls.userUrl}gateway/trmlogin`, data)
+        .then((response) => {
+          const message = response?.data?.headers?.message;
+          const statusCode = response?.data?.headers?.statusCode;
+    
+          if (message === "User logged in successfully" && statusCode == 200) {
+            toast.success(message, {
+              theme: "colored",
+              position: "top-right",
+              autoClose: 1500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            const userdetail = response.data.data;
+            localStorage.setItem("user", JSON.stringify(userdetail));
+            localStorage.setItem("Authorization", userdetail.authtoken);
+            localStorage.setItem("Clientname", userdetail.clientName);
+            localStorage.setItem("Clientid", userdetail.clientId);
+            localStorage.setItem("role", userdetail.userType);
+            router.push("/marketplace");
+          }
+        })
+        .catch((error) => {
+          const message = error?.response?.data?.headers?.message || "Login request failed";
+          toast.error(message, {
             theme: "colored",
             position: "top-right",
             autoClose: 1500,
@@ -202,73 +227,11 @@ const Signin = () => {
             draggable: true,
             progress: undefined,
           });
-    setLoading(false);
+          setLoading(false);
         });
     };
-
-      const onSubmitHandler = (data) => {
-        setLoading(true);
-          var params = data;
-          axios.post(`${urls.userUrl}gateway/trmlogin`, params).then(function (response) {
-              console.log(params)
-              if(response?.data?.headers?.statusCode == 407){
-                toast.error("Invalid Credentials", {
-                  theme: "colored",
-                  position: "top-right",
-                  autoClose: 1500,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-    setLoading(false);
-              }else if(response?.data?.headers?.statusCode == 200){
-                toast.success("Login Successful", {
-                  theme: "colored",
-                  position: "top-right",
-                  autoClose: 1500,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-                const userdetail = response.data.data;
-                localStorage.setItem("user", JSON.stringify(userdetail));
-                localStorage.setItem("Authorization", response.data.data.authtoken);
-                localStorage.setItem("Clientname", response.data.data.clientName);
-                localStorage.setItem("Clientid", response.data.data.clientId);
-                localStorage.setItem("role", response.data.data.userType);
-                router.push("/marketplace");
-              }else {
-                toast.error("Login error", {
-                  theme: "colored",
-                  position: "top-right",
-                  autoClose: 1500,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-    setLoading(false);
-              }
-          })
-              .catch(function (error) {
-                  toast.error("Invalid Credentials", {
-                      theme: "colored",
-                      position: "top-right",
-                      autoClose: 1500,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                  });
-    setLoading(false);
-              });
-      };
+    
+      
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev)
