@@ -120,7 +120,7 @@ const Events: React.FC = (props) => {
           </div>
           {(eventtotime === "") ?
             <div className={`${styles["event-clock-detail"]} col-6`}><i className="bi bi-clock" style={{ color: "#f7941d" }}></i> {eventfromtime}</div>
-            : <div className={`${styles["event-clock-detail"]} col-6`}><i className="bi bi-clock" style={{ color: "#f7941d" }}></i> {eventfromtime} - {eventtotime}</div>
+            : <div className={`${styles["event-clock-detal"]} col-6`}><i className="bi bi-clock" style={{ color: "#f7941d" }}></i> {eventfromtime} - {eventtotime}</div>
           }
           <div className={`${styles["event-desc-title"]} col-12`}><p>{eventtitle}</p></div>
           <div className="col-12 mb-4" style={{}} dangerouslySetInnerHTML={{ __html: eventdescription }}></div>
