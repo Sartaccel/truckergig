@@ -16,6 +16,17 @@ export const EventsCards = (props: any) => {
     });
   };
   
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    const month = date.toLocaleString("en-US", { month: "short" });
+    const day = String(date.getDate()).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${month}-${day}-${year}`;
+  };
+  
+  
+  
   const truncateText = (text, maxLength) => {
     if (!text) return "";
     return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
@@ -71,7 +82,9 @@ export const EventsCards = (props: any) => {
             <div className="row">
               <div className={`${styles["card-calender-event"]} col-6 `}>
                 <i className="bi bi-calendar-event" style={{ color: "#f7941d" }}></i>{" "}
-                {props.items.date}
+                {/* {props.items.date} */}
+                {formatDate(props.items.date)}
+
               </div>
               <div className={`${styles["card-clock-event"]} col-6 `}>
                 <i className="bi bi-clock" style={{ color: "#f7941d" }}></i>{" "}
