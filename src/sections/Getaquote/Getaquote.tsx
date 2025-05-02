@@ -24,8 +24,11 @@ const schema = yup.object().shape({
     city: yup.string().required("City is required"),
     zipcode: yup.string().required("Zipcode is required").matches(/^\d{4,}$/, "Zipcode is not valid"),
     email: yup.string().email().required("Email is required"),
-    contactNo: yup.string().required("ContactNo is required").matches(/^\d{10}$/, "Phone number is not valid"),
-    address: yup.string().required("Address is required"),
+    contactNo: yup.string()
+    .required("This is a required field")
+    .matches(/^[0-9]+$/, "Must be only digits")
+    .min(10, "Must be exactly 10 digits")
+    .max(10, "Must be exactly 10 digits"),    address: yup.string().required("Address is required"),
 
 })
 
@@ -213,7 +216,7 @@ const Getaquote: React.FC = (props: any) => {
                                                 <label>Contact No</label><sup className={`${styles["star"]} `} >*</sup>
                                             </div>
                                             <div>
-                                                <input {...register("contactNo")} type="text" placeholder="Phone"
+                                                <input {...register("contactNo")} maxLength={10} type="text" placeholder="Phone"
                                                     className={`form-control ${errors.contactNo ? "is-invalid" : ""}`} />
                                                 <div className="invalid-feedback"> {errors.contactNo?.message}</div>
                                             </div>

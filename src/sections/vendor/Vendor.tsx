@@ -35,11 +35,11 @@ contactFirstName: yup
 
 emailAddress: yup
   .string()
-  .required("This is a required field")
-  .transform((value) => value?.toLowerCase())
+  .trim()
+  .transform((value) => (value === '' ? undefined : value.toLowerCase()))
+  .required("Email is required")
   .matches(
-    /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
-    "Enter a valid email address (lowercase only)"
+    /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,"Enter a valid email"
   )
   .max(50),
 
@@ -52,7 +52,7 @@ telephone: yup
 
 password: yup
   .string()
-  .required("This is a required field")
+  .required("Password is  required")
   .min(6, "Password must be at least 6 characters")
   .matches(/[A-Z]/, "Must contain at least one uppercase letter")
   .matches(/\d/, "Must contain at least one number")
@@ -615,36 +615,44 @@ const Vendor: React.FC = () => {
                       <label className={styles.formLabel}>Email</label>
                       <sup className="star">*</sup>
 
-                      <Field
-    name="emailAddress"
-    onChange={(e) => {
-      let value = e.target.value.toLowerCase();
-      // Allow only a-z, A-Z, 0-9, @ and .
-      const filteredValue = value.replace(/[^a-z0-9@.]/g, '');
-
-      e.target.value = filteredValue; // Update the event value
-      handleChange(e); // Pass to Formik
-    }}
-    onBlur={(e) => {
-      e.target.style.borderColor = "";
-      e.target.style.boxShadow = "";
-    }}
-    onFocus={(e) => {
-      e.target.style.borderColor = "#ff8c00";
-      e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-    }}
-    value={values.emailAddress}
-    placeholder="Enter your Email Address"
-    id="emailAddress"
-    className="form-control"
-    type="text"
-  />
-
-  {errors.emailAddress && touched.emailAddress ? (
+                      <Field name="emailAddress">
+  {({ field, form, meta }) => (
+    <>
+      <input
+        {...field}
+        type="text"
+        id="emailAddress"
+        placeholder="Enter your Email Address"
+        className="form-control"
+        onChange={(e) => {
+          const value = e.target.value.toLowerCase();
+          const filteredValue = value.replace(/[^a-z0-9@.]/g, '');
+          form.setFieldValue("emailAddress", filteredValue); // ✅ Correct way
+        }}
+        onBlur={(e) => {
+          form.handleBlur(e); // ✅ Triggers validation
+          e.target.style.borderColor = "";
+          e.target.style.boxShadow = "";
+        }}
+        onFocus={(e) => {
+          e.target.style.borderColor = "#ff8c00";
+          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+        }}
+        value={field.value}
+      />
+      
+      {/* ✅ Show error only if touched and error exists */}
+      {meta.touched && meta.error && (
+        <div className="text-danger">{meta.error}</div>
+      )}
+    </>
+  )}
+</Field>
+  {/* {errors.emailAddress && touched.emailAddress ? (
     <div className={`${styles["errorMsgColour"]}`}>
       {errors.emailAddress}
     </div>
-  ) : null}
+  ) : null} */}
 </div>
                   </div>
                   <div className="row mb-1">

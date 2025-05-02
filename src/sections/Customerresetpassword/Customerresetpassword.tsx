@@ -25,7 +25,7 @@ const schema = yup.object().shape({
     .required("Enter new password")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/,
-      "Password must be at least 6 characters, include uppercase, lowercase, and special character"
+      "Use 6 characters, uppercase, lowercase, special symbol"
     ),
   retypepwd: yup
     .string()

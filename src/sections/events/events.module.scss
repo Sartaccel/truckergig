@@ -131,11 +131,18 @@
   // Clock detail for event time
   .event-clock-detail {
     text-align: right;
+    text-align: center;
     max-width: 500px;
     font-size: 16px;
     color: #555;
   }
-  
+  .event-clock-detal{
+    text-align: 0;
+    max-width: 500px;
+    margin-left: -3px;
+    font-size: 16px;
+    color:#555;
+}
 //   // Centered text utilities
 //   .text-center {
 //     text-align: center;
