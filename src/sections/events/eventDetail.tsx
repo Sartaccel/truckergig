@@ -20,6 +20,16 @@ const Events: React.FC = (props) => {
   const [eventtotime, seteventtotime] = useState("")
   const [eventdate, seteventdate] = useState("")
   const [imageLoaded, setImageLoaded] = useState(false);
+
+  const formatDate = (dateStr: string) => {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    const month = date.toLocaleString("en-US", { month: "short" }); // e.g. "May"
+    const day = String(date.getDate()).padStart(2, "0"); // ensures 2-digit day
+    const year = date.getFullYear();
+    return `${month}-${day}-${year}`;
+  };
+  
   
   const shareUrl = linkText;
   var linkText, eventId, titleText;
@@ -81,7 +91,7 @@ const Events: React.FC = (props) => {
         </div>
         <div className={`${styles["event-detail-text"]} row pt-3`}>
           <div className="col-6"><i className="bi bi-geo-alt-fill" style={{ color: "#f7941d" }} ></i> {eventlocation}</div>
-          <div className={`${styles["event-clock-detail"]} col-6`}><i className="bi bi-calendar-event" style={{ color: "#f7941d" }}></i> {eventdate}</div>
+          <div className={`${styles["event-clock-detail"]} col-6`}><i className="bi bi-calendar-event" style={{ color: "#f7941d" }}></i>{formatDate(eventdate)}</div>
           <div className="col-6">
             <Popup
               trigger={
@@ -113,9 +123,10 @@ const Events: React.FC = (props) => {
             : <div className={`${styles["event-clock-detail"]} col-6`}><i className="bi bi-clock" style={{ color: "#f7941d" }}></i> {eventfromtime} - {eventtotime}</div>
           }
           <div className={`${styles["event-desc-title"]} col-12`}><p>{eventtitle}</p></div>
-          <div className="col-12" style={{}} dangerouslySetInnerHTML={{ __html: eventdescription }}></div>
+          <div className="col-12 mb-4" style={{}} dangerouslySetInnerHTML={{ __html: eventdescription }}></div>
         </div>
       </div>
+      
     </>
   );
 }
