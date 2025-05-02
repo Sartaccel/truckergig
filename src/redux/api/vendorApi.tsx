@@ -20,23 +20,28 @@ export const SaveVendor = (payload) => {
           .then((res) => {
             const data = res.data.headers;
             console.log(data.statusCode);
-            if (data.statusCode == 200) {
-              Router.push("/serviceregistration");
-            }
-            resolve(res);
-             NotificationManager.success(res.data.headers.message);                                                                                 
-            // {notify}
-            // <ToastContainer />
-          })
-          
-        .catch((err) => {
-            reject(err);
-            NotificationManager.error("Not Saved");   
-            if (err.response?.status == 403) {
-              // RedirectTo403(history);
-            }
-          
-  
-          });
+            
+      if (data.statusCode == 200) {
+        // NotificationManager.success(data.message);
+        toast.success(data.message, {
+                    theme: "dark", position: "top-right", autoClose: 5000
+                  });
+        Router.push("/serviceregistration");
+      } else {
+        // NotificationManager.error(data.message || "Something went wrong!");
+        toast.error(data.message || "Something went wrong!", {
+                    theme: "dark", position: "top-right", autoClose: 5000
+                  });
+      }
+
+      resolve(res);
+    }).catch((err) => {
+      const message = err.response?.data?.headers?.message || "Not Saved";
+      // NotificationManager.error(message);
+      toast.error(message, {
+        theme: "dark", position: "top-right", autoClose: 5000
+      });
+      reject(err);
+    });
       });
     };

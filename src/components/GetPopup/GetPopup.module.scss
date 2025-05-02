@@ -102,14 +102,12 @@ border-radius: 50% !important;
 }
 
 .getaquote-image {
-    height: auto;
-    max-height: 87px;
-    max-width: 100%;
-    width: auto;
-    margin: 0 auto 5px auto;
-    transition: .5s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 0 10px 0;
-}
+    width: 6rem;
+    height: 6rem;
+    object-fit: contain;
+    margin: 0 auto 0.5rem auto;
+    transition: 0.5s ease;
+    display: block;
+    padding: 0.625rem 0;
+  }
+  

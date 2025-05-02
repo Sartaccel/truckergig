@@ -119,13 +119,22 @@ const Getaquote: React.FC = (props: any) => {
                 </div>
                 <div className="row">
                     <div className="col-lg-3 col-3 pt-4">
-                        <div className={`${styles["getaquote-text"]} p-1`}>
-                            <p>SELECTED <strong>SERVICE</strong></p>
-                            <img className={`${styles["getaquote-image"]}`}
-                                src={selectedData && selectedData.logoPath}
-                                alt={selectedData && selectedData.serviceName}
-                            />
-                        </div>
+                    <div className={`${styles["getaquote-text"]} p-1`}>
+  <p>
+    SELECTED <strong>SERVICE</strong>
+  </p>
+  <p>{selectedData?.serviceName}</p>
+  {selectedData?.logoPath?.trim() && (
+    <img
+      className={styles["getaquote-image"]}
+      src={selectedData.logoPath}
+      alt={selectedData?.serviceName}
+      onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+        e.currentTarget.style.display = 'none'; // Hides broken image
+      }}
+    />
+  )}
+</div>
                         <div className={`${styles["getaquote-text"]} p-1`}>
                             <p>RELATED <strong>SERVICE</strong></p>
                             {/* {

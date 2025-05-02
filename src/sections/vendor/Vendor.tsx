@@ -273,7 +273,7 @@ const Vendor: React.FC = () => {
               await router.push("/serviceregistration");
               setLoading(false);
               setSubmitting(false);
-            }, 1000); 
+            }, 2000); 
           }}
         >
           {({

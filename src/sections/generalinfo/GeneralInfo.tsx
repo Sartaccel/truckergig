@@ -67,33 +67,31 @@ const Candidateregister: React.FC = () => {
 	const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 	const onSubmitHandler = (data) => {
 		data.profileStatus = '1';
-		const code = Country
-		data.phoneNumber = code + data.phoneNumber
-		data.licenseType = driverlicenseType
-		var params = (data);
-		console.log(params)
+		const code = Country;
+		data.phoneNumber = code + data.phoneNumber;
+		data.licenseType = driverlicenseType;
+	
+		const params = data;
+		console.log(params);
+	
 		axios.post(`${urls.baseUrl}candidates/add`, params)
-
 			.then(function (response) {
 				if (response.status === 200) {
-					toast.success('Driver Register Sucessfully', {
-						theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-						closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
+					toast.success('Driver Registered Successfully', {
+						theme: "dark", position: "top-right", autoClose: 5000
 					});
-					setTimeout(() => { window.location.reload(); }, 3000);
-
-				}
-				else {
-					toast.error('Something went wrong!', {
-						theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-						closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
+					setTimeout(() => { window.location.reload(); }, 1500);
+				} else {
+					const message = response.data?.message || 'Something went wrong!';
+					toast.error(message, {
+						theme: "dark", position: "top-right", autoClose: 5000
 					});
 				}
 			})
 			.catch(function (error) {
-				toast.error('Error!', {
-					theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-					closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
+				const message = error.response?.data?.headers?.message || 'Error!';
+				toast.error(message, {
+					theme: "dark", position: "top-right", autoClose: 5000
 				});
 			});
 	}
