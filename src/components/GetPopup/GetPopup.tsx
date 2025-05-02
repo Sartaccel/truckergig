@@ -123,7 +123,7 @@ const GetPopup: React.FC = () => {
 
     return (
         <>
-            {
+            {/* {
                 quote && quote.map(function (element, idx) {
                     return (
                         <div className={`${styles["quote-image"]} `}>
@@ -142,7 +142,30 @@ const GetPopup: React.FC = () => {
                         </div>
                     )
                 })
-            }
+            } */}
+    {quote && quote.map((element, idx) => (
+  element.logoPath?.trim() && (
+    <div key={idx} className={styles["quote-image"]}>
+      <Link href="">
+        <a>
+          <img
+            className={styles["getaquote-image"]}
+            src={element.logoPath}
+            alt={element.serviceName || "Service"}
+            onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+              e.currentTarget.style.display = 'none'; // Hide if broken
+            }}
+            onClick={() => {
+              setpopupdata(element);
+              handleShow(element);
+            }}
+          />
+        </a>
+      </Link>
+    </div>
+  )
+))}
+
             <Modal
                 className={`${styles["modal-content"]} `}
                 show={show}
