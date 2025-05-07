@@ -192,8 +192,18 @@ const Getaquote: React.FC = (props: any) => {
                                                 <label>Zipcode</label><sup className={`${styles["star"]} `} >*</sup>
                                             </div>
                                             <div>
-                                                <input {...register("zipcode")} type="text" placeholder="Zipcode"
-                                                    className={`form-control ${errors.zipcode ? "is-invalid" : ""}`} />
+                                            <input
+                                                {...register("zipcode")}
+                                                type="text"
+                                                placeholder="Zipcode"
+                                                maxLength={6}
+                                                onInput={(e) => {
+                                                    const input = e.target as HTMLInputElement;
+                                                    input.value = input.value.replace(/[^0-9]/g, "");
+                                                }}
+                                                className={`form-control ${errors.zipcode ? "is-invalid" : ""}`}
+                                                />
+
                                                 <div className="invalid-feedback"> {errors.zipcode?.message}</div>
                                             </div>
                                         </div>
@@ -216,8 +226,18 @@ const Getaquote: React.FC = (props: any) => {
                                                 <label>Contact No</label><sup className={`${styles["star"]} `} >*</sup>
                                             </div>
                                             <div>
-                                                <input {...register("contactNo")} maxLength={10} type="text" placeholder="Phone"
-                                                    className={`form-control ${errors.contactNo ? "is-invalid" : ""}`} />
+                                            <input
+                                                {...register("contactNo")}
+                                                maxLength={10}
+                                                type="text"
+                                                placeholder="Phone"
+                                                onInput={(e) => {
+                                                    const input = e.target as HTMLInputElement;
+                                                    input.value = input.value.replace(/[^0-9]/g, "");
+                                                }}
+                                                className={`form-control ${errors.contactNo ? "is-invalid" : ""}`}
+                                                />
+
                                                 <div className="invalid-feedback"> {errors.contactNo?.message}</div>
                                             </div>
                                         </div>
