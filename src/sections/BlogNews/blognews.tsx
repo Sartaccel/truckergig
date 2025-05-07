@@ -112,7 +112,7 @@ const Blognews: React.FC = () => {
             <div className="row">
               <div className="col-5">
                 <p className={styles.pagItems}>
-                  Items{" "}
+                Blogs/News{" "}
                   {Math.min((currentPage - 1) * pageSize + 1, blognews.length)}{" "}
                   to {Math.min(currentPage * pageSize, blognews.length)} of{" "}
                   {blognews.length} total
