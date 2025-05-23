@@ -1000,7 +1000,7 @@ setLoading(true);
                     </div>
 
                     <div className="col-12 col-sm-6">
-                      <label className={styles.formLabel}>Message</label>
+                      <label className={styles.formLabel}>Message*</label>
                       <div style={{ position: "relative" }}>
                         <Field name="message">
                           {({ field, form: { touched, errors } }) => (
