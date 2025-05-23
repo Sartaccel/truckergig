@@ -23,93 +23,93 @@ const onCaptchaChange = (value) => {
 };
 const vendorSchema = yup.object().shape({
   legalName: yup
-  .string()
-  .required("This is a required field")
-  .min(2)
-  .max(24),
+    .string()
+    .required("Legal Name is required")
+    .min(2)
+    .max(24),
+productList: yup
+    .string()
+    .required("Product is Rrequired"),
+  contactFirstName: yup
+    .string()
+    .matches(/^[A-Za-z]+$/, "Only alphabets are allowed")
+    .required("First Name is required"),
 
-contactFirstName: yup
-  .string()
-  .matches(/^[A-Za-z]+$/, "Only alphabets are allowed")
-  .required("This is a required field"),
+  emailAddress: yup
+    .string()
+    .trim()
+    .transform((value) => (value === "" ? undefined : value.toLowerCase()))
+    .required("Email is required")
+    .matches(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, "Enter a valid email")
+    .max(50),
 
-emailAddress: yup
-  .string()
-  .trim()
-  .transform((value) => (value === '' ? undefined : value.toLowerCase()))
-  .required("Email is required")
-  .matches(
-    /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,"Enter a valid email"
-  )
-  .max(50),
+  telephone: yup
+    .string()
+    .required("Phone is required")
+    .matches(/^[0-9]+$/, "Must be only digits")
+    .min(10, "Must be exactly 10 digits")
+    .max(10, "Must be exactly 10 digits"),
 
-telephone: yup
-  .string()
-  .required("This is a required field")
-  .matches(/^[0-9]+$/, "Must be only digits")
-  .min(10, "Must be exactly 10 digits")
-  .max(10, "Must be exactly 10 digits"),
-
-password: yup
-  .string()
-  .required("Password is  required")
-  .min(6, "Password must be at least 6 characters")
-  .matches(/[A-Z]/, "Must contain at least one uppercase letter")
-  .matches(/\d/, "Must contain at least one number")
-  .matches(/[@$!%*?&]/, "Must contain at least one special character"),
+  password: yup
+    .string()
+    .required("Password is  required")
+    .min(6, "Password must be at least 6 characters")
+    .matches(/[A-Z]/, "Must contain at least one uppercase letter")
+    .matches(/\d/, "Must contain at least one number")
+    .matches(/[@$!%*?&]/, "Must contain at least one special character"),
 
   websiteUrl: yup
-  .string()
-  .nullable()
-  .notRequired()
-  .matches(
-    /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
-    "Invalid URL format"
-  ),
+    .string()
+    .nullable()
+    .notRequired()
+    .matches(
+      /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
+      "Invalid URL format"
+    ),
 
   instagramUrl: yup
-  .string()
-  .nullable()
-  .notRequired()
-  .matches(
-    /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
-    "Invalid URL format"
-  ),
+    .string()
+    .nullable()
+    .notRequired()
+    .matches(
+      /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
+      "Invalid URL format"
+    ),
 
   twitterUrl: yup
-  .string()
-  .nullable()
-  .notRequired()
-  .matches(
-    /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
-    "Invalid URL format"
-  ),
+    .string()
+    .nullable()
+    .notRequired()
+    .matches(
+      /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
+      "Invalid URL format"
+    ),
 
   linkedinUrl: yup
-  .string()
-  .nullable()
-  .notRequired()
-  .matches(
-    /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
-    "Invalid URL format"
-  ),
+    .string()
+    .nullable()
+    .notRequired()
+    .matches(
+      /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
+      "Invalid URL format"
+    ),
 
   facebookUrl: yup
-  .string()
-  .nullable()
-  .notRequired()
-  .matches(
-    /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
-    "Invalid URL format"
-  ),
+    .string()
+    .nullable()
+    .notRequired()
+    .matches(
+      /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
+      "Invalid URL format"
+    ),
 
   message: yup
-  .string()
-  .trim()
-  .required("Message field cannot be empty."),
+    .string()
+    .trim()
+    .required("Message field cannot be empty."),
 });
-  // message: yup.string().required("This is a required field"),
-  // productList: yup.string().required("This is required field")
+// message: yup.string().required("This is a required field"),
+// productList: yup.string().required("This is required field")
 // });
 
 interface MyFormValues {
@@ -168,7 +168,7 @@ const Vendor: React.FC = () => {
     false
   );
 
-  const dispatch = useDispatch();
+const dispatch = useDispatch<any>(); // allows async thunk return
   const initialValues: MyFormValues = {
     legalName: "",
     fein: "",
@@ -189,7 +189,6 @@ const Vendor: React.FC = () => {
     message: "",
     submit: "",
     password: "",
-    
   };
   let isother = false;
 
@@ -269,6 +268,7 @@ const Vendor: React.FC = () => {
     { value: "Others", label: "Others" },
   ];
 
+
   return (
     <>
       <div className="row p-2" style={{ marginLeft: "55px" }}>
@@ -290,30 +290,38 @@ const Vendor: React.FC = () => {
             } else {
               values.telephone = selectedCountry.value + " " + values.telephone;
             }
-            if (!selectedProduct) {
-              setselectedProductValidation(true);
-              const arr = values.telephone.split(" ");
-              console.log(arr);
-              values.telephone = arr[1];
-              console.log(values.telephone);
-            } else {
-              setselectedProductValidation(false);
-            }
-            values.productList = selectedProduct.value;
-            console.log(values.productList);
+            // if (!selectedProduct) {
+            //   setselectedProductValidation(true);
+            //   const arr = values.telephone.split(" ");
+            //   console.log(arr);
+            //   values.telephone = arr[1];
+            //   console.log(values.telephone);
+            // } else {
+            //   setselectedProductValidation(false);
+            // }
+            // values.productList = selectedProduct.value;
+            // console.log(values.productList);
             // if (values.productList == null) {
             //   toast.error("Please Select a product");
             // }
-            dispatch(setVendorInfo(values));
+setLoading(true);
+            dispatch(setVendorInfo(values))
+             .then((response) => {
+                console.log("Vendor saved:", response);
+                // You can also show success UI here
+              })
+              .catch((error) => {
+                console.error("Error saving vendor:", error);
+                // You can show error message here
+              });
 
             // Optional form reset
-            resetForm();
-            setLoading(true);
+            
             setTimeout(async () => {
-              await router.push("/serviceregistration");
               setLoading(false);
               setSubmitting(false);
-            }, 2000); 
+              resetForm();
+            }, 5000);
           }}
         >
           {({
@@ -326,6 +334,7 @@ const Vendor: React.FC = () => {
             isSubmitting,
             isValid,
             dirty,
+            setFieldValue
           }) => (
             <div className="heading">
               {/* <h4 className={`${styles["name"]}`} >Vendor Registration</h4> */}
@@ -352,7 +361,7 @@ const Vendor: React.FC = () => {
                         htmlFor="validationServer01"
                         className={styles.formLabel}
                       >
-                        Company Name
+                        Company Name 
                       </label>
                       <sup className="star">*</sup>
                       <Field
@@ -374,6 +383,11 @@ const Vendor: React.FC = () => {
                         className="form-control"
                         type="text"
                       />
+                               {errors.legalName && touched.legalName ? (
+                        <div className={`${styles["errorMsgColour"]} `}>
+                          {errors.legalName}
+                        </div>
+                      ) : null}
                     </div>
                     <div className="col-12 col-sm-6">
                       <label htmlFor="drop-down" className={styles.formLabel}>
@@ -382,10 +396,11 @@ const Vendor: React.FC = () => {
                       <sup className="star">*</sup>
                       <Select
                         className={styles.dropDownStyle}
-                        value={selectedProduct}
-                        onChange={(value, { action }) =>
-                          handleDropDownChange(value, action, "product")
-                        }
+                        name="productList"
+                        value={productListDrop.find(option => option.value === values.productList) || null}
+                        onChange={selectedOption => {
+                          setFieldValue("productList", selectedOption ? selectedOption.value : "");
+                        }}
                         options={productListDrop}
                         isClearable={true}
                         styles={{
@@ -403,6 +418,11 @@ const Vendor: React.FC = () => {
                           }),
                         }}
                       />
+                       {errors.productList && touched.productList ? (
+                        <div className={`${styles["errorMsgColour"]} `}>
+                          {errors.productList}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                   <div className="row mb-3">
@@ -410,31 +430,33 @@ const Vendor: React.FC = () => {
                       <label className={styles.formLabel}>FEIN</label>
 
                       <Field
-  name="fein"
-  onChange={(e) => {
-    const onlyNumbers = e.target.value.replace(/[^0-9]/g, "").slice(0, 9); // keep only digits
-    handleChange({
-      target: {
-        name: "fein",
-        value: onlyNumbers,
-      },
-    });
-  }}
-  onBlur={(e) => {
-    e.target.style.borderColor = "";
-    e.target.style.boxShadow = "";
-  }}
-  onFocus={(e) => {
-    e.target.style.borderColor = "#ff8c00";
-    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-  }}
-  value={values.fein}
-  placeholder="FEIN"
-  id="fein"
-  className="form-control"
-  type="text"
-/>
-
+                        name="fein"
+                        onChange={(e) => {
+                          const onlyNumbers = e.target.value
+                            .replace(/[^0-9]/g, "")
+                            .slice(0, 9); // keep only digits
+                          handleChange({
+                            target: {
+                              name: "fein",
+                              value: onlyNumbers,
+                            },
+                          });
+                        }}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.fein}
+                        placeholder="FEIN"
+                        id="fein"
+                        className="form-control"
+                        type="text"
+                      />
 
                       {errors.fein && touched.fein ? (
                         <div className={`${styles["errorMsgColour"]} `}>
@@ -450,30 +472,33 @@ const Vendor: React.FC = () => {
                       </label>
 
                       <Field
-  name="dbNumber"
-  onChange={(e) => {
-    const onlyNumbers = e.target.value.replace(/[^0-9]/g, "").slice(0, 9); // allow only digits
-    handleChange({
-      target: {
-        name: "dbNumber",
-        value: onlyNumbers,
-      },
-    });
-  }}
-  onBlur={(e) => {
-    e.target.style.borderColor = "";
-    e.target.style.boxShadow = "";
-  }}
-  onFocus={(e) => {
-    e.target.style.borderColor = "#ff8c00";
-    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-  }}
-  value={values.dbNumber}
-  placeholder="DB Number"
-  id="name"
-  className="form-control"
-  type="text"
-/>
+                        name="dbNumber"
+                        onChange={(e) => {
+                          const onlyNumbers = e.target.value
+                            .replace(/[^0-9]/g, "")
+                            .slice(0, 9); // allow only digits
+                          handleChange({
+                            target: {
+                              name: "dbNumber",
+                              value: onlyNumbers,
+                            },
+                          });
+                        }}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.dbNumber}
+                        placeholder="DB Number"
+                        id="name"
+                        className="form-control"
+                        type="text"
+                      />
 
                       {errors.dbNumber && touched.dbNumber ? (
                         <div className={`${styles["errorMsgColour"]} `}>
@@ -490,27 +515,28 @@ const Vendor: React.FC = () => {
                       <sup className="star">*</sup>
 
                       <Field
-  name="contactFirstName"
-  onChange={(e) => {
-    const regex = /^[A-Za-z]*$/; // only letters allowed
-    if (regex.test(e.target.value)) {
-      handleChange(e); // allow only if valid
-    }
-  }}
-  onBlur={(e) => {
-    e.target.style.borderColor = "";
-    e.target.style.boxShadow = "";
-  }}
-  onFocus={(e) => {
-    e.target.style.borderColor = "#ff8c00";
-    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-  }}
-  value={values.contactFirstName}
-  placeholder="Enter your First Name"
-  id="name"
-  className="form-control"
-  type="text"
-/>
+                        name="contactFirstName"
+                        onChange={(e) => {
+                          const regex = /^[A-Za-z]*$/; // only letters allowed
+                          if (regex.test(e.target.value)) {
+                            handleChange(e); // allow only if valid
+                          }
+                        }}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.contactFirstName}
+                        placeholder="Enter your First Name"
+                        id="name"
+                        className="form-control"
+                        type="text"
+                      />
                       {errors.contactFirstName && touched.contactFirstName ? (
                         <div className={`${styles["errorMsgColour"]} `}>
                           {errors.contactFirstName}
@@ -523,27 +549,28 @@ const Vendor: React.FC = () => {
                       </label>
 
                       <Field
-  name="contactLastName"
-  onChange={(e) => {
-    const regex = /^[A-Za-z]*$/; // only letters allowed
-    if (regex.test(e.target.value)) {
-      handleChange(e); // allow only if valid
-    }
-  }}
-  onBlur={(e) => {
-    e.target.style.borderColor = "";
-    e.target.style.boxShadow = "";
-  }}
-  onFocus={(e) => {
-    e.target.style.borderColor = "#ff8c00";
-    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-  }}
-  value={values.contactLastName}
-  placeholder="Enter your Last Name"
-  id="lastName"
-  className="form-control"
-  type="text"
-/>
+                        name="contactLastName"
+                        onChange={(e) => {
+                          const regex = /^[A-Za-z]*$/; // only letters allowed
+                          if (regex.test(e.target.value)) {
+                            handleChange(e); // allow only if valid
+                          }
+                        }}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.contactLastName}
+                        placeholder="Enter your Last Name"
+                        id="lastName"
+                        className="form-control"
+                        type="text"
+                      />
                       {errors.contactLastName && touched.contactLastName ? (
                         <div className={`${styles["errorMsgColour"]} `}>
                           {errors.contactLastName}
@@ -580,126 +607,145 @@ const Vendor: React.FC = () => {
                             handleDropDownChange(value, action, "phonecode")
                           }
                         />
-                       <Field
-  name="telephone"
-  onChange={handleChange}
-  onBlur={(e) => {
-    e.target.style.borderColor = "";
-    e.target.style.boxShadow = "";
-  }}
-  onFocus={(e) => {
-    e.target.style.borderColor = "#ff8c00";
-    e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-  }}
-  onKeyPress={(e) => {
-    if (!/^\d$/.test(e.key)) {
-      e.preventDefault();
-    }
-  }}
-  inputMode="numeric" // helps mobile keyboards show only numbers
-  value={values.telephone}
-  placeholder="Enter your PhoneNumber"
-  id="telephone"
-  className={`${styles["phone-style"]} form-control`}
-  type="text"
-  maxLength={10}
-/>
-                        {errors.telephone && touched.telephone ? (
-                          <div className={`${styles["errorMsgColour"]} `}>
-                            {errors.telephone}
-                          </div>
-                        ) : null}
+                        <Field
+                          name="telephone"
+                          onChange={handleChange}
+                          onBlur={(e) => {
+                            e.target.style.borderColor = "";
+                            e.target.style.boxShadow = "";
+                          }}
+                          onFocus={(e) => {
+                            e.target.style.borderColor = "#ff8c00";
+                            e.target.style.boxShadow =
+                              "0 0 5px rgba(255, 140, 0, 0.5)";
+                          }}
+                          onKeyPress={(e) => {
+                            if (!/^\d$/.test(e.key)) {
+                              e.preventDefault();
+                            }
+                          }}
+                          inputMode="numeric" // helps mobile keyboards show only numbers
+                          value={values.telephone}
+                          placeholder="Enter your PhoneNumber"
+                          id="telephone"
+                          className={`${styles["phone-style"]} form-control`}
+                          type="text"
+                          maxLength={10}
+                        />
                       </div>
+                      {errors.telephone && touched.telephone ? (
+                        <div className={`${styles["errorMsgColour"]} `}>
+                          {errors.telephone}
+                        </div>
+                      ) : null}
                     </div>
                     <div className="col-12 col-sm-6">
                       <label className={styles.formLabel}>Email</label>
                       <sup className="star">*</sup>
 
                       <Field name="emailAddress">
-  {({ field, form, meta }) => (
-    <>
-      <input
-        {...field}
-        type="text"
-        id="emailAddress"
-        placeholder="Enter your Email Address"
-        className="form-control"
-        onChange={(e) => {
-          const value = e.target.value.toLowerCase();
-          const filteredValue = value.replace(/[^a-z0-9@.]/g, '');
-          form.setFieldValue("emailAddress", filteredValue); // ✅ Correct way
-        }}
-        onBlur={(e) => {
-          form.handleBlur(e); // ✅ Triggers validation
-          e.target.style.borderColor = "";
-          e.target.style.boxShadow = "";
-        }}
-        onFocus={(e) => {
-          e.target.style.borderColor = "#ff8c00";
-          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-        }}
-        value={field.value}
-      />
-      
-      {/* ✅ Show error only if touched and error exists */}
-      {meta.touched && meta.error && (
-        <div className="text-danger">{meta.error}</div>
-      )}
-    </>
-  )}
-</Field>
-  {/* {errors.emailAddress && touched.emailAddress ? (
-    <div className={`${styles["errorMsgColour"]}`}>
-      {errors.emailAddress}
-    </div>
-  ) : null} */}
-</div>
+                        {({ field, form, meta }) => (
+                          <>
+                            <input
+                              {...field}
+                              type="text"
+                              id="emailAddress"
+                              placeholder="Enter your Email Address"
+                              className="form-control"
+                              onChange={(e) => {
+                                const value = e.target.value.toLowerCase();
+                                const filteredValue = value.replace(
+                                  /[^a-z0-9@.]/g,
+                                  ""
+                                );
+                                form.setFieldValue(
+                                  "emailAddress",
+                                  filteredValue
+                                ); // ✅ Correct way
+                              }}
+                              onBlur={(e) => {
+                                form.handleBlur(e); // ✅ Triggers validation
+                                e.target.style.borderColor = "";
+                                e.target.style.boxShadow = "";
+                              }}
+                              onFocus={(e) => {
+                                e.target.style.borderColor = "#ff8c00";
+                                e.target.style.boxShadow =
+                                  "0 0 5px rgba(255, 140, 0, 0.5)";
+                              }}
+                              value={field.value}
+                            />
+
+                            {/* ✅ Show error only if touched and error exists */}
+                            {/* {meta.touched && meta.error && (
+                              <div className="text-danger">{meta.error}</div>
+                            )} */}
+                          </>
+                        )}
+                      </Field>
+                      {errors.emailAddress && touched.emailAddress ? (
+                        <div className={`${styles["errorMsgColour"]}`}>
+                          {errors.emailAddress}
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
                   <div className="row mb-1">
-      <div className="col-12 col-sm-6">
-        <label className={styles?.formLabel || "form-label"}>Password</label>
-        <sup className="star">*</sup>
+                    <div className="col-12 col-sm-6">
+                      <label className={styles?.formLabel || "form-label"}>
+                        Password
+                      </label>
+                      <sup className="star">*</sup>
 
-        {/* Form Group with relative positioning */}
-        <div style={{ position: "relative" }}>
-          <Field
-            name="password"
-            placeholder="Enter your password"
-            id="password"
-            type={showPassword ? "text" : "password"}
-            className={`form-control pe-5 ${
-              touched.password && errors.password ? "is-invalid" : ""
-            }`}
-            onFocus={(e) => {
-              e.target.style.borderColor = "#ff8c00";
-              e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-            }}
-          />
+                      {/* Form Group with relative positioning */}
+                      <div style={{ position: "relative" }}>
+                        <Field
+                          name="password"
+                          placeholder="Enter your password"
+                          id="password"
+                          type={showPassword ? "text" : "password"}
+                          className={`form-control pe-5 ${
+                            touched.password && errors.password
+                              ? "is-invalid"
+                              : ""
+                          }`}
+                          onFocus={(e) => {
+                            e.target.style.borderColor = "#ff8c00";
+                            e.target.style.boxShadow =
+                              "0 0 5px rgba(255, 140, 0, 0.5)";
+                          }}
+                        />
 
-          {/* Eye icon inside the input */}
-          <span
-            onClick={() => setShowPassword(!showPassword)}
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: "12px",
-              transform: "translateY(-50%)",
-              cursor: "pointer",
-              color: "#6c757d",
-              zIndex: 10,
-              pointerEvents: "auto",
-            }}
-          >
-            {showPassword ? <Eye size={18} /> :  <EyeOff size={18} /> }
-          </span>
-        </div>
+                        {/* Eye icon inside the input */}
+                        <span
+                          onClick={() => setShowPassword(!showPassword)}
+                          style={{
+                            position: "absolute",
+                            top: "50%",
+                            right: "12px",
+                            transform: "translateY(-50%)",
+                            cursor: "pointer",
+                            color: "#6c757d",
+                            zIndex: 10,
+                            pointerEvents: "auto",
+                          }}
+                        >
+                          {showPassword ? (
+                            <Eye size={18} />
+                          ) : (
+                            <EyeOff size={18} />
+                          )}
+                        </span>
+                      </div>
 
-        {/* Error message */}
-        {touched.password && errors.password && (
-          <div className="invalid-feedback d-block">{errors.password}</div>
-        )}
-      </div>
-   
+                      {/* Error message */}
+                      {touched.password && errors.password && (
+                        <div className="invalid-feedback d-block">
+                          {errors.password}
+                        </div>
+                      )}
+                    </div>
+
                     <div className="col-12 col-sm-6">
                       <label className={styles.formLabel}>
                         Billing Address
@@ -730,138 +776,157 @@ const Vendor: React.FC = () => {
                     </div>
                   </div>
                   <div className="row mb-1">
-                  <div className="col-6 col-sm-6">
-    <label className={styles.formLabel}>Website URL</label>
-    <div style={{ position: "relative" }}>
-      <Field
-        name="websiteUrl"
-      >
-        {({ field, form: { touched, errors } }) => (
-          <>
-            <input
-              {...field}
-              onBlur={(e) => {
-                e.target.style.borderColor = "";
-                e.target.style.boxShadow = "";
-                field.onBlur(e); // Important to call Formik's onBlur
-              }}
-              onFocus={(e) => {
-                e.target.style.borderColor = "#ff8c00";
-                e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-              }}
-              placeholder="Website URL"
-              type="text"
-              className={`form-control pe-5 ${touched.websiteUrl && errors.websiteUrl ? "is-invalid" : ""}`}
-            />
-            {touched.websiteUrl && errors.websiteUrl && (
-              <div className="invalid-feedback d-block">
-                {errors.websiteUrl}
-              </div>
-            )}
-          </>
-        )}
-      </Field>
-    </div>
-  </div>
+                    <div className="col-6 col-sm-6">
+                      <label className={styles.formLabel}>Website URL</label>
+                      <div style={{ position: "relative" }}>
+                        <Field name="websiteUrl">
+                          {({ field, form: { touched, errors } }) => (
+                            <>
+                              <input
+                                {...field}
+                                onBlur={(e) => {
+                                  e.target.style.borderColor = "";
+                                  e.target.style.boxShadow = "";
+                                  field.onBlur(e); // Important to call Formik's onBlur
+                                }}
+                                onFocus={(e) => {
+                                  e.target.style.borderColor = "#ff8c00";
+                                  e.target.style.boxShadow =
+                                    "0 0 5px rgba(255, 140, 0, 0.5)";
+                                }}
+                                placeholder="Website URL"
+                                type="text"
+                                className={`form-control pe-5 ${
+                                  touched.websiteUrl && errors.websiteUrl
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                              />
+                              {touched.websiteUrl && errors.websiteUrl && (
+                                <div className="invalid-feedback d-block">
+                                  {errors.websiteUrl}
+                                </div>
+                              )}
+                            </>
+                          )}
+                        </Field>
+                      </div>
+                    </div>
 
-  <div className="col-6 col-sm-6">
-  <label className={styles.formLabel}>Instagram URL</label>
-  <div style={{ position: "relative" }}>
-    <Field name="instagramUrl">
-      {({ field, form: { touched, errors } }) => (
-        <>
-          <input
-            {...field}
-            onBlur={(e) => {
-              e.target.style.borderColor = "";
-              e.target.style.boxShadow = "";
-              field.onBlur(e);
-            }}
-            onFocus={(e) => {
-              e.target.style.borderColor = "#ff8c00";
-              e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-            }}
-            placeholder="Instagram URL"
-            type="text"
-            className={`form-control pe-5 ${touched.instagramUrl && errors.instagramUrl ? "is-invalid" : ""}`}
-          />
-          {touched.instagramUrl && errors.instagramUrl && (
-            <div className="invalid-feedback d-block">
-              {errors.instagramUrl}
-            </div>
-          )}
-        </>
-      )}
-    </Field>
-  </div>
-</div>
-</div>
+                    <div className="col-6 col-sm-6">
+                      <label className={styles.formLabel}>Instagram URL</label>
+                      <div style={{ position: "relative" }}>
+                        <Field name="instagramUrl">
+                          {({ field, form: { touched, errors } }) => (
+                            <>
+                              <input
+                                {...field}
+                                onBlur={(e) => {
+                                  e.target.style.borderColor = "";
+                                  e.target.style.boxShadow = "";
+                                  field.onBlur(e);
+                                }}
+                                onFocus={(e) => {
+                                  e.target.style.borderColor = "#ff8c00";
+                                  e.target.style.boxShadow =
+                                    "0 0 5px rgba(255, 140, 0, 0.5)";
+                                }}
+                                placeholder="Instagram URL"
+                                type="text"
+                                className={`form-control pe-5 ${
+                                  touched.instagramUrl && errors.instagramUrl
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                              />
+                              {touched.instagramUrl && errors.instagramUrl && (
+                                <div className="invalid-feedback d-block">
+                                  {errors.instagramUrl}
+                                </div>
+                              )}
+                            </>
+                          )}
+                        </Field>
+                      </div>
+                    </div>
+                  </div>
 
                   <div className="row mb-1">
-                  <div className="col-6">
-  <label className={styles.formLabel}>X URL</label>
-  <div style={{ position: "relative" }}>
-    <Field name="twitterUrl">
-      {({ field, form: { touched, errors } }) => (
-        <>
-          <input
-            {...field}
-            onBlur={(e) => {
-              e.target.style.borderColor = "";
-              e.target.style.boxShadow = "";
-              field.onBlur(e);
-            }}
-            onFocus={(e) => {
-              e.target.style.borderColor = "#ff8c00";
-              e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-            }}
-            placeholder="X URL"
-            type="text"
-            className={`form-control pe-5 ${touched.twitterUrl && errors.twitterUrl ? "is-invalid" : ""}`}
-          />
-          {touched.twitterUrl && errors.twitterUrl && (
-            <div className="invalid-feedback d-block">
-              {errors.twitterUrl}
-            </div>
-          )}
-        </>
-      )}
-    </Field>
-  </div>
-</div>
+                    <div className="col-6">
+                      <label className={styles.formLabel}>X URL</label>
+                      <div style={{ position: "relative" }}>
+                        <Field name="twitterUrl">
+                          {({ field, form: { touched, errors } }) => (
+                            <>
+                              <input
+                                {...field}
+                                onBlur={(e) => {
+                                  e.target.style.borderColor = "";
+                                  e.target.style.boxShadow = "";
+                                  field.onBlur(e);
+                                }}
+                                onFocus={(e) => {
+                                  e.target.style.borderColor = "#ff8c00";
+                                  e.target.style.boxShadow =
+                                    "0 0 5px rgba(255, 140, 0, 0.5)";
+                                }}
+                                placeholder="X URL"
+                                type="text"
+                                className={`form-control pe-5 ${
+                                  touched.twitterUrl && errors.twitterUrl
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                              />
+                              {touched.twitterUrl && errors.twitterUrl && (
+                                <div className="invalid-feedback d-block">
+                                  {errors.twitterUrl}
+                                </div>
+                              )}
+                            </>
+                          )}
+                        </Field>
+                      </div>
+                    </div>
 
-<div className="col-6">
-  <label className={styles.formLabel}>Facebook URL</label>
-  <div style={{ position: "relative" }}>
-    <Field name="facebookUrl">
-      {({ field, form: { touched, errors } }) => (
-        <>
-          <input
-            {...field}
-            onBlur={(e) => {
-              e.target.style.borderColor = "";
-              e.target.style.boxShadow = "";
-              field.onBlur(e);
-            }}
-            onFocus={(e) => {
-              e.target.style.borderColor = "#ff8c00";
-              e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-            }}
-            placeholder="Facebook URL"
-            type="text"
-            className={`form-control pe-5 ${touched.facebookUrl && errors.facebookUrl ? "is-invalid" : ""}`}
-          />
-          {touched.facebookUrl && errors.facebookUrl && (
-            <div className="invalid-feedback d-block">
-              {errors.facebookUrl}
-            </div>
-          )}
-        </>
-      )}
-    </Field>
-  </div>
-</div>
-</div>
+                    <div className="col-6">
+                      <label className={styles.formLabel}>Facebook URL</label>
+                      <div style={{ position: "relative" }}>
+                        <Field name="facebookUrl">
+                          {({ field, form: { touched, errors } }) => (
+                            <>
+                              <input
+                                {...field}
+                                onBlur={(e) => {
+                                  e.target.style.borderColor = "";
+                                  e.target.style.boxShadow = "";
+                                  field.onBlur(e);
+                                }}
+                                onFocus={(e) => {
+                                  e.target.style.borderColor = "#ff8c00";
+                                  e.target.style.boxShadow =
+                                    "0 0 5px rgba(255, 140, 0, 0.5)";
+                                }}
+                                placeholder="Facebook URL"
+                                type="text"
+                                className={`form-control pe-5 ${
+                                  touched.facebookUrl && errors.facebookUrl
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                              />
+                              {touched.facebookUrl && errors.facebookUrl && (
+                                <div className="invalid-feedback d-block">
+                                  {errors.facebookUrl}
+                                </div>
+                              )}
+                            </>
+                          )}
+                        </Field>
+                          
+                      </div>
+                    </div>
+                  </div>
                   {showText ? (
                     // {True ? (
                     <div className="mb-3">
@@ -897,113 +962,130 @@ const Vendor: React.FC = () => {
                   null}
 
                   <div className="row mb-3">
-                  <div className="col-12 col-sm-6">
-  <label className={styles.formLabel}>LinkedIn URL</label>
-  <div style={{ position: "relative" }}>
-    <Field name="linkedinUrl">
-      {({ field, form: { touched, errors } }) => (
-        <>
-          <input
-            {...field}
-            onBlur={(e) => {
-              e.target.style.borderColor = "";
-              e.target.style.boxShadow = "";
-              field.onBlur(e);
-            }}
-            onFocus={(e) => {
-              e.target.style.borderColor = "#ff8c00";
-              e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-            }}
-            placeholder="LinkedIn URL"
-            type="text"
-            className={`form-control pe-5 ${touched.linkedinUrl && errors.linkedinUrl ? "is-invalid" : ""}`}
-          />
-          {touched.linkedinUrl && errors.linkedinUrl && (
-            <div className="invalid-feedback d-block">
-              {errors.linkedinUrl}
-            </div>
-          )}
-        </>
-      )}
-    </Field>
-  </div>
-</div>
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>LinkedIn URL</label>
+                      <div style={{ position: "relative" }}>
+                        <Field name="linkedinUrl">
+                          {({ field, form: { touched, errors } }) => (
+                            <>
+                              <input
+                                {...field}
+                                onBlur={(e) => {
+                                  e.target.style.borderColor = "";
+                                  e.target.style.boxShadow = "";
+                                  field.onBlur(e);
+                                }}
+                                onFocus={(e) => {
+                                  e.target.style.borderColor = "#ff8c00";
+                                  e.target.style.boxShadow =
+                                    "0 0 5px rgba(255, 140, 0, 0.5)";
+                                }}
+                                placeholder="LinkedIn URL"
+                                type="text"
+                                className={`form-control pe-5 ${
+                                  touched.linkedinUrl && errors.linkedinUrl
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                              />
+                              {touched.linkedinUrl && errors.linkedinUrl && (
+                                <div className="invalid-feedback d-block">
+                                  {errors.linkedinUrl}
+                                </div>
+                              )}
+                            </>
+                          )}
+                        </Field>
+                      </div>
+                    </div>
 
-<div className="col-12 col-sm-6">
-  <label className={styles.formLabel}>Message</label>
-  <div style={{ position: "relative" }}>
-    <Field name="message">
-      {({ field, form: { touched, errors } }) => (
-        <>
-          <input
-            {...field}
-            onBlur={(e) => {
-              e.target.style.borderColor = "";
-              e.target.style.boxShadow = "";
-              field.onBlur(e);
-            }}
-            onFocus={(e) => {
-              e.target.style.borderColor = "#ff8c00";
-              e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-            }}
-            placeholder="Message if any"
-            type="text"
-            className={`form-control pe-5 ${touched.message && errors.message ? "is-invalid" : ""}`}
-          />
-          {touched.message && errors.message && (
-            <div className="invalid-feedback d-block">
-              {errors.message}
-            </div>
-          )}
-        </>
-      )}
-    </Field>
-  </div>
-</div>
-</div>
+                    <div className="col-12 col-sm-6">
+                      <label className={styles.formLabel}>Message</label>
+                      <div style={{ position: "relative" }}>
+                        <Field name="message">
+                          {({ field, form: { touched, errors } }) => (
+                            <>
+                              <input
+                                {...field}
+                                onBlur={(e) => {
+                                  e.target.style.borderColor = "";
+                                  e.target.style.boxShadow = "";
+                                  field.onBlur(e);
+                                }}
+                                onFocus={(e) => {
+                                  e.target.style.borderColor = "#ff8c00";
+                                  e.target.style.boxShadow =
+                                    "0 0 5px rgba(255, 140, 0, 0.5)";
+                                }}
+                                placeholder="Message if any"
+                                type="text"
+                                className={`form-control pe-5 ${
+                                  touched.message && errors.message
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                              />
+                              {touched.message && errors.message && (
+                                <div className="invalid-feedback d-block">
+                                  {errors.message}
+                                </div>
+                              )}
+                            </>
+                          )}
+                        </Field>
+                          
+                      </div>
+                    </div>
+                  </div>
                   <div className="col-12 d-flex flex-wrap align-items-center gap-3">
-  <div className="col-12 col-md-6">
-    <label className={styles.formLabel}>
-      How did you hear about us?
-    </label>
-    <Field
-      name="referenceCategory"
-      onChange={handleChange}
-      onBlur={(e) => {
-        e.target.style.borderColor = "";
-        e.target.style.boxShadow = "";
-      }}
-      onFocus={(e) => {
-        e.target.style.borderColor = "#ff8c00";
-        e.target.style.boxShadow =
-          "0 0 5px rgba(255, 140, 0, 0.5)";
-      }}
-      value={values.referenceCategory}
-      placeholder="How did you hear about us?"
-      className="form-control"
-      type="text"
-    />
-    {errors.referenceCategory && touched.referenceCategory && (
-      <div className={styles.errorMsgColour}>
-        {errors.referenceCategory}
-      </div>
-    )}
-  </div>
+                    <div className="col-12 col-md-6">
+                      <label className={styles.formLabel}>
+                        How did you hear about us?
+                      </label>
+                      <Field
+                        name="referenceCategory"
+                        onChange={handleChange}
+                        onBlur={(e) => {
+                          e.target.style.borderColor = "";
+                          e.target.style.boxShadow = "";
+                        }}
+                        onFocus={(e) => {
+                          e.target.style.borderColor = "#ff8c00";
+                          e.target.style.boxShadow =
+                            "0 0 5px rgba(255, 140, 0, 0.5)";
+                        }}
+                        value={values.referenceCategory}
+                        placeholder="How did you hear about us?"
+                        className="form-control"
+                        type="text"
+                      />
+                      {errors.referenceCategory &&
+                        touched.referenceCategory && (
+                          <div className={styles.errorMsgColour}>
+                            {errors.referenceCategory}
+                          </div>
+                        )}
+                    </div>
 
-  <div className="col-12 col-md-auto" style={{ transform: "scale(0.90)", transformOrigin: "0 0" }}>
-  <ReCAPTCHA
-    sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
-    onChange={onCaptchaChange}
-  />
-</div>
+                    <div
+                      className="col-12 col-md-auto"
+                      style={{
+                        transform: "scale(0.90)",
+                        transformOrigin: "0 0",
+                      }}
+                    >
+                      <ReCAPTCHA
+                        sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
+                        onChange={onCaptchaChange}
+                      />
+                    </div>
+                  </div>
 
-</div>
+                  <br />
 
-<br />
-
-<p>
-  {errors.submit && "Please complete all required field."}
-</p>
+                  <p>
+                    {errors.submit && "Please complete all required field."}
+                  </p>
 
                   {/* <div className="col-12 pl-0 text-center mt-1">
                     {dirty && isValid ? (
@@ -1020,23 +1102,31 @@ const Vendor: React.FC = () => {
                       </button>
                     )}
                   </div> */}
-<div className="col-12 pl-0 text-center mt-1">
-<button
-  type="submit"
-  className={dirty && isValid ? styles.regBtn : styles.regBtnDisable}
-  disabled={!dirty || !isValid || loading}
->
-  {loading ? (
-    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
-      Submitting...
-      <CircularProgress size={20} color="inherit" />
-    </span>
-  ) : (
-    "Submit Form"
-  )}
-</button>
-</div>
-
+                  <div className="col-12 pl-0 text-center mt-1">
+                    <button
+                      type="submit"
+                      className={
+                        dirty && isValid ? styles.regBtn : styles.regBtnDisable
+                      }
+                      // disabled={!dirty || !isValid || loading}
+                    >
+                      {loading ? (
+                        <span
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "8px",
+                          }}
+                        >
+                          Submitting...
+                          <CircularProgress size={20} color="inherit" />
+                        </span>
+                      ) : (
+                        "Submit Form"
+                      )}
+                    </button>
+                  </div>
                 </Form>
               </div>
             </div>

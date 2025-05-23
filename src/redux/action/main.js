@@ -41,9 +41,11 @@ export const setInfo = (payload) => async (dispatch) => {
         console.log(successmessages);
         
         history.push(callbackurl);
+        return user;
       })
     .catch((error) => {
         dispatch({ type: t.SET_FALIURE });
-  
+        return error;
+
       });
   };
