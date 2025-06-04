@@ -2,50 +2,58 @@ import React from "react";
 import Link from "next/link";
 import styles from "./Footer.module.scss"; // Ensure SCSS is correctly imported
 import "boxicons/css/boxicons.min.css";
-import { Facebook, Linkedin, Instagram, Twitter,ChevronRight,Youtube } from "lucide-react";
+import {
+  Facebook,
+  Linkedin,
+  Instagram,
+  Twitter,
+  ChevronRight,
+  Youtube,
+} from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
     <div className={`${styles["footer-part"]}`}>
-    {/* <section className={styles["footer-section"]}/> */}
-  <div className={`${styles["content-wrapper"]} container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4`}>
- 
- <div className={`${styles["footer-container"]} flex flex-col justify-center items-center gap-4 w-full`}>
-  
-  {/* Join Us Content */}
-  <div className={`${styles["text-content"]} text-left`}>
-    <h2 style={{ color: "white" }}>
-      Connect with us today and<br /> accelerate your Business growth
-    </h2>
-  </div>
+      {/* <section className={styles["footer-section"]}/> */}
+      <div
+        className={`${styles["content-wrapper"]} container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4`}
+      >
+        <div
+          className={`${styles["footer-container"]} flex flex-col justify-center items-center gap-4 w-full`}
+        >
+          {/* Join Us Content */}
+          <div className={`${styles["text-content"]} text-left`}>
+            <h2 style={{ color: "white" }}>
+              Connect with us today and
+              <br /> accelerate your Business growth
+            </h2>
+          </div>
 
-  {/* Image (Hidden on Mobile) */}
-  <div className={`${styles["image-container"]} hidden md:flex justify-center`}>
-  <Link href="/contactus">
-    <img
-      src="/images/Footer 5.png"
-      alt="Business Growth"
-      style={{ width: "125px", height: "auto", cursor: "pointer" }}
-    />
-  </Link>
-</div>
+          {/* Image (Hidden on Mobile) */}
+          <div
+            className={`${styles["image-container"]} hidden md:flex justify-center`}
+          >
+            <Link href="/contactus">
+              <img
+                src="/images/Footer 5.png"
+                alt="Business Growth"
+                style={{ width: "125px", height: "auto", cursor: "pointer" }}
+              />
+            </Link>
+          </div>
 
-  {/* Get Started Button */}
-  <div className="flex justify-center items-center mt-4 md:mt-0 w-full">
-    <Link href="/contactus">
-      <button className={styles.getStartedButton}>
-        <span>Contact us</span>
-        <div className={styles["arrow-circle"]}>
-          <ChevronRight className={styles["arrow-icon"]} size={20} />
+          {/* Get Started Button */}
+          <div className="flex justify-center items-center mt-4 md:mt-0 w-full">
+            <Link href="/contactus">
+              <button className={styles.getStartedButton}>
+                <span>Contact us</span>
+                <div className={styles["arrow-circle"]}>
+                  <ChevronRight className={styles["arrow-icon"]} size={20} />
+                </div>
+              </button>
+            </Link>
+          </div>
         </div>
-      </button>
-    </Link>
-  </div>
-
-</div>
-
-
-
 
         <section className={`${styles["footer-section"]} pt-10 mt-5`}>
           <div className="container">
@@ -73,11 +81,21 @@ const Footer: React.FC = () => {
                       {/* Address */}
                       <div className={`${styles["footer-icons"]}`}>
                         <i className="bx bx-location-plus"></i>
-                        <span style={{marginRight:"45px"}}>
+                        <span className={`${styles["footer"]} address-text`}>
+                          11555 Medlock Bridge Road,
+                          <br />
+                          Suite 100, Johns Creek, GA-30097
+                        </span>
+
+                        {/* <span style={{marginRight:"45px"}}>
                          <span style={{marginRight:"25px"}}> 11555 Medlock Bridge Road,</span><br/>Suite 100,Johns Creek,GA-30097
                           
-                        </span>
-                        <br />
+                        </span> */}
+                        {/* <span style={{marginRight:"45px"}}> */}
+                        {/* <span style={{marginRight:"25px"}}> 11555 Medlock Bridge Road,</span><br/>Suite 100,Johns Creek,GA-30097 */}
+
+                        {/* </span> */}
+                        {/* <br/> */}
                         <span> </span>
                       </div>
 
@@ -144,7 +162,6 @@ const Footer: React.FC = () => {
                       <div className={`${styles["quick-links"]}`}>
                         <h2>Social Links</h2>
                         <ul className={styles["social-icons"]}>
-                       
                           <li>
                             <a
                               href=" https://www.linkedin.com/company/truckergig/ "
@@ -164,14 +181,14 @@ const Footer: React.FC = () => {
                             </a>
                           </li>
                           <li>
-                          <a
-                             href="https://www.youtube.com/@truckergig8784/"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            <a
+                              href="https://www.youtube.com/@truckergig8784/"
+                              target="_blank"
+                              rel="noopener noreferrer"
                             >
-                            <Youtube size={20} />
-                          </a>
-                        </li>
+                              <Youtube size={20} />
+                            </a>
+                          </li>
                         </ul>
                       </div>
                     </div>
