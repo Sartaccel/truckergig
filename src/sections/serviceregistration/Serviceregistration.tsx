@@ -210,6 +210,8 @@ const Serviceregistration: React.FC = () => {
             draggable: true,
             progress: undefined,
           });
+    setLoading(false);
+
         }
       })
       .catch(function(error) {
@@ -223,6 +225,7 @@ const Serviceregistration: React.FC = () => {
           draggable: true,
           progress: undefined,
         });
+    setLoading(false);
       });
   };
 
@@ -407,8 +410,8 @@ const Serviceregistration: React.FC = () => {
                       {errors.shortDescription?.message}
                     </div>
 
-                    {/* <label className={styles.formLabel}>Company Website URL</label> */}
-                    {/* <Select {...register("redirect")} name="redirect" options={ExternalUrl} placeholder="Company Website URL" className={` ${errors.redirect ? "is-invalid" : ""} pt-2 `}
+                    <label className={styles.formLabel}>Company Website URL</label>
+                    <Select {...register("redirect")} name="redirect" options={ExternalUrl} placeholder="Company Website URL" className={` ${errors.redirect ? "is-invalid" : ""} pt-2 `}
 										value={selectedExternal}
 										 styles={{
 																			control: (base, state) => ({
@@ -424,8 +427,8 @@ const Serviceregistration: React.FC = () => {
 											handleChangeCategoy(value, action, "external")
 										}
 									/>
-									 */}
-
+									
+                    {showText?(
                     <div style={{ marginBottom: "3px" }}>
                       <label className={styles.formLabel}>
                         Company Website URL
@@ -448,6 +451,7 @@ const Serviceregistration: React.FC = () => {
                       </div> */}
                       <br />
                     </div>
+                    ):null}
                   </div>
 
                   {/* <div className="pt-2">
