@@ -7,6 +7,7 @@ import styles from './events.module.scss';
 import Popup from "reactjs-popup";
 import EventShare from "../../components/ShareEvent/EventShare";
 import { Spin } from "antd";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 const Events: React.FC = (props) => {
   const router = useRouter()
@@ -19,6 +20,7 @@ const Events: React.FC = (props) => {
   const [eventfromtime, seteventfromtime] = useState("")
   const [eventtotime, seteventtotime] = useState("")
   const [eventdate, seteventdate] = useState("")
+  const [externalLink, setExternalLink] = useState("")
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const formatDate = (dateStr: string) => {
@@ -53,6 +55,7 @@ const Events: React.FC = (props) => {
           seteventdate(element.date);
           seteventfromtime(element.fromTime);
           seteventtotime(element.toTime);
+         setExternalLink(element.link);
         })
       };
     })
@@ -122,7 +125,24 @@ const Events: React.FC = (props) => {
             <div className={`${styles["event-clock-detail"]} col-6`}><i className="bi bi-clock" style={{ color: "#f7941d" }}></i> {eventfromtime}</div>
             : <div className={`${styles["event-clock-detal"]} col-6`}><i className="bi bi-clock" style={{ color: "#f7941d" }}></i> {eventfromtime} - {eventtotime}</div>
           }
-          <div className={`${styles["event-desc-title"]} col-12`}><p>{eventtitle}</p></div>
+          {/* <div className={`${styles["event-desc-title"]} col-12`}><p>{eventtitle}</p></div> */}
+          <div className={`${styles["event-desc-title"]} col-12 d-flex justify-content-center`}  > 
+  <a 
+    href={externalLink}
+    target="_blank" 
+    rel="noopener noreferrer" 
+    title="Click to Open Link"
+    style={{ 
+      textDecoration: "none", 
+      display: "flex", 
+      alignItems: "center", 
+      color: "inherit" 
+    }}
+  >
+    <p style={{ margin: 0 }}>{eventtitle}</p>
+    <FaExternalLinkAlt size={18} style={{ marginLeft: "10px", color: "#ff8c00" }} />
+  </a>
+</div>
           <div className="col-12 mb-4" style={{}} dangerouslySetInnerHTML={{ __html: eventdescription }}></div>
         </div>
       </div>
@@ -130,6 +150,7 @@ const Events: React.FC = (props) => {
     </>
   );
 }
+
 
 
 export default Events;
