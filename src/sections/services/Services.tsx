@@ -19,7 +19,9 @@ const Services: React.FC = (props) => {
   const [servicecat, setServicecat] = useState<any>();
   const [activefilter, setactivefilter] = useState("")
   const [childEle, setChildEle] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loadingPost, setLoadingPost] = useState(false);
+const [loadingGet, setLoadingGet] = useState(false);
+
 
 
   // useEffect(() => {
@@ -64,7 +66,8 @@ const Services: React.FC = (props) => {
 
     const controller = new AbortController();
     const delayDebounce = setTimeout(() => {
-      setLoading(true);
+      setLoadingPost(true);
+    setLoadingGet(true);
 
       const serv = router.query.name;
       const params = {
@@ -97,7 +100,7 @@ const Services: React.FC = (props) => {
           }
         })
         .finally(() => {
-          setLoading(false);
+          setLoadingPost(false);
         });
 
       // GET request for categories list
@@ -117,7 +120,9 @@ const Services: React.FC = (props) => {
           if (!axios.isCancel(err)) {
             console.error('Category list fetch failed', err);
           }
-        });
+        }).finally(() => {
+      setLoadingGet(false);
+    });
 
     }, 150); // Debounce delay
 
@@ -166,7 +171,7 @@ const Services: React.FC = (props) => {
         </div>
 
         <div className="col-lg-9">
-          {loading ? (
+          {(loadingPost || loadingGet) ? (
             <div className="text-center w-100 py-5">
               <div className="spinner-border text-primary" role="status">
                 <span className="visually-hidden">Loading...</span>
