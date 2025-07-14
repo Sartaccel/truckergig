@@ -63,6 +63,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import urls from "../../utilities/AppSettings";
 import "antd/dist/antd.css";
 import { Pagination } from "antd";
+import { route } from "next/dist/server/router";
 
 const Services: React.FC = (props) => {
 	const router = useRouter()
@@ -79,23 +80,39 @@ const Services: React.FC = (props) => {
 	const { id, ids, servicename } = router.query;
 const hasQuery = id || ids || servicename;
 
+console.log(router,"ROUTER")
+
 	useEffect(() => {
 	  if (!router.isReady) return;
-
+setLoading(true);
 	  const hasQuery = !!(router.query.servicename || router.query.id || router.query.ids);
   	  setHasQueryParams(hasQuery);
 
 	  const controller = new AbortController();
 	  const delayDebounce = setTimeout(() => {
-		setLoading(true);
-  
+		
+
+		const serviceCategoryId = router.query.id;
+		const serviceSubCategoryId = router.query.ids;
+		const serviceName = router.query.servicename;
+
 		const serv = router.query.name;
 		const params = {
-		  serviceName: router.query.servicename || '',
-		  serviceCategoryId: router.query.id,
-		  serviceSubCategoryId: router.query.ids,
-		  serviceFilterId: 0,
+		serviceName: serviceName || '',
+		serviceCategoryId: serviceCategoryId,
+		serviceSubCategoryId: serviceSubCategoryId,
+		serviceFilterId: 0,
 		};
+
+		const shouldCallApi = serviceName 
+		? true  // If servicename exists, call API no matter what
+		: (serviceCategoryId || serviceSubCategoryId); // If servicename is empty, call API only if id or ids exists
+
+		if (!shouldCallApi) {
+		setLoading(false);
+		return;
+		}
+
   
 		// POST request
 		axios.post(`${urls.baseUrl}services`, params, {
