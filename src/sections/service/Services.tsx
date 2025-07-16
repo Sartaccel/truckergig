@@ -82,6 +82,27 @@ const hasQuery = id || ids || servicename;
 
 console.log(router,"ROUTER")
 
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
+
+  const handlePageChange = (page, size) => {
+    setCurrentPage(page);
+    setPageSize(size); // Optional: This is handled in onShowSizeChange too, but you can keep it consistent
+  };
+
+  const handleShowSizeChange = (current, size) => {
+    setPageSize(size);
+    setCurrentPage(1); // Usually reset to first page when size changes
+  };
+
+  // Slice categories based on current page and pageSize
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const currentData = categories.slice(startIndex, endIndex);
+
+  console.log(currentData,"currentData")
+
 	useEffect(() => {
 	  if (!router.isReady) return;
 setLoading(true);
@@ -239,43 +260,49 @@ setLoading(true);
                 </div>
               </>
 			)}
-			{hasQueryParams && !loading && categories.length > 0 && (
+			{hasQueryParams && !loading && currentData.length > 0 && (
               <>
                 <div className="row pt-4 pb-4">
-                  {categories.length > 9
-                    ? categories.slice(minValue, maxValue).map((z, k) => (
+					   {currentData.map((z, k) => (
+          <CategoriesCards key={k} items={z} setservice={setservice} />
+        ))}
+                  {/* {currentData.length > 9
+                    ? currentData.slice(minValue, maxValue).map((z, k) => (
                         <CategoriesCards key={k} items={z} setservice={setservice} />
                       ))
-                    : categories.map((z, k) => (
+                    : currentData.map((z, k) => (
                         <CategoriesCards key={k} items={z} setservice={setservice} />
-                      ))}
+                      ))} */}
                 </div>
 
                 {/* Pagination */}
-                {categories.length > 9 ? (
+                {currentData.length > 9 ? (
                   <div className="row">
                     <div className="col-5">
                       <p className={styles["pag-items"]}>
-                        Items {minValue + 1} to {Math.min(maxValue, categories.length)} of {categories.length} total
+                        Items {minValue + 1} to {Math.min(maxValue, currentData.length)} of {currentData.length} total
                       </p>
                     </div>
                     <div className="col-7 pt-4 pb-4">
-                      <Pagination
-                        defaultCurrent={1}
-                        defaultPageSize={12}
-                        onChange={handleChange}
-                        total={categories.length}
-                      />
+ <Pagination
+        current={currentPage}
+        pageSize={pageSize}
+        total={categories.length}
+        onChange={handlePageChange}
+        showSizeChanger
+        onShowSizeChange={handleShowSizeChange}
+        pageSizeOptions={['12', '24', '36', '48']}
+      />
                     </div>
                   </div>
                 ) : (
                   <div className="col-5">
-                    <p className={styles["pag-items"]}>{categories.length} Items</p>
+                    <p className={styles["pag-items"]}>{currentData.length} Items</p>
                   </div>
                 )}
               </>
 		)}
-		{hasQueryParams && !loading && categories.length === 0 && (
+		{hasQueryParams && !loading && currentData.length === 0 && (
 			<>
   <div className="text-center w-100 py-5">
     <img
