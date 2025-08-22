@@ -41,13 +41,7 @@ export const BlognewsCard = (props: any) => {
             />
           </div>
           <div className={`${styles["card-body"]}`}>
-            {/* <div className={`${styles["card-event-text"]}`}>
-              <h4 className={`${styles["card-event-text"]} pt-2`}>{props.items.title}</h4>
-              <div className={`${styles["card-event-desc-text"]}`} dangerouslySetInnerHTML={{ __html: props.items.description }}></div>
-              <a className={styles.readMoreBtn} onClick={showBlognewsDetail}>
-    Read More
-  </a>
-            </div> */}
+
             <div className={`${styles["card-event-text"]}`}>
               <h4 className={`${styles["card-event-text"]} pt-2`}>
                 {props.items.title}

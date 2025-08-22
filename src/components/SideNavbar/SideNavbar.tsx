@@ -14,79 +14,100 @@ const SideNavbar: React.FC<sideNavProps> = ({curPage, ...prop}) => {
             <div className="mb-3">
                 <div className="row no-gutters">
                     <div className="col-1 padding-0">
-                        {curPage == 1 ? <Image className="pen_image" src={penimage}  alt="logo" height="13px" width="14px" /> : ''}
+                        {curPage == 1 ? <Image className="pen_image" src={penimage}  alt="logo" height={13} width={14} /> : ''}
                     </div>
                     <div className="col-11 padding-0">
-                        <Link href={{ pathname: '/register', query: { page: 1 } }} >
-                            <a className="sideLink" >&nbsp;Personal Info</a>
+                       <Link  
+                        href={{ pathname: '/register', query: { page: 1 } }} 
+                        className="sideLink"
+                        >
+                        &nbsp;Personal Info
                         </Link>
                         <br />
                     </div>
                 </div>
             <div className="row no-gutters">
                 <div className="col-1 padding-0">
-                    {curPage == 2 ? <Image className="pen_image" src={penimage}  alt="logo" height="13px" width="14px" /> : ''}
+                    {curPage == 2 ? <Image className="pen_image" src={penimage}  alt="logo" height={13} width={14} /> : ''}
                     {/* <Image className="tickimage" src={tickimage} alt="tick" height="12px" width="12px" /> */}
                 </div>
                 <div className="col-11 padding-0">
-                    <Link href={{ pathname: '/register', query: { page: 2 } }}>
-                        <a className="sideLink" >Home Address</a>
-                    </Link>
+               <Link 
+  href={{ pathname: '/register', query: { page: 2 } }} 
+  className="sideLink"
+>
+  Home Address
+</Link>
                     <br />
                 </div>
             </div>
             <div className="row no-gutters">
                 <div className="col-1 padding-0">
-                    {curPage == 3 ? <Image className="pen_image" src={penimage}  alt="logo" height="13px" width="14px" /> : ''}
+                    {curPage == 3 ? <Image className="pen_image" src={penimage}  alt="logo" height={13} width={14} /> : ''}
                 </div>
                 <div className="col-11 padding-0">
-                    <Link href={{ pathname: '/register', query: { page: 3 } }}>
-                        <a className="sideLink" >Employment History</a>
-                    </Link>
+            <Link 
+  href={{ pathname: '/register', query: { page: 3 } }} 
+  className="sideLink"
+>
+  Employment History
+</Link>
                     <br />
                 </div>
             </div>
             <div className="row no-gutters">
 					<div className="col-1 padding-0">
-                        {curPage == 4 ? <Image className="pen_image" src={penimage}  alt="logo" height="13px" width="14px" /> : ''}
+                        {curPage == 4 ? <Image className="pen_image" src={penimage}  alt="logo" height={13} width={14} /> : ''}
 					</div>
 					<div className="col-11 padding-0">
-                        <Link href={{ pathname: '/register', query: { page: 4 } }}>
-                            <a className="sideLink" >Educational Details</a>
-                        </Link>
+                <Link 
+  href={{ pathname: '/register', query: { page: 4 } }} 
+  className="sideLink"
+>
+  Educational Details
+</Link>
 					<br />
 					</div>
 				</div>
             <div className="row no-gutters">
                 <div className="col-1 padding-0">
-                    {curPage == 5 ? <Image className="pen_image" src={penimage}  alt="logo" height="13px" width="14px" /> : ''}
+                    {curPage == 5 ? <Image className="pen_image" src={penimage}  alt="logo" height={13} width={14} /> : ''}
                 </div>
                 <div className="col-11 padding-0">
-                    <Link href={{ pathname: '/register', query: { page: 5 } }}>
-                        <a className="sideLink" >Emergency Contact</a>
-                    </Link>
+                <Link 
+  href={{ pathname: '/register', query: { page: 5 } }} 
+  className="sideLink"
+>
+  Emergency Contact
+</Link>
                     <br />
                 </div>
             </div>
             <div className="row no-gutters">
                 <div className="col-1 padding-0">
-                    {curPage == 6 ? <Image className="pen_image" src={penimage}  alt="logo" height="13px" width="14px" /> : ''}
+                    {curPage == 6 ? <Image className="pen_image" src={penimage}  alt="logo" height={13} width={14} /> : ''}
                 </div>
                 <div className="col-11 padding-0">
-                    <Link href={{ pathname: '/register', query: { page: 6 } }}>
-                        <a className="sideLink" >General</a>
-                    </Link>
+                <Link 
+  href={{ pathname: '/register', query: { page: 6 } }} 
+  className="sideLink"
+>
+  General
+</Link>
                     <br />
                 </div>
             </div>
             <div className="row no-gutters">
                 <div className="col-1 padding-0">
-                    {curPage == 7 ? <Image className="pen_image" src={penimage}  alt="logo" height="13px" width="14px" /> : ''}
+                    {curPage == 7 ? <Image className="pen_image" src={penimage}  alt="logo" height={13} width={14} /> : ''}
                 </div>
                 <div className="col-11 padding-0">
-                    <Link href={{ pathname: '/register', query: { page: 7 } }}>
-                        <a className="sideLink" >Review</a>
-                    </Link>
+                 <Link 
+  href={{ pathname: '/register', query: { page: 7 } }} 
+  className="sideLink"
+>
+  Review
+</Link>
                     <br />
                 </div>
             </div>

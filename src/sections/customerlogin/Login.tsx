@@ -5,17 +5,8 @@ import Tab from "react-bootstrap/Tab";
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import Customer from '../../components/Customer/customer';
 import Vendor from '../../components/Vendor/Vendor';
-import {
-  Grid,
-  TextField,
-  Button,
-  Checkbox,
-  InputAdornment,
-  Box,
-  Divider,
-  CircularProgress,
-  Tooltip,
-} from '@mui/material'
+import Grid from '@mui/material/Grid';
+
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import MailIcon from './mess.svg'
@@ -34,7 +25,7 @@ const Login: React.FC = () => {
 
 <div className="login-container" style={{marginTop:'-3rem'}}>
       <Grid container>
-        <Grid item xs={12} md={6} lg={6} sx={{ display: { xs: 'none', md: 'block' } }}>
+        <Grid xs={12} md={6} lg={6} sx={{ display: { xs: 'none', md: 'block' } }}>
         
 
           <div
@@ -54,7 +45,7 @@ const Login: React.FC = () => {
 
                       </div>
         </Grid>
-        <Grid item xs={12} md={6} lg={6} display="flex" className='mt-5'>
+        <Grid xs={12} md={6} lg={6} display="flex" className='mt-5'>
           <SignIn />
         </Grid>
       </Grid>

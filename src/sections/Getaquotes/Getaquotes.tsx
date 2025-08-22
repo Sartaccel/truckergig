@@ -137,23 +137,7 @@ const Getaquote: React.FC = (props: any) => {
 </div>
                         <div className={`${styles["getaquote-text"]} p-1`}>
                             <p>RELATED <strong>SERVICE</strong></p>
-                            {/* {
-                                quote && quote.map(function (element, idx) {
-                                    return (
-                                        <div className={`${styles["quote-image"]} `}>
-                                            <Link href="">
-                                                <a>
-                                                    <img className={`${styles["getaquote-image"]} `}
-                                                        src={element.logoPath}
-                                                        alt={element.serviceName}
-                                                    />
-                                                </a>
-                                            </Link>
-                                        </div>
-                                    )
-                                })
-                            } */}
-                            <GetPopup />
+                                                       <GetPopup />
                         </div>
                     </div>
 

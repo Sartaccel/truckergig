@@ -64,13 +64,12 @@ const Footer: React.FC = () => {
                   {/* Logo */}
                   <div className={`${styles["footer-logo"]}`}>
                     <Link href="/">
-                      <a>
+                    
                         <img
                           className="logo_image"
                           src="/images/logo_black.png"
                           alt="logo"
                         />
-                      </a>
                     </Link>
                   </div>
                   {/* Address, My Accounts, Other Links, About Us */}
@@ -116,79 +115,48 @@ const Footer: React.FC = () => {
                       <div className={`${styles["quick-links"]}`}>
                         <h2>Ouick Links</h2>
                         <ul>
-                          <Link href="/about">
-                            <li>
-                              <a href="#">About Us</a>
-                            </li>
-                          </Link>
-                          <Link href="/privacypolicy">
-                            <li>
-                              <a href="#">Privacy Policy</a>
-                            </li>
-                          </Link>
-                          <Link href="/terms">
-                            <li>
-                              <a href="#">Terms & Conditions</a>
-                            </li>
-                          </Link>
-                          <Link href="/contactus">
-                            <li>
-                              <a href="#">Contact Us</a>
-                            </li>
-                          </Link>
+               <li>
+  <Link href="/about">About Us</Link>
+</li>
+<li>
+  <Link href="/privacypolicy">Privacy Policy</Link>
+</li>
+<li>
+  <Link href="/terms">Terms & Conditions</Link>
+</li>
+<li>
+  <Link href="/contactus">Contact Us</Link>
+</li>
                         </ul>
                       </div>
                       <div className={`${styles["quick-links"]}`}>
                         <h2>My Accounts</h2>
                         <ul>
+                        
                           <Link href="/login">
-                            <li>
-                              <a href="#">Login</a>
-                            </li>
-                          </Link>
-                          <Link href="/generalinfo">
-                            <li>
-                              <a href="#">Driver Register</a>
-                            </li>
-                          </Link>
-                          <Link href="/vendor">
-                            <li>
-                              <a href="#">Vendor Register</a>
-                            </li>
-                          </Link>
+  <li>Login</li>
+</Link>
+<Link href="/generalinfo">
+  <li>Driver Register</li>
+</Link>
+<Link href="/vendor">
+  <li>Vendor Register</li>
+</Link>
                         </ul>
                       </div>
 
                       <div className={`${styles["quick-links"]}`}>
                         <h2>Social Links</h2>
                         <ul className={styles["social-icons"]}>
-                          <li>
-                            <a
-                              href=" https://www.linkedin.com/company/truckergig/ "
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Linkedin size={20} />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href=" https://www.facebook.com/truckergig/ "
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Facebook size={20} />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="https://www.youtube.com/@truckergig8784/"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Youtube size={20} />
-                            </a>
-                          </li>
+                         <li>
+  <Link href="/login">Login</Link>
+</li>
+<li>
+  <Link href="/generalinfo">Driver Register</Link>
+</li>
+<li>
+  <Link href="/vendor">Vendor Register</Link>
+</li>
                         </ul>
                       </div>
                     </div>

@@ -123,31 +123,11 @@ const GetPopup: React.FC = () => {
 
     return (
         <>
-            {/* {
-                quote && quote.map(function (element, idx) {
-                    return (
-                        <div className={`${styles["quote-image"]} `}>
-                            <Link href="" >
-                                <a>
-                                    <img className={`${styles["getaquote-image"]} `}
-                                        src={element.logoPath}
-                                        alt={element.serviceName}
-                                        onClick={() => {
-                                            setpopupdata(element)
-                                            handleShow(element);
-                                          }}
-                                    />
-                                </a>
-                            </Link>
-                        </div>
-                    )
-                })
-            } */}
+           
     {quote && quote.map((element, idx) => (
   element.logoPath?.trim() && (
     <div key={idx} className={styles["quote-image"]}>
       <Link href="">
-        <a>
           <img
             className={styles["getaquote-image"]}
             src={element.logoPath}
@@ -160,7 +140,6 @@ const GetPopup: React.FC = () => {
               handleShow(element);
             }}
           />
-        </a>
       </Link>
     </div>
   )
