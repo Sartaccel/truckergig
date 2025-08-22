@@ -113,7 +113,7 @@ const Footer: React.FC = () => {
 
                     <div className={`${styles["footer-links"]}`}>
                       <div className={`${styles["quick-links"]}`}>
-                        <h2>Ouick Links</h2>
+                        <h2>Quick Links</h2>
                         <ul>
                <li>
   <Link href="/about">About Us</Link>
