@@ -63,7 +63,6 @@ import axios, { AxiosRequestConfig } from "axios";
 import urls from "../../utilities/AppSettings";
 import "antd/dist/antd.css";
 import { Pagination } from "antd";
-import { route } from "next/dist/server/router";
 
 const Services: React.FC = (props) => {
 	const router = useRouter()
