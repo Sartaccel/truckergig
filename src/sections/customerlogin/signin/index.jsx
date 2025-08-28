@@ -461,15 +461,7 @@ const Signin = () => {
                   <a href="#" onClick={handleRedirect} style={{ color: "rgb(0, 112, 156)", textDecoration: "none" }}>
                     Sign Up
                   </a>
-                  {/* <Link href="/customerregister"
-                  >
-                    <span 
-                    style={{
-                    color:"rgb(0, 112, 156)",
-                    textdecoration:"none !important",
-                    cursor:"pointer"
-                  }}>Sign Up</span>
-                  </Link> */}
+         
                 </p>
               </Grid>
 

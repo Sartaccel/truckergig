@@ -14,8 +14,10 @@ const Events: React.FC = () => {
   const [eventData, setEventData] = useState(null);
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(12);
+    const [currentPage, setCurrentPage] = useState(1);
+  
   const [loading, setLoading] = useState(true);  // Add this state
-
+const pageSize = 6;
 
   useEffect(() => {
     setLoading(true); 
@@ -46,6 +48,13 @@ const Events: React.FC = () => {
       setMaxValue(value * 12);
     }
   };
+    const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: document.getElementById("card-section").offsetTop, behavior: "smooth" });
+  };
+
+    const paginatedevents = events.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
 
   return (
 
@@ -68,33 +77,55 @@ const Events: React.FC = () => {
         </div>
       </div>
 
-      <div className="p-3">
-        <div className="row">
-          {loading ? (
+      <div id="card-section" className={`row pt-4 pb-4 ${styles.cardSection}`}>
+      {loading ? (
             <div className="text-center">
               <div className="spinner-border text-warning" role="status">
                 <span className="visually-hidden">Loading...</span>
               </div>
             </div>
-          ) : events.length > 0 ? (
-            <>
-              <div className="col-lg-12">
-                <div className="row pt-4 pb-4">
-                  {events.slice(minValue, maxValue).map((event, index) => (
-                    <EventsCards key={index} items={event} seteventData={setEventData} />
-                  ))}
-                </div>
-              </div>
-            </>
+          ) : paginatedevents.length > 0 ? (
+            paginatedevents.map((event: any, index: number) => (
+              <EventsCards
+               key={index} items={event} seteventData={setEventData}
+              />
+            ))
           ) : (
             <div className="text-center">
               <h2>Oops! There are No Events at the Moment</h2>
-              <img src="/images/no enents.jpg" className={styles["img-fluid"]} />
+              <img
+                src="/images/no enents.jpg"
+                className={styles.imgFluid}
+                alt="No Events Available"
+              />
             </div>
           )}
         </div>
-      </div>
+             {/* Pagination Section */}
+       {events.length > pageSize &&
+          paginatedevents.length > 0 &&
+          !loading && (
+            <div className="row">
+              <div className="col-5">
+                <p className={styles.pagItems}>
+                Event{" "}
+                  {Math.min((currentPage - 1) * pageSize + 1, events.length)}{" "}
+                  to {Math.min(currentPage * pageSize, events.length)} of{" "}
+                  {events.length} total
+                </p>
+              </div>
+              <div className="col-7 pt-4 pb-4">
+                <Pagination
+                  current={currentPage}
+                  pageSize={pageSize}
+                  onChange={handlePageChange}
+                  total={events.length}
+                />
+              </div>
+            </div>
+          )}
     </div>
+    
     </>
   );
 };

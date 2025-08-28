@@ -225,8 +225,8 @@ const Landing: React.FC = () => {
                   </p>
 
                   <div className={`${styles["get-button"]}`}>
-                    <Link href="/marketplace">
-                      <a className={`${styles["start-text"]}`}>Get Started</a>
+                    <Link className={`${styles["start-text"]}`} href="/marketplace">
+              Get Started
                     </Link>
                   </div>
                 </div>
@@ -253,9 +253,9 @@ const Landing: React.FC = () => {
                     and drive the trucking industry.
                   </p>
                   <div className={`${styles["get-button"]}`}>
-                    <Link href="/marketplace">
-                      <a className={`${styles["start-text"]}`}>Get Started</a>
-                    </Link>
+               <Link href="/marketplace" className={styles["start-text"]}>
+  Get Started
+</Link>
                   </div>
                 </div>
 
@@ -279,9 +279,9 @@ const Landing: React.FC = () => {
                     flawlessly and be on top of everything your team is up to.
                   </p>
                   <div className={`${styles["get-button"]}`}>
-                    <Link href="/marketplace">
-                      <a className={`${styles["start-text"]}`}>Get Started</a>
-                    </Link>
+                   <Link href="/marketplace" className={styles["start-text"]}>
+  Get Started
+</Link>
                   </div>
                 </div>
 

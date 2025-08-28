@@ -158,15 +158,13 @@ useEffect(() => {
       <Container fluid className={`${styles["navbar-content"]} d-flex align-items-center justify-content-between`}>
       <div className="d-flex align-items-center justify-content-between w-100 navbar-header">
         <Navbar.Brand>
-          <Link href="/">
-            <a className={`${styles["navbar-brand"]} ${styles.logo}`}>
-              <img
-                className="logo_image"
-                src="/images/TruckerGIG_white.png"
-                alt="logo"
-              />
-            </a>
-          </Link>
+<Link href="/" className={`${styles["navbar-brand"]} ${styles.logo}`}>
+  <img
+    className="logo_image"
+    src="/images/TruckerGIG_white.png"
+    alt="TruckerGIG Logo"
+  />
+</Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         </div>
@@ -179,27 +177,35 @@ useEffect(() => {
           </Nav>
           <Nav>
             <div className="navbar-nav">
-              <Link href="/about">
-                <a href="#" className={`nav-link ${styles["navbar-color"]} ${router.pathname==="/about" ? "active" : ""}`}>
-                  About Us
-                </a>
-              </Link>
-     
-              <Link href="/marketplace">
-                <a href="#" className={`nav-link  ${styles["navbar-color"]} ${router.pathname==="/marketplace" ? "active" : ""}`}>
-                  Marketplace
-                </a>
-              </Link>
-              <Link href="/events">
-                <a href="#" className={`nav-link  ${styles["navbar-color"]} ${router.pathname==="/events" ? "active" : ""}`}>
-                  Events
-                </a>
-              </Link>
-              <Link href="/blognews">
-                <a href="#" className={`nav-link  ${styles["navbar-color"]} ${router.pathname==="/blognews" || router.pathname === "/blognewsdetail" ? "active" : ""}`}>
-                  Blogs/News
-                </a>
-              </Link>
+        <Link
+  href="/about"
+  className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/about" ? "active" : ""}`}
+>
+  About Us
+</Link>
+
+<Link
+  href="/marketplace"
+  className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/marketplace" ? "active" : ""}`}
+>
+  Marketplace
+</Link>
+
+<Link
+  href="/events"
+  className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/events" ? "active" : ""}`}
+>
+  Events
+</Link>
+
+<Link
+  href="/blognews"
+  className={`nav-link ${styles["navbar-color"]} ${
+    router.pathname === "/blognews" || router.pathname === "/blognewsdetail" ? "active" : ""
+  }`}
+>
+  Blogs/News
+</Link>
               {!Ath ? (
                 <Dropdown className="margin-fixs">
                   <Dropdown.Toggle
@@ -225,14 +231,15 @@ useEffect(() => {
 
               {!Ath ? (
             
-               <Link href="/login">
-                 <a className={`${styles.getStartedButton} login-link ${router.pathname === "/login" ? "active" : ""}`}>
-                   <span>Login</span>
-                   <div className={styles["arrow-circle"]}>
-                     <i className={`${styles["arrow-icon"]} bi bi-person-fill pl-1`}></i>
-                   </div>
-                 </a>
-               </Link>
+     <Link
+  href="/login"
+  className={`${styles.getStartedButton} login-link ${router.pathname === "/login" ? "active" : ""}`}
+>
+  <span>Login</span>
+  <div className={styles["arrow-circle"]}>
+    <i className={`${styles["arrow-icon"]} bi bi-person-fill pl-1`}></i>
+  </div>
+</Link>
              
               ) : (
                 <div>
