@@ -132,31 +132,37 @@ const Footer: React.FC = () => {
                       <div className={`${styles["quick-links"]}`}>
                         <h2>My Accounts</h2>
                         <ul>
-                        
-                          <Link href="/login">
-  <li>Login</li>
-</Link>
-<Link href="/generalinfo">
-  <li>Driver Register</li>
-</Link>
-<Link href="/vendor">
-  <li>Vendor Register</li>
-</Link>
+                          <li>
+                            <Link href="/login">Login
+
+                            </Link></li>
+                          <li>
+                            <Link href="/generalinfo">Driver Register
+                            </Link></li>
+                          <li>
+                            <Link href="/vendor">Vendor Register
+                            </Link></li>
                         </ul>
                       </div>
 
                       <div className={`${styles["quick-links"]}`}>
                         <h2>Social Links</h2>
                         <ul className={styles["social-icons"]}>
-                         <li>
-  <Link href="/login">Login</Link>
-</li>
-<li>
-  <Link href="/generalinfo">Driver Register</Link>
-</li>
-<li>
-  <Link href="/vendor">Vendor Register</Link>
-</li>
+                          <li>
+                            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                              <i className="bx bxl-linkedin" style={{ fontSize: "22px" }}></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                              <i className="bx bxl-facebook" style={{ fontSize: "22px" }}></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+                              <i className="bx bxl-youtube" style={{ fontSize: "22px" }}></i>
+                            </a>
+                          </li>
                         </ul>
                       </div>
                     </div>
