@@ -10,6 +10,7 @@ import {
   ChevronRight,
   Youtube,
 } from "lucide-react";
+import Image from "next/image";
 
 const Footer: React.FC = () => {
   return (
@@ -34,11 +35,13 @@ const Footer: React.FC = () => {
             className={`${styles["image-container"]} hidden md:flex justify-center`}
           >
             <Link href="/contactus">
-              <img
-                src="/images/Footer 5.png"
-                alt="Business Growth"
-                style={{ width: "125px", height: "auto", cursor: "pointer" }}
-              />
+             <Image
+              src="/images/Footer 5.png"
+              alt="Business Growth"
+              width={125}
+              height={80} // example number
+              style={{ cursor: "pointer" }}
+            />
             </Link>
           </div>
 
@@ -65,10 +68,12 @@ const Footer: React.FC = () => {
                   <div className={`${styles["footer-logo"]}`}>
                     <Link href="/">
                     
-                        <img
+                        <Image
                           className="logo_image"
                           src="/images/logo_black.png"
                           alt="logo"
+                           width={100}
+                          height={100}
                         />
                     </Link>
                   </div>
@@ -185,16 +190,17 @@ const Footer: React.FC = () => {
                   {/* Proud Member Logos */}
                   <div className="row justify-content-center">
                     <div className="col-md-3 d-flex justify-content-center">
-                      <img className="h_60" src="/images/ltna.jpg" alt="logo" />
+                      <Image className="h_60" fill src="/images/ltna.jpg" alt="logo" />
                     </div>
                     <div className="col-md-3 d-flex justify-content-center">
-                      <img className="h_60" src="/images/TNS.jpg" alt="image" />
+                      <Image className="h_60" fill src="/images/TNS.jpg" alt="image" />
                     </div>
                     <div className="col-md-3 d-flex justify-content-center">
-                      <img
+                      <Image
                         className="h_60"
                         src="/images/BITA.jpg"
                         alt="image"
+                        fill
                       />
                     </div>
                   </div>

@@ -11,6 +11,8 @@ import Link from "next/link";
 import GoogleLogin from "../Sociallogins/GoogleLogin";
 import FacebookLogin from "../Sociallogins/FacebookLogin";
 import urls from "../../utilities/AppSettings";
+import Image from "next/image";
+
 // import  Getaquote  from "../../sections/Getaquote";
 
 const GetPopup: React.FC = () => {
@@ -128,7 +130,7 @@ const GetPopup: React.FC = () => {
   element.logoPath?.trim() && (
     <div key={idx} className={styles["quote-image"]}>
       <Link href="">
-          <img
+          <Image
             className={styles["getaquote-image"]}
             src={element.logoPath}
             alt={element.serviceName || "Service"}
@@ -159,10 +161,11 @@ const GetPopup: React.FC = () => {
                         className={`${styles["modal-close"]} `}
                         onClick={handleClose}
                     />
-                    <img
+                    <Image
                         className={`${styles["popup-logo"]} `}
                         src="/images/logo_black.png"
-                        alt="Truckergiglogo"
+                        alt="Truckergiglogo" width={100}
+                  height={100}
                     />
                     <p className={`${styles["modal-lead"]} `}>
                         How do you want to signup?

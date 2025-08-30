@@ -79,28 +79,28 @@
 //         <div className="partnerpage-slider">
 //         <Slider {...settings}>
 //             <div className={`${styles["partner-tab"]}`}>
-//               <img
+//               <Image
 //                 className={`${styles["service-icon"]}`}
 //                 src="/images/dexfreight-logo.png"
 //                 alt="dexfreight-logo"
 //               />
 //             </div>
 //             <div className={`${styles["partner-tab"]}`}>
-//               <img
+//               <Image
 //                 className={`${styles["service-icon"]}`}
 //               src="/images/Kale.jpg"
 //               alt="kale-logo"
 //             />
 //           </div>
 //           <div className={`${styles["partner-tab"]}`}>
-//             <img
+//             <Image
 //               className={`${styles["service-icon"]}`}
 //               src="/images/OTR Solutions.png"
 //               alt="OTR Solutions-logo"
 //             />
 //           </div>
 //           <div className={`${styles["partner-tab"]}`}>
-//             <img
+//             <Image
 //               className={`${styles["service-icon"]}`}
 //               src="/images/qbotica.jpg"
 //               alt="qbotica-logo"
@@ -108,14 +108,14 @@
 //           </div>
 
 //           <div className={`${styles["partner-tab"]}`}>
-//             <img
+//             <Image
 //               className={`${styles["service-icon"]}`}
 //               src="/images/Talent Turbo.png"
 //               alt="Talent Turbo-logo"
 //             />
 //           </div>
 //           <div className={`${styles["partner-tab"]}`}>
-//             <img
+//             <Image
 //               className={`${styles["service-icon"]}`}
 //               src="/images/Teamone Logistics.png"
 //               alt="Teamone Logistics-logo"
@@ -123,14 +123,14 @@
 //           </div>
 
 //           <div className={`${styles["partner-tab"]}`}>
-//             <img
+//             <Image
 //               className={`${styles["service-icon"]}`}
 //               src="/images/trucker-cloud.png"
 //               alt="trucker-cloud-logo"
 //             />
 //           </div>
 //           {/* <div className={`${styles["partner-tab"]}`}>
-//             <img
+//             <Image
 //               className={`${styles["service-icon"]}`}
 //               src="/images/turbo_sales.jpg"
 //               alt="turbosales-logo"
@@ -147,7 +147,7 @@
 import React from "react";
 import styles from "./Partners.module.scss";
 import Slider from "react-slick";
-
+import Image from "next/image";
 const Partners: React.FC = () => {
   const settings = {
     dots: false,
@@ -195,10 +195,12 @@ const Partners: React.FC = () => {
             "/images/trucker-cloud.png",
           ].map((src, index) => (
             <div className={styles["partner-tab"]} key={index}>
-              <img
+              <Image
                 className={styles["service-icon"]}
                 src={src}
                 alt={`partner-logo-${index}`}
+                width={100}
+                height={100}
               />
             </div>
           ))}

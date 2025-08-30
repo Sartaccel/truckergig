@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import Image from "next/image";
 const schema = yup.object().shape({
     password: yup.string().required("Enter Password").min(6, "Password must be atleast six characters").max(24),
     retypepwd: yup.string().required("Enter Retype Password ").oneOf([yup.ref("password")], "retypePassword not matched with password"),
@@ -136,7 +136,8 @@ const SetPassword: React.FC = () => {
                 <div className="col-md-4 shadow p-5 bg-white rounded">
                     <div className="row no-gutters">
                         <div className="col text-center">
-                            <img className="logo" src="/images/logo_black.png" alt="logo" />
+                            <Image className="logo"  width={100}
+                  height={100} src="/images/logo_black.png" alt="logo" />
                         </div>
                     </div>
                     <div className="row no-gutters">

@@ -11,7 +11,7 @@ import $ from "jquery";
 import styles from "../Customerresetpassword/Password.module.scss"
 import { CircularProgress } from '@mui/material';
 import { Eye, EyeOff } from 'lucide-react';
-
+import Image from "next/image";
 const schema = yup.object().shape({
   emailId: yup
     .string()
@@ -160,11 +160,11 @@ const Customerresetpassword: React.FC = () => {
             />
             <div className={styles.resetPasswordPage}>
       <div className={styles.leftPanel}>
-        <img src="/images/mail.jpg" alt="Shipping background" className={styles.backgroundImage} />
+        <Image src="/images/mail.jpg" alt="Shipping background" className={styles.backgroundImage} />
       </div>
       <div className={styles.rightPanel}>
         <div className={styles.formContainer}>
-          <img src="/images/logo_black.png" alt="Logo" className={styles.logo} />
+          <Image src="/images/logo_black.png" alt="Logo" className={styles.logo} />
           <h3>Reset Password</h3>
           <p className={styles.subtitle}>Don’t worry! Enter your email to reset your password and get back on track</p>
 

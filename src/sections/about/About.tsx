@@ -187,7 +187,7 @@ const About: React.FC = () => {
            
                 {size.width >= 768 ? (
                   <a className={`${styles["videopopup"]}`} onClick={handleShow}>
-                    <img src="/images/viedoimg.jpg" alt="video-thumbnail" />
+                    <Image src="/images/viedoimg.jpg" alt="video-thumbnail" />
                     <div className={`${styles["sonar-wrapper"]}`}>
                       <div className={`${styles["sonar-emitter"]}`}>
                         <i className={`${styles["ion-arrow-right-b"]}`} />
@@ -201,7 +201,7 @@ const About: React.FC = () => {
                     href={promotions}
                     target="_blank"
                   >
-                    <img
+                    <Image
                       src="https://development.truckergig.com/pub/static/frontend/TGIG/webstorev3/en_US/images/about.jpg"
                       alt="video-thumbnail"
                     />
@@ -239,7 +239,7 @@ const About: React.FC = () => {
       TruckerGig’s Marketplace is a seamless platform connecting shippers, carriers, and brokers worldwide for hassle-free freight movement. With real-time load matching, transparent pricing, and direct shipper access, we ensure efficiency and cost savings across global markets. Our smart search filters and bidding system help carriers find the best-paying loads, while shippers get reliable transport solutions. Integrated telematics and tracking provide end-to-end visibility, ensuring smooth cross-border operations. Whether you're a small fleet or an independent trucker, TruckerGig simplifies freight booking with speed, security, and transparency on a global scale.      </p>
     </div>
     <div className="col-md-6 text-start slide-left shrink-animation shrink-animation-delay-2">
-      <img
+      <Image
         className={`${styles["service-icon"]}`}
         src="/images/ma.jpg"
         alt="tech-partner"
@@ -259,7 +259,7 @@ const About: React.FC = () => {
       TruckerGig empowers truck drivers with the tools and support they need to succeed. Our platform offers job listings, easy onboarding, and compliance tracking to simplify driver management. With telematics integration, real-time route assistance, and fuel discounts, we help drivers maximize efficiency and savings. Whether you’re an independent owner-operator or part of a large fleet, TruckerGig provides seamless access to loads, reliable support, and essential resources to keep you moving. Drive smarter, earn more, and stay connected with TruckerGig’s driver-focused solutions.      </p>
     </div>
     <div className="col-md-6 text-end slide-right shrink-animation shrink-animation-delay-4">
-      <img
+      <Image
         className={`${styles["service-icon"]}`}
         src="/images/Driver.jpg"
         alt="tech-partner"
@@ -282,7 +282,7 @@ const About: React.FC = () => {
         <div
           className={`col-md-6 text-start slide-left shrink-animation shrink-animation-delay-6 animate-on-scroll`}
         >
-          <img
+          <Image
             className={`${styles["service-icon"]}`}
             src="/images/marketp;lace.png"
             alt="tech-partner"
@@ -310,7 +310,7 @@ const About: React.FC = () => {
       <p className={`${styles["content-para"]}`}>
       Microservice-Based API Integration in Logistics enables transportation platforms to function with greater speed, flexibility, and precision by dividing complex logistics operations into smaller, independent services. Core functionalities such as live vehicle tracking, speed monitoring, fuel management, and driver behavior analysis are each handled by dedicated microservices that communicate through APIs. These services are accessed via a secure API gateway, which directs requests from client applications like dispatcher dashboards or fleet management tools to the appropriate service. Each microservice operates with its own database, ensuring modularity, easy scaling, and seamless integration within the overall logistics ecosystem.</p>    </div>
     <div className="col-md-6 text-start slide-left shrink-animation shrink-animation-delay-2">
-      <img
+      <Image
         className={`${styles["service-icon"]}`}
         src="/images/APIi.svg"
         alt="API Integration"
@@ -329,7 +329,7 @@ const About: React.FC = () => {
             {/* -----------------member 1---------------- */}
             <div className="col-12 col-sm-6 col-md-4 col-lg-4 p-3 ">
               <div className={`card ${styles.card} d-flex flex-column`}>
-                <img
+                <Image
                   className={`card-img-top ${styles["board-image"]}`}
                   src="/images/Charan Shikh.jpg"
                   alt="Charan Shikh"
@@ -352,7 +352,7 @@ const About: React.FC = () => {
             {/* ---------------------member 2----------- */}
             <div className="col-12 col-sm-6 col-md-4 col-lg-4 p-3">
               <div className={`card ${styles.card} d-flex flex-column`}>
-                <img
+                <Image
                   className={`card-img-top ${styles["board-image"]}`}
                   src="/images/Jim Handoush.jpg"
                   alt="Jim Handoush"
@@ -376,7 +376,7 @@ const About: React.FC = () => {
             {/* --------------------member 3---- */}
             <div className="col-12 col-sm-6 col-md-4 col-lg-4 p-3">
               <div className={`card ${styles.card} d-flex flex-column`}>
-                <img
+                <Image
                   className={`card-img-top ${styles["board-image"]}`}
                   src="/images/Mahesh Vinayagam.jpg"
                   alt="Mahesh Vinayagam"
@@ -399,7 +399,7 @@ const About: React.FC = () => {
             {/* ----------member 4----------------- */}
             <div className="col-12 col-sm-6 col-md-4 col-lg-4 p-3">
               <div className={`card ${styles.card} d-flex flex-column`}>
-                <img
+                <Image
                   className={`card-img-top ${styles["board-image"]}`}
                   src="/images/Jeremy Estep.jpg"
                   alt="Jeremy Estep"
@@ -422,7 +422,7 @@ const About: React.FC = () => {
             {/* -----------------member 5--------- */}
             <div className="col-12 col-sm-6 col-md-4 col-lg-4 p-3">
               <div className={`card ${styles.card} d-flex flex-column`}>
-                <img
+                <Image
                   className={`card-img-top ${styles["board-image"]}`}
                   src="/images/Jonah Carney.jpg"
                   alt="Jonah Carney"
@@ -445,7 +445,7 @@ const About: React.FC = () => {
             {/* -----------------member 6-------------------- */}
             <div className="col-12 col-sm-6 col-md-4 col-lg-4 p-3">
               <div className={`card ${styles.card} d-flex flex-column `}>
-                <img
+                <Image
                   className={`card-img-top ${styles["board-image"]}`}
                   src="/images/Brad Reinhardt.jpg"
                   alt="Brad Reinhardt"

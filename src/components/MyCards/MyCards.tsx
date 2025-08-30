@@ -1,6 +1,7 @@
 import React from "react";
 import styles from '../cards/HomeCards.module.scss';
 import DeleteService from "../DeleteService/DelService";
+import Image from "next/image";
 
 export const MyCards = (props: any) => {
   console.log(props,"props...")
@@ -9,7 +10,7 @@ export const MyCards = (props: any) => {
       <div className="card w-100 shadow-sm">
         <div className={`${styles["card-slider"]} d-flex flex-column h-100 p-3`}>
           <div className={`${styles["card-slider-img"]} text-center mb-3`}>
-            <img
+            <Image
               className={`${styles["card-slider-image"]} `}
               src={props.items.logoPath}
               alt={props.items.serviceName}

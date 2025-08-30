@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import router from "next/router";
 import styles from "../ResetlinkMail/Restlink.module.scss"
+import Image from "next/image";
 
 const ResetLinkMail: React.FC = () => {
 
@@ -19,7 +20,7 @@ const ResetLinkMail: React.FC = () => {
   <div className={styles.rightSide}>
     <div className={styles.card}>
       <div className="text-center">
-        <img className={styles.logo} src="/images/logo_black.png" alt="logo" />
+        <Image className={styles.logo} src="/images/logo_black.png" alt="logo" />
       </div>
       <h3 className={styles.heading}>Reset Link Mailed</h3>
       <p className={styles.message}>

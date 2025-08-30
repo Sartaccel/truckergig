@@ -96,7 +96,7 @@ const Blognews: React.FC = () => {
           ) : (
             <div className="text-center">
               <h2>Oops! There are No Blogs/News at the Moment</h2>
-              <img
+              <Image
                 src="/images/no enents.jpg"
                 className={styles.imgFluid}
                 alt="No Events Available"

@@ -18,6 +18,8 @@ import router from "next/router";
 import { useRouter } from "next/router";
 import { Eye, EyeOff } from "lucide-react";
 import { CircularProgress } from "@mui/material";
+import Link from "next/link";
+
 const onCaptchaChange = (value) => {
   console.log("Captcha value:", value);
 };
@@ -143,18 +145,6 @@ function validateEmail(value) {
   }
   return error;
 }
-
-// function validatePhone(value) {
-//   let error;
-//   if (value === undefined || value.toString().length != 10 ||
-//     value.toString().length < 0 || value.substring(0, 1) == "0"
-//     || value.substring(0, 1) == "-"
-//     || value.indexOf('.') !== -1) {
-//     error = "Invalid Phone Number";
-//   }
-//   return error;
-// }
-
 const Vendor: React.FC = () => {
   const [selectedCountry, setselectedCountry] = useState(undefined);
   const [selectedProduct, setselectedProduct] = useState(undefined);
@@ -274,7 +264,9 @@ const dispatch = useDispatch<any>(); // allows async thunk return
       <div className="row p-2" style={{ marginLeft: "55px" }}>
         <div className="col">
           <Breadcrumb>
-            <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+          <Link href="/">Home</Link>
+
+            {/* <Breadcrumb.Item href="/">Home</Breadcrumb.Item> */}
             <Breadcrumb.Item active>Vendor Registration</Breadcrumb.Item>
           </Breadcrumb>
         </div>
@@ -290,20 +282,6 @@ const dispatch = useDispatch<any>(); // allows async thunk return
             } else {
               values.telephone = selectedCountry.value + " " + values.telephone;
             }
-            // if (!selectedProduct) {
-            //   setselectedProductValidation(true);
-            //   const arr = values.telephone.split(" ");
-            //   console.log(arr);
-            //   values.telephone = arr[1];
-            //   console.log(values.telephone);
-            // } else {
-            //   setselectedProductValidation(false);
-            // }
-            // values.productList = selectedProduct.value;
-            // console.log(values.productList);
-            // if (values.productList == null) {
-            //   toast.error("Please Select a product");
-            // }
 setLoading(true);
             dispatch(setVendorInfo(values))
              .then((response) => {
@@ -337,8 +315,6 @@ setLoading(true);
             setFieldValue
           }) => (
             <div className="heading">
-              {/* <h4 className={`${styles["name"]}`} >Vendor Registration</h4> */}
-              {/* <h6><b>Already registered? Register your service <a href="/#" className="verify" onClick={(e) => { newService(e) }}>here</a></b></h6> */}
               <div className={styles.card}>
                 <h4 className={`${styles["name"]}`}>Vendor Registration</h4>
                 <h6 className={styles.here}>
@@ -1086,22 +1062,6 @@ setLoading(true);
                   <p>
                     {errors.submit && "Please complete all required field."}
                   </p>
-
-                  {/* <div className="col-12 pl-0 text-center mt-1">
-                    {dirty && isValid ? (
-                      <button type="submit" className={styles.regBtn}>
-                        Submit Form
-                      </button>
-                    ) : (
-                      <button
-                        type="submit"
-                        className={styles.regBtnDisable}
-                        disabled
-                      >
-                        Submit Form
-                      </button>
-                    )}
-                  </div> */}
                   <div className="col-12 pl-0 text-center mt-1">
                     <button
                       type="submit"

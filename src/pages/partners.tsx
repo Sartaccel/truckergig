@@ -11,7 +11,7 @@ export default function Partners() {
         />
       </Head>
       <div className="main">
-        <PartnersPage />
+        {/* <PartnersPage /> */}
       </div>
     </>
   );

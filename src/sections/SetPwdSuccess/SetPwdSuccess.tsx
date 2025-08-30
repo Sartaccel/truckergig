@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import router from "next/router";
 import styles from "../SetPwdSuccess/Setpwd.module.scss"
-
+import Image from "next/image";
 const SetPwdSuccess: React.FC = () => {
 
     const checkReset = (e) => {
@@ -15,7 +15,8 @@ const SetPwdSuccess: React.FC = () => {
       {/* Left side: Content */}
       <div className={styles.contentSection}>
         <div className={styles.logoWrapper}>
-          <img className={styles.logo} src="/images/logo_black.png" alt="logo" />
+          <Image className={styles.logo}  width={100}
+                  height={100} src="/images/logo_black.png" alt="logo" />
         </div>
 
         <h3 className={styles.heading}>Reset Password</h3>
@@ -33,7 +34,7 @@ const SetPwdSuccess: React.FC = () => {
 
       {/* Right side: Image */}
       <div className={styles.imageSection}>
-        <img src="/images/flight.jpg" alt="Reset Password Visual" />
+        <Image src="/images/flight.jpg" alt="Reset Password Visual" />
       </div>
 
     </div>

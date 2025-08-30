@@ -221,7 +221,17 @@
                         </div>
                         <div className="col">
                           <div className="w-100 mx-auto text-right pt-4 pr-5">
-                            <a href="/#" className={`${styles["verify"]} `} onClick={(e) =>{forgotPassword(e)}}> <span style={{ color: "black" }}>Forgot</span> Password?</a>
+                            {/* <a href="/#" className={`${styles["verify"]} `} onClick={(e) =>{forgotPassword(e)}}> <span style={{ color: "black" }}>Forgot</span> Password?</a> */}
+                              <Link
+    href="/#"
+    onClick={(e) => {
+      e.preventDefault(); // prevent actual navigation
+      forgotPassword(e);
+    }}
+    className={styles["verify"]}
+  >
+    <span style={{ color: "black" }}>Forgot</span> Password?
+  </Link>
                           </div>
 
                         </div>

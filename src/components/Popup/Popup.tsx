@@ -11,7 +11,7 @@ import axios from "axios";
 import router from "next/router";
 import { browserName } from "react-device-detect";
 import urls from "../../utilities/AppSettings";
-
+import Image from "next/image";
 import GoogleLogin from "../Sociallogins/GoogleLogin";
 import FacebookLogin from "../Sociallogins/FacebookLogin";
 
@@ -133,10 +133,10 @@ const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
             className={`${styles["modal-close"]} `}
             onClick={handleClose}
           />
-          <img
+          <Image
             className={`${styles["popup-logo"]} `}
             src="/images/logo_black.png"
-            alt="Truckergiglogo"
+            alt="Truckergiglogo"fill
           />
           <p className={`${styles["modal-lead"]} `}>
             How do you want to signup?

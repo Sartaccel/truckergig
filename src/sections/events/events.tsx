@@ -7,7 +7,6 @@ import "antd/dist/antd.css";
 import styles from './events.module.scss';
 import urls from "../../utilities/AppSettings";
 import Image from "next/image";
-
 const Events: React.FC = () => {
   const router = useRouter();
   const [events, setEvents] = useState([]);
@@ -93,7 +92,7 @@ const pageSize = 6;
           ) : (
             <div className="text-center">
               <h2>Oops! There are No Events at the Moment</h2>
-              <img
+              <Image
                 src="/images/no enents.jpg"
                 className={styles.imgFluid}
                 alt="No Events Available"

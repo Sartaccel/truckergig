@@ -5,6 +5,7 @@ import styles from "./Summary.module.scss";
 import axios from "axios";
 import * as IoIcons from "react-icons/io";
 import urls from "../../utilities/AppSettings";
+import Image from "next/image";
 
 const Summary: React.FC = () => {
   const [show, setShow] = useState(false);
@@ -35,16 +36,18 @@ const Summary: React.FC = () => {
       <div className="container">
         <h1 className={`${styles["summary-title"]} `}>
           Summary of{" "}
-          <img
+          <Image
             className={`${styles["summary-logo"]} `}
             src="/images/logo_black.png"
             alt="logo"
+             width={100}
+                  height={100}
           />
         </h1>
 
         <div className="row">
           <div className="col-sm-3">
-            <img
+            <Image
               className={`${styles["summary-icon"]} `}
               src="/images/VendorIcon.png"
               alt="logo"
@@ -53,7 +56,7 @@ const Summary: React.FC = () => {
             <h4>Vendors</h4>
           </div>
           <div className="col-sm-3">
-            <img
+            <Image
               className={`${styles["summary-icon"]} `}
               src="/images/DriverIcon.png"
               alt="logo"
@@ -62,7 +65,7 @@ const Summary: React.FC = () => {
             <h4>Drivers</h4>
           </div>
           <div className="col-sm-3">
-            <img
+            <Image
               className={`${styles["summary-icon"]} `}
               src="/images/DriverJobIcon.png"
               alt="logo"
@@ -71,7 +74,7 @@ const Summary: React.FC = () => {
             <h4>Driver Jobs</h4>
           </div>
           <div className="col-sm-3">
-            <img
+            <Image
               className={`${styles["summary-icon"]} `}
               src="/images/CarrierIcon.png"
               alt="logo"

@@ -22,6 +22,7 @@ import router from "next/router";
 import urls from "../../../utilities/AppSettings";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Image from "next/image";
 
 // import { useNavigate, Link, useLocation } from 'react-router-dom'
 
@@ -303,17 +304,7 @@ const Signin = () => {
                           fontSize: '14px',
                         },
                       }}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <img
-                              src={'images/mess.svg'}
-                              alt=""
-                              style={{ width: '20px' }}
-                            />
-                          </InputAdornment>
-                        ),
-                      }}
+                
                     />
                   )}
                 />
@@ -344,15 +335,7 @@ const Signin = () => {
                           },
                         }}
                         InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <img
-                                src={"images/key.svg"}
-                                alt=""
-                                style={{ width: '20px' }}
-                              />
-                            </InputAdornment>
-                          ),
+                    
                           endAdornment: (
                             <InputAdornment position="end">
                               <Box

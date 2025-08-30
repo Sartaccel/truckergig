@@ -5,6 +5,8 @@ import { FaSearch } from 'react-icons/fa';
 import Router from "next/router";
 import urls from "../../utilities/AppSettings";
 import { useRouter } from 'next/router';
+import Image from "next/image";
+
 let val = 0;
 
 const Filter: React.FC = (props: any) => {
@@ -203,14 +205,14 @@ const Filter: React.FC = (props: any) => {
                   data-id={element.id}
                   className={element.id === val ? styles["filter-cursor"] : ""}
                 >
-                  <img src={element.imagePath} alt={element.name} />
+                  <Image src={element.imagePath} alt={element.name} width={100} height={100}/>
                   <span className="category-label">{element.name}</span>
                 </div>
               ) : (
                 <div
                 className={`${styles["menu-item"]} ${openMenus[element.id] ? styles["menu-open"] : ""}`} 
                 onClick={() => handleToggleMenu(element.id)}>
-                  <img src={element.imagePath} alt={element.name} />
+                  <Image src={element.imagePath} alt={element.name}  width={100} height={100}/>
                   <span className="category-label">{element.name}</span>
                   <i className={`bi bi-chevron-${openMenus[element.id] ? "down" : "right"} float-right`}></i>
                 </div>

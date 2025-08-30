@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styles from '../Saved.module.scss'
 import { FaBusinessTime, FaRegClock } from "react-icons/fa";
 import { BsCalendar3 } from "react-icons/bs";
+import Image from "next/image";
 
 export const Favjobs = (props: any) => {
   return (
@@ -9,7 +10,7 @@ export const Favjobs = (props: any) => {
       <div className={`${styles["savesjobcards"]}`}>
         <div className="row">
           <div className="col-sm-3 col-md-3 col-xl-3 col-6">
-            <img
+            <Image
               src={props.items.companyLogo}
               alt={props.items.companyName}
               className={`${styles["imgsect"]}`}

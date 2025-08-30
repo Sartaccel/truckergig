@@ -22,45 +22,6 @@ const Services: React.FC = (props) => {
   const [loadingPost, setLoadingPost] = useState(false);
 const [loadingGet, setLoadingGet] = useState(false);
 
-
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   let serv = router.query.name;
-  //   const params = { "serviceName": router.query.servicename ? router.query.servicename : "", "serviceCategoryId": router.query.id, "serviceSubCategoryId": router.query.ids, "serviceFilterId": 0 };
-  //   axios.post(`${urls.baseUrl}services`, params)
-
-  //     .then(function (response) {
-  //       const data = response.data.data;
-  //       console.log(response)
-  //       if (response.status === 200 && data.length > 0) {
-  //         setcategories(data)
-  //         setservice(data[0])
-  //         setServicecat(serv ? serv : router.query.servicename);
-  //       } else {
-  //         setcategories([])
-  //         setservice([])
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       setcategories([]);
-  //       setservice([]);
-  //       console.error("Service fetch failed", err);
-  //     })
-  //     .finally(() => {
-  //       setLoading(false); // hide spinner
-  //     });
-
-  //   axios.get(`${urls.baseUrl}services/categories/list`)
-  //     .then(function (response) {
-  //       const data = response.data.data;
-  //       if (response.status === 200 && data.length) {
-  //         var check_orders = data.filter(order => (order.id == router.query.id || router.query.ids));
-  //         setservicelist(check_orders[0])
-  //       }
-  //     })
-  // }, [router.query.id, router.query.servicename, router.query.ids])
-
   useEffect(() => {
     if (!router.isReady) return;
 
@@ -182,9 +143,9 @@ const [loadingGet, setLoadingGet] = useState(false);
               {categories.length > 9 ? (
                 <>
                   <div className="row pt-4 pb-4">
-                    {categories.slice(minValue, maxValue).map((z, k) => (
+                    {/* {categories.slice(minValue, maxValue).map((z, k) => (
                       <CategoriesCards key={k} items={z} setservice={setservice} />
-                    ))}
+                    ))} */}
                     <div className="row">
                       <div className="col-5">
                         <p className={`${styles["pag-items"]}`}>
@@ -205,9 +166,9 @@ const [loadingGet, setLoadingGet] = useState(false);
               ) : (
                 <>
                   <div className="row pt-4 pb-4">
-                    {categories.map((z, k) => (
+                    {/* {categories.map((z, k) => (
                       <CategoriesCards key={k} items={z} setservice={setservice} />
-                    ))}
+                    ))} */}
                   </div>
                   <div className="col-5">
                     <p className={`${styles["pag-items"]}`}>{categories.length} Items</p>
