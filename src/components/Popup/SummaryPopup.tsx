@@ -9,6 +9,8 @@ import * as IoIcons from "react-icons/io";
 // import * as FaIcons from "react-icons/fa";
 // import * as MdIcons from "react-icons/md";
 import urls from "../../utilities/AppSettings";
+import Image from "next/image";
+
 const SummaryPopup: React.FC = () => {
   const [show, setShow] = useState(false);
   const [candidates, setCandidates] = useState("");
@@ -55,10 +57,11 @@ const SummaryPopup: React.FC = () => {
           Greetings from TruckerGIG
         </Modal.Title>
         <Modal.Body>
-          <img
+          <Image
             className={`${styles["popup-logo"]} `}
             src="/images/logo_black.png"
             alt="logo"
+            fill
           />
 
         </Modal.Body>

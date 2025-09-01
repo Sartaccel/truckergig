@@ -10,7 +10,7 @@ import axios from "axios";
 import urls from "../../utilities/AppSettings";
 import styles from './Forgotpassword.module.scss';
 import { CircularProgress } from '@mui/material';
-
+import Image from "next/image";
 const schema = yup.object().shape({
     emailId: yup.string().required("Email is required").matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, "Email is not valid"),
 });
@@ -97,7 +97,8 @@ const Forgotpassword: React.FC = () => {
       <div className={styles.rightForm}>
         <div className={styles.formCard}>
           <div className={styles.logoWrapper}>
-            <img src="/images/logo_black.png" alt="logo" className={styles.logo} />
+            <Image src="/images/logo_black.png" alt="logo"  width={100}
+                  height={100} className={styles.logo} />
           </div>
 
           <h3>Reset Password</h3>

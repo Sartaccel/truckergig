@@ -19,7 +19,7 @@ import Button from "react-bootstrap/Button";
 import * as IoIcons from "react-icons/io";
 import Chatbot from "../../components/Chatbot/Chatbot";
 
-
+import Image from "next/image";
 
 const Landing: React.FC = () => {
   const [candidates, setCandidates] = useState(0);
@@ -39,101 +39,7 @@ const Landing: React.FC = () => {
   useEffect(() => {
     AOS.init({ duration: 1000,
      });
-  }, []);
-  
-  // useEffect(() => {
-  //   axios
-  //     .get(`${urls.baseUrl}summary`)
-  //     .then((response) => {
-  //       console.log(response.data.data);
-
-  //       const actualCandidates = parseNumber(response.data.data.candidates?.in_progress);
-  //       const actualJobs = parseNumber(response.data.data.jobs?.open);
-  //       const actualCarriers = parseNumber(response.data.data.carriers?.active);
-  //       const actualVendors = parseNumber(response.data.data.vendors?.active);
-
-  //       setJobs(response.data.data.jobs.open);
-
-  //       setCandidates(actualCandidates);
-  //       setCarriers(actualCarriers);
-  //       setVendors(actualVendors);
-
-  //       animateNumber(setCandidates, actualCandidates);
-  //       animateNumber(setCarriers, actualCarriers);
-  //       animateNumber(setVendors, actualVendors);
-
-  //       const Ve = response.data.data.greetings;
-  //       if (Ve?.imagePath) {
-  //         setGreet(Ve.imagePath);
-  //         handleShow();
-  //       } else {
-  //         handleClose();
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("API Error:", error);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       if (entries[0].isIntersecting) {
-  //         setIsVisible(true);
-  //         observer.disconnect();
-  //       }
-  //     },
-  //     { threshold: 0.8 } // Trigger when 50% of the section is visible
-  //   );
-
-  //   if (summaryRef.current) {
-  //     observer.observe(summaryRef.current);
-  //   }
-
-  //   return () => {
-  //     if (summaryRef.current) {
-  //       observer.unobserve(summaryRef.current);
-  //     }
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   if (isVisible) {
-  //     animateNumber(setCandidates, candidates);
-  //     animateNumber(setCarriers, carriers);
-  //     animateNumber(setVendors, vendors);
-  //   }
-  // }, [isVisible]);
-
-  // const parseNumber = (value: any): number => {
-  //   if (typeof value === "string") {
-  //     return Number(value.replace(/,/g, "")) || 0; // Remove commas and convert to number
-  //   }
-  //   return typeof value === "number" ? value : 0; // Default to 0 if undefined or invalid
-  // };
-
-  // const animateNumber = (setState: React.Dispatch<React.SetStateAction<number>>, actualValue: number) => {
-  //   if (isNaN(actualValue) || actualValue < 0) {
-  //     console.warn("Invalid number received for animation:", actualValue);
-  //     return;
-  //   }
-
-  //   let start = 0;
-  //   const duration = 2000; // 2 seconds animation
-  //   const increment = Math.ceil(actualValue / (duration / 50));
-
-  //   const interval = setInterval(() => {
-  //     start += increment;
-  //     setState((prev) => Math.min(start, actualValue));
-
-  //     if (start >= actualValue) {
-  //       setState(actualValue);
-  //       clearInterval(interval);
-  //     }
-  //   }, 50);
-  // };
-
-  
+  }, []); 
 
   const settings = {
     dots: false,
@@ -192,7 +98,7 @@ const Landing: React.FC = () => {
         onHide={handleClose}
       >
         <Modal.Body>
-          <img
+          <Image
             className={`${styles["popup-greet"]} `}
             src={greet}
             alt="logo"
@@ -206,10 +112,12 @@ const Landing: React.FC = () => {
           <div className={`${styles["slider"]} col-12`}>
             <Carousel prevLabel=" " nextLabel=" " fade>
               <Carousel.Item interval={6000}>
-                <img
+                <Image
                   className={`${styles["img-width"]} d-block w-100`}
-                  src="../../images/Newslider-03.jpg"
+                  src="/images/Newslider-03.jpg"
                   alt="first-slide"
+                  width={100}
+                  height={100}
                 />
 
                 <div className={`${styles["inner"]}`}>
@@ -233,10 +141,12 @@ const Landing: React.FC = () => {
 
               </Carousel.Item>
               <Carousel.Item interval={6000}>
-                <img
+                <Image
                   className={`${styles["img-width"]} d-block w-100`}
-                  src="../../images/home22.jpg"
+                  src="/images/home22.jpg"
                   alt="second-slide"
+                   width={100}
+                  height={100}
                 />
 
                 <div className={`${styles["inner"]}`}>
@@ -261,10 +171,12 @@ const Landing: React.FC = () => {
 
               </Carousel.Item>
               <Carousel.Item interval={6000}>
-                <img
+                <Image
                   className={`${styles["img-width"]} d-block w-100`}
-                  src="../../images/New_Home.jpg"
+                  src="/images/New_Home.jpg"
                   alt="third-slide"
+                   width={100}
+                  height={100}
                 />
 
                 <div className={`${styles["inner"]}`}>
@@ -298,7 +210,7 @@ const Landing: React.FC = () => {
         <div className="col-md-6 col-lg-4 mb-4 p-0 m-0 d-flex justify-content-center">
         <Link href="/marketplace" passHref>
           <div className={styles.card} style={{cursor:"pointer"}}>
-            <img className={styles["card-img"]} src="/images/marketplace_1.jpg" alt="dispatch-logo"/>
+            <Image className={styles["card-img"]} width={100} height={100} src="/images/marketplace_1.jpg" alt="dispatch-logo"/>
             <div className={styles.overlay}>
               <h3 className={styles.cardheading}>Marketplace</h3>
            </div>
@@ -306,12 +218,19 @@ const Landing: React.FC = () => {
             <div className={styles["inner-card"]}>
 
             <div className={styles["card-inside"]} style={{ maxWidth: "280px" }}>
-            <img
+              <Image
+  className={styles["card-Innerimg"]}
+  src="/images/dispatch-logo.png"
+  alt="dispatch-logo"
+  width={80}
+  height={80}
+/>
+            {/* <Image
               className={styles["card-Innerimg"]}
               src="/images/dispatch-logo.png"
-              alt="dispatch-logo"
+              alt="dispatch-logo"              
               style={{ width: "80px" }}
-            />
+            /> */}
             <div className={styles["card-body"]}>
               <h4 className={`${styles["service-heading"]}`}>Marketplace</h4>
               <p>Trucks/Trailers Leasing, Fleet management, API & Integrations, and more.</p>
@@ -327,18 +246,26 @@ const Landing: React.FC = () => {
         <div className="col-md-6 col-lg-4 mb-4 d-flex  p-0 m-0 justify-content-center">
         <Link href="/generalinfo" passHref>
           <div className={styles.card} style={{cursor:"pointer"}}>
-            <img className={styles["card-img"]} src="/images/marketplace_2.jpg" alt="driver-logo" />
+            <Image className={styles["card-img"]} src="/images/marketplace_2.jpg" alt="driver-logo" width={100} height={100}/>
             <div className={styles.overlay}>
               <h3 className={styles.cardheading}>Carrier & Driver Onboarding</h3>
            </div>
             <div className={styles["inner-card"]}>
             <div className={styles["card-inside"]} style={{ maxWidth: "280px" }}>
-            <img
+              <Image
+  className={styles["card-Innerimg"]}
+  src="/images/driver-logo.png"
+  alt="driver-logo"
+  width={80}
+  height={80}
+/>
+            {/* <Image
               className={styles["card-Innerimg"]}
               src="/images/driver-logo.png"
               alt="driver-logo"
+              
               style={{ width: "80px" }}
-            />
+            /> */}
             <div className={styles["card-body"]}>
               <h4 className={`${styles["service-heading"]}`}>Carrier & Driver Onboarding</h4>
               <p>Customers can get access to our database on a subscription basis.</p>
@@ -352,17 +279,18 @@ const Landing: React.FC = () => {
         <div className="col-md-6 col-lg-4 mb-4 d-flex  p-0 m-0 justify-content-center">
         <Link href="/marketplace" passHref>
           <div className={styles.card} style={{cursor:"pointer"}}>
-            <img className={styles["card-img"]} src="/images/marketplace_3.jpg" alt="service-logo" />
+            <Image className={styles["card-img"]} width={100} height={100} src="/images/marketplace_3.jpg" alt="service-logo" />
             <div className={styles.overlay}>
               <h3 className={styles.cardheading}>Dispatch Services</h3>
            </div>
             <div className={styles["inner-card"]}>
             <div className={styles["card-inside"]} style={{ maxWidth: "280px" }}>
-            <img
+            <Image
               className={styles["card-Innerimg"]}
               src="/images/service-logo.png"
               alt="service-logo"
-              style={{ width: "80px" }}
+              width={80}
+              height={80}
             />
             <div className={styles["card-body"]}>
               <h4 className={`${styles["service-heading"]}`}>Dispatch Services</h4>
@@ -397,10 +325,12 @@ const Landing: React.FC = () => {
     </div> */}
 
     <div className="col-12 col-lg-5 text-center">
-      <img
+      <Image
         src="/images/summary.jpg"
         alt="summary image"
         className={`${styles["summary-image"]}`}
+ width={100}
+                  height={100}
       />
     </div>
 
@@ -425,7 +355,7 @@ const Landing: React.FC = () => {
       </div>
       <div className={`${styles["summary-feature"]}`}>
         <div className={`${styles["feature-icon"]}`}>
-          <i className="bi bi-person-badge-fill"></i>
+          <i className="bi bi-person-badge-width={100} height={100}"></i>
         </div>
         <div>
           <h5>Drivers Onboarded</h5>
@@ -440,7 +370,7 @@ const Landing: React.FC = () => {
         {/* <div className="row landing-service">
           <div className="col-md-12 col-lg-4 d-flex justify-content-center">
             <div className={`${styles["service-container"]}`}>
-              <img
+              <Image
                 className={`${styles["service-logo"]}`}
                 src="/images/invoice-logo.png"
                 alt="factoring-logo"
@@ -490,7 +420,7 @@ const Landing: React.FC = () => {
       {/* <div className="col- col-sm- col-md-6 col-lg-4">
             <div className={`${styles["service-menu"]}`}>
               <span>
-                <img
+                <Image
                   className={`${styles["service-icon"]}`}
                   src="/images/shipper-icon.png"
                   alt="service-icon"
@@ -513,7 +443,7 @@ const Landing: React.FC = () => {
           <div className="col- col-sm- col-md-6 col-lg-4">
             <div className={`${styles["service-menu"]}`}>
               <span>
-                <img
+                <Image
                   className={`${styles["service-icon"]}`}
                   src="/images/driver-icon.png"
                   alt="driver-icon"
@@ -537,7 +467,7 @@ const Landing: React.FC = () => {
           <div className="col- col-sm- col-md-6 col-lg-4">
             <div className={`${styles["service-menu"]}`}>
               <span>
-                <img
+                <Image
                   className={`${styles["service-icon"]}`}
                   src="/images/brokericon.png"
                   alt="vendor-icon"
@@ -562,7 +492,7 @@ const Landing: React.FC = () => {
           <div className="col- col-sm- col-md-6 col-lg-4">
             <div className={`${styles["service-menu"]}`}>
               <span>
-                <img
+                <Image
                   className={`${styles["service-icon"]}`}
                   src="/images/enter-crm.png"
                   alt="tech-partners-icon"
@@ -588,7 +518,7 @@ const Landing: React.FC = () => {
           <div className="col- col-sm- col-md-6 col-lg-4">
             <div className={`${styles["service-menu"]}`}>
               <span>
-                <img
+                <Image
                   className={`${styles["service-icon"]}`}
                   src="/images/owner-icon.png"
                   alt="owner-icon"
@@ -614,7 +544,7 @@ const Landing: React.FC = () => {
           <div className="col- col-sm- col-md-6 col-lg-4">
             <div className={`${styles["service-menu"]}`}>
               <span>
-                <img
+                <Image
                   className={`${styles["service-icon"]}`}
                   src="/images/carrier-icon.png"
                   alt="carrier-icon"
@@ -641,54 +571,61 @@ const Landing: React.FC = () => {
 
           <Slider {...settings}>
           <div className={`${styles["partner-tab"]}`}>
-              <img
+              <Image
                 className={`${styles["service-icon"]}`}
                 src="/images/DexFreight TP.png"
                 alt="dexfreight-logo"
+                 width={100} height={100}
               />
             </div>
             <div className={`${styles["partner-tab"]}`}>
-              <img
+              <Image
                 className={`${styles["service-icon"]}`}
               src="/images/Kale Logistics TP.png"
               alt="kale-logo"
+               width={100} height={100}
             />
           </div>
           <div className={`${styles["partner-tab"]}`}>
-            <img
+            <Image
               className={`${styles["service-icon"]}`}
               src="/images/ORT TP.png"
               alt="OTR Solutions-logo"
+               width={100} height={100}
             />
           </div>
           <div className={`${styles["partner-tab"]}`}>
-            <img
+            <Image
               className={`${styles["service-icon"]}`}
               src="/images/qBotica TP.png"
               alt="qbotica-logo"
+               width={100} height={100}
             />
           </div>
 
           <div className={`${styles["partner-tab"]}`}>
-            <img
+            <Image
               className={`${styles["service-icon"]}`}
               src="/images/Talent Turbo TP.png"
               alt="Talent Turbo-logo"
+               width={100} height={100}
             />
           </div>
           <div className={`${styles["partner-tab"]}`}>
-            <img
+            <Image
               className={`${styles["service-icon"]}`}
               src="/images/teamone TP.png"
               alt="Teamone Logistics-logo"
+              width={100} height={100}
             />
           </div>
 
           <div className={`${styles["partner-tab"]}`}>
-            <img
+            <Image
               className={`${styles["service-icon"]}`}
               src="/images/Trucker cloud TP.png"
               alt="trucker-cloud-logo"
+              width={100} height={100}
             />
           </div>
         </Slider>

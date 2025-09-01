@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import GetPopup from "../../components/GetPopup/GetPopup";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import urls from "../../utilities/AppSettings";
-
+import Image from "next/image";
 const onChange = (value) => {};
 
 const schema = yup.object().shape({
@@ -173,7 +173,7 @@ const Getaquote: React.FC = (props: any) => {
               </p>
               <p>{selectedData?.serviceName}</p>
               {selectedData?.logoPath?.trim() && (
-                <img
+                <Image
                   className={styles["getaquote-image"]}
                   src={selectedData.logoPath}
                   alt={selectedData?.serviceName}

@@ -9,6 +9,7 @@ import SocialShare from '../../SocialShare/SocialShare';
 import Link from "next/link";
 import { BsCalendar3 } from "react-icons/bs";
 import urls from "../../../utilities/AppSettings";
+import Image from "next/image";
 
 export const JobDescription = ({
   categoryId,
@@ -200,7 +201,7 @@ export const JobDescription = ({
           <div className="col-sm-12 col-xl-12 col-md-12 col-12">
             <div className="row">
               <div className="col-sm-6 col-md-6 col-xl-4 col-12">
-                <img
+                <Image
                   src={companyLogo}
                   alt={companyName}
                   className={`${styles["mini"]}`}

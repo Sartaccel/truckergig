@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import router from "next/router";
+import Image from "next/image";
 
 const SetPasswordSuccess: React.FC = () => {
 
@@ -13,7 +14,8 @@ const SetPasswordSuccess: React.FC = () => {
                 <div className="col-md-3 shadow p-5 bg-white rounded">
                     <div className="row no-gutters">
                         <div className="col text-center">
-                            <img className="logo" src="/images/logo_black.png" alt="logo" />
+                            <Image className="logo" width={100}
+                  height={100} src="/images/logo_black.png" alt="logo" />
                         </div>
                     </div>
                     <div className="row no-gutters">

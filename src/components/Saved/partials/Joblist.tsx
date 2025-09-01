@@ -3,6 +3,7 @@ import styles from '../Saved.module.scss'
 import { FaBookmark, FaBusinessTime, FaRegClock } from "react-icons/fa";
 import { BsCalendar3 } from "react-icons/bs";
 
+import Image from "next/image";
 export const Joblist = (props) => {
   const [activeJob, setactiveJob] = useState("");
   const setcurrentJob = (selectedjob) => {
@@ -23,7 +24,7 @@ export const Joblist = (props) => {
             >
               <div className="row">
                 <div className="col-sm-3 col-md-3 col-xl-3 col-6">
-                  <img
+                  <Image
                     src={element.companyLogo}
                     alt={element.companyName}
                     className={`${styles["imgsec"]}`}

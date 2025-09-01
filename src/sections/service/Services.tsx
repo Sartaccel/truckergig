@@ -63,6 +63,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import urls from "../../utilities/AppSettings";
 import "antd/dist/antd.css";
 import { Pagination } from "antd";
+import Image from "next/image";
 
 const Services: React.FC = (props) => {
 	const router = useRouter()
@@ -265,13 +266,7 @@ setLoading(true);
 					   {currentData.map((z, k) => (
           <CategoriesCards key={k} items={z} setservice={setservice} />
         ))}
-                  {/* {currentData.length > 9
-                    ? currentData.slice(minValue, maxValue).map((z, k) => (
-                        <CategoriesCards key={k} items={z} setservice={setservice} />
-                      ))
-                    : currentData.map((z, k) => (
-                        <CategoriesCards key={k} items={z} setservice={setservice} />
-                      ))} */}
+                  
                 </div>
 
                 {/* Pagination */}
@@ -304,7 +299,7 @@ setLoading(true);
 		{hasQueryParams && !loading && currentData.length === 0 && (
 			<>
   <div className="text-center w-100 py-5">
-    <img
+    <Image
       src="/images/marketplace-NoMatches.jpg" // your image path here
       alt="No matches found"
       style={{ maxWidth: "300px", width: "100%" }}

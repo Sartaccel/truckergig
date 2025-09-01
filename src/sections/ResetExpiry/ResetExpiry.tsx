@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import router from "next/router";
 import styles from "../ResetExpiry/Resetexpiry.module.scss"
-
+import Image from "next/image";
 const ResetLinkMail: React.FC = () => {
 
     const checkReset = (e) => {
@@ -16,7 +16,8 @@ const ResetLinkMail: React.FC = () => {
       <div className={styles.leftPanel}>
         <div className={styles.formWrapper}>
           <div className={styles.logoWrapper}>
-            <img className={styles.logo} src="/images/logo_black.png" alt="logo" />
+            <Image  width={100}
+                  height={100} className={styles.logo} src="/images/logo_black.png" alt="logo" />
           </div>
           <h1 className={styles.title}>Reset Link Expired</h1>
           <p className={styles.description}>Reset password link is expired or invalid.</p>
@@ -27,7 +28,7 @@ const ResetLinkMail: React.FC = () => {
       </div>
 
       <div className={styles.rightPanel}>
-        <img className={styles.backgroundImage} src="/images/forgot.jpg" alt="Background" />
+        <Image className={styles.backgroundImage} src="/images/forgot.jpg" alt="Background" />
       </div>
     </div>
 

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from './EventCards.module.scss';
 import { useRouter } from 'next/router';
+import Image from "next/image";
 
 export const EventsCards = (props: any) => {
   const router = useRouter();
@@ -57,10 +58,12 @@ export const EventsCards = (props: any) => {
       >
         <div className={`${styles["card-event"]}`}>
           <div className={`${styles["card-event-img"]}`}>
-            <img
+            <Image
               className={`${styles["card-event-image"]}`}
               src={props.items.imagePath}
               alt={props.items.title}
+              width={100}
+              height={100}
             />
           </div>
           <div className={`${styles["card-body"]}`}>

@@ -13,8 +13,8 @@ const Services: React.FC = () => {
         />
       </Head>
       <div className="main">
-        <MarketplaceHead />
-        <Servicers />
+        {/* <MarketplaceHead />
+        <Servicers /> */}
       </div>
     </>
   );

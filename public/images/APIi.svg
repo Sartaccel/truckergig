@@ -3,7 +3,8 @@
   <defs>
     <style>
       .cls-1 {
-        fill: #fff;
+         width={100}
+height={100}: #fff;
       }
 
       .cls-2 {
@@ -11,19 +12,23 @@
       }
 
       .cls-3 {
-        fill: #5955a8;
+         width={100}
+height={100}: #5955a8;
       }
 
       .cls-4 {
-        fill: #8e8dd1;
+         width={100}
+height={100}: #8e8dd1;
       }
 
       .cls-5 {
-        fill: #c74b50;
+         width={100}
+height={100}: #c74b50;
       }
 
       .cls-6, .cls-7, .cls-8, .cls-9, .cls-10 {
-        fill: #2f2d59;
+         width={100}
+height={100}: #2f2d59;
       }
 
       .cls-6, .cls-8, .cls-9 {
@@ -39,23 +44,28 @@
       }
 
       .cls-11 {
-        fill: #5c57ad;
+         width={100}
+height={100}: #5c57ad;
       }
 
       .cls-12 {
-        fill: #49458a;
+         width={100}
+height={100}: #49458a;
       }
 
       .cls-13 {
-        fill: #d65a5f;
+         width={100}
+height={100}: #d65a5f;
       }
 
       .cls-14 {
-        fill: #5653a3;
+         width={100}
+height={100}: #5653a3;
       }
 
       .cls-15 {
-        fill: #d49b54;
+         width={100}
+height={100}: #d49b54;
       }
 
       .cls-8 {
@@ -68,19 +78,23 @@
       }
 
       .cls-16 {
-        fill: #e09c48;
+         width={100}
+height={100}: #e09c48;
       }
 
       .cls-17 {
-        fill: none;
+         width={100}
+height={100}: none;
       }
 
       .cls-18 {
-        fill: #faebd7;
+         width={100}
+height={100}: #faebd7;
       }
 
       .cls-19 {
-        fill: #3a3845;
+         width={100}
+height={100}: #3a3845;
       }
     </style>
   </defs>

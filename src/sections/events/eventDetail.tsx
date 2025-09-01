@@ -8,7 +8,7 @@ import Popup from "reactjs-popup";
 import EventShare from "../../components/ShareEvent/EventShare";
 import { Spin } from "antd";
 import { FaExternalLinkAlt } from "react-icons/fa";
-
+import Image from "next/image";
 const Events: React.FC = (props) => {
   const router = useRouter()
   const [eventDetail, seteventDetail] = useState('')
@@ -82,7 +82,7 @@ const Events: React.FC = (props) => {
       <Spin size="large" />
     </div>
   )}
-  <img
+  <Image
     className={`${styles["event-detail-img"]}`}
     src={eventimg}
     alt={eventtitle}

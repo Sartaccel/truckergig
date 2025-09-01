@@ -6,7 +6,7 @@ import urls from "../../utilities/AppSettings";
 import "antd/dist/antd.css";
 import styles from './blognewsDetail.module.scss';
 import { FaExternalLinkAlt } from "react-icons/fa";
-
+import Image from "next/image";
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
@@ -78,7 +78,7 @@ const Events: React.FC = () => {
             <div className={styles.blogleftsidebar}>
               <article className={styles.blogitem}>
                 <div className={styles.blogitemimg}>
-                  <img
+                  <Image
                     className={styles.container}
                     src={eventimg}
                     alt="Blog Image"
@@ -120,8 +120,8 @@ const Events: React.FC = () => {
                   <li key={post.id} className={styles.recentPostItem} style={{ cursor: "pointer" }}
                   onClick={() => handleRecentPostClick(post)}
                   >
-                    <img src={post.imageUrl} alt="Recent Post" width={100} height={100} />
-                    {/* <img src="/images/blogStatic.jpg" alt="Recent Post" width={100} height={100} /> */}
+                    <Image src={post.imageUrl} alt="Recent Post" width={100} height={100} />
+                    {/* <Image src="/images/blogStatic.jpg" alt="Recent Post" width={100} height={100} /> */}
                     <div className={styles.postContent}>
                       <h4>{post.title}</h4>
                       <p className="text-muted mt-2 ml-1">{formatDate(post.createdOn)}</p>

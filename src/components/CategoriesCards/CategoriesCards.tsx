@@ -1,6 +1,7 @@
 import React from "react";
 import styles from '../cards/HomeCards.module.scss';
 import Popup from "../Popup/Popup";
+import Image from "next/image";
 
 export const CategoriesCards = (props: any) => {
   return (
@@ -8,10 +9,12 @@ export const CategoriesCards = (props: any) => {
       <div className="card">
         <div className={`${styles["card-slider"]} `}>
           <div className={`${styles["card-slider-img"]} `}>
-            <img
+            <Image
               className={`${styles["card-slider-image"]} `}
               src={props.items.logoPath}
               alt={props.items.serviceName}
+              width={100}
+              height={100}
             />
           </div>
           <div className={`${styles["card-body"]} `}>
