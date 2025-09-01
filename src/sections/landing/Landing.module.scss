@@ -466,6 +466,7 @@ display: -webkit-box;
 .card {
   position: relative;
   width: 25rem;
+  padding: 2%;
   height: 440px; /* Adjust height for better portrait display */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -492,7 +493,7 @@ display: -webkit-box;
 .overlay {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 95%;
   background: rgba(0, 0, 0, 0.397); /* Transparent black */
   color: white !important;
   text-align: center;
