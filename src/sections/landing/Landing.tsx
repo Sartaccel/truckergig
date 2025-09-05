@@ -116,8 +116,8 @@ const Landing: React.FC = () => {
                   className={`${styles["img-width"]} d-block w-100`}
                   src="/images/Newslider-03.jpg"
                   alt="first-slide"
-                  width={100}
-                  height={100}
+                  width={2000}
+                  height={1332}
                 />
 
                 <div className={`${styles["inner"]}`}>
@@ -145,8 +145,8 @@ const Landing: React.FC = () => {
                   className={`${styles["img-width"]} d-block w-100`}
                   src="/images/home22.jpg"
                   alt="second-slide"
-                   width={100}
-                  height={100}
+                   width={9677}
+                  height={3853}
                 />
 
                 <div className={`${styles["inner"]}`}>
@@ -175,8 +175,8 @@ const Landing: React.FC = () => {
                   className={`${styles["img-width"]} d-block w-100`}
                   src="/images/New_Home.jpg"
                   alt="third-slide"
-                   width={100}
-                  height={100}
+                   width={5696}
+                  height={3392}
                 />
 
                 <div className={`${styles["inner"]}`}>
@@ -210,7 +210,7 @@ const Landing: React.FC = () => {
         <div className="col-md-6 col-lg-4 mb-4 p-0 m-0 d-flex justify-content-center">
         <Link href="/marketplace" passHref>
           <div className={styles.card} style={{cursor:"pointer"}}>
-            <Image className={styles["card-img"]} width={100} height={100} src="/images/marketplace_1.jpg" alt="dispatch-logo"/>
+            <Image className={styles["card-img"]} width={1333} height={2000} src="/images/marketplace_1.jpg" alt="dispatch-logo"/>
             <div className={styles.overlay}>
               <h3 className={styles.cardheading}>Marketplace</h3>
            </div>
@@ -246,7 +246,7 @@ const Landing: React.FC = () => {
         <div className="col-md-6 col-lg-4 mb-4 d-flex  p-0 m-0 justify-content-center">
         <Link href="/generalinfo" passHref>
           <div className={styles.card} style={{cursor:"pointer"}}>
-            <Image className={styles["card-img"]} src="/images/marketplace_2.jpg" alt="driver-logo" width={100} height={100}/>
+            <Image className={styles["card-img"]} src="/images/marketplace_2.jpg" alt="driver-logo" width={1121} height={2000}/>
             <div className={styles.overlay}>
               <h3 className={styles.cardheading}>Carrier & Driver Onboarding</h3>
            </div>
@@ -279,7 +279,7 @@ const Landing: React.FC = () => {
         <div className="col-md-6 col-lg-4 mb-4 d-flex  p-0 m-0 justify-content-center">
         <Link href="/marketplace" passHref>
           <div className={styles.card} style={{cursor:"pointer"}}>
-            <Image className={styles["card-img"]} width={100} height={100} src="/images/marketplace_3.jpg" alt="service-logo" />
+            <Image className={styles["card-img"]} width={1121} height={2000} src="/images/marketplace_3.jpg" alt="service-logo" />
             <div className={styles.overlay}>
               <h3 className={styles.cardheading}>Dispatch Services</h3>
            </div>
@@ -329,8 +329,8 @@ const Landing: React.FC = () => {
         src="/images/summary.jpg"
         alt="summary image"
         className={`${styles["summary-image"]}`}
- width={100}
-                  height={100}
+ width={4570}
+                  height={8154}
       />
     </div>
 

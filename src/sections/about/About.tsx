@@ -204,6 +204,7 @@ const About: React.FC = () => {
                     <Image
                       src="https://development.truckergig.com/pub/static/frontend/TGIG/webstorev3/en_US/images/about.jpg"
                       alt="video-thumbnail"
+                      width={100} height={100}
                     />
                     <div className={`${styles["sonar-wrapper"]}`}>
                       <div className={`${styles["sonar-emitter"]}`}>
