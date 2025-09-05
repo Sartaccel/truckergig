@@ -15,7 +15,7 @@ module.exports = {
     ]
   },
   images: {
-    domains: ['truckergigpro.s3.us-east-2.amazonaws.com'], // ✅ allow S3 images
+    domains: ['truckergigpro.s3.us-east-2.amazonaws.com','truckergigqa.s3.us-east-2.amazonaws.com'], // ✅ allow S3 images
   },
   eslint: {
     // ✅ Ignores ESLint errors during builds (not recommended for prod)
