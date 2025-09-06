@@ -1,10 +1,13 @@
-const securityHeaders = [{
+const securityHeaders = [
+  {
     key: 'X-Frame-Options',
     value: 'SAMEORIGIN',
     webpack5: false,
-  }];
+  },
+];
 
 module.exports = {
+  reactStrictMode: true, 
   async headers() {
     return [
       {
@@ -12,13 +15,26 @@ module.exports = {
         source: '/:path*',
         headers: securityHeaders,
       },
-    ]
+    ];
   },
   images: {
-    domains: ['truckergigpro.s3.us-east-2.amazonaws.com','truckergigqa.s3.us-east-2.amazonaws.com'], // ✅ allow S3 images
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'truckergigpro.s3.us-east-2.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'truckergigqa.s3.us-east-2.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
   eslint: {
-    // ✅ Ignores ESLint errors during builds (not recommended for prod)
+    // Ignores ESLint errors during builds (not recommended for prod)
     ignoreDuringBuilds: true,
   },
-}
+};

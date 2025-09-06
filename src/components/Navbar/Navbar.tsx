@@ -1,275 +1,182 @@
-import React, { useState, useEffect, createRef, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "./Navbar.module.scss";
-import Select from "react-select";
-import axios from "axios";
-import Router, {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import Dropdown from "react-bootstrap/Dropdown";
-import { Button } from "react-bootstrap";
-import Navbar from "react-bootstrap/Navbar";
-import { Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
 import urls from "../../utilities/AppSettings";
-import { Loader } from "../Loader";
-import { Spin } from "antd";
-
+// ClientOnly wrapper
+const ClientOnly: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+  return <>{children}</>;
+};
 
 const Topbar: React.FC = () => {
-  const [active, setActive] = useState(false);
-  const handleClick = (e) => {
-    setActive(!active);
-  };
-  const customStyles = {
-    control: (base, state) => ({
-      ...base,
-      background: "#4A4A4A",
-      color: "red !important",
-      borderStyle: "unset",
-    }),
-  };
-
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
 
-  const [dropdown, setdropdown] = useState([]);
+  // Navbar state
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Auth state
+  const [Ath, setAth] = useState(false);
+  const [Name, setName] = useState("");
+
+  // Summary counts
   const [candidates, setCandidates] = useState("");
   const [jobs, setJobs] = useState("");
   const [carriers, setCarriers] = useState("");
   const [vendors, setVendors] = useState("");
 
-  const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  let lastScrollY = 0;
-
-  const [isMobile, setIsMobile] = useState(false);
-
-useEffect(() => {
-  const handleResize = () => {
-    setIsMobile(window.innerWidth <= 768); // Adjust breakpoint as needed
-  };
-
-  handleResize(); // Check on first load
-  window.addEventListener("resize", handleResize);
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
-
-
   useEffect(() => {
+    // Detect mobile
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // Scroll behavior
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
-      if (currentScrollY > 5 && currentScrollY < 150) {
-        setHidden(true);
-      } else if (currentScrollY >= 150) {
+      if (currentScrollY > 5 && currentScrollY < 150) setHidden(true);
+      else if (currentScrollY >= 150) {
         setHidden(false);
         setScrolled(true);
       } else {
-        setScrolled(false); 
         setHidden(false);
+        setScrolled(false);
       }
-
-      lastScrollY = currentScrollY;
     };
-
     window.addEventListener("scroll", handleScroll);
 
-    axios
-      .get(`${urls.baseUrl}summary`)
-      .then((response) => {
-        setCandidates(response.data.data.candidates.in_progress);
-        setJobs(response.data.data.jobs.open);
-        setCarriers(response.data.data.carriers.active);
-        setVendors(response.data.data.vendors.active);
-      })
-      .catch((error) => {
-        console.error("Error fetching summary data:", error);
-      });
+    // Fetch summary data
+    const fetchSummary = async () => {
+      try {
+        const response = await fetch(`${urls.baseUrl}/summary`); // replace with actual URL
+        const data = await response.json();
+        setCandidates(data.data.candidates.in_progress);
+        setJobs(data.data.jobs.open);
+        setCarriers(data.data.carriers.active);
+        setVendors(data.data.vendors.active);
+      } catch (err) {
+        console.error("Error fetching summary:", err);
+      }
+    };
+    fetchSummary();
+
+    // Check auth
+    const Authtoken = localStorage.getItem("Authorization");
+    if (Authtoken) {
+      setAth(true);
+      const use = localStorage.getItem("user");
+      const clientName = localStorage.getItem("Clientname");
+      if (use) {
+        const useset = JSON.parse(use);
+        setName(useset.firstName || clientName || "");
+      } else {
+        setName(clientName || "");
+      }
+    }
 
     return () => {
+      window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  const [categories, setcategories] = useState([]);
-  const [service, setservice] = useState([]);
-  const [selectedOption, setSelectedOption] = useState();
-  // const [SearchList, setSearchList] = useState('')
-
-  const handleChange = (value, action, selectOptionSetter, name) => {
-    switch (name) {
-      case "Categories":
-        if (action == "clear") {
-          selectOptionSetter(null);
-          Router.push({
-            pathname: "/",
-          });
-        } else {
-          selectOptionSetter(value);
-          Router.push({
-            pathname: "/",
-          });
-          Router.push({
-            pathname: "/marketplace",
-            query: { id: value.value },
-          });
-        }
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  let Ath = false;
-  let Name = "";
-  if (typeof window !== "undefined") {
-    const Authtoken = localStorage ? localStorage.getItem("Authorization") : "";
-    if (Authtoken) {
-      Ath = true;
-      const use = localStorage.getItem("user");
-      const clientName = localStorage.getItem("Clientname");
-      console.log(localStorage.getItem("Clientname"));
-      const useset = JSON.parse(use);
-      console.log(useset);
-      if (useset) {
-        Name = useset.firstName ? useset.firstName : clientName;
-      }
-    }
-  }
-
+  // Logout
   const logout = () => {
-    window.localStorage.clear();
-    window.sessionStorage.clear();
-    Router.push("/");
+    localStorage.clear();
+    sessionStorage.clear();
+    router.push("/");
   };
 
   const myService = () => {
-    Router.push("/myservice");
+    router.push("/myservice");
   };
 
-
   return (
-    <>
-    <Navbar
-      collapseOnSelect
-      expand="lg"
-      className={`${styles[isMobile ? "navbar-other" : router.pathname === "/" ? "navbar-fixed" : "navbar-other"]}
-      ${scrolled ? styles["scrolled"] : ""} ${hidden ? styles["hidden"] : ""}`}
-    >
-      <Container fluid className={`${styles["navbar-content"]} d-flex align-items-center justify-content-between`}>
-      <div className="d-flex align-items-center justify-content-between w-100 navbar-header">
-        <Navbar.Brand>
-<Link href="/" className={`${styles["navbar-brand"]} ${styles.logo}`}>
-  <img
-    className="logo_image"
-    src="/images/TruckerGIG_white.png"
-    alt="TruckerGIG Logo"
-  />
-</Link>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        </div>
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto"></Nav>
-          <Nav className="mr-auto">
-            {/* <Nav>
-             
-            </Nav> */}
-          </Nav>
-          <Nav>
-            <div className="navbar-nav">
-        <Link
-  href="/about"
-  className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/about" ? "active" : ""}`}
->
-  About Us
-</Link>
+    <ClientOnly>
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        className={`${styles[
+          isMobile ? "navbar-other" : router.pathname === "/" ? "navbar-fixed" : "navbar-other"
+        ]} ${scrolled ? styles["scrolled"] : ""} ${hidden ? styles["hidden"] : ""}`}
+      >
+        <Container fluid className={`${styles["navbar-content"]} d-flex align-items-center justify-content-between`}>
+          <div className="d-flex align-items-center justify-content-between w-100 navbar-header">
+            <Navbar.Brand>
+              <Link href="/" className={`${styles["navbar-brand"]} ${styles.logo}`}>
+                <img className="logo_image" src="/images/TruckerGIG_white.png" alt="TruckerGIG Logo" />
+              </Link>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          </div>
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto"></Nav>
+            <Nav className="mr-auto"></Nav>
+            <Nav>
+              <div className="navbar-nav">
+                <Link href="/about" className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/about" ? "active" : ""}`}>About Us</Link>
+                <Link href="/marketplace" className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/marketplace" ? "active" : ""}`}>Marketplace</Link>
+                <Link href="/events" className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/events" ? "active" : ""}`}>Events</Link>
+                <Link
+                  href="/blognews"
+                  className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/blognews" || router.pathname === "/blognewsdetail" ? "active" : ""}`}
+                >
+                  Blogs/News
+                </Link>
 
-<Link
-  href="/marketplace"
-  className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/marketplace" ? "active" : ""}`}
->
-  Marketplace
-</Link>
+                {!Ath ? (
+                  <>
+                    <Dropdown className="margin-fixs">
+                      <Dropdown.Toggle
+                        split
+                        variant="Secondary"
+                        id="dropdown-split-basic"
+                        className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/generalinfo" || router.pathname === "/vendor" ? "active" : ""}`}
+                      >
+                        Register
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="/generalinfo">Driver Registration</Dropdown.Item>
+                        <Dropdown.Item href="/vendor">Vendor Registration</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
 
-<Link
-  href="/events"
-  className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/events" ? "active" : ""}`}
->
-  Events
-</Link>
-
-<Link
-  href="/blognews"
-  className={`nav-link ${styles["navbar-color"]} ${
-    router.pathname === "/blognews" || router.pathname === "/blognewsdetail" ? "active" : ""
-  }`}
->
-  Blogs/News
-</Link>
-              {!Ath ? (
-                <Dropdown className="margin-fixs">
-                  <Dropdown.Toggle
-                    split
-                    variant="Secondary"
-                    id="dropdown-split-basic"
-                    className={`nav-link ${styles["navbar-color"]} ${router.pathname==="/generalinfo"  || router.pathname==="/vendor"  ? "active" : ""}`}>
-                    Register
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="/generalinfo">
-                      Driver Registration
-                    </Dropdown.Item>
-                    <Dropdown.Item href="/vendor">
-                      {" "}
-                      Vendor Registration
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              ) : (
-                ""
-              )}
-
-              {!Ath ? (
-            
-     <Link
-  href="/login"
-  className={`${styles.getStartedButton} login-link ${router.pathname === "/login" ? "active" : ""}`}
->
-  <span>Login</span>
-  <div className={styles["arrow-circle"]}>
-    <i className={`${styles["arrow-icon"]} bi bi-person-fill pl-1`}></i>
-  </div>
-</Link>
-             
-              ) : (
-                <div>
+                    <Link href="/login" className={`${styles.getStartedButton} login-link ${router.pathname === "/login" ? "active" : ""}`}>
+                      <span>Login</span>
+                      <div className={styles["arrow-circle"]}>
+                        <i className={`${styles["arrow-icon"]} bi bi-person-fill pl-1`}></i>
+                      </div>
+                    </Link>
+                  </>
+                ) : (
                   <Dropdown className="margin-fixs">
                     <Dropdown.Toggle
                       split
                       variant="Secondary"
                       id="dropdown-split-basic"
-                      className={`nav-link ${styles["navbar-color"]} ${router.pathname==="/myservice" ? "active" : ""}`}
+                      className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/myservice" ? "active" : ""}`}
                     >
-                      Hi,{Name}
+                      Hi, {Name}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      <Dropdown.Item href="" onClick={myService}>
-                        My Service
-                      </Dropdown.Item>
-                      <Dropdown.Item href="" onClick={logout}>
-                        Logout
-                      </Dropdown.Item>
+                      <Dropdown.Item href="" onClick={myService}>My Service</Dropdown.Item>
+                      <Dropdown.Item href="" onClick={logout}>Logout</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                </div>
-              )}
-
-            </div>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-    </>
+                )}
+              </div>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </ClientOnly>
   );
 };
+
 export default Topbar;

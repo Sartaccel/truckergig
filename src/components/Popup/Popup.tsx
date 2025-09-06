@@ -136,7 +136,9 @@ const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
           <Image
             className={`${styles["popup-logo"]} `}
             src="/images/logo_black.png"
-            alt="Truckergiglogo"fill
+            alt="Truckergiglogo"
+            width={100}
+            height={100}
           />
           <p className={`${styles["modal-lead"]} `}>
             How do you want to signup?
