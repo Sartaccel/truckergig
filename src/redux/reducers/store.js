@@ -6,4 +6,4 @@ import rootReducer from "./rootreducer";
 const makeStore = () =>
   createStore(rootReducer, applyMiddleware(thunk));
 
-export const wrapper = createWrapper(makeStore, { debug: true });
+export const wrapper = createWrapper(makeStore, { debug: false });

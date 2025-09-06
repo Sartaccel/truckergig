@@ -1,20 +1,32 @@
-// app.tsx
-import '../assets/styles/style.css';
-import '../assets/styles/Common.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import type { AppProps } from 'next/app';
-import Layouts from '../components/Layouts';
+"use client";
+import "../assets/styles/style.css";
+import "../assets/styles/Common.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
+import type { AppProps } from "next/app";
+import Layouts from "../components/Layouts";
 import { wrapper } from "../redux/reducers/store";
-import 'react-notifications/lib/notifications.css';
-import { NotificationContainer } from 'react-notifications';
-import { useEffect , useRef } from 'react';
-import { useRouter } from 'next/router';
-import * as ga from '../lib/ga';
-import { LoaderProvider, useLoader } from '../Context/LoaderContext';
-import { Loader } from '../components/Loader';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { SSRProvider } from 'react-bootstrap';
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import * as ga from "../lib/ga";
+import { LoaderProvider, useLoader } from "../Context/LoaderContext";
+import { Loader } from "../components/Loader";
+import { SSRProvider } from "react-bootstrap";
+import "react-toastify/dist/ReactToastify.css";
+import "react-notifications/lib/notifications.css";
+
+
+const NotificationContainer = dynamic(
+  () => import("react-notifications").then((m) => m.NotificationContainer),
+  { ssr: false }
+);
+
+const ToastContainer = dynamic(
+  () => import("react-toastify").then((m) => m.ToastContainer),
+  { ssr: false }
+);
+// Dynamically load to avoid SSR hydration mismatches
+
 
 function LoaderWrapper() {
   const router = useRouter();
@@ -37,13 +49,12 @@ function LoaderWrapper() {
         forceStopTimer.current = setTimeout(() => {
           setLoading(false);
         }, 5000);
-      }, 100); // slight delay to prevent flicker
+      }, 100);
     };
 
     const handleComplete = (url: string) => {
       const loadTime = Date.now() - startTime.current;
 
-      // Clear timers
       if (startTimer.current) clearTimeout(startTimer.current);
       if (forceStopTimer.current) clearTimeout(forceStopTimer.current);
 
@@ -74,29 +85,31 @@ function LoaderWrapper() {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
     const handleRouteChange = (url: string) => {
       ga.pageview(url);
     };
-    router.events.on('routeChangeComplete', handleRouteChange);
+    router.events.on("routeChangeComplete", handleRouteChange);
     return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
+      router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, [router.events]);
 
   return (
-    <SSRProvider>
-    <LoaderProvider>
-      <LoaderWrapper />
-      <Layouts>
-        <Loader />
+      <LoaderProvider>
+        <LoaderWrapper />
+        <Layouts>
+          <Loader />
         <Component {...pageProps} />
-        <NotificationContainer />
-        <ToastContainer />
-      </Layouts>
-    </LoaderProvider>
-    </SSRProvider>
+          {/* These often cause hydration mismatches, so render client-only */}
+          <NotificationContainer />
+          <ToastContainer />
+        </Layouts>
+      </LoaderProvider>
   );
 }
 

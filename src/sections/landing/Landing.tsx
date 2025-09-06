@@ -308,21 +308,6 @@ const Landing: React.FC = () => {
     <div className="container">
   <h5 className={`${styles["section-title"]}`}>Summary</h5>
   <div className="row align-items-center">
-    
-    {/* <div className="col-12 col-lg-3">
-      <div className={`${styles["summary-tab"]}`}>
-        <h3>{vendors}+</h3>
-        <h5>Vendors Onboarded</h5>
-      </div>
-      <div className={`${styles["summary-tab"]}`}>
-        <h3>{carriers}+</h3>
-        <h5>Carriers Connected</h5>
-      </div>
-      <div className={`${styles["summary-tab"]}`}>
-        <h3>{candidates}+</h3>
-        <h5>Drivers Onboarded</h5>
-      </div>
-    </div> */}
 
     <div className="col-12 col-lg-5 text-center">
       <Image
