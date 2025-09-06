@@ -187,7 +187,7 @@ const About: React.FC = () => {
            
                 {size.width >= 768 ? (
                   <a className={`${styles["videopopup"]}`} onClick={handleShow}>
-                    <Image src="/images/viedoimg.jpg" alt="video-thumbnail" />
+                    <Image src="/images/viedoimg.jpg" alt="video-thumbnail" width={100} height={100}/>
                     <div className={`${styles["sonar-wrapper"]}`}>
                       <div className={`${styles["sonar-emitter"]}`}>
                         <i className={`${styles["ion-arrow-right-b"]}`} />
@@ -202,9 +202,9 @@ const About: React.FC = () => {
                     target="_blank"
                   >
                     <Image
-                      src="https://development.truckergig.com/pub/static/frontend/TGIG/webstorev3/en_US/images/about.jpg"
+                      src="/images/about.jpg"
                       alt="video-thumbnail"
-                      width={100} height={100}
+                      width={5464} height={3640}
                     />
                     <div className={`${styles["sonar-wrapper"]}`}>
                       <div className={`${styles["sonar-emitter"]}`}>
@@ -244,7 +244,9 @@ const About: React.FC = () => {
         className={`${styles["service-icon"]}`}
         src="/images/ma.jpg"
         alt="tech-partner"
-        style={{ width: "100%", maxWidth: "450px", height: "auto" }}
+        width={100}
+        height={100}
+        style={{  maxWidth: "450px"}}
       />
     </div>
   </div>
@@ -264,7 +266,9 @@ const About: React.FC = () => {
         className={`${styles["service-icon"]}`}
         src="/images/Driver.jpg"
         alt="tech-partner"
-        style={{ width: "100%", maxWidth: "350px", height: "auto" }}
+         width={100}
+        height={100}
+        style={{ maxWidth: "350px" }}
       />
     </div>
   </div>
@@ -287,7 +291,9 @@ const About: React.FC = () => {
             className={`${styles["service-icon"]}`}
             src="/images/marketp;lace.png"
             alt="tech-partner"
-            style={{ width: "100%", maxWidth: "450px", height: "auto" }}
+             width={100}
+        height={100}
+            style={{ maxWidth: "450px" }}
           />
         </div>
       </div>
@@ -313,9 +319,10 @@ const About: React.FC = () => {
     <div className="col-md-6 text-start slide-left shrink-animation shrink-animation-delay-2">
       <Image
         className={`${styles["service-icon"]}`}
-        src="/images/APIi.svg"
+        src="/images/APi.png"
         alt="API Integration"
-        style={{ width: "100%", maxWidth: "420px", height: "auto" }}
+        width={100}
+        height={100}
       />
     </div>
   </div>
@@ -334,6 +341,8 @@ const About: React.FC = () => {
                   className={`card-img-top ${styles["board-image"]}`}
                   src="/images/Charan Shikh.jpg"
                   alt="Charan Shikh"
+                   width={100}
+        height={100}
                 />
                 <div
                   className={`card-body ${styles["card-body"]} d-flex flex-column justify-content-between`}
@@ -357,6 +366,8 @@ const About: React.FC = () => {
                   className={`card-img-top ${styles["board-image"]}`}
                   src="/images/Jim Handoush.jpg"
                   alt="Jim Handoush"
+                   width={100}
+        height={100}
                 />
                 <div
                   className={`card-body ${styles["card-body"]} d-flex flex-column justify-content-between`}
@@ -381,6 +392,8 @@ const About: React.FC = () => {
                   className={`card-img-top ${styles["board-image"]}`}
                   src="/images/Mahesh Vinayagam.jpg"
                   alt="Mahesh Vinayagam"
+                   width={100}
+        height={100}
                 />
                 <div
                   className={`card-body ${styles["card-body"]} d-flex flex-column justify-content-between`}
@@ -404,6 +417,8 @@ const About: React.FC = () => {
                   className={`card-img-top ${styles["board-image"]}`}
                   src="/images/Jeremy Estep.jpg"
                   alt="Jeremy Estep"
+                   width={100}
+        height={100}
                 />
                 <div
                   className={`card-body ${styles["card-body"]} d-flex flex-column justify-content-between`}
@@ -427,6 +442,8 @@ const About: React.FC = () => {
                   className={`card-img-top ${styles["board-image"]}`}
                   src="/images/Jonah Carney.jpg"
                   alt="Jonah Carney"
+                   width={100}
+        height={100}
                 />
                 <div
                   className={`card-body ${styles["card-body"]} d-flex flex-column justify-content-between`}
@@ -450,6 +467,8 @@ const About: React.FC = () => {
                   className={`card-img-top ${styles["board-image"]}`}
                   src="/images/Brad Reinhardt.jpg"
                   alt="Brad Reinhardt"
+                   width={100}
+        height={100}
                 />
                 <div
                   className={`card-body ${styles["card-body"]} d-flex flex-column justify-content-between`}
