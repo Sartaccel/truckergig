@@ -20,13 +20,14 @@ const onChange = (value) => {
 
 const schema = yup.object().shape({
     businessName: yup.string().required("Please enter Business/Individual Name").min(2).max(24),
-    country: yup.string().required("This is a required field"),
-    state: yup.string().required("This is a required field"),
+    country: yup.string().required("This is a required field").min(2).max(60),
+    state: yup.string().required("This is a required field").min(2).max(40),
     city: yup.string().required("This is a required field"),
     zipcode: yup.string().required("This field is Required").matches(/^\d{4,}$/, "Zipcode is not valid"),
     email: yup.string().email().required("This is a required field"),
     contactNo: yup.string().required("This field is Required").matches(/^\d{10}$/, "Phone number is not valid"),
     address: yup.string().required("This is a required field"),
+    captcha: yup.string().required("Not a robot")
 
 })
 

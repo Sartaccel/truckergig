@@ -22,8 +22,12 @@ const schema = yup.object().shape({
     .transform((value) => value?.toLowerCase())
     .min(2)
     .max(24),
-  country: yup.string().required("Country is required"),
-  state: yup.string().required("State is required"),
+  country: yup.string().required("Country is required")
+  .min(2)
+  .max(60),
+  state: yup.string().required("State is required")
+    .min(2)
+  .max(40),
   city: yup.string().required("City is required"),
   zipcode: yup
     .string()
@@ -37,6 +41,7 @@ const schema = yup.object().shape({
   .matches(
     /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,"Enter a valid email"
   ),
+  captcha: yup.string().required("Not a robot"),
   contactNo: yup
     .string()
     .required("This is a required field")

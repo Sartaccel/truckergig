@@ -42,7 +42,10 @@ productList: yup
     .trim()
     .transform((value) => (value === "" ? undefined : value.toLowerCase()))
     .required("Email is required")
-    .matches(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, "Enter a valid email")
+    .matches(
+    /^(?!.*\.\.)[a-zA-Z0-9]+([._%+-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9.-]+\.(com|org|net|io|in)$/i,
+    "Enter a valid email"
+  )
     .max(50),
 
   telephone: yup
@@ -51,6 +54,21 @@ productList: yup
     .matches(/^[0-9]+$/, "Must be only digits")
     .min(10, "Must be exactly 10 digits")
     .max(10, "Must be exactly 10 digits"),
+
+    fein: yup 
+    .string()
+    //.required("Phone is required")
+    .matches(/^[0-9]+$/, "Must be only digits")
+    .min(9, "Must be exactly 9 digits")
+    .max(9, "Must be exactly 9 digits"),
+
+    dbNumber: yup
+        .string()
+    //.required("Phone is required")
+    .matches(/^[0-9]+$/, "Must be only digits")
+    .min(9, "Must be exactly 9 digits")
+    .max(9, "Must be exactly 9 digits"),
+
 
   password: yup
     .string()
@@ -104,6 +122,7 @@ productList: yup
       /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
       "Invalid URL format"
     ),
+    captcha: yup.string().required("Not a robot"),
 
   message: yup
     .string()
@@ -493,11 +512,17 @@ setLoading(true);
                       <Field
                         name="contactFirstName"
                         onChange={(e) => {
-                          const regex = /^[A-Za-z]*$/; // only letters allowed
-                          if (regex.test(e.target.value)) {
-                            handleChange(e); // allow only if valid
-                          }
-                        }}
+                        let value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                        value = value.replace(/\s+/g, ' ');
+                        value = value.replace(/^\s/, '');
+
+                        handleChange({
+                          target: {
+                            name: e.target.name,
+                            value: value,
+                          },
+                        });
+                      }}
                         onBlur={(e) => {
                           e.target.style.borderColor = "";
                           e.target.style.boxShadow = "";
@@ -527,11 +552,17 @@ setLoading(true);
                       <Field
                         name="contactLastName"
                         onChange={(e) => {
-                          const regex = /^[A-Za-z]*$/; // only letters allowed
-                          if (regex.test(e.target.value)) {
-                            handleChange(e); // allow only if valid
-                          }
-                        }}
+                          let value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                        value = value.replace(/\s+/g, ' ');
+                        value = value.replace(/^\s/, '');
+
+                        handleChange({
+                          target: {
+                            name: e.target.name,
+                            value: value,
+                          },
+                        });
+                      }}
                         onBlur={(e) => {
                           e.target.style.borderColor = "";
                           e.target.style.boxShadow = "";
@@ -680,11 +711,7 @@ setLoading(true);
                           placeholder="Enter your password"
                           id="password"
                           type={showPassword ? "text" : "password"}
-                          className={`form-control pe-5 ${
-                            touched.password && errors.password
-                              ? "is-invalid"
-                              : ""
-                          }`}
+                          className={`form-control pe-5 `}
                           onFocus={(e) => {
                             e.target.style.borderColor = "#ff8c00";
                             e.target.style.boxShadow =
