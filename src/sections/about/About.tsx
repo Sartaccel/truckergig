@@ -187,7 +187,7 @@ const About: React.FC = () => {
            
                 {size.width >= 768 ? (
                   <a className={`${styles["videopopup"]}`} onClick={handleShow}>
-                    <Image src="/images/viedoimg.jpg" alt="video-thumbnail" width={100} height={100}/>
+                    <Image src="/images/viedoimg.jpg" alt="video-thumbnail" width={400} height={350}/>
                     <div className={`${styles["sonar-wrapper"]}`}>
                       <div className={`${styles["sonar-emitter"]}`}>
                         <i className={`${styles["ion-arrow-right-b"]}`} />
@@ -204,7 +204,7 @@ const About: React.FC = () => {
                     <Image
                       src="/images/about.jpg"
                       alt="video-thumbnail"
-                      width={5464} height={3640}
+                      width={5464} height={4000}
                     />
                     <div className={`${styles["sonar-wrapper"]}`}>
                       <div className={`${styles["sonar-emitter"]}`}>
@@ -230,7 +230,7 @@ const About: React.FC = () => {
           </div>
           
           <div className="row">
-          <Link href="">
+          <Link href="" className={styles.linkWrapper}>
           <div className="row align-items-center mb-1 flex-row-reverse">
           <div className={`col-md-6 ${styles['slide-right']}  `}>
       <h5 className={`${styles["service-heading"]}`}>
@@ -244,15 +244,15 @@ const About: React.FC = () => {
         className={`${styles["service-icon"]}`}
         src="/images/ma.jpg"
         alt="tech-partner"
-        width={100}
-        height={100}
-        style={{  maxWidth: "450px"}}
+        width={450}
+        height={450}
+       // style={{  maxWidth: "450px"}}
       />
     </div>
   </div>
 </Link>
 
-<Link href="">
+<Link href="" className={styles.linkWrapper}>
   <div className="row align-items-center my-0 mb-5">
     <div className={`col-md-6 ${styles['slide-left']}  shrink-animation shrink-animation-delay-3`}>
       <h5 className={`${styles["service-heading"]}`}>
@@ -266,15 +266,15 @@ const About: React.FC = () => {
         className={`${styles["service-icon"]}`}
         src="/images/Driver.jpg"
         alt="tech-partner"
-         width={100}
-        height={100}
-        style={{ maxWidth: "350px" }}
+         width={450}
+        height={450}
+       // style={{ maxWidth: "350px" }}
       />
     </div>
   </div>
 </Link>
 
-<Link href="">
+<Link href="" className={styles.linkWrapper}>
 <div className="row align-items-center mb-5 flex-row-reverse">
         <div
           className={`col-md-6 ${styles['slide-right']}  shrink-animation shrink-animation-delay-5 animate-on-scroll`}
@@ -291,9 +291,9 @@ const About: React.FC = () => {
             className={`${styles["service-icon"]}`}
             src="/images/marketp;lace.png"
             alt="tech-partner"
-             width={100}
-        height={100}
-            style={{ maxWidth: "450px" }}
+             width={450}
+        height={450}
+          //  style={{ maxWidth: "450px" }}
           />
         </div>
       </div>
@@ -319,10 +319,10 @@ const About: React.FC = () => {
     <div className="col-md-6 text-start slide-left shrink-animation shrink-animation-delay-2">
       <Image
         className={`${styles["service-icon"]}`}
-        src="/images/APi.png"
+        src="/images/APIi.svg"
         alt="API Integration"
-        width={100}
-        height={100}
+         width={430}
+        height={430}
       />
     </div>
   </div>

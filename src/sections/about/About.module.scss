@@ -804,7 +804,7 @@ margin-top: -1rem;
   }
 
   .title {
-    font-size: 25px;
+    font-size: 22px;
     color: white !important;
     font-weight: bold;
     margin-right: 10px;
@@ -908,4 +908,10 @@ margin-top: -1rem;
     opacity: 1;
     transform: translateX(0);
   }
+}
+/* About.module.scss */
+.linkWrapper {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block; /* makes it behave like a div */
 }
