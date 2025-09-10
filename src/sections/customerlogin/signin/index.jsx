@@ -245,6 +245,7 @@ const Signin = () => {
   const nav = () => {
     // ('/')navigate
     localStorage.removeItem('keepSignedIn')
+    router.back();
   }
 
   return (
@@ -277,7 +278,7 @@ const Signin = () => {
             >
               <Grid item xs={10} lg={8}>
                 <Box className="d-flex gap-4 align-items-center">
-                  <Box className="arrow1" onClick={nav}>
+                  <Box className="arrow1" onClick={nav} style={{cursor:"pointer"}}>
                     <ArrowBackIosNewIcon fontSize="16px" />
                   </Box>
                   <h5 className="m-0 sign" style={{ fontWeight: 'bold' }}>
