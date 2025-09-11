@@ -31,7 +31,7 @@ const vendorSchema = yup.object().shape({
     .max(24),
 productList: yup
     .string()
-    .required("Product is Rrequired"),
+    .required("Product is required"),
   contactFirstName: yup
     .string()
     .matches(/^[A-Za-z]+$/, "Only alphabets are allowed")
@@ -283,8 +283,7 @@ const dispatch = useDispatch<any>(); // allows async thunk return
       <div className="row p-2" style={{ marginLeft: "55px" }}>
         <div className="col">
           <Breadcrumb>
-          <Link href="/">Home</Link>
-
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
             {/* <Breadcrumb.Item href="/">Home</Breadcrumb.Item> */}
             <Breadcrumb.Item active>Vendor Registration</Breadcrumb.Item>
           </Breadcrumb>

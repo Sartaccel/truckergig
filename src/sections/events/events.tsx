@@ -13,7 +13,7 @@ const Events: React.FC = () => {
   const [eventData, setEventData] = useState(null);
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(12);
-    const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   
   const [loading, setLoading] = useState(true);  // Add this state
 const pageSize = 6;
@@ -96,6 +96,8 @@ const pageSize = 6;
                 src="/images/no enents.jpg"
                 className={styles.imgFluid}
                 alt="No Events Available"
+                width={500}     
+                height={300}     
               />
             </div>
           )}

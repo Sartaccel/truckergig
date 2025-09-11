@@ -100,6 +100,8 @@ const Blognews: React.FC = () => {
                 src="/images/no enents.jpg"
                 className={styles.imgFluid}
                 alt="No Events Available"
+                     width={500}     
+                height={300}  
               />
             </div>
           )}
