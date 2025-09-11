@@ -112,13 +112,13 @@ const Landing: React.FC = () => {
           <div className={`${styles["slider"]} col-12`}>
             <Carousel prevLabel=" " nextLabel=" " fade>
               <Carousel.Item interval={6000}>
-                <Image
+                {/* <Image
                   className={`${styles["img-width"]} d-block w-100`}
                   // src="/images/Newslider-03.jpg"
                   alt="first-slide"
                   width={2000}
                   height={1332}
-                />
+                /> */}
 
                 <div className={`${styles["inner"]}`}>
                   <h1 className={`${styles["welcome-title"]}`}>
@@ -141,13 +141,13 @@ const Landing: React.FC = () => {
 
               </Carousel.Item>
               <Carousel.Item interval={6000}>
-                <Image
+                {/* <Image
                   className={`${styles["img-width"]} d-block w-100`}
                   // src="/images/home22.jpg"
                   alt="second-slide"
                    width={9677}
                   height={3853}
-                />
+                /> */}
 
                 <div className={`${styles["inner"]}`}>
                   <h1 className={`${styles["welcome-title"]}`}>
@@ -171,13 +171,13 @@ const Landing: React.FC = () => {
 
               </Carousel.Item>
               <Carousel.Item interval={6000}>
-                <Image
+                {/* <Image
                   className={`${styles["img-width"]} d-block w-100`}
                   // src="/images/New_Home.jpg"
                   alt="third-slide"
                    width={5696}
                   height={3392}
-                />
+                /> */}
 
                 <div className={`${styles["inner"]}`}>
                   <h1 className={`${styles["welcome-title"]}`}>
