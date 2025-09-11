@@ -143,10 +143,10 @@ const Landing: React.FC = () => {
               <Carousel.Item interval={6000}>
                 <Image
                   className={`${styles["img-width"]} d-block w-100`}
-                z
-                  alt="second-slide"
+                            alt="second-slide"
                    width={9677}
                   height={3853}
+                  src="/images/home22.jpg"
                 />
 
                 <div className={`${styles["inner"]}`}>
