@@ -226,10 +226,10 @@ display: -webkit-box;
   animation: mymove 5s ;
 }
 
-// @keyframes mymove {
-//   from {top: 0px;}
-//   to {top: 300px;}
-// }
+@keyframes mymove {
+  from {top: 0px;}
+  to {top: 300px;}
+}
 
 // .summary-tab {
 //   display: flex;
