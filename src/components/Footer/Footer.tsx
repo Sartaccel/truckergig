@@ -188,22 +188,22 @@ const Footer: React.FC = () => {
                     <div className={styles["proud-line-right"]}></div>
                   </div>
                   {/* Proud Member Logos */}
-                  <div className="row justify-content-center">
+                  {/* <div className="row justify-content-center">
                     <div className="col-md-3 d-flex justify-content-center">
                       <Image className="h_60" fill src="/images/ltna.jpg" alt="logo" />
                     </div>
                     <div className="col-md-3 d-flex justify-content-center">
                       <Image className="h_60" fill src="/images/TNS.jpg" alt="image" />
                     </div>
-                    {/* <div className="col-md-3 d-flex justify-content-center">
+                    <div className="col-md-3 d-flex justify-content-center">
                       <Image
                         className="h_60"
                         src="/images/BITA.jpg"
                         alt="image"
                         fill
                       />
-                    </div> */}
-                  </div>
+                    </div>
+                  </div> */}
                 </div>
               </div>
             </div>
