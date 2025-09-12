@@ -303,6 +303,8 @@ setLoading(true);
       src="/images/marketplace-NoMatches.jpg" // your image path here
       alt="No matches found"
       style={{ maxWidth: "300px", width: "100%" }}
+	  width={300}
+	  height={300}
     />
     <p className="mt-3 fs-5 text-muted">No matching services found.</p>
   </div>

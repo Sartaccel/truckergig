@@ -122,7 +122,7 @@ productList: yup
       /^$|^https:\/\/(?!$)(?!.\.\.)(?!.\.$)([a-zA-Z0-9-]+\.)+(com|net|org|us)(\/\S*)?$/,
       "Invalid URL format"
     ),
-    captcha: yup.string().required("Not a robot"),
+    // captcha: yup.string().required("Not a robot"),
 
   message: yup
     .string()

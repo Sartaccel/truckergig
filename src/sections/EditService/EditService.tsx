@@ -149,79 +149,81 @@ const EditService: React.FC = () => {
   }
 
   const onUpdate = (e) => {
-    e.preventDefault();
-    if (fields["serviceName"] === "") {
-      seterrorList({
-        ...errorList,
-        ["serviceName"]: e.target.name ? false : true
-      })
-      return;
-    } if (fields["title"] === "") {
-      seterrorList({
-        ...errorList,
-        ["title"]: e.target.name ? false : true
-      })
-      return;
-    } if (fields["description"] === "") {
-      seterrorList({
-        ...errorList,
-        ["description"]: e.target.name ? false : true
-      })
-      return;
-    } if (fields["price"] === "") {
-      seterrorList({
-        ...errorList,
-        ["price"]: e.target.name ? false : true
-      })
-      return;
-    }if (fields["sortOrder"] === "") {
-      seterrorList({
-        ...errorList,
-        ["sortOrder"]: e.target.name ? false : true
-      })
-      return;
-    } else {
+  e.preventDefault();
 
-    }
-    let logoFile = document.getElementById("logoFile") as HTMLInputElement;
-    var params = (fields)
-    var imagefile = logoFile.files[0];
-    console.log("ImageFile", imagefile);
-    const formdata = new FormData()
-    const serviceInfo = JSON.stringify(params);
-    console.log(serviceInfo);
-    formdata.append("LOGO_FILE", imagefile);
-    formdata.append("serviceInfo", serviceInfo);
-    const Authtoken = localStorage.getItem("Authorization");
-    axios.post(`${urls.clientsUrl}services/edit`, formdata,
-      {
-        headers: { Authorization: Authtoken },
-      })
-      .then(function (response) {
-        console.log(response.data.headers.statusCode)
-        if (response.data.headers.statusCode === "200") {
-          toast.success('Service Updated Sucessfully', {
-            theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-            closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
-          });
-          setTimeout(() => { router.push("/myservice") }, 3000);
-        }
-
-        else {
-          toast.error(response.data.headers.message, {
-            theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-            closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
-          });
-        }
-      })
-      .catch(function (error) {
-        toast.error(error.response.data.headers.message, {
-          theme: "dark", position: "top-right", autoClose: 5000, hideProgressBar: false,
-          closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
-        });
-
-      });
+  // Validation
+  if (!fields["serviceName"]) {
+    seterrorList({ ...errorList, serviceName: true });
+    return;
   }
+  if (!fields["title"]) {
+    seterrorList({ ...errorList, title: true });
+    return;
+  }
+  if (!fields["description"]) {
+    seterrorList({ ...errorList, description: true });
+    return;
+  }
+  if (fields["price"] === "") {
+    seterrorList({ ...errorList, price: true });
+    return;
+  }
+  if (fields["sortOrder"] === "") {
+    seterrorList({ ...errorList, sortOrder: true });
+    return;
+  }
+
+  // 🔹 Convert numeric values safely (avoid empty string)
+  const params = {
+    ...fields,
+    price: fields.price ? Number(fields.price) : 0,
+    sortOrder: fields.sortOrder ? Number(fields.sortOrder) : 0,
+    isExternal: fields.isExternal ? Number(fields.isExternal) : 0,
+  };
+
+  // File handling
+  const logoFile = document.getElementById("logoFile") as HTMLInputElement;
+  const imagefile = logoFile?.files?.[0];
+
+  const formdata = new FormData();
+  if (imagefile) {
+    formdata.append("LOGO_FILE", imagefile);
+  }
+  formdata.append("serviceInfo", JSON.stringify(params));
+
+  const Authtoken = localStorage.getItem("Authorization");
+
+  axios
+    .post(`${urls.clientsUrl}services/edit`, formdata, {
+      headers: { Authorization: Authtoken },
+    })
+    .then((response) => {
+      if (response.data.headers.statusCode === "200") {
+        toast.success("Service Updated Successfully", {
+          theme: "dark",
+          position: "top-right",
+          autoClose: 5000,
+        });
+        setTimeout(() => router.push("/myservice"), 3000);
+      } else {
+        toast.error(response.data.headers.message || "Update failed", {
+          theme: "dark",
+          position: "top-right",
+          autoClose: 5000,
+        });
+      }
+    })
+    .catch((error) => {
+      toast.error(
+        error.response?.data?.headers?.message || "Something went wrong!",
+        {
+          theme: "dark",
+          position: "top-right",
+          autoClose: 5000,
+        }
+      );
+    });
+};
 
   return (
     <>

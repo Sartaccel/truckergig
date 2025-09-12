@@ -10,12 +10,15 @@ export const MyCards = (props: any) => {
       <div className="card w-100 shadow-sm">
         <div className={`${styles["card-slider"]} d-flex flex-column h-100 p-3`}>
           <div className={`${styles["card-slider-img"]} text-center mb-3`}>
-            <Image
-              className={`${styles["card-slider-image"]} `}
-              src={props.items.logoPath}
-              alt={props.items.serviceName}
-              style={{ maxHeight: "120px", objectFit: "contain" }}
-            />
+           <Image
+  className={`${styles["card-slider-image"]}`}
+  src={props.items.logoPath}
+  alt={props.items.serviceName}
+  width={100}      // 👈 reduce here
+  height={100}     // 👈 reduce here
+  style={{ objectFit: "contain" }}
+/>
+
           </div>
           <div className={`${styles["card-body"]} `}>
             <div className={`${styles["card-slider-text"]} `}>

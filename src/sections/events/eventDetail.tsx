@@ -89,6 +89,8 @@ const Events: React.FC = (props) => {
     onLoad={() => setImageLoaded(true)}
     onError={() => setImageLoaded(true)}
     style={{ display: imageLoaded ? "block" : "none" }}
+    width={800}
+    height={800}
   />
 </div>
         </div>
