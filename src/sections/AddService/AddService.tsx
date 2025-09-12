@@ -40,7 +40,8 @@ const Serviceregistration: React.FC = () => {
   const [driverlicenseType, setdriverlicenseType] = useState('');
   const [disableRegister, setdisableRegister] = useState(true);
   const [licensetypeHidden, setlicensetypeHidden] = useState(false);
-  const [selectedFile, setselectedFile] = useState('');
+const [selectedFile, setselectedFile] = useState<File | null>(null);
+
   const [selectedOption, setSelectedOption] = useState(undefined);
   const [dropdown, setdropdown] = useState([]);
   const [child, setchild] = useState([]);
@@ -330,7 +331,12 @@ const Serviceregistration: React.FC = () => {
 
       <div className="col-md-4 pt-2 mb-3">
         <label className={styles.formLabel}>Price</label><sup className="star">*</sup>
-        <input {...register("price")} name="price" type="number" placeholder="Price"
+        <input {...register("price")} name="price" type="text" placeholder="Price"  maxLength={15}  
+         onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+      e.target.value = e.target.value
+        .replace(/[^0-9]/g, "")          
+        .slice(0, 15);                    
+    }}
          onFocus={(e) => {
           e.target.style.borderColor = "#ff8c00"; 
           e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
@@ -483,7 +489,12 @@ const Serviceregistration: React.FC = () => {
 
       <div className="col-md-4 pt-2 mb-3">
         <label className={styles.formLabel}>Hubspot Id</label>
-        <input {...register("hubspotId")} name="hubspotId" type="text" placeholder="Hubspot Id"
+        <input {...register("hubspotId")} name="hubspotId" type="text" placeholder="Hubspot Id"  
+         onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+      e.target.value = e.target.value
+        .replace(/[^0-9]/g, "")          
+        .slice(0, 15);                    
+    }}
          onFocus={(e) => {
           e.target.style.borderColor = "#ff8c00"; 
           e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
@@ -514,25 +525,71 @@ const Serviceregistration: React.FC = () => {
     </div>
 
     {/* Upload Logo */}
-    <div className="row">
-      <div className="col-md-12 pt-2 mb-3">
-        <label className={styles.formLabel}>Upload your Logo</label>
-        <input id="logoFile" name="logoFile" type="file"
-         onBlur={(e) => {
-          e.target.style.borderColor = ""; 
-          e.target.style.boxShadow = "";
-          }}
-          onFocus={(e) => {
-          e.target.style.borderColor = "#ff8c00"; 
-          e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; 
-          }}
-          onChange={(e) => setselectedFile(e.target.value)}
-          className={`form-control ${errors.logoFile ? "is-invalid" : ""}`} />
-        <div className="invalid-feedback">{errors.logoFile?.message}</div>
-        <label className="file-type">Maximum allowed file size: 2 MB</label><br />
-        <label className="file-type">Allowed formats: .jpeg, .jpg, .png, .bmp</label>
-      </div>
-    </div>
+{/* Upload Logo */}
+<div className="row">
+  <div className="col-md-12 pt-2 mb-3">
+    <label className={styles.formLabel}>Upload your Logo</label>
+    <input
+      id="logoFile"
+      name="logoFile"
+      type="file"
+      accept=".jpeg,.jpg,.png,.bmp"   // ✅ only allow these file types
+      onBlur={(e) => {
+        e.target.style.borderColor = "";
+        e.target.style.boxShadow = "";
+      }}
+      onFocus={(e) => {
+        e.target.style.borderColor = "#ff8c00";
+        e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+      }}
+      onChange={(e) => {
+        const file = e.target.files?.[0];
+        if (file) {
+          const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/bmp"];
+
+          // ✅ Check file type
+          if (!allowedTypes.includes(file.type)) {
+            toast.error("Invalid file type. Allowed formats: .jpeg, .jpg, .png, .bmp", {
+              theme: "dark",
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            e.target.value = "";
+            setselectedFile(null);
+            return;
+          }
+
+          // ✅ Check file size (max 2MB)
+          if (file.size > 2 * 1024 * 1024) {
+            toast.error("File size exceeds 2 MB. Please select a smaller file.", {
+              theme: "dark",
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            e.target.value = "";
+            setselectedFile(null);
+          } else {
+            setselectedFile(file);
+          }
+        }
+      }}
+      className={`form-control ${errors.logoFile ? "is-invalid" : ""}`}
+    />
+    <div className="invalid-feedback">{errors.logoFile?.message}</div>
+    <label className="file-type">Maximum allowed file size: 2 MB</label><br />
+    <label className="file-type">Allowed formats: .jpeg, .jpg, .png, .bmp</label>
+  </div>
+</div>
 
     <div className="pt-3 text-center">
       <button type="submit" className={styles.regBtn}>Save</button>
