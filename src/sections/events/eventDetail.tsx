@@ -23,6 +23,19 @@ const Events: React.FC = (props) => {
   const [externalLink, setExternalLink] = useState("")
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  const formatTime = (timeStr: string) => {
+  if (!timeStr) return "";
+  const [hour, minute] = timeStr.split(":").map(Number);
+  const date = new Date();
+  date.setHours(hour, minute);
+  return date.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+};
+
+
   const formatDate = (dateStr: string) => {
     if (!dateStr) return "";
     const date = new Date(dateStr);
@@ -82,16 +95,17 @@ const Events: React.FC = (props) => {
       <Spin size="large" />
     </div>
   )}
-  <Image
-    className={`${styles["event-detail-img"]}`}
-    src={eventimg}
-    alt={eventtitle}
-    onLoad={() => setImageLoaded(true)}
-    onError={() => setImageLoaded(true)}
-    style={{ display: imageLoaded ? "block" : "none" }}
-    width={800}
-    height={800}
-  />
+<Image
+  className={`${styles["event-detail-img"]}`}
+  src={eventimg}
+  alt={eventtitle}
+  width={800}
+  height={800}
+  onLoad={() => setImageLoaded(true)}
+  onError={() => setImageLoaded(true)}
+  style={{ display: imageLoaded ? "block" : "none" }}
+/>
+
 </div>
         </div>
         <div className={`${styles["event-detail-text"]} row pt-3`}>
@@ -124,8 +138,8 @@ const Events: React.FC = (props) => {
             </Popup>
           </div>
           {(eventtotime === "") ?
-            <div className={`${styles["event-clock-detail"]} col-6`}><i className="bi bi-clock" style={{ color: "#f7941d" }}></i> {eventfromtime}</div>
-            : <div className={`${styles["event-clock-detal"]} col-6`}><i className="bi bi-clock" style={{ color: "#f7941d" }}></i> {eventfromtime} - {eventtotime}</div>
+            <div className={`${styles["event-clock-detail"]} col-6`}><i className="bi bi-clock" style={{ color: "#f7941d" }}></i> {formatTime(eventfromtime)}</div>
+            : <div className={`${styles["event-clock-detal"]} col-6`}><i className="bi bi-clock" style={{ color: "#f7941d" }}></i> {formatTime(eventfromtime)} - {formatTime(eventtotime)}</div>
           }
           {/* <div className={`${styles["event-desc-title"]} col-12`}><p>{eventtitle}</p></div> */}
           <div className={`${styles["event-desc-title"]} col-12 d-flex justify-content-center`}  > 

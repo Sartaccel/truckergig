@@ -41,7 +41,6 @@ const schema = yup.object().shape({
   .matches(
     /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,"Enter a valid email"
   ),
-  captcha: yup.string().required("Not a robot"),
   contactNo: yup
     .string()
     .required("This is a required field")
@@ -58,6 +57,17 @@ const Getaquote: React.FC = (props: any) => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
+
+  // below your useForm()
+const [captchaValue, setCaptchaValue] = useState<string | null>(null);
+const [captchaError, setCaptchaError] = useState<string | null>(null);
+
+const handleCaptchaChange = (value: string | null) => {
+  setCaptchaValue(value);
+  setCaptchaError(null); // clear error when selected
+};
+
+  
   const [selectedData, setselectedData] = useState<any>();
   const [selectedCategoryData, setselectedCategoryData] = useState<any>();
   const params = {
@@ -123,6 +133,10 @@ const Getaquote: React.FC = (props: any) => {
     }
   };
   const onSubmitHandler = (data) => {
+      if (!captchaValue) {
+    setCaptchaError("Please verify that you are not a robot");
+    return;
+  }
     data.serviceId = "1";
     var params = data;
     axios
@@ -178,14 +192,17 @@ const Getaquote: React.FC = (props: any) => {
               </p>
               <p>{selectedData?.serviceName}</p>
               {selectedData?.logoPath?.trim() && (
-                <Image
-                  className={styles["getaquote-image"]}
-                  src={selectedData.logoPath}
-                  alt={selectedData?.serviceName}
-                  onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                    e.currentTarget.style.display = "none"; // Hides broken image
-                  }}
-                />
+               <Image
+                className={styles["getaquote-image"]}
+                src={selectedData.logoPath}
+                alt={selectedData?.serviceName || "logo"}
+                width={200}     
+                height={100}    
+                onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+
               )}
             </div>
 
@@ -413,6 +430,9 @@ const Getaquote: React.FC = (props: any) => {
                       sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
                       onChange={onChange}
                     />
+                    {captchaError && (
+      <div className="text-danger mt-1">{captchaError}</div>
+    )}
                   </div>
                 </div>
               </div>
