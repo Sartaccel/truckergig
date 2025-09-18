@@ -254,6 +254,7 @@ const handleCaptchaChange = (value: string | null) => {
                           {...register("country")}
                           onKeyDown={allowOnlyLettersAndSpaces}
                           type="text"
+                          maxLength={60}
                           placeholder="Country"
                           className={`form-control ${
                             errors.country ? "is-invalid" : ""
@@ -273,6 +274,7 @@ const handleCaptchaChange = (value: string | null) => {
                       <div>
                         <input
                           {...register("state")}
+                          maxLength={35}
                           onKeyDown={allowOnlyLettersAndSpaces}
                           type="text"
                           placeholder="State"
