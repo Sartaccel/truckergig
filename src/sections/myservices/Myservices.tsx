@@ -4,11 +4,11 @@ import { MyCards } from "../../components/MyCards/MyCards";
 import axios from "axios";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import urls from "../../utilities/AppSettings";
-import "antd/dist/antd.css";
 import { Pagination } from "antd";
 import styles from "./myservices.module.scss";
 import Router from "next/router";
 import Image from "next/image";
+import { Plus } from "lucide-react";
 
 const Myservices: React.FC = () => {
   const router = useRouter();
@@ -36,8 +36,9 @@ const Myservices: React.FC = () => {
       })
       .then((response) => {
         const data =
-          response?.data?.data?.content ||
-          response?.data?.content ||
+          response?.data?.data?.content ??
+          response?.data?.data ??
+          response?.data?.content ??
           [];
 
         if (response.status === 200 && data.length > 0) {
@@ -70,26 +71,50 @@ const Myservices: React.FC = () => {
 
   return (
     <div className="p-2" style={{ marginLeft: "65px" }}>
+      {/* Breadcrumb */}
       <div className="row">
-        <div className="col-6">
+        <div className="col-12">
           <Breadcrumb>
             <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
             <Breadcrumb.Item href="/myservice">My Service</Breadcrumb.Item>
           </Breadcrumb>
         </div>
-        <div className="col-6">
-          {role !== "user" && (
-            <button
-              className={`${styles["card-slider-btn"]} float-right`}
-              onClick={(e) => {
-                e.preventDefault();
-                Router.push({ pathname: "/addservice" });
-              }}
-            >
-              Add New
-            </button>
-          )}
+      </div>
+
+    <div className={styles.container}>  {/* Added a container for spacing */}
+      <div className={styles.eventHead}>
+        <Image
+          src="/images/service1.jpg"
+          alt="Truck in Logistics"
+          layout="fill"
+          priority={false} 
+          className={styles.eventImage}
+        />
+        <div className={styles.overlay}>
+          <h2 className={styles.title}>SERVICES</h2>
+          <p className={styles.description}>
+            Discover and manage logistics and transportation services with ease.<br />
+            Connect, learn and grow with industry leaders!
+          </p>
         </div>
+                 {/* Add New button at top-right inside image */}
+{role !== "user" && (
+  <div className={styles.addButtonWrapper}>
+    <button
+      className={styles.addButton}
+      onClick={(e) => {
+        e.preventDefault();
+        Router.push({ pathname: "/addservice" });
+      }}
+    >
+      <Plus size={18} className={styles.icon} />
+      Add Service
+    </button>
+  </div>
+)}
+
+
+      </div>
       </div>
 
       {/* Loader */}
@@ -103,7 +128,6 @@ const Myservices: React.FC = () => {
           style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
         >
           {mycategories.length > 0 ? (
-            // Services Available
             <div className="col-lg-10">
               <div className="row pt-4 pb-4">
                 {mycategories.slice(minValue, maxValue).map((z, k) => (
@@ -124,21 +148,18 @@ const Myservices: React.FC = () => {
                 </div>
               </div>
             </div>
-          ) : (
-            // No Data Found
-            <div className="col-lg-9">
-              <div className="text-center">
-                {/* <h2>No Services Found</h2> */}
-                <Image
-                  src="/images/services.jpg"
-                  className={styles.imgFluid}
-                  alt="No Services Available"
-                  width={500}
-                  height={300}
-                />
-              </div>
-            </div>
-          )}
+          ) :  (
+                      <div className="text-center">
+                        <h2>Oops! There are No Services at the Moment</h2>
+                        <Image
+                          src="/images/no enents.jpg"
+                          className={styles.imgFluid}
+                          alt="No Events Available"
+                          width={500}     
+                          height={300}  
+                        />
+                      </div>
+                    )}
         </div>
       )}
     </div>

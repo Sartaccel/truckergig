@@ -346,3 +346,21 @@
       margin-top:15px;
   }
   }
+.imgFluid {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+
+  @media (max-width: 768px) {
+    max-width: 300px !important; /* shrink on tablet & mobile */
+    width: 80% !important;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 220px !important; /* even smaller for small phones */
+    width: 70% !important;
+  }
+}
+
+
