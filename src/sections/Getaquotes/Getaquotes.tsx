@@ -27,8 +27,6 @@ const schema = yup.object().shape({
     email: yup.string().email().required("This is a required field"),
     contactNo: yup.string().required("This field is Required").matches(/^\d{10}$/, "Phone number is not valid"),
     address: yup.string().required("This is a required field"),
-    captcha: yup.string().required("Not a robot")
-
 })
 
 const Getaquote: React.FC = (props: any) => {
@@ -167,6 +165,7 @@ const Getaquote: React.FC = (props: any) => {
                                             </div>
                                             <div>
                                                 <input {...register("country")}
+                                                maxLength={60}
                                                 onKeyDown={allowOnlyLettersAndSpaces}
                                                 type="text" placeholder="Country"
                                                     className={`form-control ${errors.country ? "is-invalid" : ""}`} />
@@ -179,6 +178,7 @@ const Getaquote: React.FC = (props: any) => {
                                             </div>
                                             <div>
                                                 <input {...register("state")} 
+                                                maxLength={35}
                                                 onKeyDown={allowOnlyLettersAndSpaces}
                                                 type="text" placeholder="State"
                                                     className={`form-control ${errors.state ? "is-invalid" : ""}`} />

@@ -166,6 +166,7 @@ const Signin = () => {
             localStorage.setItem("user", JSON.stringify(userdetail));
             localStorage.setItem("Authorization", response.data.data.authtoken);
             localStorage.setItem("role", "user");
+            window.dispatchEvent(new Event("storage"));
             router.push("/marketplace");
           } else {
             toast.error(message || "Login Failed", {
@@ -213,6 +214,7 @@ const Signin = () => {
             localStorage.setItem("Clientname", userdetail.clientName);
             localStorage.setItem("Clientid", userdetail.clientId);
             localStorage.setItem("role", userdetail.userType);
+             window.dispatchEvent(new Event("storage"));
             router.push("/marketplace");
           }
         })

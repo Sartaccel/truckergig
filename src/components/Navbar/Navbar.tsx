@@ -51,10 +51,16 @@ const Topbar: React.FC = () => {
     };
     window.addEventListener("scroll", handleScroll);
 
+    // Storage listener for login/logout updates
+    const handleStorageChange = () => {
+      checkAuth();
+    };
+    window.addEventListener("storage", handleStorageChange);
+
     // Fetch summary data
     const fetchSummary = async () => {
       try {
-        const response = await fetch(`${urls.baseUrl}/summary`); // replace with actual URL
+        const response = await fetch(`${urls.baseUrl}/summary`);
         const data = await response.json();
         setCandidates(data.data.candidates.in_progress);
         setJobs(data.data.jobs.open);
@@ -66,7 +72,18 @@ const Topbar: React.FC = () => {
     };
     fetchSummary();
 
-    // Check auth
+    // Check auth on mount
+    checkAuth();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
+  // ✅ Centralized auth check
+  const checkAuth = () => {
     const Authtoken = localStorage.getItem("Authorization");
     if (Authtoken) {
       setAth(true);
@@ -78,18 +95,18 @@ const Topbar: React.FC = () => {
       } else {
         setName(clientName || "");
       }
+    } else {
+      setAth(false);
+      setName("");
     }
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  };
 
   // Logout
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
+    setAth(false);   // ✅ update state immediately
+    setName("");     // ✅ clear username immediately
     router.push("/");
   };
 

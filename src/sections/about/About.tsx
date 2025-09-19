@@ -230,7 +230,6 @@ const About: React.FC = () => {
           </div>
           
           <div className="row">
-          <Link href="" className={styles.linkWrapper}>
           <div className="row align-items-center mb-1 flex-row-reverse">
           <div className={`col-md-6 ${styles['slide-right']}  `}>
       <h5 className={`${styles["service-heading"]}`}>
@@ -250,9 +249,7 @@ const About: React.FC = () => {
       />
     </div>
   </div>
-</Link>
 
-<Link href="" className={styles.linkWrapper}>
   <div className="row align-items-center my-0 mb-5">
     <div className={`col-md-6 ${styles['slide-left']}  shrink-animation shrink-animation-delay-3`}>
       <h5 className={`${styles["service-heading"]}`}>
@@ -272,9 +269,7 @@ const About: React.FC = () => {
       />
     </div>
   </div>
-</Link>
 
-<Link href="" className={styles.linkWrapper}>
 <div className="row align-items-center mb-5 flex-row-reverse">
         <div
           className={`col-md-6 ${styles['slide-right']}  shrink-animation shrink-animation-delay-5 animate-on-scroll`}
@@ -297,7 +292,6 @@ const About: React.FC = () => {
           />
         </div>
       </div>
-    </Link>
 
           </div>
           <div className="row">
