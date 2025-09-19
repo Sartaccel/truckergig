@@ -41,6 +41,7 @@ const schema = yup.object().shape({
   .matches(
     /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,"Enter a valid email"
   ),
+  captcha: yup.string().required("Not a robot"),
   contactNo: yup
     .string()
     .required("This is a required field")
@@ -57,17 +58,6 @@ const Getaquote: React.FC = (props: any) => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-
-  // below your useForm()
-const [captchaValue, setCaptchaValue] = useState<string | null>(null);
-const [captchaError, setCaptchaError] = useState<string | null>(null);
-
-const handleCaptchaChange = (value: string | null) => {
-  setCaptchaValue(value);
-  setCaptchaError(null); // clear error when selected
-};
-
-  
   const [selectedData, setselectedData] = useState<any>();
   const [selectedCategoryData, setselectedCategoryData] = useState<any>();
   const params = {
@@ -133,10 +123,6 @@ const handleCaptchaChange = (value: string | null) => {
     }
   };
   const onSubmitHandler = (data) => {
-      if (!captchaValue) {
-    setCaptchaError("Please verify that you are not a robot");
-    return;
-  }
     data.serviceId = "1";
     var params = data;
     axios
@@ -192,17 +178,14 @@ const handleCaptchaChange = (value: string | null) => {
               </p>
               <p>{selectedData?.serviceName}</p>
               {selectedData?.logoPath?.trim() && (
-               <Image
-                className={styles["getaquote-image"]}
-                src={selectedData.logoPath}
-                alt={selectedData?.serviceName || "logo"}
-                width={200}     
-                height={100}    
-                onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                  e.currentTarget.style.display = "none";
-                }}
-              />
-
+                <Image
+                  className={styles["getaquote-image"]}
+                  src={selectedData.logoPath}
+                  alt={selectedData?.serviceName}
+                  onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                    e.currentTarget.style.display = "none"; // Hides broken image
+                  }}
+                />
               )}
             </div>
 
@@ -254,7 +237,6 @@ const handleCaptchaChange = (value: string | null) => {
                           {...register("country")}
                           onKeyDown={allowOnlyLettersAndSpaces}
                           type="text"
-                          maxLength={60}
                           placeholder="Country"
                           className={`form-control ${
                             errors.country ? "is-invalid" : ""
@@ -274,7 +256,6 @@ const handleCaptchaChange = (value: string | null) => {
                       <div>
                         <input
                           {...register("state")}
-                          maxLength={35}
                           onKeyDown={allowOnlyLettersAndSpaces}
                           type="text"
                           placeholder="State"
@@ -432,9 +413,6 @@ const handleCaptchaChange = (value: string | null) => {
                       sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
                       onChange={onChange}
                     />
-                    {captchaError && (
-      <div className="text-danger mt-1">{captchaError}</div>
-    )}
                   </div>
                 </div>
               </div>
