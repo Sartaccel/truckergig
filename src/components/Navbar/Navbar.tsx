@@ -56,6 +56,12 @@ const Topbar: React.FC = () => {
     };
     window.addEventListener("scroll", handleScroll);
 
+    // Storage listener for login/logout updates
+    const handleStorageChange = () => {
+      checkAuth();
+    };
+    window.addEventListener("storage", handleStorageChange);
+
     // Fetch summary data
     const fetchSummary = async () => {
       try {
@@ -71,7 +77,18 @@ const Topbar: React.FC = () => {
     };
     fetchSummary();
 
-    // Check auth
+    // Check auth on mount
+    checkAuth();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
+  // ✅ Centralized auth check
+  const checkAuth = () => {
     const Authtoken = localStorage.getItem("Authorization");
     if (Authtoken) {
       setAth(true);
@@ -83,19 +100,19 @@ const Topbar: React.FC = () => {
       } else {
         setName(clientName || "");
       }
+    } else {
+      setAth(false);
+      setName("");
     }
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  };
 
   // Logout
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
     setExpanded(false); // close on logout
+    setAth(false);   // ✅ update state immediately
+    setName("");     // ✅ clear username immediately
     router.push("/");
   };
 
