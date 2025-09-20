@@ -74,7 +74,7 @@ const Topbar: React.FC = () => {
       const clientName = localStorage.getItem("Clientname");
       if (use) {
         const useset = JSON.parse(use);
-        setName(useset.clientName || clientName || "");
+        setName(useset.firstName || clientName || "");
       } else {
         setName(clientName || "");
       }
@@ -130,7 +130,7 @@ const Topbar: React.FC = () => {
                   Blogs/News
                 </Link>
 
-                {!localStorage.getItem('Authorization') ? (
+                {!Ath ? (
                   <>
                     <Dropdown className="margin-fixs">
                       <Dropdown.Toggle
