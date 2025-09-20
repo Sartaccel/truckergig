@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import urls from "../../utilities/AppSettings";
-
 // ClientOnly wrapper
 const ClientOnly: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [mounted, setMounted] = useState(false);
@@ -17,13 +16,12 @@ const ClientOnly: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 const Topbar: React.FC = () => {
   const router = useRouter();
 
-  // Navbar states
+  // Navbar state
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [expanded, setExpanded] = useState(false); // <-- add this
 
-  // Auth states
+  // Auth state
   const [Ath, setAth] = useState(false);
   const [Name, setName] = useState("");
 
@@ -33,66 +31,11 @@ const Topbar: React.FC = () => {
   const [carriers, setCarriers] = useState("");
   const [vendors, setVendors] = useState("");
 
-  // useEffect(() => {
-  //   // Detect mobile
-  //   const handleResize = () => setIsMobile(window.innerWidth <= 768);
-  //   handleResize();
-  //   window.addEventListener("resize", handleResize);
-
-  //   // Scroll behavior
-  //   const handleScroll = () => {
-  //     const currentScrollY = window.scrollY;
-  //     if (currentScrollY > 5 && currentScrollY < 150) setHidden(true);
-  //     else if (currentScrollY >= 150) {
-  //       setHidden(false);
-  //       setScrolled(true);
-  //     } else {
-  //       setHidden(false);
-  //       setScrolled(false);
-  //     }
-  //   };
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   // Fetch summary data
-  //   const fetchSummary = async () => {
-  //     try {
-  //       const response = await fetch(`${urls.baseUrl}/summary`); // replace with actual URL
-  //       const data = await response.json();
-  //       setCandidates(data.data.candidates.in_progress);
-  //       setJobs(data.data.jobs.open);
-  //       setCarriers(data.data.carriers.active);
-  //       setVendors(data.data.vendors.active);
-  //     } catch (err) {
-  //       console.error("Error fetching summary:", err);
-  //     }
-  //   };
-  //   fetchSummary();
-
-  //   // Check auth
-  //   const Authtoken = localStorage.getItem("Authorization");
-  //   if (Authtoken) {
-  //     setAth(true);
-  //     const use = localStorage.getItem("user");
-  //     const clientName = localStorage.getItem("Clientname");
-  //     if (use) {
-  //       const useset = JSON.parse(use);
-  //       setName(useset.firstName || clientName || "");
-  //     } else {
-  //       setName(clientName || "");
-  //     }
-  //   }
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
-
   useEffect(() => {
-  // Detect mobile
-  const handleResize = () => setIsMobile(window.innerWidth <= 768);
-  handleResize();
-  window.addEventListener("resize", handleResize);
+    // Detect mobile
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
 
     // Scroll behavior
     const handleScroll = () => {
@@ -105,22 +48,13 @@ const Topbar: React.FC = () => {
         setHidden(false);
         setScrolled(false);
       }
-
-      // Close navbar when scrolling
-      setExpanded(false);
     };
     window.addEventListener("scroll", handleScroll);
-
-    // Storage listener for login/logout updates
-    const handleStorageChange = () => {
-      checkAuth();
-    };
-    window.addEventListener("storage", handleStorageChange);
 
     // Fetch summary data
     const fetchSummary = async () => {
       try {
-        const response = await fetch(`${urls.baseUrl}/summary`);
+        const response = await fetch(`${urls.baseUrl}/summary`); // replace with actual URL
         const data = await response.json();
         setCandidates(data.data.candidates.in_progress);
         setJobs(data.data.jobs.open);
@@ -132,18 +66,7 @@ const Topbar: React.FC = () => {
     };
     fetchSummary();
 
-    // Check auth on mount
-    checkAuth();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-
-  // ✅ Centralized auth check
-  const checkAuth = () => {
+    // Check auth
     const Authtoken = localStorage.getItem("Authorization");
     if (Authtoken) {
       setAth(true);
@@ -151,28 +74,26 @@ const Topbar: React.FC = () => {
       const clientName = localStorage.getItem("Clientname");
       if (use) {
         const useset = JSON.parse(use);
-        setName(useset.firstName || clientName || "");
+        setName(useset.clientName || clientName || "");
       } else {
         setName(clientName || "");
       }
-    } else {
-      setAth(false);
-      setName("");
     }
-  };
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // Logout
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
-    setExpanded(false); // close on logout
-    setAth(false);   // ✅ update state immediately
-    setName("");     // ✅ clear username immediately
     router.push("/");
   };
 
   const myService = () => {
-    setExpanded(false); // close on click
     router.push("/myservice");
   };
 
@@ -181,8 +102,6 @@ const Topbar: React.FC = () => {
       <Navbar
         collapseOnSelect
         expand="lg"
-        expanded={expanded} // control manually
-        onToggle={(val) => setExpanded(val)} // toggle
         className={`${styles[
           isMobile ? "navbar-other" : router.pathname === "/" ? "navbar-fixed" : "navbar-other"
         ]} ${scrolled ? styles["scrolled"] : ""} ${hidden ? styles["hidden"] : ""}`}
@@ -190,7 +109,7 @@ const Topbar: React.FC = () => {
         <Container fluid className={`${styles["navbar-content"]} d-flex align-items-center justify-content-between`}>
           <div className="d-flex align-items-center justify-content-between w-100 navbar-header">
             <Navbar.Brand>
-              <Link href="/" className={`${styles["navbar-brand"]} ${styles.logo}`} onClick={() => setExpanded(false)}>
+              <Link href="/" className={`${styles["navbar-brand"]} ${styles.logo}`}>
                 <img className="logo_image" src="/images/TruckerGIG_white.png" alt="TruckerGIG Logo" />
               </Link>
             </Navbar.Brand>
@@ -201,29 +120,34 @@ const Topbar: React.FC = () => {
             <Nav className="mr-auto"></Nav>
             <Nav>
               <div className="navbar-nav">
-                <Link href="/about" className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/about" ? "active" : ""}`} onClick={() => setExpanded(false)}>About Us</Link>
-                <Link href="/marketplace" className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/marketplace" ? "active" : ""}`} onClick={() => setExpanded(false)}>Marketplace</Link>
-                <Link href="/events" className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/events" ? "active" : ""}`} onClick={() => setExpanded(false)}>Events</Link>
-                <Link href="/blognews" className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/blognews" || router.pathname === "/blognewsdetail" ? "active" : ""}`} onClick={() => setExpanded(false)}>Blogs/News</Link>
+                <Link href="/about" className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/about" ? "active" : ""}`}>About Us</Link>
+                <Link href="/marketplace" className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/marketplace" ? "active" : ""}`}>Marketplace</Link>
+                <Link href="/events" className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/events" ? "active" : ""}`}>Events</Link>
+                <Link
+                  href="/blognews"
+                  className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/blognews" || router.pathname === "/blognewsdetail" ? "active" : ""}`}
+                >
+                  Blogs/News
+                </Link>
 
-                {!localStorage.getItem("Authorization") ? (
+                {!localStorage.getItem('Authorization') ? (
                   <>
                     <Dropdown className="margin-fixs">
                       <Dropdown.Toggle
                         split
                         variant="Secondary"
                         id="dropdown-split-basic"
-                        className={`nav-link ${styles["navbar-color"]}`}
+                        className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/generalinfo" || router.pathname === "/vendor" ? "active" : ""}`}
                       >
                         Register
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item href="/generalinfo" onClick={() => setExpanded(false)}>Driver Registration</Dropdown.Item>
-                        <Dropdown.Item href="/vendor" onClick={() => setExpanded(false)}>Vendor Registration</Dropdown.Item>
+                        <Dropdown.Item href="/generalinfo">Driver Registration</Dropdown.Item>
+                        <Dropdown.Item href="/vendor">Vendor Registration</Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
 
-                    <Link href="/login" className={`${styles.getStartedButton} login-link ${router.pathname === "/login" ? "active" : ""}`} onClick={() => setExpanded(false)}>
+                    <Link href="/login" className={`${styles.getStartedButton} login-link ${router.pathname === "/login" ? "active" : ""}`}>
                       <span>Login</span>
                       <div className={styles["arrow-circle"]}>
                         <i className={`${styles["arrow-icon"]} bi bi-person-fill pl-1`}></i>
@@ -236,13 +160,13 @@ const Topbar: React.FC = () => {
                       split
                       variant="Secondary"
                       id="dropdown-split-basic"
-                      className={`nav-link ${styles["navbar-color"]}`}
+                      className={`nav-link ${styles["navbar-color"]} ${router.pathname === "/myservice" ? "active" : ""}`}
                     >
                       Hi, {Name}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      <Dropdown.Item onClick={myService}>My Service</Dropdown.Item>
-                      <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+                      <Dropdown.Item href="" onClick={myService}>My Service</Dropdown.Item>
+                      <Dropdown.Item href="" onClick={logout}>Logout</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 )}
