@@ -21,6 +21,14 @@ const schema = yup.object().shape({
   sortOrder: yup.string().required("Sort Order is required"),
   price: yup.string().required("Price is required"),
   serviceName: yup.string().required("Service Name is required"),
+   externalUrl: yup
+    .string()
+    .nullable()
+    .notRequired()
+    .test("is-url-valid", "Enter a valid URL", (value) => {
+      if (!value) return true; 
+      return /^(https?:\/\/)/i.test(value); 
+    }),
 });
 
 

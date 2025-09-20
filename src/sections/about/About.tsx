@@ -229,52 +229,50 @@ const About: React.FC = () => {
             </div>
           </div>
           
-          <div className="row">
-          <Link href="" className={styles.linkWrapper}>
-          <div className="row align-items-center mb-1 flex-row-reverse">
-          <div className={`col-md-6 ${styles['slide-right']}  `}>
-      <h5 className={`${styles["service-heading"]}`}>
-        Marketplace 
+         <div className="row">
+  <div className="row align-items-center mb-1 flex-row-reverse">
+    <div className={`col-md-6 ${styles['slide-right']}`}>
+      <h5 className={styles["service-heading"]}>
+        Marketplace
       </h5>
-      <p className={`${styles["content-para"]}`}>
-      TruckerGig’s Marketplace is a seamless platform connecting shippers, carriers, and brokers worldwide for hassle-free freight movement. With real-time load matching, transparent pricing, and direct shipper access, we ensure efficiency and cost savings across global markets. Our smart search filters and bidding system help carriers find the best-paying loads, while shippers get reliable transport solutions. Integrated telematics and tracking provide end-to-end visibility, ensuring smooth cross-border operations. Whether you're a small fleet or an independent trucker, TruckerGig simplifies freight booking with speed, security, and transparency on a global scale.      </p>
+      <p className={styles["content-para"]}>
+        TruckerGig’s Marketplace is a seamless platform connecting shippers, carriers, and brokers worldwide for hassle-free freight movement. With real-time load matching, transparent pricing, and direct shipper access, we ensure efficiency and cost savings across global markets. Our smart search filters and bidding system help carriers find the best-paying loads, while shippers get reliable transport solutions. Integrated telematics and tracking provide end-to-end visibility, ensuring smooth cross-border operations. Whether you're a small fleet or an independent trucker, TruckerGig simplifies freight booking with speed, security, and transparency on a global scale.
+      </p>
     </div>
     <div className="col-md-6 text-start slide-left shrink-animation shrink-animation-delay-2">
       <Image
-        className={`${styles["service-icon"]}`}
+        className={styles["service-icon"]}
         src="/images/ma.jpg"
         alt="tech-partner"
         width={450}
         height={450}
-       // style={{  maxWidth: "450px"}}
       />
     </div>
-  </div>
-</Link>
 
-<Link href="" className={styles.linkWrapper}>
-  <div className="row align-items-center my-0 mb-5">
-    <div className={`col-md-6 ${styles['slide-left']}  shrink-animation shrink-animation-delay-3`}>
-      <h5 className={`${styles["service-heading"]}`}>
-       Driver Service
-      </h5>
-      <p className={`${styles["content-para"]}`}>
-      TruckerGig empowers truck drivers with the tools and support they need to succeed. Our platform offers job listings, easy onboarding, and compliance tracking to simplify driver management. With telematics integration, real-time route assistance, and fuel discounts, we help drivers maximize efficiency and savings. Whether you’re an independent owner-operator or part of a large fleet, TruckerGig provides seamless access to loads, reliable support, and essential resources to keep you moving. Drive smarter, earn more, and stay connected with TruckerGig’s driver-focused solutions.      </p>
-    </div>
-    <div className="col-md-6 text-end slide-right shrink-animation shrink-animation-delay-4">
-      <Image
-        className={`${styles["service-icon"]}`}
-        src="/images/Driver.jpg"
-        alt="tech-partner"
-         width={450}
-        height={450}
-       // style={{ maxWidth: "350px" }}
-      />
-    </div>
-  </div>
-</Link>
+</div>
 
-<Link href="" className={styles.linkWrapper}>
+<div className="row align-items-center my-0 mb-5">
+  <div className={`col-md-6 ${styles['slide-left']} shrink-animation shrink-animation-delay-3`}>
+    <h5 className={styles["service-heading"]}>
+      Driver Service
+    </h5>
+    <p className={styles["content-para"]}>
+      TruckerGig empowers truck drivers with the tools and support they need to succeed. Our platform offers job listings, easy onboarding, and compliance tracking to simplify driver management. With telematics integration, real-time route assistance, and fuel discounts, we help drivers maximize efficiency and savings. Whether you’re an independent owner-operator or part of a large fleet, TruckerGig provides seamless access to loads, reliable support, and essential resources to keep you moving. Drive smarter, earn more, and stay connected with TruckerGig’s driver-focused solutions.
+    </p>
+  </div>
+
+  <div className="col-md-6 text-end slide-right shrink-animation shrink-animation-delay-4">
+    <Image
+      className={styles["service-icon"]}
+      src="/images/Driver.jpg"
+      alt="tech-partner"
+      width={450}
+      height={450}
+    />
+  </div>
+</div>
+
+
 <div className="row align-items-center mb-5 flex-row-reverse">
         <div
           className={`col-md-6 ${styles['slide-right']}  shrink-animation shrink-animation-delay-5 animate-on-scroll`}
@@ -297,7 +295,7 @@ const About: React.FC = () => {
           />
         </div>
       </div>
-    </Link>
+    
 
           </div>
           <div className="row">
