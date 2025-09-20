@@ -213,6 +213,7 @@ const Signin = () => {
             localStorage.setItem("Clientname", userdetail.clientName);
             localStorage.setItem("Clientid", userdetail.clientId);
             localStorage.setItem("role", userdetail.userType);
+            window.dispatchEvent(new Event("authChanged"));
             router.push("/marketplace");
           }
         })

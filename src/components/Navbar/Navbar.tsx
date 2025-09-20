@@ -31,6 +31,24 @@ const Topbar: React.FC = () => {
   const [carriers, setCarriers] = useState("");
   const [vendors, setVendors] = useState("");
 
+   const handleAuthChange = () => {
+    const Authtoken = localStorage.getItem("Authorization");
+    if (Authtoken) {
+      setAth(true);
+      const use = localStorage.getItem("user");
+      const clientName = localStorage.getItem("Clientname");
+      if (use) {
+        const useset = JSON.parse(use);
+        setName(useset.firstName || clientName || "");
+      } else {
+        setName(clientName || "");
+      }
+    } else {
+      setAth(false);
+      setName("");
+    }
+  };
+
   useEffect(() => {
     // Detect mobile
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -50,6 +68,9 @@ const Topbar: React.FC = () => {
       }
     };
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("authChanged", handleAuthChange);
+  window.addEventListener("storage", handleAuthChange);
+
 
     // Fetch summary data
     const fetchSummary = async () => {
@@ -67,22 +88,16 @@ const Topbar: React.FC = () => {
     fetchSummary();
 
     // Check auth
-    const Authtoken = localStorage.getItem("Authorization");
-    if (Authtoken) {
-      setAth(true);
-      const use = localStorage.getItem("user");
-      const clientName = localStorage.getItem("Clientname");
-      if (use) {
-        const useset = JSON.parse(use);
-        setName(useset.firstName || clientName || "");
-      } else {
-        setName(clientName || "");
-      }
-    }
+
+
+  // Run once initially
+  handleAuthChange();
 
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
+          window.removeEventListener("authChanged", handleAuthChange);
+    window.removeEventListener("storage", handleAuthChange);
     };
   }, []);
 
@@ -90,6 +105,7 @@ const Topbar: React.FC = () => {
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
+    window.dispatchEvent(new Event("authChanged"));
     router.push("/");
   };
 
