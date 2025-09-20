@@ -37,7 +37,7 @@ const Landing: React.FC = () => {
   const summaryRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    AOS.init({ duration: 1000,
+    AOS.init({ duration: 500,
      });
   }, []); 
 
@@ -225,12 +225,6 @@ const Landing: React.FC = () => {
   width={80}
   height={80}
 />
-            {/* <Image
-              className={styles["card-Innerimg"]}
-              src="/images/dispatch-logo.png"
-              alt="dispatch-logo"              
-              style={{ width: "80px" }}
-            /> */}
             <div className={styles["card-body"]}>
               <h4 className={`${styles["service-heading"]}`}>Marketplace</h4>
               <p>Trucks/Trailers Leasing, Fleet management, API & Integrations, and more.</p>
@@ -259,13 +253,6 @@ const Landing: React.FC = () => {
   width={80}
   height={80}
 />
-            {/* <Image
-              className={styles["card-Innerimg"]}
-              src="/images/driver-logo.png"
-              alt="driver-logo"
-              
-              style={{ width: "80px" }}
-            /> */}
             <div className={styles["card-body"]}>
               <h4 className={`${styles["service-heading"]}`}>Carrier & Driver Onboarding</h4>
               <p>Customers can get access to our database on a subscription basis.</p>
@@ -340,7 +327,7 @@ const Landing: React.FC = () => {
       </div>
       <div className={`${styles["summary-feature"]}`}>
         <div className={`${styles["feature-icon"]}`}>
-          <i className="bi bi-person-badge-width={100} height={100}"></i>
+          <i className="bi bi-person-badge"></i>
         </div>
         <div>
           <h5>Drivers Onboarded</h5>

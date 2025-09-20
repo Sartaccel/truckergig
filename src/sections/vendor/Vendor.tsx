@@ -34,7 +34,7 @@ productList: yup
     .required("Product is required"),
   contactFirstName: yup
     .string()
-    .matches(/^[A-Za-z]+$/, "Only alphabets are allowed")
+   // .matches(/^[A-Za-z]+$/, "Only alphabets are allowed")
     .required("First Name is required"),
 
   emailAddress: yup
@@ -176,6 +176,13 @@ const Vendor: React.FC = () => {
   const [selectedProductValidation, setselectedProductValidation] = useState(
     false
   );
+  const [captchaValue, setCaptchaValue] = useState<string | null>(null);
+const [captchaError, setCaptchaError] = useState<string | null>(null);
+
+const handleCaptchaChange = (value: string | null) => {
+  setCaptchaValue(value);
+  setCaptchaError(null); 
+};
 
 const dispatch = useDispatch<any>(); // allows async thunk return
   const initialValues: MyFormValues = {
@@ -294,7 +301,11 @@ const dispatch = useDispatch<any>(); // allows async thunk return
           initialValues={initialValues}
           validationSchema={vendorSchema}
           onSubmit={async (values, { resetForm, setSubmitting }) => {
-            if (!selectedCountry) {
+           if (!captchaValue) {
+                setCaptchaError("Please verify that you are not a robot");
+                return;
+              }
+              if (!selectedCountry) {
               console.error("please select country");
               values.telephone = "+1" + " " + values.telephone;
             } else {
@@ -511,9 +522,12 @@ setLoading(true);
                       <Field
                         name="contactFirstName"
                         onChange={(e) => {
-                        let value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
-                        value = value.replace(/\s+/g, ' ');
-                        value = value.replace(/^\s/, '');
+                       let value = e.target.value;
+                        value = value.replace(/[^A-Za-z\s]/g, "");
+                        value = value.replace(/\s{2,}/g, " ");
+                        if (value.startsWith(" ")) {
+                          value = value.trimStart();
+                        }
 
                         handleChange({
                           target: {
@@ -1078,8 +1092,11 @@ setLoading(true);
                     >
                       <ReCAPTCHA
                         sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
-                        onChange={onCaptchaChange}
+                        onChange={handleCaptchaChange}
                       />
+                      {captchaError && (
+                        <div className="text-danger mt-1">{captchaError}</div>
+                      )}
                     </div>
                   </div>
 

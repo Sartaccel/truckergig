@@ -53,11 +53,19 @@ const schema = yup.object().shape({
 
 const Getaquote: React.FC = (props: any) => {
   const router = useRouter();
+  console.log(router,"router...")
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
+  const [captchaValue, setCaptchaValue] = useState<string | null>(null);
+const [captchaError, setCaptchaError] = useState<string | null>(null);
+
+const handleCaptchaChange = (value: string | null) => {
+  setCaptchaValue(value);
+  setCaptchaError(null); // clear error when selected
+};
   const [selectedData, setselectedData] = useState<any>();
   const [selectedCategoryData, setselectedCategoryData] = useState<any>();
   const params = {
@@ -122,7 +130,11 @@ const Getaquote: React.FC = (props: any) => {
       e.preventDefault();
     }
   };
-  const onSubmitHandler = (data) => {
+  const onSubmitHandler = (data) => {if (!captchaValue) {
+    setCaptchaError("Please verify that you are not a robot");
+    return;
+  }
+    
     data.serviceId = "1";
     var params = data;
     axios
@@ -142,7 +154,7 @@ const Getaquote: React.FC = (props: any) => {
   useEffect(() => {
     axios
       .get(
-        `${urls.baseUrl}services/related?serviceCategoryId=${params.serviceCategoryId}`
+        `${urls.baseUrl}services/related?serviceCategoryId=${router?.query?.id}`
       )
 
       .then(function(response) {
@@ -182,6 +194,8 @@ const Getaquote: React.FC = (props: any) => {
                   className={styles["getaquote-image"]}
                   src={selectedData.logoPath}
                   alt={selectedData?.serviceName}
+                  width={100}
+                  height={100}
                   onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                     e.currentTarget.style.display = "none"; // Hides broken image
                   }}
@@ -238,6 +252,7 @@ const Getaquote: React.FC = (props: any) => {
                           onKeyDown={allowOnlyLettersAndSpaces}
                           type="text"
                           placeholder="Country"
+                          maxLength={40}
                           className={`form-control ${
                             errors.country ? "is-invalid" : ""
                           }`}
@@ -259,6 +274,7 @@ const Getaquote: React.FC = (props: any) => {
                           onKeyDown={allowOnlyLettersAndSpaces}
                           type="text"
                           placeholder="State"
+                          maxLength={35}
                           className={`form-control ${
                             errors.state ? "is-invalid" : ""
                           }`}
@@ -411,8 +427,11 @@ const Getaquote: React.FC = (props: any) => {
                   <div className={`${styles["recaptha"]}`}>
                     <ReCAPTCHA
                       sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
-                      onChange={onChange}
+                      onChange={handleCaptchaChange}
                     />
+                    {captchaError && (
+                      <div className="text-danger mt-1">{captchaError}</div>
+                    )}
                   </div>
                 </div>
               </div>

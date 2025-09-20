@@ -83,36 +83,37 @@ const Filter: React.FC = (props: any) => {
   // };
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchList(value);
-  
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
+  const rawValue = e.target.value;
+  const value = rawValue.trimStart(); // allow typing but prevent leading spaces
+  setSearchList(rawValue); // keep raw input so spaces show in box
+
+  if (typingTimeoutRef.current) {
+    clearTimeout(typingTimeoutRef.current);
+  }
+
+  typingTimeoutRef.current = setTimeout(() => {
+    const trimmed = rawValue.trim(); // fully trimmed (leading + trailing)
+    
+    if (trimmed.length > 0) {
+      const filtered = List.filter((item) =>
+        item?.serviceName?.toLowerCase().includes(trimmed.toLowerCase())
+      );
+      setFilteredList(filtered);
+
+      Router.push(
+        {
+          pathname: "/marketplace",
+          query: { servicename: trimmed },
+        },
+        undefined,
+        { shallow: true }
+      );
+    } else {
+      setFilteredList(List); // reset full list
+      Router.push("/marketplace", undefined, { shallow: true });
     }
-  
-    // Set new debounce timeout
-    typingTimeoutRef.current = setTimeout(() => {
-      if (value.trim().length > 0) {
-  
-        const filtered = List.filter((item) =>
-          item?.serviceName?.toLowerCase().includes(value.toLowerCase())
-        );
-        setFilteredList(filtered);
-  
-        Router.push(
-          {
-            pathname: "/marketplace",
-            query: { servicename: value },
-          },
-          undefined,
-          { shallow: true }
-        );
-      } else {
-        // Navigate back to base /marketplace
-        Router.push("/marketplace", undefined, { shallow: true });
-      }
-    }, 300); // Increased debounce
-  };
+  }, 300);
+};
   
   const pulldata = (data) => {
     console.log(data);

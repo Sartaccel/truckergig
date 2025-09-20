@@ -133,6 +133,8 @@ const GetPopup: React.FC = () => {
           <Image
             className={styles["getaquote-image"]}
             src={element.logoPath}
+            width={100}
+            height={100}
             alt={element.serviceName || "Service"}
             onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
               e.currentTarget.style.display = 'none'; // Hide if broken
