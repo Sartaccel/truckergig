@@ -31,42 +31,98 @@ const Topbar: React.FC = () => {
   const [carriers, setCarriers] = useState("");
   const [vendors, setVendors] = useState("");
 
+  // useEffect(() => {
+  //   // Detect mobile
+  //   const handleResize = () => setIsMobile(window.innerWidth <= 768);
+  //   handleResize();
+  //   window.addEventListener("resize", handleResize);
+
+  //   // Scroll behavior
+  //   const handleScroll = () => {
+  //     const currentScrollY = window.scrollY;
+  //     if (currentScrollY > 5 && currentScrollY < 150) setHidden(true);
+  //     else if (currentScrollY >= 150) {
+  //       setHidden(false);
+  //       setScrolled(true);
+  //     } else {
+  //       setHidden(false);
+  //       setScrolled(false);
+  //     }
+  //   };
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   // Fetch summary data
+  //   const fetchSummary = async () => {
+  //     try {
+  //       const response = await fetch(`${urls.baseUrl}/summary`); // replace with actual URL
+  //       const data = await response.json();
+  //       setCandidates(data.data.candidates.in_progress);
+  //       setJobs(data.data.jobs.open);
+  //       setCarriers(data.data.carriers.active);
+  //       setVendors(data.data.vendors.active);
+  //     } catch (err) {
+  //       console.error("Error fetching summary:", err);
+  //     }
+  //   };
+  //   fetchSummary();
+
+  //   // Check auth
+  //   const Authtoken = localStorage.getItem("Authorization");
+  //   if (Authtoken) {
+  //     setAth(true);
+  //     const use = localStorage.getItem("user");
+  //     const clientName = localStorage.getItem("Clientname");
+  //     if (use) {
+  //       const useset = JSON.parse(use);
+  //       setName(useset.firstName || clientName || "");
+  //     } else {
+  //       setName(clientName || "");
+  //     }
+  //   }
+
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
+
   useEffect(() => {
-    // Detect mobile
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
+  // Detect mobile
+  const handleResize = () => setIsMobile(window.innerWidth <= 768);
+  handleResize();
+  window.addEventListener("resize", handleResize);
 
-    // Scroll behavior
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > 5 && currentScrollY < 150) setHidden(true);
-      else if (currentScrollY >= 150) {
-        setHidden(false);
-        setScrolled(true);
-      } else {
-        setHidden(false);
-        setScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
+  // Scroll behavior
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > 5 && currentScrollY < 150) setHidden(true);
+    else if (currentScrollY >= 150) {
+      setHidden(false);
+      setScrolled(true);
+    } else {
+      setHidden(false);
+      setScrolled(false);
+    }
+  };
+  window.addEventListener("scroll", handleScroll);
 
-    // Fetch summary data
-    const fetchSummary = async () => {
-      try {
-        const response = await fetch(`${urls.baseUrl}/summary`); // replace with actual URL
-        const data = await response.json();
-        setCandidates(data.data.candidates.in_progress);
-        setJobs(data.data.jobs.open);
-        setCarriers(data.data.carriers.active);
-        setVendors(data.data.vendors.active);
-      } catch (err) {
-        console.error("Error fetching summary:", err);
-      }
-    };
-    fetchSummary();
+  // Fetch summary data
+  const fetchSummary = async () => {
+    try {
+      const response = await fetch(`${urls.baseUrl}/summary`);
+      const data = await response.json();
+      setCandidates(data.data.candidates.in_progress);
+      setJobs(data.data.jobs.open);
+      setCarriers(data.data.carriers.active);
+      setVendors(data.data.vendors.active);
+    } catch (err) {
+      console.error("Error fetching summary:", err);
+    }
+  };
+  fetchSummary();
 
-    // Check auth
+  // Auth check function
+  const handleAuthChange = () => {
     const Authtoken = localStorage.getItem("Authorization");
     if (Authtoken) {
       setAth(true);
@@ -78,13 +134,28 @@ const Topbar: React.FC = () => {
       } else {
         setName(clientName || "");
       }
+    } else {
+      setAth(false);
+      setName("");
     }
+  };
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  // Run once initially
+  handleAuthChange();
+
+  // Listen for login/logout changes
+  window.addEventListener("authChanged", handleAuthChange);
+  window.addEventListener("storage", handleAuthChange);
+
+  // Cleanup
+  return () => {
+    window.removeEventListener("resize", handleResize);
+    window.removeEventListener("scroll", handleScroll);
+    window.removeEventListener("authChanged", handleAuthChange);
+    window.removeEventListener("storage", handleAuthChange);
+  };
+}, []);
+
 
   // Logout
   const logout = () => {
@@ -130,7 +201,7 @@ const Topbar: React.FC = () => {
                   Blogs/News
                 </Link>
 
-                {!Ath ? (
+                {!localStorage.getItem("Authorization") ? (
                   <>
                     <Dropdown className="margin-fixs">
                       <Dropdown.Toggle
