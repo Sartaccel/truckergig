@@ -168,7 +168,7 @@ const Getaquote: React.FC = (props: any) => {
                                             <div>
                                                 <input {...register("country")}
                                                 onKeyDown={allowOnlyLettersAndSpaces}
-                                                type="text" placeholder="Country"
+                                                type="text" placeholder="Country" maxLength={40}
                                                     className={`form-control ${errors.country ? "is-invalid" : ""}`} />
                                                 <div className="invalid-feedback"> {errors.country?.message}</div>
                                             </div>
@@ -180,7 +180,7 @@ const Getaquote: React.FC = (props: any) => {
                                             <div>
                                                 <input {...register("state")} 
                                                 onKeyDown={allowOnlyLettersAndSpaces}
-                                                type="text" placeholder="State"
+                                                type="text" placeholder="State" maxLength={35}
                                                     className={`form-control ${errors.state ? "is-invalid" : ""}`} />
                                                 <div className="invalid-feedback"> {errors.state?.message}</div>
                                             </div>

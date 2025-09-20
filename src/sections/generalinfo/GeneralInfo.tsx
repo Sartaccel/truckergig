@@ -302,6 +302,7 @@ const Candidateregister: React.FC = () => {
                          */}
 						 <label className={styles.formLabel}>First Name</label><sup className="star">*</sup>
 <input 
+maxLength={30}
   {...register("firstName", {
     required: "First name is required",
     pattern: {
@@ -324,6 +325,7 @@ const Candidateregister: React.FC = () => {
                         
 <label className={styles.formLabel}>Middle Name</label>
 <input 
+maxLength={30}
   {...register("middleName", {
     pattern: {
       value: /^[A-Za-z\s]*$/,
@@ -355,6 +357,7 @@ const Candidateregister: React.FC = () => {
 
 <label className={styles.formLabel}>Last Name</label><sup className="star">*</sup>
 <input 
+maxLength={30}
   {...register("lastName", {
     required: "Last name is required",
     pattern: {
