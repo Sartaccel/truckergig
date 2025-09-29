@@ -16,40 +16,29 @@ import Image from "next/image";
 const onChange = (value) => {};
 
 const schema = yup.object().shape({
-  businessName: yup
-    .string()
-    .required("Please enter Business/Individual Name")
+  businessName: yup.string().required("Please enter Business/Individual Name")
     .transform((value) => value?.toLowerCase())
     .min(2)
     .max(24),
-  country: yup.string().required("Country is required")
-  .min(2)
-  .max(60),
-  state: yup.string().required("State is required")
-    .min(2)
-  .max(40),
+  country: yup.string().required("Country is required").min(2).max(60),
+  state: yup.string().required("State is required").min(2).max(40),
   city: yup.string().required("City is required"),
-  zipcode: yup
-    .string()
+  zipcode: yup.string()
     .required("Zipcode is required")
     .matches(/^\d{4,}$/, "Zipcode is not valid"),
-  email: yup
-     .string()
-  .trim()
-  .transform((value) => (value === '' ? undefined : value.toLowerCase()))
-  .required("Email is required")
-  .matches(
-    /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,"Enter a valid email"
-  ),
-  captcha: yup.string().required("Not a robot"),
-  contactNo: yup
-    .string()
+  email: yup.string()
+    .trim()
+    .transform((value) => (value === "" ? undefined : value.toLowerCase()))
+    .required("Email is required")
+    .matches(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/, "Enter a valid email"),
+  contactNo: yup.string()
     .required("This is a required field")
     .matches(/^[0-9]+$/, "Must be only digits")
     .min(10, "Must be exactly 10 digits")
-    .max(10, "Must be exactly 10 digits"),
+    .max(10, "Must be exactly 10 digits"),
   address: yup.string().required("Address is required"),
 });
+
 
 const Getaquote: React.FC = (props: any) => {
   const router = useRouter();
@@ -130,26 +119,38 @@ const handleCaptchaChange = (value: string | null) => {
       e.preventDefault();
     }
   };
-  const onSubmitHandler = (data) => {if (!captchaValue) {
+  const onSubmitHandler = (data: any) => {
+  // ✅ Check captcha before submitting
+  if (!captchaValue) {
     setCaptchaError("Please verify that you are not a robot");
     return;
   }
-    
-    data.serviceId = "1";
-    var params = data;
-    axios
-      .post(`${urls.baseUrl}getaquote/add`, params)
 
-      .then(function(response) {
-        if (response.status === 200) {
-          alert("Added successfully");
-          router.push("/marketplace");
-          // setTimeout(() => { window.location.reload(); }, 3000);
-        } else {
-          alert("error");
-        }
-      });
+  // Clear error when captcha is valid
+  setCaptchaError(null);
+
+  // Add serviceId
+  const params = {
+    ...data,
+    serviceId: "1",
   };
+
+  axios
+    .post(`${urls.baseUrl}getaquote/add`, params)
+    .then(function (response) {
+      if (response.status === 200) {
+        alert("Added successfully");
+        router.push("/marketplace");
+      } else {
+        alert("Error");
+      }
+    })
+    .catch(function (error) {
+      console.error("API error:", error);
+      alert("Something went wrong. Please try again.");
+    });
+};
+
   const [quote, setquote] = useState([]);
   useEffect(() => {
     axios
@@ -162,6 +163,7 @@ const handleCaptchaChange = (value: string | null) => {
         setquote(data);
       });
   }, []);
+  
 
   return (
     <>

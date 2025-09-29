@@ -168,7 +168,12 @@ const Filter: React.FC = (props: any) => {
           className="form-control pe-5"
           placeholder="Search your need here"
           value={SearchList}
-          onChange={handleInputChange}
+           onChange={(e) => {
+    const value = e.target.value;
+    if (value === "" || value[0] !== " ") {
+      handleInputChange(e);
+    }
+  }}
         />
          <FaSearch
     className="position-absolute"
