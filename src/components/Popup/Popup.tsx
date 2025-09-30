@@ -68,44 +68,50 @@ const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
     window.open(carddata.externalUrl, "_blank");
   };
 
-  const setshowpopup = (popupdata: any) => {
-    if (popupdata.isExternal === 0 || !popupdata.externalUrl) {
-      router.push({
-        pathname: "/getaquote",
-        query: { serviceid: popupdata.id, id: popupdata.serviceCategoryId },
+ const setshowpopup = (popupdata: any) => {
+  // Case 1: Internal service → redirect to GetAQuote
+  if (!popupdata.externalUrl || popupdata.isExternal === 0) {
+    router.push({
+      pathname: "/getaquote",
+      query: { serviceid: popupdata.id, id: popupdata.serviceCategoryId },
+    });
+    return;
+  }
+
+  // Case 2: External service → Always show popup first
+  setShow(true);
+
+  const auth = localStorage.getItem("Authorization");
+
+  if (auth) {
+    // User is logged in → send clickout API + open external link
+    const params = {
+      serviceId: popupdata.id,
+      isGuest: "1",
+      ipAddress: teredo.client4,
+      browserType: browserName,
+    };
+
+    axios
+      .post(`${urls.baseUrl}clickouts/add`, params)
+      .then((response) => {
+        const data = response.data;
+        if (data.statusCode === 200) {
+          setlist(data);
+          window.open(popupdata.externalUrl, "_blank");
+          setShow(false); // ✅ close popup after redirect
+        } else {
+          console.warn("Error occurred while processing request.");
+        }
+      })
+      .catch((error) => {
+        console.error("API error:", error);
+        console.warn("Failed to connect. Please try again.");
       });
-    } else if (popupdata.isExternal === 1) {
-      const auth = localStorage.getItem("Authorization"); // Ensure auth is properly retrieved
-  
-      if (auth) {
-        const params = {
-          serviceId: popupdata.id,
-          isGuest: "1",
-          ipAddress: teredo.client4,
-          browserType: browserName,
-        };
-  
-        axios.post(`${urls.baseUrl}clickouts/add`, params)
-          .then((response) => {
-            const data = response.data.headers;
-            if (data.statusCode === 200) {
-              setlist(data);
-              window.open(popupdata.externalUrl, "_blank"); // Open only after API success
-            } else {
-              console.warn("Error occurred while processing request.");
-            }
-          })
-          .catch((error) => {
-            console.error("API error:", error);
-            console.warn("Failed to connect. Please try again.");
-          });
-  
-      } else {
-        setShow(true);
-      }
-    }
-  };
-  
+  }
+};
+
+
 
   return (
     <>

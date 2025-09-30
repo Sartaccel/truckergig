@@ -62,6 +62,21 @@ h4.name {
   }
 }
 
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px; // space between select and input
+  width: 100%;
+}
+
+.input-group > .w-20 {
+  flex: 0 0 300px; // your select has width:300px
+}
+
+.input-group > .w-50 {
+  flex: 1; // input will take remaining space
+}
+
 /* Buttons */
 .reg-btn {
   background-color: #e07b00;

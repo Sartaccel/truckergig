@@ -406,7 +406,7 @@ maxLength={30}
                         
 <label className={styles.formLabel}>Phone Number</label><sup className="star">*</sup>
 <div className="input-group">
-  <div className="w-30">
+  <div className="w-20">
     <Select
       options={types}
       placeholder="Country"
