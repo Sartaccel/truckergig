@@ -25,6 +25,9 @@ const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
   const [active, setActive] = useState(false);
   const [auth, setAuth] = useState<string | null>(null);
   const [list, setlist] = useState([]);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const emailRegex =
+  /^(?!.\.\.)[a-zA-Z0-9]+([._%+-]?[a-zA-Z0-9]+)@[a-zA-Z0-9.-]+\.(com|org|net|io|in)$/i;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -40,8 +43,25 @@ const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
 
   const postData = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.warn("Email cannot be empty");
-  };
+    const emailInput = (document.querySelector(
+      ".mail-login input"
+    ) as HTMLInputElement)?.value;
+
+    // if (!emailInput) {
+    //   setEmailError("Email cannot be empty");
+    //   return;
+    // }
+
+    if (!emailRegex.test(emailInput)) {
+      setEmailError("Invalid email format");
+      return;
+    }
+
+    setEmailError(null); // Clear error if valid
+    console.log("Valid Email:", emailInput);
+
+    // 👉 Continue with your API call or logic here
+  };
 
   const Address6 = require("ip-address").Address6;
   const address = new Address6("2001:0:ce49:7601:e866:efff:62c3:fffe");
@@ -199,6 +219,11 @@ const Popup: React.FC<HomeCardProps> = ({ carddata }) => {
                 Go
               </button>
             </form>
+            {emailError && (
+              <p style={{ color: "red", fontSize: "14px", marginRight: "85px" }}>
+                {emailError}
+              </p>
+            )}
           </div>
           <div>
             <button

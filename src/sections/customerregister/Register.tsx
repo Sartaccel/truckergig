@@ -281,7 +281,7 @@ onKeyPress={(e) => {
 </div>
 
         <div className={styles.formGroup}>
-          <label>Please Verify Captcha<span className={styles.star}>*</span></label>
+          <label>Please Verifyb Captcha<span className={styles.star}>*</span></label>
           <ReCAPTCHA sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV" onChange={() => {}} />
         </div>
         

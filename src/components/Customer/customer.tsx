@@ -197,7 +197,7 @@
                             <div
                               className={`${styles["login-form-text"]} col-12`}
                             >
-                              <label>Verify Captcha</label>
+                              <label>Verifya Captcha</label>
                               {/* <sup className={`${styles["star"]} `}>*</sup> */}
                             </div>
                             <div>
