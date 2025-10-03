@@ -432,9 +432,10 @@ maxLength={30}
   type="tel"
   inputMode="numeric"
   maxLength={10}
+  
   value={mobile} 
   placeholder="Enter your phone number"
-  className={`${styles.inputField} form-control w-50 ${errors.phoneNumber ? "is-invalid" : ""} no-spinner`}
+  className={`${styles.inputField} form-control w-50 srcgap ${errors.phoneNumber ? "is-invalid" : ""} no-spinner`}
   onChange={(e) => {
     const newValue = e.target.value.replace(/[^0-9]/g, ''); 
     setmobile(newValue); 
