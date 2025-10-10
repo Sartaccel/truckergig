@@ -261,3 +261,48 @@
     margin-top: 15px;
   }
 }
+.formGroup {
+  margin-bottom: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputField {
+  height: 40px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: all 0.2s ease;
+}
+
+.inputField:focus {
+  border-color: #ff8c00;
+  box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+}
+
+.invalid {
+  border-color: red !important;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+  min-height: 20px; // ✅ Reserve space for message (prevents shifting)
+}
+
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.eyeIcon {
+  position: absolute;
+  top: 35px;
+  right: 12px;
+  cursor: pointer;
+  color: #6c757d;
+  z-index: 10;
+}

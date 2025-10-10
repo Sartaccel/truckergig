@@ -166,7 +166,12 @@ const Signin = () => {
             localStorage.setItem("user", JSON.stringify(userdetail));
             localStorage.setItem("Authorization", response.data.data.authtoken);
             localStorage.setItem("role", "user");
-            router.push("/marketplace");
+          window.dispatchEvent(new Event("authChanged"));
+
+        // ✅ Navigate immediately (no reload)
+        router.push("/about");
+
+ 
           } else {
             toast.error(message || "Login Failed", {
               theme: "colored",
@@ -213,8 +218,11 @@ const Signin = () => {
             localStorage.setItem("Clientname", userdetail.clientName);
             localStorage.setItem("Clientid", userdetail.clientId);
             localStorage.setItem("role", userdetail.userType);
-            window.dispatchEvent(new Event("authChanged"));
-            router.push("/marketplace");
+               window.dispatchEvent(new Event("authChanged"));
+
+        // ✅ Fast redirect without reload
+        router.push("/about");
+
           }
         })
         .catch((error) => {
@@ -306,6 +314,17 @@ const Signin = () => {
                           fontSize: '14px',
                         },
                       }}
+                        InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <img
+                              src={'images/mess.svg'}
+                              alt=""
+                              style={{ width: '20px' }}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
                 
                     />
                   )}
@@ -337,6 +356,15 @@ const Signin = () => {
                           },
                         }}
                         InputProps={{
+                            startAdornment: (
+                            <InputAdornment position="start">
+                              <img
+                                src={"images/key.svg"}
+                                alt=""
+                                style={{ width: '20px' }}
+                              />
+                            </InputAdornment>
+                          ),
                     
                           endAdornment: (
                             <InputAdornment position="end">
@@ -457,7 +485,8 @@ const Signin = () => {
                       borderWidth: '1px',
                       borderColor: 'black',
                       width: '40%',
-                      height: '1px',
+                       height:'2px'
+                    
                     }}
                   />
                   <p className="m-0">or</p>
@@ -466,7 +495,7 @@ const Signin = () => {
                       borderWidth: '1px',
                       borderColor: 'black',
                       width: '40%',
-                      height: '1px',
+                      height:'2px'
                     }}
                   />
                 </Box>

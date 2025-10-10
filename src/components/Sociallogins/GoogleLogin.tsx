@@ -48,7 +48,10 @@ export default function GoogleAuth(props) {
         localStorage.setItem("user", JSON.stringify(userDetail));
         localStorage.setItem("Authorization", response.data.data.authtoken);
   
-        router.push("/marketplace");
+          window.dispatchEvent(new Event("authChanged"));
+
+        
+        router.push("/about");
       } else {
         toast.error("Login Failed!", { autoClose: 1500 });
       }
