@@ -96,10 +96,16 @@ const Forgotpassword: React.FC = () => {
 
       <div className={styles.rightForm}>
         <div className={styles.formCard}>
-          <div className={styles.logoWrapper}>
-            <Image src="/images/logo_black.png" alt="logo"  width={100}
-                  height={100} className={styles.logo} />
-          </div>
+        <div className={styles.logoWrapper}>
+  <Image
+    src="/images/logo_black.png"
+    alt="logo"
+    width={220}
+    height={100}
+    unoptimized={true}
+    className={styles.logo}
+  />
+</div>
 
           <h3>Reset Password</h3>
           <p>Don’t worry!<br/>

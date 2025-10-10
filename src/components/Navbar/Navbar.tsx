@@ -194,7 +194,7 @@ const Topbar: React.FC = () => {
 
                 {!Ath ? (
                   <>
-                    <Dropdown className="margin-fixs" onClick={() => setExpanded(false)}>
+                    <Dropdown className="margin-fixs">
                       <Dropdown.Toggle
                         split
                         variant="Secondary"
@@ -229,7 +229,7 @@ const Topbar: React.FC = () => {
                     </Link>
                   </>
                 ) : (
-                  <Dropdown className="margin-fixs" onClick={() => setExpanded(false)}>
+                  <Dropdown className="margin-fixs" >
                     <Dropdown.Toggle
                       split
                       variant="Secondary"
@@ -238,10 +238,25 @@ const Topbar: React.FC = () => {
                     >
                       Hi, {Name}
                     </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={myService}>My Service</Dropdown.Item>
-                      <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
-                    </Dropdown.Menu>
+                 <Dropdown.Menu>
+  <Dropdown.Item
+    onClick={() => {
+      myService();
+      setExpanded(false);
+    }}
+  >
+    My Service
+  </Dropdown.Item>
+  <Dropdown.Item
+    onClick={() => {
+      logout();
+      setExpanded(false);
+    }}
+  >
+    Logout
+  </Dropdown.Item>
+</Dropdown.Menu>
+
                   </Dropdown>
                 )}
               </div>
