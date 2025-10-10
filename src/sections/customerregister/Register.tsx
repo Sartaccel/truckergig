@@ -25,16 +25,18 @@ const checkResponse = (responseStatusCode) => {
 }
 
 const schema = yup.object().shape({
-  firstName: yup.string()
-  .required("First Name  is a required field")
-  .min(6, "Minimum 6 characters required")
+firstName: yup
+  .string()
+  .required("First Name is a required field")
+  .min(2, "Minimum 2 characters required")
   .max(24, "Maximum 24 characters allowed")
-  .matches(/^[A-Za-z]+$/, "Only alphabets are allowed"),
+  .matches(/^[A-Za-z\s]+$/, "Only alphabets are allowed"),
+
   lastName: yup.string()
-  .required("Last Name  is a required field")
-  .min(1, "Minimum 1 characters required")
+  .required("Last Name is a required field")
+  .min(2, "Minimum 1 characters required")
   .max(24, "Maximum 24 characters allowed")
-  .matches(/^[A-Za-z]+$/, "Only alphabets are allowed"),
+  .matches(/^[A-Za-z\s]+$/, "Only alphabets are allowed"),
   phoneNumber: yup
   .string()
   .required("Phone is Required")
@@ -56,15 +58,26 @@ confirmPassword: yup
   .string()
   .required("This is a required field")
   .oneOf([yup.ref("password")], "Passwords must match"),
+   captcha: yup.string().required("Please verify the Captcha"),
 })
 
 
 const Register = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
+const { register, handleSubmit, formState: { errors }, setValue } = useForm({
+  resolver: yupResolver(schema),
+});
+
   const [selectedCode, setSelectedCode] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading,setLoading] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState("");
+
+   useEffect(() => {
+    setValue("captcha", captchaValue);
+  }, [captchaValue, setValue]);
+
+
 
   const onSubmitHandler = (data) => {
     setLoading(true);
@@ -164,8 +177,8 @@ const Register = () => {
       {/* Left Column - Personal Information */}
       <div className={styles.column}>
         <p className={styles.sectionTitle}>Personal Information</p>
-        <div className={styles.formGroup}>
-        <label>
+     <div className={styles.formGroup}>
+  <label>
     First Name<span className={styles.star}>*</span>
   </label>
   <input
@@ -173,9 +186,16 @@ const Register = () => {
     type="text"
     placeholder="Enter your First Name"
     onKeyPress={(e) => {
-      const regex = /^[A-Za-z]+$/;
-      if (!regex.test(e.key)) {
-        e.preventDefault(); // Block the character if not alphabet
+      const key = e.key;
+      const value = e.currentTarget.value;
+
+      // Allow only alphabets and spaces
+      if (!/^[A-Za-z ]$/.test(key)) {
+        e.preventDefault();
+      }
+      // Block space if it's the very first character
+      else if (key === " " && value.length === 0) {
+        e.preventDefault();
       }
     }}
     onBlur={(e) => {
@@ -192,28 +212,45 @@ const Register = () => {
   />
   {errors.firstName && (
     <span className={styles.error}>{errors.firstName.message}</span>
-  )}
+  )}
 </div>
-        <div className={styles.formGroup}>
-          <label>Last Name<span className={styles.star}>*</span></label>
-          <input {...register("lastName")}
+
+       <div className={styles.formGroup}>
+  <label>
+    Last Name<span className={styles.star}>*</span>
+  </label>
+  <input
+    {...register("lastName")}
     type="text"
-    placeholder="Enter your First Name"
+    placeholder="Enter your Last Name"
     onKeyPress={(e) => {
-      const regex = /^[A-Za-z]+$/;
-      if (!regex.test(e.key)) {
-        e.preventDefault(); // Block the character if not alphabet
-      }
-    }} onBlur={(e) => {
-							e.target.style.borderColor = ""; // Reset border color on blur
-							e.target.style.boxShadow = ""; // Reset box shadow on blur
-						  }}
-						  onFocus={(e) => {
-							e.target.style.borderColor = "#ff8c00"; // Orange border on focus
-							e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)"; // Orange glow effect
-						  }} className={errors.lastName ? styles.invalid : ""} />
-          {errors.lastName && <span className={styles.error}>{errors.lastName.message}</span>}
-        </div>
+      const key = e.key;
+      const value = e.currentTarget.value;
+
+      // Allow only alphabets and spaces
+      if (!/^[A-Za-z ]$/.test(key)) {
+        e.preventDefault();
+      }
+      // Block space if it's the very first character
+      else if (key === " " && value.length === 0) {
+        e.preventDefault();
+      }
+    }}
+    onBlur={(e) => {
+      e.target.style.borderColor = "";
+      e.target.style.boxShadow = "";
+    }}
+    onFocus={(e) => {
+      e.target.style.borderColor = "#ff8c00";
+      e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+    }}
+    className={errors.lastName ? styles.invalid : ""}
+  />
+  {errors.lastName && (
+    <span className={styles.error}>{errors.lastName.message}</span>
+  )}
+</div>
+
         <div className={styles.formGroup}>
         <label>Phone Number<span className={styles.star}>*</span></label>
   <div className="d-flex">
@@ -280,48 +317,44 @@ onKeyPress={(e) => {
 
 </div>
 
-        <div className={styles.formGroup}>
-          <label>Please Verifyb Captcha<span className={styles.star}>*</span></label>
+        {/* <div className={styles.formGroup}>
+          <label>Please Verify Captcha<span className={styles.star}>*</span></label>
           <ReCAPTCHA sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV" onChange={() => {}} />
-        </div>
+        </div> */}
         
       </div>
 
       {/* Right Column - Sign-in Information */}
       <div className={styles.column}>
         <p className={styles.sectionTitle}>Sign-in Information</p>
-        <div className={styles.formGroup}>
-          <label>Email<span className={styles.star}>*</span></label>
-          <input
-  {...register("emailId")}
-  type="email"
-  placeholder="Enter your Email"
-  onKeyPress={(e) => {
-    const regex = /[a-z0-9@.]/;
-    if (!regex.test(e.key)) {
-      e.preventDefault(); // Block the character
-    }
-  }}
-  onInput={(e) => {
-    const input = e.target as HTMLInputElement;
-    input.value = input.value.toLowerCase(); // Always lowercase
-  }}
-  onBlur={(e) => {
-    const input = e.target as HTMLInputElement;
-    input.style.borderColor = "";
-    input.style.boxShadow = "";
-  }}
-  onFocus={(e) => {
-    const input = e.target as HTMLInputElement;
-    input.style.borderColor = "#ff8c00";
-    input.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
-  }}
-  className={errors.emailId ? styles.invalid : ""}
-/>
-{errors.emailId && (
-  <span className={styles.error}>{errors.emailId.message}</span>
-)}
-        </div>
+    <div className={styles.formGroup}>
+  <label>
+    Email<span className={styles.star}>*</span>
+  </label>
+  <input
+    {...register("emailId")}
+    type="email"
+    placeholder="Enter your Email"
+    onChange={(e) => {
+      const lower = e.target.value.toLowerCase();
+      setValue("emailId", lower, { shouldValidate: true }); // ✅ updates RHF value + triggers validation
+    }}
+    onBlur={(e) => {
+      e.target.style.borderColor = "";
+      e.target.style.boxShadow = "";
+    }}
+    onFocus={(e) => {
+      e.target.style.borderColor = "#ff8c00";
+      e.target.style.boxShadow = "0 0 5px rgba(255, 140, 0, 0.5)";
+    }}
+    className={errors.emailId ? styles.invalid : ""}
+  />
+  {errors.emailId && (
+    <span className={styles.error}>{errors.emailId.message}</span>
+  )}
+</div>
+
+
         <div className={styles.formGroup} style={{ position: "relative" }}>
   <label>
     Password <span className={styles.star}>*</span>
@@ -348,7 +381,7 @@ onKeyPress={(e) => {
     onClick={() => setShowPassword(!showPassword)}
     style={{
       position: "absolute",
-      top: "50%",
+      top: "70%",
       right: "15px",
       transform: "translateY(-50%)",
       cursor: "pointer",
@@ -361,7 +394,7 @@ onKeyPress={(e) => {
   </span>
 
   {/* ✅ Reserve space for error message to prevent layout shift */}
-  <div style={{ minHeight: "20px", marginTop: "4px" }}>
+  <div >
     {errors.password && (
       <span className={styles.error}>{errors.password.message}</span>
     )}
@@ -413,6 +446,24 @@ onKeyPress={(e) => {
     )}
   </div>
 </div>
+ <div className={styles.formGroup}>
+                    <label>
+                      Please Verify Captcha
+                      <span className={styles.star}>*</span>
+                    </label>
+                    <ReCAPTCHA
+                      sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
+                      onChange={(value) => {
+                        setCaptchaValue(value);
+                        setValue("captcha", value, { shouldValidate: true });
+                      }}
+                    />
+                    {errors.captcha && (
+                      <span className={styles.error}>
+                        {errors.captcha.message}
+                      </span>
+                    )}
+                  </div>
        
         <div className={styles.buttonContainer}>
         <button type="submit" className={styles.submitBtn} disabled={loading}>
@@ -427,6 +478,7 @@ onKeyPress={(e) => {
 </div>
         
       </div>
+      
     </div>
 
     {/* Submit Button */}
