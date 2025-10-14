@@ -426,15 +426,18 @@ const handleCaptchaChange = (value: string | null) => {
                     <label>Verify Captcha</label>
                     <sup className={`${styles["star"]} `}>*</sup>
                   </div>
-                  <div className={`${styles["recaptha"]}`}>
-                    <ReCAPTCHA
-                      sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
-                      onChange={handleCaptchaChange}
-                    />
-                    {captchaError && (
-                      <div className="text-danger mt-1">{captchaError}</div>
-                    )}
-                  </div>
+                 <div className={styles.recaptcha}>
+  <div style={{ transform: "scale(0.90)", transformOrigin: "0 0" }}>
+    <ReCAPTCHA
+      sitekey="6Le8AhgeAAAAAKBVRq6d4hPNor3IGI0rRwfzPAZV"
+      onChange={handleCaptchaChange}
+    />
+  </div>
+  {captchaError && (
+    <div className="text-danger mt-1">{captchaError}</div>
+  )}
+</div>
+
                 </div>
               </div>
               <div className="pb-5">
